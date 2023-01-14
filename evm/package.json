@@ -8,7 +8,8 @@
   "license": "MIT",
   "repository": "https://github.com/mix-labs/imart-toolkit/tree/master/evm",
   "scripts": {
-    "build": "rm -rf ./dist && tsc -d --emitDeclarationOnly --declarationDir dist",
+    "generate-types": "npx typechain --target=ethers-v5 'src/abi/*.json' --out-dir 'src/types/ethers-contracts'",
+    "build": "rm -rf ./dist && yarn generate-types && tsc -d --emitDeclarationOnly --declarationDir dist",
     "start": "yarn build && node ./dist",
     "test": "jest",
     "test:coverage": "jest --collectCoverage",
