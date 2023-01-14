@@ -4,7 +4,7 @@
   "description": "IMart frontend packages",
   "private": true,
   "workspaces": [
-    "@imart/evm-sdk"
+    "*"
   ],
   "repository": {
     "type": "git",
