@@ -1,6 +1,7 @@
 {
-  "name": "imart",
+  "name": "@imart/toolkit",
   "version": "1.0.0",
+  "main": "./index.ts",
   "description": "IMart frontend packages",
   "private": true,
   "workspaces": [
