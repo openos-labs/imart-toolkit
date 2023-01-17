@@ -13,7 +13,8 @@ const wallets = [new MartianWalletAdapter(), new AptosWalletAdapter()];
 interface Props {
     children: React.ReactElement
 }
-export const useWalletAuth = ({children}: Props) => {
+
+export const ImartAuthProvider = ({children}: Props) => {
     return (
         <Web3ReactProvider getLibrary={(provider) => new Web3(provider)}>
             <WalletProvider
