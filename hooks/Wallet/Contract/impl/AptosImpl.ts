@@ -12,7 +12,7 @@ import {
     Token,
     Create
 } from "../types";
-import {APTOS_CREATION_ADDRESS} from "../../Config";
+import {APTOS_CREATION_ADDRESS} from "../../Hook/WalletHook/Config";
 
 export class AptosImpl extends ContractProxy {
     settings: AptosSettings;

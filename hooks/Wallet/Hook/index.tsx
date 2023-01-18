@@ -6,9 +6,12 @@ import {
     FC,
     ReactNode, useMemo,
 } from "react";
+
+export * from './WalletHook/Types';
 import {WalletHook} from './WalletHook'
 import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './WalletHook/Types';
-import {ContractProxy} from './WalletHook/Contract'
+import {ContractProxy} from '../Contract'
+
 declare global {
     interface Window {
         ic: any;

@@ -17,7 +17,7 @@ import { Seaport } from "@opensea/seaport-js";
 // import Web3 from "web3";
 import { ItemType } from "@opensea/seaport-js/lib/constants";
 import { ethers } from "ethers";
-import {APTOS_CREATION_ADDRESS} from "../../Config";
+import {APTOS_CREATION_ADDRESS} from "../../Hook/WalletHook/Config";
 
 export class SeaportImpl extends ContractProxy {
     settings: SeaportSettings

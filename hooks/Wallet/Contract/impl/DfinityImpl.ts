@@ -12,12 +12,12 @@ import {
     Token,
 } from "../types";
 import {Principal} from "@dfinity/principal";
-import {idlFactory as wicpDid} from "../../Chains/IC/did/wicp.did";
-import {idlFactory as minDid} from "../../Chains/IC/did/public-mint.did";
-import {idlFactory as MarketDid} from "../../Chains/IC/did/market.did";
-import {idlFactory as singleSaleDid} from "../../Chains/IC/did/sale.did.js";
+import {idlFactory as wicpDid} from "../../Hook/WalletHook/Chains/IC/did/wicp.did";
+import {idlFactory as minDid} from "../../Hook/WalletHook/Chains/IC/did/public-mint.did";
+import {idlFactory as MarketDid} from "../../Hook/WalletHook/Chains/IC/did/market.did";
+import {idlFactory as singleSaleDid} from "../../Hook/WalletHook/Chains/IC/did/sale.did.js";
 import BigNumber from "bignumber.js";
-import {APTOS_CREATION_ADDRESS} from "../../Config";
+import {APTOS_CREATION_ADDRESS} from "../../Hook/WalletHook/Config";
 
 export class DfinityImpl extends ContractProxy {
     settings: DfinitySettings;

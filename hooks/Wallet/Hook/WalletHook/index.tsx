@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {ContractClient, Protocol, Settings,ContractProxy} from "./Contract";
+import {ContractClient, Protocol, Settings,ContractProxy} from "../../Contract";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import {AptosWallet} from './Chains/Aptos';
 import {ETHWallet} from './Chains/ETH';
