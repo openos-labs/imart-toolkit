@@ -8,7 +8,7 @@ import {
 } from "react";
 import {WalletHook} from './WalletHook'
 import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './WalletHook/Types';
-
+import {ContractClient} from './WalletHook/Contract'
 declare global {
     interface Window {
         ic: any;
@@ -23,7 +23,7 @@ interface AuthProps {
     isAuth: boolean,
     address: string,
     loginLoading: boolean,
-    contractClient: any,
+    contractClient: ContractClient,
     chainType: ChainType | string,
     walletType: WalletType | string
 

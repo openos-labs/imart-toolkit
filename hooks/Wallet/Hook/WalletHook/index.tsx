@@ -38,7 +38,7 @@ export const WalletHook = (): HookResponse => {
     }, [APTOS, ETH, IC]);
 
     //  client
-    const walletClient = useMemo(() => {
+    const walletClient: ContractClient = useMemo(() => {
         let protocol: Protocol;
         let settings: Settings;
         switch (_chainType) {
