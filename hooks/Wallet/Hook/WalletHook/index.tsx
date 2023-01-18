@@ -38,7 +38,7 @@ export const WalletHook = (): HookResponse => {
     }, [APTOS, ETH, IC]);
 
     //  client
-    const walletClient: ContractProxy = useMemo(() => {
+    const walletClient: ContractClient = useMemo(() => {
         let protocol: Protocol;
         let settings: Settings;
         switch (_chainType) {
@@ -57,6 +57,7 @@ export const WalletHook = (): HookResponse => {
                     wicpCanisterId: WICP,
                     mintCanisterId: MINT,
                     marketCanisterId: MARKET,
+                    // @ts-ignore
                     batchTransactions: window?.ic?.plug.batchTransactions,
                 };
                 break;

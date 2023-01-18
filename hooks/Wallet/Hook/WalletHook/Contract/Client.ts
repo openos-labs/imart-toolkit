@@ -16,7 +16,7 @@ import {
 
 export type Protocol = "aptos" | "ic" | "seaport";
 
-export class ContractClient implements ContractProxy {
+export class ContractClient {
     constructor(protocol: Protocol, settings: Settings): ContractProxy {
         switch (protocol) {
             case "aptos":

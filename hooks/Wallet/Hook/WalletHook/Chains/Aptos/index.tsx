@@ -32,7 +32,6 @@ export const AptosWallet = (): ChainResponse => {
     const logout = async () => {
         return await disconnect()
     }
-    console.log(account,'account')
     return {logout, login, connected, address: account?.address?.toString(), publicKey: account?.publicKey?.toString()}
 
 }
