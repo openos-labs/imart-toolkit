@@ -2,7 +2,7 @@ import {ContractProxy} from "../Proxy";
 import {
     AcceptOfferArgs,
     BuyTokenArgs,
-    CancelOfferArgs,
+    CancelOfferArgs, Create,
     CreateOfferArgs,
     DelistTokenArgs,
     DfinitySettings,
@@ -17,6 +17,7 @@ import {idlFactory as minDid} from "../../Chains/IC/did/public-mint.did";
 import {idlFactory as MarketDid} from "../../Chains/IC/did/market.did";
 import {idlFactory as singleSaleDid} from "../../Chains/IC/did/sale.did.js";
 import BigNumber from "bignumber.js";
+import {APTOS_CREATION_ADDRESS} from "../../Config";
 
 export class DfinityImpl extends ContractProxy {
     settings: DfinitySettings;
@@ -71,7 +72,10 @@ export class DfinityImpl extends ContractProxy {
         ];
         return await this.settings.batchTransactions(payload);
     }
+    async create(args: Create) {
 
+
+    }
     async delistToken(args: DelistTokenArgs) {
         const payload = [
             {

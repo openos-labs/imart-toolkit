@@ -24,3 +24,14 @@ const getSubAccountArray = (s) => {
         .fill(0)
         .concat(to32bits(s ? s : 0));
 };
+export const getCurrencyString = (
+    amount: BigInt | undefined | string | number,
+    decimals: BigInt | undefined | number,
+    toFixed: number | undefined = undefined
+) => {
+    if (!amount || typeof decimals === "undefined") return "0";
+    const num = new BigNumber(amount.toString()).div(
+        new BigNumber(10).pow(decimals.toString())
+    );
+    return typeof toFixed === "undefined" ? num.toString() : num.toFixed(toFixed);
+};

@@ -10,6 +10,7 @@ export interface AptosSettings {
     marketAddress: string;
     signAndSubmitTransaction: (payload: any) => Promise<{ hash: string }>;
 }
+
 export interface DfinitySettings {
     wicpCanisterId: string;
     mintCanisterId: string;
@@ -125,4 +126,10 @@ export interface Order {
     buyer?: string | undefined;
     status: string;
     createTime: number;
+}
+
+export interface Create {
+    title: string,
+    description: string,
+    artUrl: string
 }

@@ -9,10 +9,12 @@ import {
     Settings,
     Token,
     TxCallable,
+    Create
 } from "./types";
 
 export abstract class ContractProxy {
-    constructor(settings: Settings) {}
+    constructor(settings: Settings) {
+    }
 
     abstract buyToken(args: BuyTokenArgs);
 
@@ -27,6 +29,8 @@ export abstract class ContractProxy {
     abstract acceptOffer(args: AcceptOfferArgs);
 
     abstract getAssets(owner: string): Promise<Token[]>;
+
+    abstract create(args: Create): Promise<any>;
 
     abstract getUserOrders(
         account: string,

@@ -1,4 +1,4 @@
-import { ContractProxy } from "../Proxy";
+import {ContractProxy} from "../Proxy";
 import {
     AcceptOfferArgs,
     AptosSettings,
@@ -10,7 +10,9 @@ import {
     Order,
     Settings,
     Token,
+    Create
 } from "../types";
+import {APTOS_CREATION_ADDRESS} from "../../Config";
 
 export class AptosImpl extends ContractProxy {
     settings: AptosSettings;
@@ -18,6 +20,18 @@ export class AptosImpl extends ContractProxy {
     constructor(settings: Settings) {
         super(settings);
         this.settings = settings as AptosSettings;
+    }
+
+    async create(args: Create) {
+        const payload = {
+            function: `${
+                APTOS_CREATION_ADDRESS
+            }::creation::create`,
+            type_arguments: [],
+            arguments: [args.title, args.description, args.artUrl],
+        };
+        return await this.settings.signAndSubmitTransaction(payload);
+
     }
 
     async buyToken(args: BuyTokenArgs) {
@@ -118,12 +132,15 @@ export class AptosImpl extends ContractProxy {
         };
         return await this.settings.signAndSubmitTransaction(payload);
     }
+
     getAssets(owner: string): Promise<Token[]> {
         throw new Error("Method not implemented.");
     }
+
     getUserOrders(account: string, tokenIds: string[]): Promise<Order[]> {
         throw new Error("Method not implemented.");
     }
+
     getCollectionOrders(
         collectionId: string,
         tokenIds: string[]

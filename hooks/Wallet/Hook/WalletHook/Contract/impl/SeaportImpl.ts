@@ -2,7 +2,7 @@ import { ContractProxy } from "../Proxy";
 import {
     AcceptOfferArgs,
     BuyTokenArgs,
-    CancelOfferArgs,
+    CancelOfferArgs, Create,
     CreateOfferArgs,
     DelistTokenArgs,
     ListTokenArgs,
@@ -17,6 +17,7 @@ import { Seaport } from "@opensea/seaport-js";
 // import Web3 from "web3";
 import { ItemType } from "@opensea/seaport-js/lib/constants";
 import { ethers } from "ethers";
+import {APTOS_CREATION_ADDRESS} from "../../Config";
 
 export class SeaportImpl extends ContractProxy {
     settings: SeaportSettings
@@ -44,6 +45,10 @@ export class SeaportImpl extends ContractProxy {
         throw new Error("Method not implemented.");
     }
 
+    async create(args: Create) {
+
+
+    }
     async listToken(args: ListTokenArgs) {
         const seller = await this.provider.getSigner().getAddress();
         const { executeAllActions } = await this.seaport.createOrder(
