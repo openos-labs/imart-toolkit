@@ -17,7 +17,7 @@ export interface HookResponse {
     connected: boolean;
     address: string;
     loginLoading: boolean;
-    walletClient: any;
+    walletClient: ContractProxy;
     currentChainType: ChainType | string;
     currentWalletType: WalletType | string;
     checkLogin: () => void;
@@ -39,7 +39,7 @@ export const WalletHook = (): HookResponse => {
     }, [APTOS, ETH, IC]);
 
     //  client
-    const walletClient: ContractClient = useMemo(() => {
+    const walletClient: ContractProxy = useMemo(() => {
         let protocol: Protocol;
         let settings: Settings;
         switch (_chainType) {
@@ -71,7 +71,7 @@ export const WalletHook = (): HookResponse => {
                 };
                 break;
         }
-        return new ContractClient(protocol!, settings!)
+        return new ContractClient(protocol!, settings!).invoke()
     }, [_chainType])
 
     // login
