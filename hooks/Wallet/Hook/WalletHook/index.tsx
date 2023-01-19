@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {ContractClient, Protocol, Settings,ContractProxy} from "../../Contract";
+import {ContractClient, Protocol, Settings, ContractProxy} from "../../Contract";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import {AptosWallet} from './Chains/Aptos';
 import {ETHWallet} from './Chains/ETH';
@@ -22,6 +22,7 @@ export interface HookResponse {
     currentWalletType: WalletType | string;
     checkLogin: () => void;
     AuthImart: () => any;
+    switchChain:(chainType: ChainType, walletType: WalletType) => any;
 }
 
 export const WalletHook = (): HookResponse => {
@@ -148,6 +149,11 @@ export const WalletHook = (): HookResponse => {
     }, [_chainType, _walletType, currentConnectedWallet]);
 
 
+    const switchChain = async (chainType: ChainType, walletType: WalletType) => {
+        await walletLogout();
+        await walletLogin(chainType, walletType)
+    }
+
     //  wallet address
     const address = useMemo(() => {
         if (!_chainType || !_walletType) {
@@ -174,6 +180,7 @@ export const WalletHook = (): HookResponse => {
         currentWalletType: _walletType,
         connected: !!(currentConnectedWallet && currentConnectedWallet['connected']),
         loginLoading,
-        checkLogin
+        checkLogin,
+        switchChain
     }
 }

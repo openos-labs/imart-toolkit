@@ -29,7 +29,7 @@ interface AuthProps {
     contractClient: ContractProxy,
     chainType: ChainType | string,
     walletType: WalletType | string
-
+    switchChain: (chainType: ChainType, walletType: WalletType) => any,
 }
 
 interface AuthProviderProps {
@@ -47,6 +47,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         checkLogin,
         currentChainType,
         currentWalletType,
+        switchChain
     } = WalletHook()
 
     useEffect(() => {
@@ -60,7 +61,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         isAuth: connected,
         address,
         loginLoading,
-        contractClient: walletClient
+        contractClient: walletClient,
+        switchChain
     };
     // save common data
     return (
