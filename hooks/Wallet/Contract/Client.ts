@@ -16,7 +16,6 @@ import {
 export type Protocol = "aptos" | "ic" | "seaport";
 
 export class ContractClient {
-    proxy: ContractProxy
     protocol: Protocol
     settings: Settings
 
