@@ -129,6 +129,7 @@ export interface Order {
 }
 
 export interface Create {
+    category: 'SPACE' | 'MUSIC' | 'ART'
     title: string,
     description: string,
     uri: string
