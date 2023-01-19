@@ -17,22 +17,22 @@ export type Protocol = "aptos" | "ic" | "seaport";
 
 export class ContractClient {
     proxy: ContractProxy
+    protocol: Protocol
+    settings: Settings
 
     constructor(protocol: Protocol, settings: Settings) {
-        switch (protocol) {
-            case "aptos":
-                this.proxy = new AptosImpl(settings);
-                break
-            case "seaport":
-                this.proxy = new SeaportImpl(settings);
-                break;
-            case "ic":
-                this.proxy = new DfinityImpl(settings);
-                break;
-        }
+        this.protocol = protocol;
+        this.settings = settings
     }
 
-    invoke() {
-        return {...this.proxy};
+    invoke(): ContractProxy {
+        switch (this.protocol) {
+            case "aptos":
+                return new AptosImpl(this.settings);
+            case "seaport":
+                return new SeaportImpl(this.settings);
+            case "ic":
+                return new DfinityImpl(this.settings);
+        }
     }
 }

@@ -22,7 +22,7 @@ export interface HookResponse {
     currentWalletType: WalletType | string;
     checkLogin: () => void;
     AuthImart: () => any;
-    switchChain:(chainType: ChainType, walletType: WalletType) => any;
+    switchChain: (chainType: ChainType, walletType: WalletType) => any;
 }
 
 export const WalletHook = (): HookResponse => {
