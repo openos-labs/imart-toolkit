@@ -24,6 +24,7 @@ export class AptosImpl extends ContractProxy {
 
     async create(args: Create) {
         const payload = {
+            type: "entry_function_payload",
             function: `${
                 APTOS_CREATION_ADDRESS
             }::creation::create`,
