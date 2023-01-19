@@ -28,7 +28,7 @@ export class AptosImpl extends ContractProxy {
                 APTOS_CREATION_ADDRESS
             }::creation::create`,
             type_arguments: [],
-            arguments: [args.title, args.description, args.artUrl,args.uri],
+            arguments: [args.title, args.description,args.uri],
         };
         return await this.settings.signAndSubmitTransaction(payload);
     }
