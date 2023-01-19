@@ -23,6 +23,7 @@ export class AptosImpl extends ContractProxy {
     }
 
     async create(args: Create) {
+        console.log(args,'args')
         const payload = {
             type: "entry_function_payload",
             function: `${
