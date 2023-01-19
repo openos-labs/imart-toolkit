@@ -1,7 +1,6 @@
 import {ContractProxy} from "./Proxy";
-import {AptosImpl} from "./impl/AptosImpl";
-import {SeaportImpl} from "./impl/SeaportImpl";
-import {DfinityImpl} from "./impl/DfinityImpl";
+import {AptosImpl,SeaportImpl,DfinityImpl} from "./impl";
+
 import {
     AcceptOfferArgs,
     BuyTokenArgs,
@@ -34,6 +33,7 @@ export class ContractClient {
     }
 
     invoke() {
+        console.log(this.proxy,'this.proxy')
         return this.proxy;
     }
 }
