@@ -1,5 +1,7 @@
 export type TxCallable = (payload: any) => Promise<{ hash: string }>;
 
+export type Category = 'SPACE' | 'MUSIC' | 'ART'
+
 export interface Payload {
     coinType: string;
 }
@@ -129,7 +131,7 @@ export interface Order {
 }
 
 export interface Create {
-    category: 'SPACE' | 'MUSIC' | 'ART'
+    category: Category
     title: string,
     description: string,
     uri: string
