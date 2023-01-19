@@ -1,6 +1,7 @@
 import {ContractProxy} from "./Proxy";
-import {AptosImpl, SeaportImpl, DfinityImpl} from "./impl";
-
+import {AptosImpl} from "./impl/AptosImpl";
+import {SeaportImpl} from "./impl/SeaportImpl";
+import {DfinityImpl} from "./impl/DfinityImpl";
 import {
     AcceptOfferArgs,
     BuyTokenArgs,
@@ -16,22 +17,23 @@ import {
 export type Protocol = "aptos" | "ic" | "seaport";
 
 export class ContractClient {
-    protocol: Protocol
-    settings: Settings
+    proxy: ContractProxy
 
     constructor(protocol: Protocol, settings: Settings) {
-        this.protocol = protocol;
-        this.settings = settings
+        switch (protocol) {
+            case "aptos":
+                this.proxy = new AptosImpl(settings);
+                break
+            case "seaport":
+                this.proxy = new SeaportImpl(settings);
+                break;
+            case "ic":
+                this.proxy = new DfinityImpl(settings);
+                break;
+        }
     }
 
-    invoke(): ContractProxy {
-        switch (this.protocol) {
-            case "aptos":
-                return new AptosImpl(this.settings);
-            case "seaport":
-                return new SeaportImpl(this.settings);
-            case "ic":
-                return new DfinityImpl(this.settings);
-        }
+    invoke() {
+        return this.proxy;
     }
 }
