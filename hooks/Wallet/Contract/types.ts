@@ -131,5 +131,6 @@ export interface Order {
 export interface Create {
     title: string,
     description: string,
-    artUrl: string
+    artUrl: string,
+    uri?: string
 }

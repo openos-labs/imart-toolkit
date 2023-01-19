@@ -31,7 +31,6 @@ export class AptosImpl extends ContractProxy {
             arguments: [args.title, args.description, args.artUrl],
         };
         return await this.settings.signAndSubmitTransaction(payload);
-
     }
 
     async buyToken(args: BuyTokenArgs) {

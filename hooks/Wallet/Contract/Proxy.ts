@@ -30,7 +30,6 @@ export abstract class ContractProxy {
 
     abstract getAssets(owner: string): Promise<Token[]>;
 
-    abstract create(args: Create): Promise<any>;
 
     abstract getUserOrders(
         account: string,
@@ -41,4 +40,7 @@ export abstract class ContractProxy {
         collectionId: string,
         tokenIds: string[]
     ): Promise<Order[]>;
+
+    abstract create(args: Create): Promise<any>;
+
 }
