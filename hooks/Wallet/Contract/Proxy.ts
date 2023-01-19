@@ -13,7 +13,6 @@ import {
 } from "./types";
 
 export abstract class ContractProxy {
-    proxy: any;
     constructor(settings: Settings) {
     }
 

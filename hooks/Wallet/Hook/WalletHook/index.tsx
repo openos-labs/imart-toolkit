@@ -71,8 +71,7 @@ export const WalletHook = (): HookResponse => {
                 };
                 break;
         }
-        const Client = new ContractClient(protocol!, settings!).invoke();
-        return Client.proxy
+        return new ContractClient(protocol!, settings!);
     }, [_chainType])
 
     // login
