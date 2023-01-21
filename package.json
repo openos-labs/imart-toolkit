@@ -30,6 +30,8 @@
     "@babel/preset-env": "^7.14.4",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@dfinity/principal": "^0.15.1",
+    "@opensea/seaport-js": "^1.0.8",
     "@types/react": "^17.0.5",
     "@types/react-router-dom": "^5.1.7",
     "@types/react-transition-group": "^4.4.1",
@@ -46,8 +48,8 @@
     "react-is": "^17.0.2",
     "rollup": "^2.47.0",
     "themeprovider-storybook": "^1.7.2",
-    "ts-jest": "^26.5.6",
     "tslib": "^2.2.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "web3": "^1.8.1"
   }
 }
