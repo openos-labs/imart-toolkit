@@ -1,8 +1,7 @@
 {
   "name": "@imart/contracts",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "src/index.ts",
-  "types": "dist/index.d.ts",
   "license": "MIT",
   "repository": "https://github.com/mix-labs/imart-toolkit/tree/master/contracts",
   "scripts": {
