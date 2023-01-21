@@ -1,6 +1,5 @@
 import {useWeb3React} from "@web3-react/core";
 import {Web3Provider} from '@ethersproject/providers'
-
 import {ChainResponse} from "../../Types";
 import {InjectedConnector} from '@web3-react/injected-connector';
 
@@ -47,6 +46,7 @@ export const ETHWallet = (): ChainResponse => {
         logout,
         address,
         chainId,
-        publicKey: ''
+        publicKey: '',
+        library
     }
 }

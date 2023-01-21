@@ -5,7 +5,8 @@
   "description": "IMart frontend packages",
   "private": true,
   "workspaces": [
-    "*"
+    "*",
+    "hooks/*"
   ],
   "repository": {
     "type": "git",

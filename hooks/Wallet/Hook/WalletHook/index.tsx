@@ -7,8 +7,9 @@ import {ICWallet} from './Chains/IC'
 import {getNonce, auth} from "./Api";
 import axios from "axios";
 import Storage from "../../utils/storage";
-import {MINT, MARKET, STORAGE, SALSE, WICP, SEAPORT, APTOS_MARKET_ADDRESS} from './Config'
+import {MINT, MARKET, STORAGE, SALSE, WICP, SEAPORT, APTOS_MARKET_ADDRESS, APTOS_CREATION_ADDRESS, APTOS_CURATION_ADDRESS, ETH_CREATION_ADDRESS, ETH_CURATION_ADDRESS, ETH_MARKET_ADDRESS} from './Config'
 import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './Types'
+import { Contractor, Aptos, Evm, Contract } from "@imart/contracts";
 
 
 export interface HookResponse {
@@ -18,6 +19,7 @@ export interface HookResponse {
     address: string;
     loginLoading: boolean;
     walletClient: ContractProxy;
+    contractor: Contract;
     currentChainType: ChainType | string;
     currentWalletType: WalletType | string;
     checkLogin: () => void;
@@ -37,6 +39,33 @@ export const WalletHook = (): HookResponse => {
     const walletGather = useMemo(() => {
         return {APTOS, ETH, IC}
     }, [APTOS, ETH, IC]);
+
+    const contractor: Contract = useMemo(() => {
+        switch(_chainType) {
+            case "ETH": {
+                const configuration = {
+                    addresses: {
+                        creation: ETH_CREATION_ADDRESS,
+                        curation: ETH_CURATION_ADDRESS,
+                        market: ETH_MARKET_ADDRESS
+                    },
+                    provider: ETH.library!
+                }
+                return Contractor(Evm, configuration)
+            }
+            default: {
+                const configuration = {
+                    addresses: {
+                        creation: APTOS_CREATION_ADDRESS,
+                        curation: APTOS_CURATION_ADDRESS,
+                        market: APTOS_MARKET_ADDRESS
+                    },
+                    submitTx: signAndSubmitTransaction
+                }
+                return Contractor(Aptos, configuration)
+            }
+        }
+    }, [_chainType])
 
     //  client
     const walletClient: ContractProxy = useMemo(() => {
@@ -171,6 +200,7 @@ export const WalletHook = (): HookResponse => {
         }
     }
     return {
+        contractor,
         walletClient,
         walletLogin,
         walletLogout,

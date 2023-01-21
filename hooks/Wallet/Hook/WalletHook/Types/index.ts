@@ -1,10 +1,12 @@
+import { Web3Provider } from '@ethersproject/providers'
 export interface ChainResponse {
     login: (e: WalletType) => Promise<any> | undefined;
     logout: () => Promise<any>;
     connected: boolean;
     address: string | null | undefined,
     chainId?: number | undefined
-    publicKey: string|null|undefined
+    publicKey: string|null|undefined,
+    library: Web3Provider | undefined
 }
 
 export interface AuthContext {

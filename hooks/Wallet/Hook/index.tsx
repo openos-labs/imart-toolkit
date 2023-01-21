@@ -11,6 +11,7 @@ export * from './WalletHook/Types';
 import {WalletHook} from './WalletHook'
 import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './WalletHook/Types';
 import {ContractProxy} from '../Contract'
+import {Contract, Contractor} from "@imart/contracts"
 
 declare global {
     interface Window {
@@ -27,6 +28,7 @@ interface AuthProps {
     address: string,
     loginLoading: boolean,
     contractClient: ContractProxy,
+    contractor: Contract,
     chainType: ChainType | string,
     walletType: WalletType | string
     switchChain: (chainType: ChainType, walletType: WalletType) => any,
@@ -43,6 +45,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         walletLogin,
         walletLogout,
         walletClient,
+        contractor: contractor,
         connected,
         checkLogin,
         currentChainType,
@@ -62,6 +65,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         address,
         loginLoading,
         contractClient: walletClient,
+        contractor,
         switchChain
     };
     // save common data
