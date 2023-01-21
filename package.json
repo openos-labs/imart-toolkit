@@ -30,7 +30,7 @@
     "@babel/preset-env": "^7.14.4",
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "@dfinity/principal": "^0.15.1",
+    "@dfinity/principal": "^0.10.1",
     "@opensea/seaport-js": "^1.0.8",
     "@types/react": "^17.0.5",
     "@types/react-router-dom": "^5.1.7",
