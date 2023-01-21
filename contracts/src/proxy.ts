@@ -3,28 +3,58 @@ import {
   ListTokenArgs,
   Order,
   Token,
-  Create,
-  Config,
   CancelOrderObject,
   CancelOfferObject,
   FillOrderObject,
   AcceptOfferObject,
-  Tx,
-} from "./types";
+} from "./types/market";
+import { Config, CreationArgs, Signer, Tx } from "./types";
+import {
+  BuyExhibitArgs,
+  CancelCurationOfferArgs,
+  CancelExhibitArgs,
+  CreateCurationOfferArgs,
+  CreateGalleryArgs,
+  ListExhibitArgs,
+  RedeemExhibitArgs,
+  ReplyCurationOfferArgs,
+} from "./types/curation";
 
 export interface CreationInterface {
   config: Config;
-  create(args: Create): Promise<Tx>;
+  create(args: CreationArgs, signer?: Signer): Promise<Tx>;
 }
 
 export interface MarketInterface {
   config: Config;
-  buyToken(args: FillOrderObject): Promise<Tx>;
-  listToken(args: ListTokenArgs): Promise<Tx>;
-  delistToken(args: CancelOrderObject): Promise<Tx>;
-  createOffer(args: CreateOfferArgs): Promise<Tx>;
-  cancelOffer(args: CancelOfferObject): Promise<Tx>;
-  acceptOffer(args: AcceptOfferObject): Promise<Tx>;
+  buyToken(args: FillOrderObject, signer?: Signer): Promise<Tx>;
+  listToken(args: ListTokenArgs, signer?: Signer): Promise<Tx>;
+  delistToken(args: CancelOrderObject, signer?: Signer): Promise<Tx>;
+  createOffer(args: CreateOfferArgs, signer?: Signer): Promise<Tx>;
+  cancelOffer(args: CancelOfferObject, signer?: Signer): Promise<Tx>;
+  acceptOffer(args: AcceptOfferObject, signer?: Signer): Promise<Tx>;
+}
+
+export interface CurationInterface {
+  config: Config;
+  createGallery(args: CreateGalleryArgs, signer?: Signer): Promise<Tx>;
+  createCurationOffer(
+    args: CreateCurationOfferArgs,
+    signer?: Signer
+  ): Promise<Tx>;
+  replyCurationOffer(
+    args: ReplyCurationOfferArgs,
+    signer?: Signer
+  ): Promise<Tx>;
+  cancelCurationOffer(
+    args: CancelCurationOfferArgs,
+    signer?: Signer
+  ): Promise<Tx>;
+
+  buyExhibit(args: BuyExhibitArgs, signer?: Signer): Promise<Tx>;
+  listExhibit(args: ListExhibitArgs, signer?: Signer): Promise<Tx>;
+  cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx>;
+  redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx>;
 }
 
 export interface ResourceInterface {
@@ -34,18 +64,41 @@ export interface ResourceInterface {
 }
 
 export abstract class ContractProxy
-  implements MarketInterface, CreationInterface
+  implements MarketInterface, CreationInterface, CurationInterface
 {
-  config: Config;
+  readonly config: Config;
+
+  constructor(config: Config) {
+    this.config = config;
+  }
 
   // creation
-  abstract create(args: Create): Promise<Tx>;
+  abstract create(args: CreationArgs, signer?: Signer): Promise<Tx>;
 
   // market
-  abstract listToken(args: ListTokenArgs): Promise<Tx>;
-  abstract buyToken(args: FillOrderObject): Promise<Tx>;
-  abstract delistToken(args: CancelOrderObject): Promise<Tx>;
-  abstract createOffer(args: CreateOfferArgs): Promise<Tx>;
-  abstract acceptOffer(args: AcceptOfferObject): Promise<Tx>;
-  abstract cancelOffer(args: CancelOfferObject): Promise<Tx>;
+  abstract listToken(args: ListTokenArgs, signer?: Signer): Promise<Tx>;
+  abstract buyToken(args: FillOrderObject, signer?: Signer): Promise<Tx>;
+  abstract delistToken(args: CancelOrderObject, signer?: Signer): Promise<Tx>;
+  abstract createOffer(args: CreateOfferArgs, signer?: Signer): Promise<Tx>;
+  abstract acceptOffer(args: AcceptOfferObject, signer?: Signer): Promise<Tx>;
+  abstract cancelOffer(args: CancelOfferObject, signer?: Signer): Promise<Tx>;
+
+  // curation
+  abstract createGallery(args: CreateGalleryArgs, signer?: Signer): Promise<Tx>;
+  abstract createCurationOffer(
+    args: CreateCurationOfferArgs,
+    signer?: Signer
+  ): Promise<Tx>;
+  abstract replyCurationOffer(
+    args: ReplyCurationOfferArgs,
+    signer?: Signer
+  ): Promise<Tx>;
+  abstract cancelCurationOffer(
+    args: CancelCurationOfferArgs,
+    signer?: Signer
+  ): Promise<Tx>;
+  abstract buyExhibit(args: BuyExhibitArgs, signer?: Signer): Promise<Tx>;
+  abstract listExhibit(args: ListExhibitArgs, signer?: Signer): Promise<Tx>;
+  abstract cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx>;
+  abstract redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx>;
 }

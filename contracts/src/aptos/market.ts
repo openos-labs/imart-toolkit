@@ -6,9 +6,8 @@ import {
   CreateOfferArgs,
   CancelOfferArgs,
   AcceptOfferArgs,
-  Config,
-  Tx,
-} from "../types";
+} from "../types/market";
+import { Config, Tx } from "../types";
 
 export class Market implements MarketInterface {
   readonly config: Config;

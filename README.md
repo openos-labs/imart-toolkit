@@ -9,14 +9,36 @@ npm install --save git@github.com:mix-labs/imart-toolkit.git#main
 ## Usage
 
 ```
-import { ethers } from "ethers";
-import { IMartToken__factory } from "imart-toolkit/evm"
-const provider = new ethers.providers.Web3Provider(
-      (window as any).ethereum
-);
-const imartTokenFactory = new IMartToken__factory(provider.getSigner(0));
-const imartToken = imartTokenFactory.attach("<contract address>");
-await imartToken
-    .connect(provider.getSigner(0))
-    .safeMint(account, "https://google.com");
+const configuration = {
+    addresses: {
+      creation: imartToken.address,
+      curation: curation.address,
+      market: "",
+    },
+    provider: ethers.getDefaultProvider(),
+  };
+const contractor = Contractor(Evm, config);
+await contractor.createGallery(
+    {
+      collection: spaceContract,
+      tokenIdentifier: spaceTokenId.toString(),
+      spaceType: "art",
+      name: "Hollywood",
+      metadataUri:
+        "https://mixverse-spaces.s3.amazonaws.com/mixverse-gallery-1.json",
+    },                                                                          // payload
+    curator                                                                     // signer
+  );
+```
+
+## Development
+
+### Local test
+
+```
+// start hardhat node
+yarn workspace @imart/contracts hardhat node
+
+// run tests
+yarn workspace @imart/contracts hardhat test
 ```

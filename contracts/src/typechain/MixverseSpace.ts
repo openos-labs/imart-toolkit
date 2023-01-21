@@ -9,6 +9,7 @@ import type {
   CallOverrides,
   ContractTransaction,
   Overrides,
+  PayableOverrides,
   PopulatedTransaction,
   Signer,
   utils,
@@ -27,14 +28,53 @@ import type {
   PromiseOrValue,
 } from "./common";
 
+export declare namespace MixverseSpace {
+  export type ListingItemStruct = {
+    id: PromiseOrValue<BigNumberish>;
+    tokenId: PromiseOrValue<BigNumberish>;
+    collection: PromiseOrValue<string>;
+    owner: PromiseOrValue<string>;
+    totalAmount: PromiseOrValue<BigNumberish>;
+    remainAmount: PromiseOrValue<BigNumberish>;
+    pricePerToken: PromiseOrValue<BigNumberish>;
+    status: PromiseOrValue<BigNumberish>;
+  };
+
+  export type ListingItemStructOutput = [
+    BigNumber,
+    BigNumber,
+    string,
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    number
+  ] & {
+    id: BigNumber;
+    tokenId: BigNumber;
+    collection: string;
+    owner: string;
+    totalAmount: BigNumber;
+    remainAmount: BigNumber;
+    pricePerToken: BigNumber;
+    status: number;
+  };
+}
+
 export interface MixverseSpaceInterface extends utils.Interface {
   functions: {
     "balanceOf(address,uint256)": FunctionFragment;
     "balanceOfBatch(address[],uint256[])": FunctionFragment;
+    "buy(uint256,uint256)": FunctionFragment;
+    "cancel(uint256,uint256)": FunctionFragment;
     "create(uint256,string)": FunctionFragment;
     "exists(uint256)": FunctionFragment;
     "getBaseURI()": FunctionFragment;
+    "getUserItems()": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
+    "list(uint256,uint256,uint256)": FunctionFragment;
+    "onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)": FunctionFragment;
+    "onERC1155Received(address,address,uint256,uint256,bytes)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "safeBatchTransferFrom(address,address,uint256[],uint256[],bytes)": FunctionFragment;
@@ -51,10 +91,16 @@ export interface MixverseSpaceInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "balanceOf"
       | "balanceOfBatch"
+      | "buy"
+      | "cancel"
       | "create"
       | "exists"
       | "getBaseURI"
+      | "getUserItems"
       | "isApprovedForAll"
+      | "list"
+      | "onERC1155BatchReceived"
+      | "onERC1155Received"
       | "owner"
       | "renounceOwnership"
       | "safeBatchTransferFrom"
@@ -76,6 +122,14 @@ export interface MixverseSpaceInterface extends utils.Interface {
     values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
+    functionFragment: "buy",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "cancel",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "create",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
@@ -88,8 +142,40 @@ export interface MixverseSpaceInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "getUserItems",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [PromiseOrValue<string>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "list",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "onERC1155BatchReceived",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<BytesLike>
+    ]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "onERC1155Received",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>
+    ]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -146,11 +232,26 @@ export interface MixverseSpaceInterface extends utils.Interface {
     functionFragment: "balanceOfBatch",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "cancel", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "create", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "exists", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getBaseURI", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "getUserItems",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "isApprovedForAll",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "list", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "onERC1155BatchReceived",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "onERC1155Received",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
@@ -190,6 +291,10 @@ export interface MixverseSpaceInterface extends utils.Interface {
 
   events: {
     "ApprovalForAll(address,address,bool)": EventFragment;
+    "ItemCanceledEvent(uint256,uint256,address,address,uint256,uint256,uint256)": EventFragment;
+    "ItemListedEvent(uint256,uint256,address,address,uint256,uint256,string)": EventFragment;
+    "ItemPurchasedEvent(uint256,uint256,address,address,address,uint256,uint256,uint256)": EventFragment;
+    "ItemSoldEvent(uint256,uint256,address,address,uint256,uint256)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "TransferBatch(address,address,address,uint256[],uint256[])": EventFragment;
     "TransferSingle(address,address,address,uint256,uint256)": EventFragment;
@@ -197,6 +302,10 @@ export interface MixverseSpaceInterface extends utils.Interface {
   };
 
   getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ItemCanceledEvent"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ItemListedEvent"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ItemPurchasedEvent"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ItemSoldEvent"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferBatch"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferSingle"): EventFragment;
@@ -214,6 +323,81 @@ export type ApprovalForAllEvent = TypedEvent<
 >;
 
 export type ApprovalForAllEventFilter = TypedEventFilter<ApprovalForAllEvent>;
+
+export interface ItemCanceledEventEventObject {
+  id: BigNumber;
+  tokenId: BigNumber;
+  collection: string;
+  owner: string;
+  totalAmount: BigNumber;
+  amount: BigNumber;
+  pricePerToken: BigNumber;
+}
+export type ItemCanceledEventEvent = TypedEvent<
+  [BigNumber, BigNumber, string, string, BigNumber, BigNumber, BigNumber],
+  ItemCanceledEventEventObject
+>;
+
+export type ItemCanceledEventEventFilter =
+  TypedEventFilter<ItemCanceledEventEvent>;
+
+export interface ItemListedEventEventObject {
+  id: BigNumber;
+  tokenId: BigNumber;
+  collection: string;
+  owner: string;
+  totalAmount: BigNumber;
+  pricePerToken: BigNumber;
+  uri: string;
+}
+export type ItemListedEventEvent = TypedEvent<
+  [BigNumber, BigNumber, string, string, BigNumber, BigNumber, string],
+  ItemListedEventEventObject
+>;
+
+export type ItemListedEventEventFilter = TypedEventFilter<ItemListedEventEvent>;
+
+export interface ItemPurchasedEventEventObject {
+  id: BigNumber;
+  tokenId: BigNumber;
+  collection: string;
+  owner: string;
+  buyer: string;
+  totalAmount: BigNumber;
+  amount: BigNumber;
+  pricePerToken: BigNumber;
+}
+export type ItemPurchasedEventEvent = TypedEvent<
+  [
+    BigNumber,
+    BigNumber,
+    string,
+    string,
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber
+  ],
+  ItemPurchasedEventEventObject
+>;
+
+export type ItemPurchasedEventEventFilter =
+  TypedEventFilter<ItemPurchasedEventEvent>;
+
+export interface ItemSoldEventEventObject {
+  id: BigNumber;
+  tokenId: BigNumber;
+  collection: string;
+  owner: string;
+  totalAmount: BigNumber;
+  pricePerToken: BigNumber;
+}
+export type ItemSoldEventEvent = TypedEvent<
+  [BigNumber, BigNumber, string, string, BigNumber, BigNumber],
+  ItemSoldEventEventObject
+>;
+
+export type ItemSoldEventEventFilter = TypedEventFilter<ItemSoldEventEvent>;
 
 export interface OwnershipTransferredEventObject {
   previousOwner: string;
@@ -302,6 +486,18 @@ export interface MixverseSpace extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber[]]>;
 
+    buy(
+      itemId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    cancel(
+      itemId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     create(
       _amount: PromiseOrValue<BigNumberish>,
       _cid: PromiseOrValue<string>,
@@ -315,11 +511,40 @@ export interface MixverseSpace extends BaseContract {
 
     getBaseURI(overrides?: CallOverrides): Promise<[string]>;
 
+    getUserItems(
+      overrides?: CallOverrides
+    ): Promise<[MixverseSpace.ListingItemStructOutput[]]>;
+
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
+
+    list(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _price: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    onERC1155BatchReceived(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>[],
+      arg3: PromiseOrValue<BigNumberish>[],
+      arg4: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    onERC1155Received(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>,
+      arg3: PromiseOrValue<BigNumberish>,
+      arg4: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -367,7 +592,7 @@ export interface MixverseSpace extends BaseContract {
     ): Promise<ContractTransaction>;
 
     updateBaseURI(
-      newuri: PromiseOrValue<string>,
+      newURI: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -389,6 +614,18 @@ export interface MixverseSpace extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber[]>;
 
+  buy(
+    itemId: PromiseOrValue<BigNumberish>,
+    _amount: PromiseOrValue<BigNumberish>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  cancel(
+    itemId: PromiseOrValue<BigNumberish>,
+    _amount: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   create(
     _amount: PromiseOrValue<BigNumberish>,
     _cid: PromiseOrValue<string>,
@@ -402,11 +639,40 @@ export interface MixverseSpace extends BaseContract {
 
   getBaseURI(overrides?: CallOverrides): Promise<string>;
 
+  getUserItems(
+    overrides?: CallOverrides
+  ): Promise<MixverseSpace.ListingItemStructOutput[]>;
+
   isApprovedForAll(
     account: PromiseOrValue<string>,
     operator: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<boolean>;
+
+  list(
+    _tokenId: PromiseOrValue<BigNumberish>,
+    _amount: PromiseOrValue<BigNumberish>,
+    _price: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  onERC1155BatchReceived(
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<string>,
+    arg2: PromiseOrValue<BigNumberish>[],
+    arg3: PromiseOrValue<BigNumberish>[],
+    arg4: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  onERC1155Received(
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<string>,
+    arg2: PromiseOrValue<BigNumberish>,
+    arg3: PromiseOrValue<BigNumberish>,
+    arg4: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -454,7 +720,7 @@ export interface MixverseSpace extends BaseContract {
   ): Promise<ContractTransaction>;
 
   updateBaseURI(
-    newuri: PromiseOrValue<string>,
+    newURI: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -476,6 +742,18 @@ export interface MixverseSpace extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
+    buy(
+      itemId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    cancel(
+      itemId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     create(
       _amount: PromiseOrValue<BigNumberish>,
       _cid: PromiseOrValue<string>,
@@ -489,11 +767,40 @@ export interface MixverseSpace extends BaseContract {
 
     getBaseURI(overrides?: CallOverrides): Promise<string>;
 
+    getUserItems(
+      overrides?: CallOverrides
+    ): Promise<MixverseSpace.ListingItemStructOutput[]>;
+
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    list(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _price: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    onERC1155BatchReceived(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>[],
+      arg3: PromiseOrValue<BigNumberish>[],
+      arg4: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    onERC1155Received(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>,
+      arg3: PromiseOrValue<BigNumberish>,
+      arg4: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
@@ -539,7 +846,7 @@ export interface MixverseSpace extends BaseContract {
     ): Promise<void>;
 
     updateBaseURI(
-      newuri: PromiseOrValue<string>,
+      newURI: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -560,6 +867,82 @@ export interface MixverseSpace extends BaseContract {
       operator?: PromiseOrValue<string> | null,
       approved?: null
     ): ApprovalForAllEventFilter;
+
+    "ItemCanceledEvent(uint256,uint256,address,address,uint256,uint256,uint256)"(
+      id?: PromiseOrValue<BigNumberish> | null,
+      tokenId?: null,
+      collection?: null,
+      owner?: null,
+      totalAmount?: null,
+      amount?: null,
+      pricePerToken?: null
+    ): ItemCanceledEventEventFilter;
+    ItemCanceledEvent(
+      id?: PromiseOrValue<BigNumberish> | null,
+      tokenId?: null,
+      collection?: null,
+      owner?: null,
+      totalAmount?: null,
+      amount?: null,
+      pricePerToken?: null
+    ): ItemCanceledEventEventFilter;
+
+    "ItemListedEvent(uint256,uint256,address,address,uint256,uint256,string)"(
+      id?: PromiseOrValue<BigNumberish> | null,
+      tokenId?: null,
+      collection?: null,
+      owner?: null,
+      totalAmount?: null,
+      pricePerToken?: null,
+      uri?: null
+    ): ItemListedEventEventFilter;
+    ItemListedEvent(
+      id?: PromiseOrValue<BigNumberish> | null,
+      tokenId?: null,
+      collection?: null,
+      owner?: null,
+      totalAmount?: null,
+      pricePerToken?: null,
+      uri?: null
+    ): ItemListedEventEventFilter;
+
+    "ItemPurchasedEvent(uint256,uint256,address,address,address,uint256,uint256,uint256)"(
+      id?: PromiseOrValue<BigNumberish> | null,
+      tokenId?: null,
+      collection?: null,
+      owner?: null,
+      buyer?: null,
+      totalAmount?: null,
+      amount?: null,
+      pricePerToken?: null
+    ): ItemPurchasedEventEventFilter;
+    ItemPurchasedEvent(
+      id?: PromiseOrValue<BigNumberish> | null,
+      tokenId?: null,
+      collection?: null,
+      owner?: null,
+      buyer?: null,
+      totalAmount?: null,
+      amount?: null,
+      pricePerToken?: null
+    ): ItemPurchasedEventEventFilter;
+
+    "ItemSoldEvent(uint256,uint256,address,address,uint256,uint256)"(
+      id?: PromiseOrValue<BigNumberish> | null,
+      tokenId?: null,
+      collection?: null,
+      owner?: null,
+      totalAmount?: null,
+      pricePerToken?: null
+    ): ItemSoldEventEventFilter;
+    ItemSoldEvent(
+      id?: PromiseOrValue<BigNumberish> | null,
+      tokenId?: null,
+      collection?: null,
+      owner?: null,
+      totalAmount?: null,
+      pricePerToken?: null
+    ): ItemSoldEventEventFilter;
 
     "OwnershipTransferred(address,address)"(
       previousOwner?: PromiseOrValue<string> | null,
@@ -620,6 +1003,18 @@ export interface MixverseSpace extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    buy(
+      itemId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    cancel(
+      itemId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     create(
       _amount: PromiseOrValue<BigNumberish>,
       _cid: PromiseOrValue<string>,
@@ -633,10 +1028,37 @@ export interface MixverseSpace extends BaseContract {
 
     getBaseURI(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getUserItems(overrides?: CallOverrides): Promise<BigNumber>;
+
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    list(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _price: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    onERC1155BatchReceived(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>[],
+      arg3: PromiseOrValue<BigNumberish>[],
+      arg4: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    onERC1155Received(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>,
+      arg3: PromiseOrValue<BigNumberish>,
+      arg4: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -685,7 +1107,7 @@ export interface MixverseSpace extends BaseContract {
     ): Promise<BigNumber>;
 
     updateBaseURI(
-      newuri: PromiseOrValue<string>,
+      newURI: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -708,6 +1130,18 @@ export interface MixverseSpace extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    buy(
+      itemId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    cancel(
+      itemId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     create(
       _amount: PromiseOrValue<BigNumberish>,
       _cid: PromiseOrValue<string>,
@@ -721,10 +1155,37 @@ export interface MixverseSpace extends BaseContract {
 
     getBaseURI(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    getUserItems(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     isApprovedForAll(
       account: PromiseOrValue<string>,
       operator: PromiseOrValue<string>,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    list(
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _price: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    onERC1155BatchReceived(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>[],
+      arg3: PromiseOrValue<BigNumberish>[],
+      arg4: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    onERC1155Received(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      arg2: PromiseOrValue<BigNumberish>,
+      arg3: PromiseOrValue<BigNumberish>,
+      arg4: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -773,7 +1234,7 @@ export interface MixverseSpace extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     updateBaseURI(
-      newuri: PromiseOrValue<string>,
+      newURI: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

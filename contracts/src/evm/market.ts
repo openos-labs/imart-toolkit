@@ -1,12 +1,12 @@
 import { MarketInterface } from "../proxy";
-import { ListTokenArgs, CreateOfferArgs, Config, Tx } from "../types";
+import { ListTokenArgs, CreateOfferArgs } from "../types/market";
+import { Config, Tx } from "../types";
 import { Seaport } from "@opensea/seaport-js";
-import { ItemType,  } from "@opensea/seaport-js/lib/constants";
+import { ItemType } from "@opensea/seaport-js/lib/constants";
 import { ethers } from "ethers";
 import {
   OrderComponents,
   OrderWithCounter,
-  Signer,
 } from "@opensea/seaport-js/lib/types";
 
 export class Market implements MarketInterface {
@@ -16,7 +16,9 @@ export class Market implements MarketInterface {
   constructor(config: Config) {
     this.config = config;
     this.provider = config.provider as ethers.providers.JsonRpcProvider;
-    this.seaport = new Seaport(config.provider as ethers.providers.JsonRpcProvider);
+    this.seaport = new Seaport(
+      config.provider as ethers.providers.JsonRpcProvider
+    );
   }
 
   async buyToken(args: OrderWithCounter): Promise<Tx> {

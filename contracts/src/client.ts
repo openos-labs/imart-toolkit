@@ -1,14 +1,9 @@
 import { Config } from "./types";
-import { Aptos } from "./aptos";
-import { Evm } from "./evm";
+import { ContractProxy } from "./proxy";
 
-export type Protocol = "aptos" | "evm";
-
-export const ContractClient = (protocol: Protocol, config: Config) => {
-  switch (protocol) {
-    case "aptos":
-      return new Aptos(config);
-    case "evm":
-      return new Evm(config);
-  }
-};
+export function Contractor<T extends ContractProxy>(
+  Impl: new (config: Config) => T,
+  config: Config
+): T {
+  return new Impl(config);
+}
