@@ -1,7 +1,8 @@
 {
-  "name": "@imart/wallet-hook",
-  "version": "1.0.0",
+  "name": "@mix-labs/wallet-hook",
+  "version": "0.1.0",
   "main": "./index.ts",
+  "repository": "https://github.com/mix-labs/imart-toolkit.git",
   "license": "MIT",
   "dependencies": {
     "@dfinity/agent": "^0.10.2",
@@ -10,7 +11,7 @@
     "@dfinity/candid": "^0.10.2",
     "@dfinity/identity": "^0.10.2",
     "@dfinity/principal": "^0.10.2",
-    "@imart/contracts": "0.0.3",
+    "@mix-labs/contracts": "0.0.5",
     "@manahippo/aptos-wallet-adapter": "1.0.10",
     "@opensea/seaport-js": "^1.0.8",
     "@types/react": "^17.0.8",

@@ -1,17 +1,17 @@
 {
-  "name": "@imart/toolkit",
-  "version": "0.0.1",
+  "name": "@mix-labs/imart-toolkit",
+  "version": "0.1.0",
   "main": "./index.ts",
   "description": "IMart frontend packages",
-  "private": true,
+  "private": false,
   "workspaces": [
     "*",
     "hooks/*"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mix-labs/imart-toolkit.git"
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
+  "repository":"https://github.com/mix-labs/imart-toolkit.git",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mix-labs/imart-toolkit/issues"
@@ -23,7 +23,6 @@
     "lint": "lerna run lint",
     "format:check": "lerna run format:check",
     "release": "yarn build && yarn lerna publish",
-    "prepare": "husky install",
     "postinstall": "lerna run postinstall"
   },
   "devDependencies": {
