@@ -27,7 +27,7 @@ interface AuthProps {
     isAuth: boolean,
     address: string,
     loginLoading: boolean,
-    contractClient: ContractProxy,
+    contractClient: Contract,
     contractor: Contract,
     chainType: ChainType | string,
     walletType: WalletType | string
@@ -64,7 +64,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         isAuth: connected,
         address,
         loginLoading,
-        contractClient: walletClient,
+        contractClient: contractor,
         contractor,
         switchChain
     };
