@@ -11,7 +11,7 @@ export * from './WalletHook/Types';
 import {WalletHook} from './WalletHook'
 import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './WalletHook/Types';
 import {ContractProxy} from '../Contract'
-import {Contract, Contractor} from "@imart/contracts"
+import {Contract, Contractor} from "../../../contracts/src"
 
 declare global {
     interface Window {

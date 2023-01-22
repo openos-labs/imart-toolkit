@@ -9,7 +9,7 @@ import axios from "axios";
 import Storage from "../../utils/storage";
 import {MINT, MARKET, STORAGE, SALSE, WICP, SEAPORT, APTOS_MARKET_ADDRESS, APTOS_CREATION_ADDRESS, APTOS_CURATION_ADDRESS, ETH_CREATION_ADDRESS, ETH_CURATION_ADDRESS, ETH_MARKET_ADDRESS} from './Config'
 import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './Types'
-import { Contractor, Aptos, Evm, Contract } from "@imart/contracts";
+import { Contractor, Aptos, Evm, Contract } from "../../../../contracts/src";
 
 
 export interface HookResponse {
