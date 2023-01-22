@@ -193,17 +193,17 @@ export const WalletHook = (): HookResponse => {
             return {} as any
         }
         switch (_chainType) {
-            case "ETH": {
-                const configuration = {
-                    addresses: {
-                        creation: ETH_CREATION_ADDRESS,
-                        curation: ETH_CURATION_ADDRESS,
-                        market: ETH_MARKET_ADDRESS
-                    },
-                    provider: ETH.library.currentProvider as any
-                }
-                return Contractor(Evm, configuration)
-            }
+            // case "ETH": {
+            //     const configuration = {
+            //         addresses: {
+            //             creation: ETH_CREATION_ADDRESS,
+            //             curation: ETH_CURATION_ADDRESS,
+            //             market: ETH_MARKET_ADDRESS
+            //         },
+            //         provider: ETH.library.currentProvider as any
+            //     }
+            //     return Contractor(Evm, configuration)
+            // }
             default: {
                 const configuration = {
                     addresses: {
