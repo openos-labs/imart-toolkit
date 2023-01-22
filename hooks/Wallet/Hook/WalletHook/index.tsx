@@ -49,7 +49,7 @@ export const WalletHook = (): HookResponse => {
                         curation: ETH_CURATION_ADDRESS,
                         market: ETH_MARKET_ADDRESS
                     },
-                    provider: ETH.library!
+                    provider: ETH.library
                 }
                 return Contractor(Evm, configuration)
             }
@@ -65,7 +65,7 @@ export const WalletHook = (): HookResponse => {
                 return Contractor(Aptos, configuration)
             }
         }
-    }, [_chainType])
+    }, [_chainType,ETH])
 
     //  client
     const walletClient: ContractProxy = useMemo(() => {
