@@ -9,12 +9,13 @@
 ## Installation
 
 ```
-npm install --save git@github.com:mix-labs/imart-toolkit.git#main
+npm install @mix-labs/imart-toolkit
 ```
 
 ## Usage
 
 ```
+import { Contractor } from "@mix-labs/imart-toolkit/contracts";
 const configuration = {
     addresses: {
       creation: imartToken.address,
@@ -58,7 +59,7 @@ yarn workspace @imart/contracts hardhat test
 // password == github access token
 npm login --registry=https://npm.pkg.github.com
 
-// change package version before publish
+// upgrade package version before publish
 export GITHUB_ACCESS_TOKEN=xxxxxxx
 npm publish
 ```
