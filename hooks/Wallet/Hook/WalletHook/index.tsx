@@ -7,9 +7,22 @@ import {ICWallet} from './Chains/IC'
 import {getNonce, auth} from "./Api";
 import axios from "axios";
 import Storage from "../../utils/storage";
-import {MINT, MARKET, STORAGE, SALSE, WICP, SEAPORT, APTOS_MARKET_ADDRESS, APTOS_CREATION_ADDRESS, APTOS_CURATION_ADDRESS, ETH_CREATION_ADDRESS, ETH_CURATION_ADDRESS, ETH_MARKET_ADDRESS} from './Config'
+import {
+    MINT,
+    MARKET,
+    STORAGE,
+    SALSE,
+    WICP,
+    SEAPORT,
+    APTOS_MARKET_ADDRESS,
+    APTOS_CREATION_ADDRESS,
+    APTOS_CURATION_ADDRESS,
+    ETH_CREATION_ADDRESS,
+    ETH_CURATION_ADDRESS,
+    ETH_MARKET_ADDRESS
+} from './Config'
 import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './Types'
-import { Contractor, Aptos, Evm, Contract } from "../../../../contracts/src";
+import {Contractor, Aptos, Evm, Contract} from "../../../../contracts/src";
 
 
 export interface HookResponse {
@@ -40,32 +53,6 @@ export const WalletHook = (): HookResponse => {
         return {APTOS, ETH, IC}
     }, [APTOS, ETH, IC]);
 
-    const contractor: Contract = useMemo(() => {
-        switch(_chainType) {
-            case "ETH": {
-                const configuration = {
-                    addresses: {
-                        creation: ETH_CREATION_ADDRESS,
-                        curation: ETH_CURATION_ADDRESS,
-                        market: ETH_MARKET_ADDRESS
-                    },
-                    provider: ETH.library
-                }
-                return Contractor(Evm, configuration)
-            }
-            default: {
-                const configuration = {
-                    addresses: {
-                        creation: APTOS_CREATION_ADDRESS,
-                        curation: APTOS_CURATION_ADDRESS,
-                        market: APTOS_MARKET_ADDRESS
-                    },
-                    submitTx: signAndSubmitTransaction
-                }
-                return Contractor(Aptos, configuration)
-            }
-        }
-    }, [_chainType,ETH])
 
     //  client
     const walletClient: ContractProxy = useMemo(() => {
@@ -127,7 +114,9 @@ export const WalletHook = (): HookResponse => {
         }
         return walletGather[_chainType]
     }, [_chainType, _walletType, walletGather])
-
+    const connected = useMemo(() => {
+        return !!(currentConnectedWallet && currentConnectedWallet['connected'])
+    }, [currentConnectedWallet])
 
     // logout
     const walletLogout = useCallback(async () => {
@@ -199,6 +188,35 @@ export const WalletHook = (): HookResponse => {
             return walletLogin(cachedChainType, cachedWalletType)
         }
     }
+    const contractor: Contract = useMemo(() => {
+        if (!connected) {
+            return {} as any
+        }
+        switch (_chainType) {
+            case "ETH": {
+                const configuration = {
+                    addresses: {
+                        creation: ETH_CREATION_ADDRESS,
+                        curation: ETH_CURATION_ADDRESS,
+                        market: ETH_MARKET_ADDRESS
+                    },
+                    provider: ETH.library
+                }
+                return Contractor(Evm, configuration)
+            }
+            default: {
+                const configuration = {
+                    addresses: {
+                        creation: APTOS_CREATION_ADDRESS,
+                        curation: APTOS_CURATION_ADDRESS,
+                        market: APTOS_MARKET_ADDRESS
+                    },
+                    submitTx: signAndSubmitTransaction
+                }
+                return Contractor(Aptos, configuration)
+            }
+        }
+    }, [_chainType, ETH, connected])
     return {
         contractor,
         walletClient,
@@ -208,7 +226,7 @@ export const WalletHook = (): HookResponse => {
         address,
         currentChainType: _chainType,
         currentWalletType: _walletType,
-        connected: !!(currentConnectedWallet && currentConnectedWallet['connected']),
+        connected,
         loginLoading,
         checkLogin,
         switchChain
