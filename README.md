@@ -4,6 +4,7 @@
 - [Usage](#Usage)
 - [Development](#Development)
   - [Local test](#Local-test)
+  - [Publish](#Publish)
 
 ## Installation
 
@@ -58,5 +59,6 @@ yarn workspace @imart/contracts hardhat test
 npm login --registry=https://npm.pkg.github.com
 
 // change package version before publish
+export GITHUB_ACCESS_TOKEN=xxxxxxx
 npm publish
 ```
