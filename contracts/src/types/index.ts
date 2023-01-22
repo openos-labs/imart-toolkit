@@ -19,5 +19,5 @@ export type SubmitTx = (payload: any) => Promise<any>;
 export interface Config {
   addresses: Addresses;
   submitTx?: SubmitTx;
-  provider?: ethers.providers.JsonRpcProvider | ethers.providers.BaseProvider;
+  provider?: ethers.providers.JsonRpcProvider | ethers.providers.BaseProvider | any;
 }

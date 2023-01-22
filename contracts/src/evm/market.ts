@@ -3,22 +3,22 @@ import { ListTokenArgs, CreateOfferArgs } from "../types/market";
 import { Config, Tx } from "../types";
 import { Seaport } from "@opensea/seaport-js";
 import { ItemType } from "@opensea/seaport-js/lib/constants";
-import { ethers } from "ethers";
+import { JsonRpcProvider } from "@ethersproject/providers";
 import {
   OrderComponents,
   OrderWithCounter,
 } from "@opensea/seaport-js/lib/types";
+import { ethers } from "ethers";
 
 export class Market implements MarketInterface {
-  provider: ethers.providers.JsonRpcProvider;
+  provider: any;
   seaport: Seaport;
   readonly config: Config;
   constructor(config: Config) {
     this.config = config;
-    this.provider = config.provider as ethers.providers.JsonRpcProvider;
-    this.seaport = new Seaport(
-      config.provider as ethers.providers.JsonRpcProvider
-    );
+    if (this.provider && this.provider instanceof JsonRpcProvider) {
+      this.seaport = new Seaport(this.provider);
+    }
   }
 
   async buyToken(args: OrderWithCounter): Promise<Tx> {
