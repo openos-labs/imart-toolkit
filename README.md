@@ -47,3 +47,16 @@ yarn workspace @imart/contracts hardhat node
 // run tests
 yarn workspace @imart/contracts hardhat test
 ```
+
+### Publish
+
+```
+// generate github access token
+// https://github.com/settings/tokens
+
+// password == github access token
+npm login --registry=https://npm.pkg.github.com
+
+// change package version before publish
+npm publish
+```
