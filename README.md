@@ -6,6 +6,15 @@
   - [Local test](#Local-test)
   - [Publish](#Publish)
 
+To pull and install package via the NPM CLI, you'll need:
+
+A personal access token (you can create a personal acess token here)
+The personal access token with the correct scopes, repo and read:packages to be granted access to the GitHub Package Registry.
+
+Authentication via npm login, using your Github email for the username and the personal access token as your password:
+
+
+
 ## Installation
 
 ```
