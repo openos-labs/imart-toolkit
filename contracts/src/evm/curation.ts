@@ -34,7 +34,8 @@ export class Curation implements CurationInterface {
         args.tokenIdentifier,
         args.spaceType,
         args.name,
-        args.metadataUri
+        args.metadataUri,
+        false
       );
   }
 

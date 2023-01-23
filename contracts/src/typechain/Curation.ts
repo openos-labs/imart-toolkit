@@ -155,7 +155,7 @@ export interface CurationInterface extends utils.Interface {
     "buy(uint256,uint256)": FunctionFragment;
     "cancel(uint256,uint256)": FunctionFragment;
     "cancelOffer(uint256)": FunctionFragment;
-    "createGallery(address,uint256,string,string,string)": FunctionFragment;
+    "createGallery(address,uint256,string,string,string,bool)": FunctionFragment;
     "exhibits(uint256)": FunctionFragment;
     "freeze(uint256,uint256)": FunctionFragment;
     "galleries(uint256)": FunctionFragment;
@@ -229,7 +229,8 @@ export interface CurationInterface extends utils.Interface {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
       PromiseOrValue<string>,
-      PromiseOrValue<string>
+      PromiseOrValue<string>,
+      PromiseOrValue<boolean>
     ]
   ): string;
   encodeFunctionData(
@@ -410,7 +411,7 @@ export interface CurationInterface extends utils.Interface {
     "ExhibitListed(uint256,uint256,address,uint256,address,uint64,uint256,uint256,string,string,string,uint64)": EventFragment;
     "ExhibitRedeemed(uint256,uint256,address,uint256,address,uint64)": EventFragment;
     "ExhibitSold(uint256,uint256,address,uint256,address,uint256,uint256,uint64)": EventFragment;
-    "GalleryCreated(uint256,address,uint256,address,string,string,string,uint64)": EventFragment;
+    "GalleryCreated(uint256,address,uint256,address,string,string,string,bool,uint64)": EventFragment;
     "OfferAccepted(uint256,address,uint256,address,address,uint256,uint256,uint256,uint64,uint64)": EventFragment;
     "OfferCanceled(uint256,address,uint256,address,address,uint64)": EventFragment;
     "OfferCreated(uint256,address,uint256,address,address,uint256,uint256,uint256,uint64,uint64,uint64,string,string)": EventFragment;
@@ -544,10 +545,21 @@ export interface GalleryCreatedEventObject {
   spaceType: string;
   name: string;
   metadataUri: string;
+  isToken: boolean;
   timestamp: BigNumber;
 }
 export type GalleryCreatedEvent = TypedEvent<
-  [BigNumber, string, BigNumber, string, string, string, string, BigNumber],
+  [
+    BigNumber,
+    string,
+    BigNumber,
+    string,
+    string,
+    string,
+    string,
+    boolean,
+    BigNumber
+  ],
   GalleryCreatedEventObject
 >;
 
@@ -711,6 +723,7 @@ export interface Curation extends BaseContract {
       spaceType: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
       metadataUri: PromiseOrValue<string>,
+      isToken: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -935,6 +948,7 @@ export interface Curation extends BaseContract {
     spaceType: PromiseOrValue<string>,
     name: PromiseOrValue<string>,
     metadataUri: PromiseOrValue<string>,
+    isToken: PromiseOrValue<boolean>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1159,6 +1173,7 @@ export interface Curation extends BaseContract {
       spaceType: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
       metadataUri: PromiseOrValue<string>,
+      isToken: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1460,7 +1475,7 @@ export interface Curation extends BaseContract {
       timestamp?: null
     ): ExhibitSoldEventFilter;
 
-    "GalleryCreated(uint256,address,uint256,address,string,string,string,uint64)"(
+    "GalleryCreated(uint256,address,uint256,address,string,string,string,bool,uint64)"(
       id?: PromiseOrValue<BigNumberish> | null,
       collection?: null,
       tokenId?: null,
@@ -1468,6 +1483,7 @@ export interface Curation extends BaseContract {
       spaceType?: null,
       name?: null,
       metadataUri?: null,
+      isToken?: null,
       timestamp?: null
     ): GalleryCreatedEventFilter;
     GalleryCreated(
@@ -1478,6 +1494,7 @@ export interface Curation extends BaseContract {
       spaceType?: null,
       name?: null,
       metadataUri?: null,
+      isToken?: null,
       timestamp?: null
     ): GalleryCreatedEventFilter;
 
@@ -1605,6 +1622,7 @@ export interface Curation extends BaseContract {
       spaceType: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
       metadataUri: PromiseOrValue<string>,
+      isToken: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1749,6 +1767,7 @@ export interface Curation extends BaseContract {
       spaceType: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
       metadataUri: PromiseOrValue<string>,
+      isToken: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
