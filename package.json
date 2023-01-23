@@ -1,12 +1,12 @@
 {
   "name": "@mix-labs/imart-toolkit",
-  "version": "0.1.4Ω",
+  "version": "0.1.7",
   "main": "./index.ts",
   "description": "IMart frontend packages",
   "private": false,
   "workspaces": [
     "*",
-    "hooks/*"
+    "Wallet/*"
   ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

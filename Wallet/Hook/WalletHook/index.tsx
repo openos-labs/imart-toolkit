@@ -127,8 +127,14 @@ export const WalletHook = (): HookResponse => {
     }, [currentConnectedWallet, _chainType, _walletType])
 
 
+    useEffect(() => {
+        if (connected && currentConnectedWallet) {
+            AuthImart()
+        }
+    }, [currentConnectedWallet, connected])
+
     // Authorization for imart backend
-    const AuthImart = useCallback(async () => {
+    const AuthImart = async () => {
         if (!currentConnectedWallet) {
             return false;
         }
@@ -164,7 +170,7 @@ export const WalletHook = (): HookResponse => {
             return true;
         }
         return false;
-    }, [_chainType, _walletType, currentConnectedWallet]);
+    }
 
 
     const switchChain = async (chainType: ChainType, walletType: WalletType) => {
