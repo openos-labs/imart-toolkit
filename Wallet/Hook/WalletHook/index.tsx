@@ -22,7 +22,7 @@ import {
     ETH_MARKET_ADDRESS
 } from './Config'
 import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './Types'
-import {Contractor, Aptos, Evm, Contract} from "../../../../contracts/src";
+import {Contractor, Aptos, Evm, Contract} from "../../../contracts/src";
 
 
 export interface HookResponse {
