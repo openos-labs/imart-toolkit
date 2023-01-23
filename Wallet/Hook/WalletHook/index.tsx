@@ -139,7 +139,7 @@ export const WalletHook = (): HookResponse => {
             return false;
         }
         const {publicKey, address} = currentConnectedWallet;
-        if (publicKey && address) {
+        if (!publicKey || !address) {
             return;
         }
         const data = await getNonce(
