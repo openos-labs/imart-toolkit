@@ -102,8 +102,6 @@ export const WalletHook = (): HookResponse => {
         // Storage.
         setChainType(chainType);
         setWalletType(walletType);
-        await AuthImart();
-
         setLoginLoading(false);
     }
 
@@ -129,6 +127,7 @@ export const WalletHook = (): HookResponse => {
 
     useEffect(() => {
         if (connected && currentConnectedWallet) {
+            alert(120)
             AuthImart()
         }
     }, [currentConnectedWallet, connected])
