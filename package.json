@@ -22,8 +22,7 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "format:check": "lerna run format:check",
-    "release": "yarn build && yarn lerna publish",
-    "postinstall": "lerna run postinstall"
+    "release": "yarn build && yarn lerna publish"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
