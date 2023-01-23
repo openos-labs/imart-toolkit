@@ -30,7 +30,7 @@ export interface ListTokenArgs extends WithCoinType {
   name: string;
   propertyVersion: string;
   tokenAmount: number;
-  coinAmount: number;
+  coinAmount: number|string;
   lockedUntilSecs: number;
 }
 
