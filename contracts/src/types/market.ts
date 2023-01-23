@@ -15,7 +15,7 @@ export interface BuyTokenArgs extends WithCoinType {
   tokenId: string;
   coinAmount: number;
   seller: string;
-  owner: string;
+  creator: string;
   collection: string;
   name: string;
   propertyVersion: string;

@@ -24,7 +24,7 @@ export class Market implements MarketInterface {
       arguments: [
         args.coinAmount,
         args.seller,
-        args.owner,
+        args.creator,
         args.collection,
         args.name,
         args.propertyVersion,
