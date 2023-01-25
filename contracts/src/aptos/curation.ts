@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import { CurationInterface } from "../proxy";
 import { Config, Tx } from "../types";
 import {
@@ -31,6 +32,13 @@ export class Curation implements CurationInterface {
 
   // curator.create_offer
   createCurationOffer(args: CreateCurationOfferArgs): Promise<Tx> {
+    const decimals = new BigNumber(args.commissionFeeRate)
+      .div(new BigNumber(10).pow(8))
+      .dp();
+    const denominator = new BigNumber(10).pow(decimals).dp(0);
+    const numerator = new BigNumber(args.commissionFeeRate)
+      .multipliedBy(denominator)
+      .dp(0);
     const payload = {
       type: "entry_function_payload",
       function: `${this.handle}::send_offer`,
@@ -43,8 +51,8 @@ export class Curation implements CurationInterface {
         args.tokenPropertyVersion,
         args.galleryId,
         args.price,
-        args.commissionFeerateNumerator.toString(),
-        args.commissionFeerateDenominator.toString(),
+        numerator.toString(),
+        denominator.toString(),
         args.offerDuration.toString(),
         args.exhibitDuration.toString(),
         args.url,

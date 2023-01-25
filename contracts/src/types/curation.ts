@@ -15,8 +15,7 @@ export interface CreateCurationOfferArgs extends WithCoinType {
   tokenPropertyVersion: string;
   galleryId: string;
   price: string;
-  commissionFeerateNumerator: number;
-  commissionFeerateDenominator: number;
+  commissionFeeRate: string;
   offerDuration: number;
   exhibitDuration: number;
   url: string;

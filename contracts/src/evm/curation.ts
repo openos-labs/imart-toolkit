@@ -51,9 +51,7 @@ export class Curation implements CurationInterface {
         args.tokenIdentifier,
         BigNumber.from(args.galleryId),
         BigNumber.from(args.price),
-        BigNumber.from(args.commissionFeerateNumerator).div(
-          BigNumber.from(args.commissionFeerateDenominator)
-        ),
+        BigNumber.from(args.commissionFeeRate),
         BigNumber.from(args.offerDuration),
         BigNumber.from(args.exhibitDuration),
         args.url,

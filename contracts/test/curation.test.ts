@@ -1,7 +1,7 @@
 import { ContractTransaction } from "@ethersproject/contracts";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
-import { BigNumberish } from "ethers";
+import { BigNumber, BigNumberish } from "ethers";
 import { ethers } from "hardhat";
 import "typechain";
 import {
@@ -53,6 +53,7 @@ async function sendOffer(
   const galleries = await curation.getCuratorGalleries(from.address);
   const gallery = galleries[0];
   const price = ethers.utils.parseEther("0.11");
+  const feerate = BigNumber.from(0.001 * Math.pow(10, 18));
   const offerDuration = 3600 * 24 * 30;
   const exhibitDuration = 3600 * 24 * 30;
 
@@ -67,8 +68,7 @@ async function sendOffer(
       tokenPropertyVersion: "",
       galleryId: gallery.id.toString(),
       price: price.toString(),
-      commissionFeerateNumerator: 1,
-      commissionFeerateDenominator: 1000,
+      commissionFeeRate: feerate.toString(),
       offerDuration: offerDuration,
       exhibitDuration: exhibitDuration,
       url: "https://github.com",
