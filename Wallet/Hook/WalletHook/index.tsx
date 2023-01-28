@@ -127,7 +127,6 @@ export const WalletHook = (): HookResponse => {
 
     useEffect(() => {
         if (connected && currentConnectedWallet) {
-            alert(120)
             AuthImart()
         }
     }, [currentConnectedWallet, connected])
@@ -207,7 +206,8 @@ export const WalletHook = (): HookResponse => {
                     },
                     provider: ''
                 }
-                return Contractor(Evm, configuration)
+                return {} as  any
+                // return Contractor(Evm, configuration)
             }
             default: {
                 const configuration = {
