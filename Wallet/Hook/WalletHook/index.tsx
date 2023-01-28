@@ -205,7 +205,7 @@ export const WalletHook = (): HookResponse => {
                         curation: ETH_CURATION_ADDRESS,
                         market: ETH_MARKET_ADDRESS
                     },
-                    provider: ETH.library.currentProvider as any
+                    provider: ''
                 }
                 return Contractor(Evm, configuration)
             }
