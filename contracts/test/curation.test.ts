@@ -70,7 +70,7 @@ async function sendOffer(
       price: price.toString(),
       commissionFeeRate: feerate.toString(),
       offerDuration: offerDuration,
-      exhibitDuration: exhibitDuration,
+      exhibitExpiredAt: exhibitDuration,
       url: "https://github.com",
       additionalInfo: '{"remark": "help!", "tel": "+86xxxxx", "any other": ""}',
     },

@@ -53,7 +53,7 @@ export class Curation implements CurationInterface {
         BigNumber.from(args.price),
         BigNumber.from(args.commissionFeeRate),
         BigNumber.from(args.offerDuration),
-        BigNumber.from(args.exhibitDuration),
+        BigNumber.from(args.exhibitExpiredAt),
         args.url,
         args.additionalInfo
       );

@@ -54,7 +54,7 @@ export class Curation implements CurationInterface {
         numerator.toString(),
         denominator.toString(),
         args.offerDuration.toString(),
-        args.exhibitDuration.toString(),
+        args.exhibitExpiredAt.toString(),
         args.url,
         args.additionalInfo,
       ],

@@ -17,7 +17,7 @@ export interface CreateCurationOfferArgs extends WithCoinType {
   price: string;
   commissionFeeRate: string;
   offerDuration: number;
-  exhibitDuration: number;
+  exhibitExpiredAt: number;
   url: string;
   additionalInfo: string;
 }
