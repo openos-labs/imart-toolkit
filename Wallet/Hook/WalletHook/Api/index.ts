@@ -1,7 +1,17 @@
 import axios from "axios";
+import Storage from '../../../utils/storage';
 
-axios.defaults.baseURL = "/imartApi";
+axios.interceptors.request.use(
+    config => {
+        config.headers["Authorization"] = `${Storage.getJWT("token")}`;
+        return config;
+    },
+    error => {
+        return Promise.reject(error);
+    }
+);
 
+axios.defaults.baseURL = "/api";
 /**
  * @description:
  * @param {string} publicKey
@@ -26,4 +36,14 @@ export interface Auth {
 export const auth = async (authParams: Auth) => {
     const res = await axios.post(`/auth`, authParams);
     return res.data
+}
+
+
+export const isAuth = async (): Promise<boolean> => {
+    try {
+        const response = await axios.get(`/user/isLoggedIn`);
+        return response.status == 200 && response.data.isLoggedIn;
+    } catch (e) {
+        return false;
+    }
 }

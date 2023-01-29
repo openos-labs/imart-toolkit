@@ -9,8 +9,7 @@ import {
 
 export * from './WalletHook/Types';
 import {WalletHook} from './WalletHook'
-import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './WalletHook/Types';
-import {ContractProxy} from '../Contract'
+import {ChainResponse, ChainType, WalletType} from './WalletHook/Types';
 import {Contract, Contractor} from "../../contracts/src"
 
 declare global {
@@ -44,7 +43,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         loginLoading,
         walletLogin,
         walletLogout,
-        walletClient,
         contractor: contractor,
         connected,
         checkLogin,
@@ -55,7 +53,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
 
     useEffect(() => {
         checkLogin();
-    }, [])
+    }, []);
+
     const Context: AuthProps = {
         chainType: currentChainType,
         walletType: currentWalletType,

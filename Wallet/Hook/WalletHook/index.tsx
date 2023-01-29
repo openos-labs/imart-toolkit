@@ -1,10 +1,9 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {ContractClient, Protocol, Settings, ContractProxy} from "../../Contract";
 import {useWallet} from "@manahippo/aptos-wallet-adapter";
 import {AptosWallet} from './Chains/Aptos';
 import {ETHWallet} from './Chains/ETH';
 import {ICWallet} from './Chains/IC'
-import {getNonce, auth} from "./Api";
+import {getNonce, auth, isAuth} from "./Api";
 import axios from "axios";
 import Storage from "../../utils/storage";
 import {
@@ -22,7 +21,7 @@ import {
     ETH_MARKET_ADDRESS
 } from './Config'
 import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './Types'
-import {Contractor, Aptos, Evm, Contract} from "../../../contracts/src";
+import {Contractor, Aptos, Evm, Contract, ContractProxy} from "../../../contracts/src";
 
 
 export interface HookResponse {
@@ -31,7 +30,6 @@ export interface HookResponse {
     connected: boolean;
     address: string;
     loginLoading: boolean;
-    walletClient: ContractProxy;
     contractor: Contract;
     currentChainType: ChainType | string;
     currentWalletType: WalletType | string;
@@ -53,42 +51,6 @@ export const WalletHook = (): HookResponse => {
         return {APTOS, ETH, IC}
     }, [APTOS, ETH, IC]);
 
-
-    //  client
-    const walletClient: ContractProxy = useMemo(() => {
-        let protocol: Protocol;
-        let settings: Settings;
-        switch (_chainType) {
-            case "APTOS":
-                protocol = "aptos";
-                settings = {
-                    signAndSubmitTransaction,
-                    marketAddress: `${
-                        APTOS_MARKET_ADDRESS
-                    }`,
-                };
-                break;
-            case "IC":
-                protocol = "ic";
-                settings = {
-                    wicpCanisterId: WICP,
-                    mintCanisterId: MINT,
-                    marketCanisterId: MARKET,
-                    // @ts-ignore
-                    batchTransactions: window?.ic?.plug.batchTransactions,
-                };
-                break;
-            case "ETH":
-            case "BSC":
-            case "POLYGON":
-                protocol = "seaport";
-                settings = {
-                    seaportAddress: `${SEAPORT}`,
-                };
-                break;
-        }
-        return new ContractClient(protocol!, settings!) as ContractProxy;
-    }, [_chainType])
 
     // login
     const walletLogin = async (chainType: ChainType, walletType: WalletType) => {
@@ -136,6 +98,10 @@ export const WalletHook = (): HookResponse => {
         if (!currentConnectedWallet) {
             return false;
         }
+        if (await isAuth()) {
+            return;
+        }
+
         const {publicKey, address} = currentConnectedWallet;
         if (!publicKey || !address) {
             return;
@@ -206,7 +172,7 @@ export const WalletHook = (): HookResponse => {
                     },
                     provider: ''
                 }
-                return {} as  any
+                return {} as any
                 // return Contractor(Evm, configuration)
             }
             default: {
@@ -224,7 +190,6 @@ export const WalletHook = (): HookResponse => {
     }, [_chainType, ETH, connected])
     return {
         contractor,
-        walletClient,
         walletLogin,
         walletLogout,
         AuthImart,
