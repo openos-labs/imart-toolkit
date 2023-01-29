@@ -8,7 +8,6 @@ import {
   OrderComponents,
   OrderWithCounter,
 } from "@opensea/seaport-js/lib/types";
-import { ethers } from "ethers";
 
 export class Market implements MarketInterface {
   provider: any;
@@ -38,13 +37,13 @@ export class Market implements MarketInterface {
       offer: [
         {
           itemType: ItemType.ERC721,
-          token: args.tokenId,
-          identifier: `${args.tokenAmount}`,
+          token: args.collectionId,
+          identifier: `${args.tokenId}`,
         },
       ],
       consideration: [
         {
-          amount: ethers.utils.parseEther(`${args.coinAmount}`).toString(),
+          amount: args.coinAmount.toString(),
           recipient: offerer,
         },
       ],
@@ -64,8 +63,9 @@ export class Market implements MarketInterface {
       startTime: "0",
       offer: [
         {
-          token: "", // TODO: erc20 address
-          amount: ethers.utils.parseEther(args.price).toString(),
+          itemType: 0,
+          token: "0x0000000000000000000000000000000000000000", // native ETH
+          amount: args.price,
         },
       ],
       consideration: [
