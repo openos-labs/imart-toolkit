@@ -11,7 +11,7 @@ axios.interceptors.request.use(
     }
 );
 
-axios.defaults.baseURL = "/api";
+axios.defaults.baseURL = "/auth";
 /**
  * @description:
  * @param {string} publicKey
