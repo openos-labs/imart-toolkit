@@ -1,3 +1,5 @@
+// @ts-check
+
 import { BigNumber, ethers } from "ethers";
 import { CurationInterface } from "../proxy";
 import { Curation__factory, Curation as CURATION } from "../typechain";

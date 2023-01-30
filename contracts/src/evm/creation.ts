@@ -1,3 +1,5 @@
+// @ts-check
+
 import { CreationInterface } from "../proxy";
 import { ethers } from "ethers";
 import { IMartToken, IMartToken__factory } from "../typechain";

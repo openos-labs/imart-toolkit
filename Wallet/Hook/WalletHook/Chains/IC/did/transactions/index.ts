@@ -9,7 +9,6 @@ import {Result, TxReceipt} from "../model/market";
 import {TxReceipt as wicpTxReceipt} from "../model/wicp";
 import {Result_1} from "../model/sale.did";
 import BigNumber from "bignumber.js";
-import {getCurrencyString} from "../../../../../../utils/IC";
 import {APP_HOST, MARKET, MINT, SALSE, STORAGE, MUSIC, WICP} from '../../../../Config'
 export type Type = 'art' | 'music';
 

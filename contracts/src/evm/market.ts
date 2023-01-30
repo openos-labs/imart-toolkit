@@ -1,3 +1,4 @@
+// @ts-check
 import { MarketInterface } from "../proxy";
 import { ListTokenArgs, CreateOfferArgs } from "../types/market";
 import { Config, Signer, Tx } from "../types";

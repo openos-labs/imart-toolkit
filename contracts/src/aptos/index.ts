@@ -1,3 +1,5 @@
+// @ts-check
+
 import {ContractProxy} from "../proxy";
 import {
     BuyTokenArgs,

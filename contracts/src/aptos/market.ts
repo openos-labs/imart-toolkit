@@ -1,3 +1,4 @@
+// @ts-check
 import { MarketInterface } from "../proxy";
 import {
   BuyTokenArgs,
@@ -112,6 +113,6 @@ export class Market implements MarketInterface {
         args.tokenAmount,
       ],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 }

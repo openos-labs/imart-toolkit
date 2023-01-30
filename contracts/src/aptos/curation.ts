@@ -1,3 +1,4 @@
+// @ts-check
 import BigNumber from "bignumber.js";
 import { CurationInterface } from "../proxy";
 import { Config, Tx } from "../types";
@@ -27,7 +28,7 @@ export class Curation implements CurationInterface {
       type_arguments: [],
       arguments: [args.name, args.spaceType, args.metadataUri],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   // curator.create_offer
@@ -59,7 +60,7 @@ export class Curation implements CurationInterface {
         args.additionalInfo,
       ],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   // invitee.reply_offer
@@ -70,7 +71,7 @@ export class Curation implements CurationInterface {
       type_arguments: [args.coinType],
       arguments: [args.offerId, args.reply],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   // curator.cancel_offer
@@ -81,7 +82,7 @@ export class Curation implements CurationInterface {
       type_arguments: [args.coinType],
       arguments: [args.offerId],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   // visitor.buy_exhibit
@@ -92,7 +93,7 @@ export class Curation implements CurationInterface {
       type_arguments: [args.coinType],
       arguments: [args.galleryId, args.exhibitId],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   // curator.list_exhibit
@@ -103,7 +104,7 @@ export class Curation implements CurationInterface {
       type_arguments: [args.coinType],
       arguments: [args.galleryId, args.exhibitId, args.additionalInfo],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   // curator.cancel_exhibit
@@ -114,7 +115,7 @@ export class Curation implements CurationInterface {
       type_arguments: [args.coinType],
       arguments: [args.galleryId, args.exhibitId],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   // nft_owner.redeem
@@ -125,6 +126,6 @@ export class Curation implements CurationInterface {
       type_arguments: [args.coinType],
       arguments: [args.galleryId, args.exhibitId],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 }

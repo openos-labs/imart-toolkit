@@ -1,3 +1,4 @@
+// @ts-check
 import { CreationInterface } from "../proxy";
 import { Config, CreationArgs, Tx } from "../types";
 export class Creation implements CreationInterface {
@@ -14,6 +15,6 @@ export class Creation implements CreationInterface {
       type_arguments: [],
       arguments: [args.category, args.title, args.description, args.uri],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 }
