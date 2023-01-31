@@ -23,10 +23,9 @@ export class Creation implements CreationInterface {
       );
     }
   }
-  async create(args: CreationArgs, signer: Signer): Promise<Tx> {
-    const owner = await this.provider.getSigner().getAddress();
-    return await this.imartToken
-      .connect(this.provider)
-      .safeMint(owner, args.uri);
+  async create(args: CreationArgs, _: Signer): Promise<Tx> {
+    const signer = this.provider.getSigner();
+    const owner = await signer.getAddress();
+    return await this.imartToken.connect(signer).safeMint(owner, args.uri);
   }
 }

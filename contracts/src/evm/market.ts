@@ -26,7 +26,7 @@ export class Market implements MarketInterface {
     }
   }
 
-  async buyToken(args: OrderWithCounter, signer?: Signer): Promise<Tx> {
+  async buyToken(args: OrderWithCounter, _?: Signer): Promise<Tx> {
     const account = await this.provider.getSigner().getAddress();
     const { executeAllActions } = await this.seaport.fulfillOrder({
       order: args,
@@ -35,7 +35,7 @@ export class Market implements MarketInterface {
     return await executeAllActions();
   }
 
-  async listToken(args: ListTokenArgs, signer?: Signer): Promise<Tx> {
+  async listToken(args: ListTokenArgs, _?: Signer): Promise<Tx> {
     const offerer = await this.provider.getSigner().getAddress();
     const { executeAllActions } = await this.seaport.createOrder({
       startTime: "0",
@@ -56,13 +56,13 @@ export class Market implements MarketInterface {
     return await executeAllActions();
   }
 
-  async delistToken(args: OrderComponents, signer?: Signer): Promise<Tx> {
+  async delistToken(args: OrderComponents, _?: Signer): Promise<Tx> {
     const seller = await this.provider.getSigner().getAddress();
     const { transact } = this.seaport.cancelOrders([args], seller);
     return await transact();
   }
 
-  async createOffer(args: CreateOfferArgs, signer?: Signer): Promise<Tx> {
+  async createOffer(args: CreateOfferArgs, _?: Signer): Promise<Tx> {
     const offerer = await this.provider.getSigner().getAddress();
     const { executeAllActions } = await this.seaport.createOrder({
       startTime: "0",
@@ -85,13 +85,13 @@ export class Market implements MarketInterface {
     return await executeAllActions();
   }
 
-  async cancelOffer(args: OrderComponents, signer?: Signer): Promise<Tx> {
+  async cancelOffer(args: OrderComponents, _?: Signer): Promise<Tx> {
     const seller = await this.provider.getSigner().getAddress();
     const { transact } = this.seaport.cancelOrders([args], seller);
     return await transact();
   }
 
-  async acceptOffer(args: OrderWithCounter, signer?: Signer): Promise<Tx> {
+  async acceptOffer(args: OrderWithCounter, _?: Signer): Promise<Tx> {
     const account = await this.provider.getSigner().getAddress();
     const { executeAllActions } = await this.seaport.fulfillOrder({
       order: args,

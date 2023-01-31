@@ -15,6 +15,7 @@ import {
 export class Curation implements CurationInterface {
   readonly config: Config;
   readonly address: Address;
+  private signer: ethers.Signer;
   private provider: ethers.providers.JsonRpcProvider;
   private curation: CURATION;
 
@@ -26,14 +27,15 @@ export class Curation implements CurationInterface {
       config.provider instanceof ethers.providers.Web3Provider
     ) {
       this.provider = config.provider as ethers.providers.Web3Provider;
+      this.signer = this.provider.getSigner();
       this.curation = Curation__factory.connect(this.address, this.provider);
     }
   }
 
   //curator.create_gallery
-  createGallery(args: CreateGalleryArgs, signer?: Signer): Promise<Tx> {
+  createGallery(args: CreateGalleryArgs, _?: Signer): Promise<Tx> {
     return this.curation
-      .connect(this.provider)
+      .connect(this.signer)
       .createGallery(
         args.collection,
         args.tokenIdentifier,
@@ -45,12 +47,9 @@ export class Curation implements CurationInterface {
   }
 
   // curator.create_offer
-  createCurationOffer(
-    args: CreateCurationOfferArgs,
-    signer?: Signer
-  ): Promise<Tx> {
+  createCurationOffer(args: CreateCurationOfferArgs, _?: Signer): Promise<Tx> {
     return this.curation
-      .connect(this.provider)
+      .connect(this.signer)
       .sendOffer(
         args.tokenCollection,
         args.tokenIdentifier,
@@ -65,38 +64,32 @@ export class Curation implements CurationInterface {
   }
 
   // invitee.reply_offer
-  replyCurationOffer(
-    args: ReplyCurationOfferArgs,
-    signer?: Signer
-  ): Promise<Tx> {
+  replyCurationOffer(args: ReplyCurationOfferArgs, _?: Signer): Promise<Tx> {
     return this.curation
-      .connect(this.provider)
+      .connect(this.signer)
       .replyOffer(BigNumber.from(args.offerId), args.reply);
   }
 
   // curator.cancel_offer
-  cancelCurationOffer(
-    args: CancelCurationOfferArgs,
-    signer?: Signer
-  ): Promise<Tx> {
+  cancelCurationOffer(args: CancelCurationOfferArgs, _?: Signer): Promise<Tx> {
     return this.curation
-      .connect(this.provider)
+      .connect(this.signer)
       .cancelOffer(BigNumber.from(args.offerId));
   }
 
   // visitor.buy_exhibit
-  buyExhibit(args: BuyExhibitArgs, signer?: Signer): Promise<Tx> {
+  buyExhibit(args: BuyExhibitArgs, _?: Signer): Promise<Tx> {
     return this.curation
-      .connect(this.provider)
+      .connect(this.signer)
       .buy(BigNumber.from(args.galleryId), BigNumber.from(args.exhibitId), {
         value: BigNumber.from(args.price),
       });
   }
 
   // curator.list_exhibit
-  listExhibit(args: ListExhibitArgs, signer?: Signer): Promise<Tx> {
+  listExhibit(args: ListExhibitArgs, _?: Signer): Promise<Tx> {
     return this.curation
-      .connect(this.provider)
+      .connect(this.signer)
       .list(
         BigNumber.from(args.galleryId),
         BigNumber.from(args.exhibitId),
@@ -105,16 +98,16 @@ export class Curation implements CurationInterface {
   }
 
   // curator.cancel_exhibit
-  cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx> {
+  cancelExhibit(args: CancelExhibitArgs, _?: Signer): Promise<Tx> {
     return this.curation
-      .connect(this.provider)
+      .connect(this.signer)
       .cancel(BigNumber.from(args.galleryId), BigNumber.from(args.exhibitId));
   }
 
   // nft_owner.redeem
-  redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx> {
+  redeemExhibit(args: RedeemExhibitArgs, _?: Signer): Promise<Tx> {
     return this.curation
-      .connect(this.provider)
+      .connect(this.signer)
       .redeemWithFreeze(
         BigNumber.from(args.galleryId),
         BigNumber.from(args.exhibitId)
