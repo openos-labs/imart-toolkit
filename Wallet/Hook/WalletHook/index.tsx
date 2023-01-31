@@ -21,7 +21,7 @@ import {
     ETH_MARKET_ADDRESS
 } from './Config'
 import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './Types'
-import {Contractor, Aptos, Evm, Contract, ContractProxy} from "../../../contracts/src";
+import {Contractor, Aptos, Evm, Contract} from "../../../contracts/src";
 
 
 export interface HookResponse {
@@ -170,10 +170,12 @@ export const WalletHook = (): HookResponse => {
                         curation: ETH_CURATION_ADDRESS,
                         market: ETH_MARKET_ADDRESS
                     },
-                    provider: ''
+                    provider: ETH.provider
                 }
-                return {} as any
-                // return Contractor(Evm, configuration)
+                if (!ETH.provider) {
+                    return;
+                }
+                return Contractor(Evm, configuration)
             }
             default: {
                 const configuration = {

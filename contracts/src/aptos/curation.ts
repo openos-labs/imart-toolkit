@@ -68,7 +68,7 @@ export class Curation implements CurationInterface {
     const payload = {
       type: "entry_function_payload",
       function: `${this.handle}::reply_offer`,
-      type_arguments: [args.coinType],
+      type_arguments: ['0x1::aptos_coin::AptosCoin'],
       arguments: [args.offerId, args.reply],
     };
     return this.config?.submitTx!(payload);
@@ -79,7 +79,7 @@ export class Curation implements CurationInterface {
     const payload = {
       type: "entry_function_payload",
       function: `${this.handle}::cancel_offer`,
-      type_arguments: [args.coinType],
+      type_arguments: [],
       arguments: [args.offerId],
     };
     return this.config?.submitTx!(payload);
@@ -90,7 +90,7 @@ export class Curation implements CurationInterface {
     const payload = {
       type: "entry_function_payload",
       function: `${this.handle}::buy`,
-      type_arguments: [args.coinType],
+      type_arguments: [args.coinType||'0x1::aptos_coin::AptosCoin'],
       arguments: [args.galleryId, args.exhibitId],
     };
     return this.config?.submitTx!(payload);
@@ -101,7 +101,7 @@ export class Curation implements CurationInterface {
     const payload = {
       type: "entry_function_payload",
       function: `${this.handle}::list`,
-      type_arguments: [args.coinType],
+      type_arguments: [args.coinType||'0x1::aptos_coin::AptosCoin'],
       arguments: [args.galleryId, args.exhibitId, args.additionalInfo],
     };
     return this.config?.submitTx!(payload);
@@ -112,7 +112,7 @@ export class Curation implements CurationInterface {
     const payload = {
       type: "entry_function_payload",
       function: `${this.handle}::cancel`,
-      type_arguments: [args.coinType],
+      type_arguments: [args.coinType||'0x1::aptos_coin::AptosCoin'],
       arguments: [args.galleryId, args.exhibitId],
     };
     return this.config?.submitTx!(payload);
@@ -123,7 +123,7 @@ export class Curation implements CurationInterface {
     const payload = {
       type: "entry_function_payload",
       function: `${this.handle}::redeem_with_freeze`,
-      type_arguments: [args.coinType],
+      type_arguments: [args.coinType||'0x1::aptos_coin::AptosCoin'],
       arguments: [args.galleryId, args.exhibitId],
     };
     return this.config?.submitTx!(payload);

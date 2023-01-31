@@ -2,6 +2,7 @@ import {useWeb3React} from "@web3-react/core";
 import {Web3Provider} from '@ethersproject/providers'
 import {ChainResponse} from "../../Types";
 import {InjectedConnector} from '@web3-react/injected-connector';
+import { ethers } from "ethers";
 
 export const injected = new InjectedConnector({});
 import {useEffect} from "react";
@@ -40,6 +41,7 @@ export const ETHWallet = (): ChainResponse => {
             }
         });
     }, []);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
     return {
         login,
         connected,
@@ -47,6 +49,6 @@ export const ETHWallet = (): ChainResponse => {
         address,
         chainId,
         publicKey: '',
-        library
+        provider,
     }
 }

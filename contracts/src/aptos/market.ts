@@ -32,7 +32,7 @@ export class Market implements MarketInterface {
         args.tokenAmount,
       ],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   listToken(args: ListTokenArgs): Promise<Tx> {
@@ -50,7 +50,7 @@ export class Market implements MarketInterface {
         args.lockedUntilSecs,
       ],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   delistToken(args: DelistTokenArgs): Promise<Tx> {
@@ -66,7 +66,7 @@ export class Market implements MarketInterface {
         args.tokenAmount,
       ],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   createOffer(args: CreateOfferArgs): Promise<Tx> {
@@ -83,7 +83,7 @@ export class Market implements MarketInterface {
         args.duration,
       ],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   cancelOffer(args: CancelOfferArgs): Promise<Tx> {
@@ -97,7 +97,7 @@ export class Market implements MarketInterface {
         args.propertyVersion,
       ],
     };
-    return this.config.submitTx(payload);
+    return this.config?.submitTx!(payload);
   }
 
   acceptOffer(args: AcceptOfferArgs): Promise<Tx> {

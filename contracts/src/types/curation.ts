@@ -26,7 +26,7 @@ export interface ReplyCurationOfferArgs extends WithCoinType {
   reply: boolean;
 }
 
-export interface CancelCurationOfferArgs extends WithCoinType {
+export interface CancelCurationOfferArgs {
   offerId: string;
 }
 

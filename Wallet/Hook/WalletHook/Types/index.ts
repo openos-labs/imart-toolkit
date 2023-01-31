@@ -6,7 +6,7 @@ export interface ChainResponse {
     address: string | null | undefined,
     chainId?: number | undefined
     publicKey: string|null|undefined,
-    library?: any | undefined
+    provider?: any | undefined
 }
 
 export interface AuthContext {
