@@ -8,21 +8,26 @@ import {
   OrderComponents,
   OrderWithCounter,
 } from "@opensea/seaport-js/lib/types";
+import { ethers } from "ethers";
 
 export class Market implements MarketInterface {
-  provider: any;
-  seaport: Seaport;
+  private provider: ethers.providers.JsonRpcProvider;
+  private seaport: Seaport;
   readonly config: Config;
   constructor(config: Config) {
     this.config = config;
     this.provider = config.provider;
-    if (this.provider && this.provider instanceof JsonRpcProvider) {
+    if (
+      config.provider &&
+      config.provider instanceof ethers.providers.JsonRpcProvider
+    ) {
+      this.provider = config.provider as ethers.providers.JsonRpcProvider;
       this.seaport = new Seaport(this.provider);
     }
   }
 
   async buyToken(args: OrderWithCounter, signer?: Signer): Promise<Tx> {
-    const account = await signer.getAddress();
+    const account = await this.provider.getSigner().getAddress();
     const { executeAllActions } = await this.seaport.fulfillOrder({
       order: args,
       accountAddress: account,
@@ -31,7 +36,7 @@ export class Market implements MarketInterface {
   }
 
   async listToken(args: ListTokenArgs, signer?: Signer): Promise<Tx> {
-    const offerer = await signer.getAddress();
+    const offerer = await this.provider.getSigner().getAddress();
     const { executeAllActions } = await this.seaport.createOrder({
       startTime: "0",
       offer: [
@@ -52,13 +57,13 @@ export class Market implements MarketInterface {
   }
 
   async delistToken(args: OrderComponents, signer?: Signer): Promise<Tx> {
-    const seller = await signer.getAddress();
+    const seller = await this.provider.getSigner().getAddress();
     const { transact } = this.seaport.cancelOrders([args], seller);
     return await transact();
   }
 
   async createOffer(args: CreateOfferArgs, signer?: Signer): Promise<Tx> {
-    const offerer = await signer.getAddress();
+    const offerer = await this.provider.getSigner().getAddress();
     const { executeAllActions } = await this.seaport.createOrder({
       startTime: "0",
       offer: [
@@ -81,13 +86,13 @@ export class Market implements MarketInterface {
   }
 
   async cancelOffer(args: OrderComponents, signer?: Signer): Promise<Tx> {
-    const seller = await signer.getAddress();
+    const seller = await this.provider.getSigner().getAddress();
     const { transact } = this.seaport.cancelOrders([args], seller);
     return await transact();
   }
 
   async acceptOffer(args: OrderWithCounter, signer?: Signer): Promise<Tx> {
-    const account = await signer.getAddress();
+    const account = await this.provider.getSigner().getAddress();
     const { executeAllActions } = await this.seaport.fulfillOrder({
       order: args,
       accountAddress: account,
