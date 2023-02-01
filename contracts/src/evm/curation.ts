@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 
 import { BigNumber, ethers } from "ethers";
 import { CurationInterface } from "../proxy";

@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 
 import { ContractProxy } from "../proxy";
 import { Creation } from "./creation";

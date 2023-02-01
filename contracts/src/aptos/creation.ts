@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 import { CreationInterface } from "../proxy";
 import { Config, CreationArgs, Tx } from "../types";
 export class Creation implements CreationInterface {

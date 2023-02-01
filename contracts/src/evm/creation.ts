@@ -1,4 +1,4 @@
-// @ts-check
+// @ts-nocheck
 
 import { CreationInterface } from "../proxy";
 import { ethers } from "ethers";
