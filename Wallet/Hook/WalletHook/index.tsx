@@ -148,7 +148,7 @@ export const WalletHook = (): HookResponse => {
             return;
         }
         return walletGather[_chainType]['address'];
-    }, [_walletType, _walletType]);
+    }, [_walletType, walletGather,_chainType]);
 
     // Check if you are logged in
     const checkLogin = async () => {

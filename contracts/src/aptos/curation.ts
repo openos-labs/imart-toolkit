@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-check
 import BigNumber from "bignumber.js";
 import {CurationInterface} from "../proxy";
 import {Config, Tx} from "../types";
@@ -35,11 +35,13 @@ export class Curation implements CurationInterface {
 
     // curator.create_offer
     createCurationOffer(args: CreateCurationOfferArgs): Promise<Tx> {
-        const decimals = BigNumber(args.commissionFeeRate).div(BigNumber(10).pow(8)).dp();
-        const denominator = BigNumber(10).pow(decimals).dp(0);
-        const numerator = BigNumber(args.commissionFeeRate)
-            .multipliedBy(denominator)
-            .dp(0);
+        const decimals = new BigNumber(args.commissionFeeRate as any)
+            .div(new BigNumber(10).pow(8) as any)
+            .dp() as any;
+        const denominator = new BigNumber(10).pow(decimals as any).dp(0) as any;
+        const numerator = new BigNumber(args.commissionFeeRate as any)
+            .multipliedBy(denominator as any)
+            .dp(0) as any;
         const payload = {
             type: "entry_function_payload",
             function: `${this.handle}::send_offer`,
