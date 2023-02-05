@@ -5,10 +5,13 @@ import { Creation } from "./creation";
 import { Market } from "./market";
 import { Curation } from "./curation";
 import {
-  OrderComponents,
-  OrderWithCounter,
-} from "@opensea/seaport-js/lib/types";
-import { ListTokenArgs, CreateOfferArgs } from "../types/market";
+  ListTokenArgs,
+  CreateOfferArgs,
+  FillOrderObject,
+  AcceptOfferObject,
+  CancelOfferObject,
+  CancelOrderObject,
+} from "../types/market";
 import {
   BuyExhibitArgs,
   CancelCurationOfferArgs,
@@ -38,22 +41,22 @@ export class Evm implements ContractProxy {
   create(args: CreationArgs, signer?: Signer): Promise<Tx> {
     return this.creation.create(args, signer);
   }
-  buyToken(args: OrderWithCounter): Promise<Tx> {
+  buyToken(args: FillOrderObject): Promise<Tx> {
     return this.market.buyToken(args);
   }
   listToken(args: ListTokenArgs): Promise<Tx> {
     return this.market.listToken(args);
   }
-  delistToken(args: OrderComponents): Promise<Tx> {
+  delistToken(args: CancelOrderObject): Promise<Tx> {
     return this.market.delistToken(args);
   }
   createOffer(args: CreateOfferArgs): Promise<Tx> {
     return this.market.createOffer(args);
   }
-  cancelOffer(args: OrderComponents): Promise<Tx> {
+  cancelOffer(args: CancelOfferObject): Promise<Tx> {
     return this.market.cancelOffer(args);
   }
-  acceptOffer(args: OrderWithCounter): Promise<Tx> {
+  acceptOffer(args: AcceptOfferObject): Promise<Tx> {
     return this.market.acceptOffer(args);
   }
   createGallery(args: CreateGalleryArgs, signer?: Signer): Promise<any> {

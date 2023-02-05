@@ -8,6 +8,9 @@ import {
     CreateOfferArgs,
     CancelOfferArgs,
     AcceptOfferArgs,
+    FillOrderObject,
+    CancelOfferObject,
+    CancelOrderObject,
 } from "../types/market";
 import {
     BuyExhibitArgs,
@@ -44,7 +47,7 @@ export class Aptos implements ContractProxy {
     }
 
     // market
-    buyToken(args: BuyTokenArgs): Promise<Tx> {
+    buyToken(args: FillOrderObject): Promise<Tx> {
         return this.market.buyToken(args);
     }
 
@@ -52,7 +55,7 @@ export class Aptos implements ContractProxy {
         return this.market.listToken(args);
     }
 
-    delistToken(args: DelistTokenArgs): Promise<Tx> {
+    delistToken(args: CancelOrderObject): Promise<Tx> {
         return this.market.delistToken(args);
     }
 
@@ -60,11 +63,11 @@ export class Aptos implements ContractProxy {
         return this.market.createOffer(args);
     }
 
-    cancelOffer(args: CancelOfferArgs): Promise<Tx> {
+    cancelOffer(args: CancelOfferObject): Promise<Tx> {
         return this.market.cancelOffer(args);
     }
 
-    acceptOffer(args: AcceptOfferArgs): Promise<Tx> {
+    acceptOffer(args: AcceptOfferObject): Promise<Tx> {
         return this.market.acceptOffer(args);
     }
 

@@ -1,14 +1,13 @@
-import {
-  OrderComponents,
-  OrderWithCounter,
-} from "@opensea/seaport-js/lib/types";
+import { OrderWithCounter } from "@opensea/seaport-js/lib/types";
 import { WithCoinType } from ".";
 
-
-export type CancelOrderObject = DelistTokenArgs | OrderComponents;
-export type CancelOfferObject = CancelOfferArgs | OrderComponents;
-export type FillOrderObject = BuyTokenArgs | OrderWithCounter;
-export type AcceptOfferObject = AcceptOfferArgs | OrderWithCounter;
+export type ProtocolOrder = {
+  protocolOrder?: OrderWithCounter | any;
+};
+export type CancelOrderObject = DelistTokenArgs & ProtocolOrder;
+export type CancelOfferObject = CancelOfferArgs & ProtocolOrder;
+export type FillOrderObject = BuyTokenArgs & ProtocolOrder;
+export type AcceptOfferObject = AcceptOfferArgs & ProtocolOrder;
 
 export interface BuyTokenArgs extends WithCoinType {
   collectionId: string;
@@ -30,7 +29,7 @@ export interface ListTokenArgs extends WithCoinType {
   name: string;
   propertyVersion: string;
   tokenAmount: number;
-  coinAmount: number|string;
+  coinAmount: number | string;
   lockedUntilSecs: number;
 }
 
