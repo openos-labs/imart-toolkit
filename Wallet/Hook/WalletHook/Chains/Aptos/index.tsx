@@ -1,5 +1,5 @@
 import {AptosWalletName, MartianWalletName, useWallet, WalletName} from "@manahippo/aptos-wallet-adapter";
-import {ChainResponse, WalletType} from "../../Types";
+import {ChainResponse, SignMessagePayload, WalletType} from "../../Types";
 
 
 export const AptosWallet = (): ChainResponse => {
@@ -7,10 +7,12 @@ export const AptosWallet = (): ChainResponse => {
         connect,
         disconnect,
         connected,
-        account
+        account,
+        signMessage
     } = useWallet();
 
-    const login = async (walletType:WalletType) => {
+
+    const login = async (walletType: WalletType) => {
         let name: WalletName;
         switch (walletType) {
             case 'aptos:martian':
@@ -25,13 +27,33 @@ export const AptosWallet = (): ChainResponse => {
         }
         // @ts-ignore
         if (name) {
-            return  await connect(name)
+            return await connect(name)
         }
+    }
+
+
+    // wallet siginMessage
+    const walletSignMessage = (message: string, nonce: string) => {
+        const signMessagePayload: SignMessagePayload = {
+            address: false,
+            chainId: false,
+            application: false,
+            message: message,
+            nonce: nonce,
+        };
+        return signMessage(signMessagePayload)
     }
 
     const logout = async () => {
         return await disconnect()
     }
-    return {logout, login, connected, address: account?.address?.toString(), publicKey: account?.publicKey?.toString()}
+    return {
+        logout,
+        login,
+        connected,
+        address: account?.address?.toString(),
+        publicKey: account?.publicKey?.toString(),
+        walletSignMessage
+    }
 
 }

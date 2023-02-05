@@ -1,12 +1,14 @@
-import { Web3Provider } from '@ethersproject/providers'
+import {Web3Provider} from '@ethersproject/providers'
+
 export interface ChainResponse {
     login: (e: WalletType) => Promise<any> | undefined;
     logout: () => Promise<any>;
     connected: boolean;
     address: string | null | undefined,
     chainId?: number | undefined
-    publicKey: string|null|undefined,
-    provider?: any | undefined
+    publicKey: string | null | undefined,
+    provider?: any | undefined,
+    walletSignMessage?: (message:string,nonce:string)=>any
 }
 
 export interface AuthContext {
@@ -33,7 +35,6 @@ export interface SignMessageResponse {
     prefix: string; // Should always be APTOS
     signature: string; // The signed full message
 }
-
 
 
 export type EthereumWalletType = "ethereum:metamask";

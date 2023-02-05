@@ -42,7 +42,7 @@ export const WalletHook = (): HookResponse => {
     const APTOS = AptosWallet();
     const ETH = ETHWallet();
     const IC = ICWallet();
-    const {signMessage, signAndSubmitTransaction} = useWallet();
+    const {signAndSubmitTransaction} = useWallet();
     const [_chainType, setChainType] = useState<ChainType>('');
     const [_walletType, setWalletType] = useState<WalletType>('')
     const [loginLoading, setLoginLoading] = useState<boolean>(false)
@@ -88,10 +88,10 @@ export const WalletHook = (): HookResponse => {
 
 
     useEffect(() => {
-        if (connected && currentConnectedWallet) {
+        if (connected) {
             AuthImart()
         }
-    }, [currentConnectedWallet, connected])
+    }, [connected])
 
     // Authorization for imart backend
     const AuthImart = async () => {
@@ -103,28 +103,29 @@ export const WalletHook = (): HookResponse => {
         }
 
         const {publicKey, address} = currentConnectedWallet;
-        if (!publicKey || !address) {
+        if (!address) {
             return;
         }
         const data = await getNonce(
             publicKey as string,
             address as string
         );
-        const signMessagePayload: SignMessagePayload = {
-            address: false,
-            chainId: false,
-            application: false,
-            message: data.message,
-            nonce: data.nonce,
-        };
-        const signed = (await signMessage(
-            signMessagePayload
-        )) as SignMessageResponse;
+
+        let _singMessage;
+        if (_chainType === 'ETH') {
+            _singMessage = ETH.walletSignMessage
+        } else if (_chainType === 'APTOS') {
+            _singMessage = APTOS.walletSignMessage
+        }
+        if (!_singMessage) {
+            throw new Error('no this wallet');
+        }
+        const signed = (await _singMessage(data.message, data.nonce)) as SignMessageResponse;
         const authPayload = {
-            chain: "APTOS",
+            chain: _chainType,
             address: address!.toString(),
             publicKey: publicKey!.toString(),
-            signature: signed.signature,
+            signature: (signed?.signature || signed) as string,
         };
         const authResult = await auth(authPayload);
         if (authResult?.authorization) {
@@ -148,7 +149,7 @@ export const WalletHook = (): HookResponse => {
             return;
         }
         return walletGather[_chainType]['address'];
-    }, [_walletType, walletGather,_chainType]);
+    }, [_walletType, walletGather, _chainType]);
 
     // Check if you are logged in
     const checkLogin = async () => {
