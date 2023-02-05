@@ -1,6 +1,6 @@
 {
   "name": "@mix-labs/contracts",
-  "version": "0.1.20",
+  "version": "0.1.28",
   "main": "src/index.ts",
   "license": "MIT",
   "publishConfig": {
