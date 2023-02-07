@@ -20,7 +20,13 @@ export class Creation implements CreationInterface {
       type: "entry_function_payload",
       function: `${this.handle}::create_token`,
       type_arguments: [],
-      arguments: [args.collection, args.name, args.description, "1", args.uri],
+      arguments: [
+        args.collection,
+        args.name,
+        args.description,
+        args.balance,
+        args.uri,
+      ],
     };
     return this.config?.submitTx!(payload);
   }

@@ -1,6 +1,7 @@
 import { BigNumberish } from "ethers";
 
 export type Category = "SPACE" | "MUSIC" | "ART";
+export type CollectionType = "single" | "multiple";
 
 export interface CreationArgs {
   category: Category;
@@ -18,6 +19,7 @@ export interface CreateCollectionArgs {
   payees: string[];
   royalties: BigNumberish[];
   maximum: BigNumberish;
+  type: CollectionType;
 }
 
 export interface MintTokenArgs {
@@ -26,4 +28,6 @@ export interface MintTokenArgs {
   description: string;
   to: string;
   uri: string;
+  balance: BigNumberish;
+  type: CollectionType;
 }

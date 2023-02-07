@@ -8,8 +8,8 @@ import {
   Contractor,
   Curation,
   Curation__factory,
-  IMartToken,
-  IMartToken__factory,
+  SingleToken,
+  SingleToken__factory,
   MixverseSpace,
   MixverseSpace__factory,
 } from "../src";
@@ -17,7 +17,7 @@ import { Evm } from "../src/evm";
 import { alice_arts, bob_arts } from "./testdata";
 
 let contractor: Evm;
-let imartToken: IMartToken;
+let SingleToken: SingleToken;
 let mixverseSpace: MixverseSpace;
 let curation: Curation;
 let owner: SignerWithAddress;
@@ -63,7 +63,7 @@ async function sendOffer(
     {
       tokenOwner: "",
       tokenCreator: "",
-      tokenCollection: imartToken.address,
+      tokenCollection: SingleToken.address,
       tokenIdentifier: tokenId.toString(),
       tokenPropertyVersion: "",
       galleryId: gallery.id.toString(),
@@ -179,22 +179,25 @@ async function deployAndMint() {
   await curation.deployed();
 
   // user mint NFT on IMart
-  const imartTokenFactory = new IMartToken__factory(owner);
-  imartToken = await imartTokenFactory.deploy("IMartToken", "IMART");
-  await imartToken.deployed();
+  const SingleTokenFactory = new SingleToken__factory(owner);
+  SingleToken = await SingleTokenFactory.deploy("SingleToken", "IMART");
+  await SingleToken.deployed();
 
-  await imartToken.setMarketplace(curation.address);
+  const balance = BigNumber.from("1");
+  await SingleToken.setMarketplace(curation.address);
   for (const art of alice_arts) {
-    await imartToken.safeMint(alice.address, art);
+    await SingleToken.safeMint(alice.address, balance, art);
   }
   for (const art of bob_arts) {
-    await imartToken.safeMint(bob.address, art);
+    await SingleToken.safeMint(bob.address, balance, art);
   }
-  await imartToken.safeMint(buyer.address, alice_arts[0]);
+  await SingleToken.safeMint(buyer.address, balance, alice_arts[0]);
 
   const configuration = {
     addresses: {
-      creation: imartToken.address,
+      singleCollective: "",
+      multipleCollective: "",
+      creation: SingleToken.address,
       curation: curation.address,
       market: "",
     },
@@ -228,7 +231,7 @@ describe("Curation-2: send offer & accept offer", () => {
     await createGallery();
   });
   it("Curator send offer to artist", async () => {
-    const tokenId = await imartToken.tokenOfOwnerByIndex(alice.address, 0);
+    const tokenId = await SingleToken.tokenOfOwnerByIndex(alice.address, 0);
     await sendOffer(curator, tokenId);
 
     const sentOffers = await getSentOffers(curator);
@@ -243,7 +246,7 @@ describe("Curation-2: send offer & accept offer", () => {
   });
 
   it("Alice accept offer", async () => {
-    const tokenId = await imartToken.tokenOfOwnerByIndex(alice.address, 1);
+    const tokenId = await SingleToken.tokenOfOwnerByIndex(alice.address, 1);
     await sendOffer(curator, tokenId);
     const sentOffers = await getSentOffers(curator);
     const sentOffer = sentOffers.slice(-1)[0];
@@ -254,7 +257,7 @@ describe("Curation-2: send offer & accept offer", () => {
   });
 
   it("Bob reject offer", async () => {
-    const tokenId = await imartToken.tokenOfOwnerByIndex(bob.address, 2);
+    const tokenId = await SingleToken.tokenOfOwnerByIndex(bob.address, 2);
     await sendOffer(curator, tokenId);
     const sentOffers = await getSentOffers(curator);
     const sentOffer = sentOffers.slice(-1)[0];
@@ -264,7 +267,7 @@ describe("Curation-2: send offer & accept offer", () => {
     expect(receivedOffer!.status).eq(2); // pending: 0, accepted: 1, rejected: 2
   });
   it("Curator cancel offer", async () => {
-    const tokenId = await imartToken.tokenOfOwnerByIndex(buyer.address, 0);
+    const tokenId = await SingleToken.tokenOfOwnerByIndex(buyer.address, 0);
     await sendOffer(curator, tokenId);
     const sentOffers = await getSentOffers(curator);
     const sentOffer = sentOffers.slice(-1)[0];
@@ -282,14 +285,14 @@ describe("Curation-3: list / delist / buy exhibit", () => {
     await createGallery();
 
     // alice accept offer
-    const tokenId_A = await imartToken.tokenOfOwnerByIndex(alice.address, 1);
+    const tokenId_A = await SingleToken.tokenOfOwnerByIndex(alice.address, 1);
     await sendOffer(curator, tokenId_A);
     const receivedOffers_A = await getReceivedOffers(alice);
     const receivedOffer_A = receivedOffers_A.slice(-1)[0];
     await acceptOffer(alice, receivedOffer_A.id);
 
     // bob reject offer
-    const tokenId_B = await imartToken.tokenOfOwnerByIndex(bob.address, 1);
+    const tokenId_B = await SingleToken.tokenOfOwnerByIndex(bob.address, 1);
     await sendOffer(curator, tokenId_B);
     const receivedOffers_B = await getReceivedOffers(bob);
     const receivedOffer_B = receivedOffers_B.slice(-1)[0];
@@ -336,6 +339,6 @@ describe("Curation-3: list / delist / buy exhibit", () => {
       await curation.getGalleryExhibits(gallery.id)
     ).slice(-1)[0];
     expect(updatedExhibit.status).eq(3); // reserved: 0, listing: 1, expired: 2, sold: 3
-    expect(await imartToken.ownerOf(updatedExhibit.tokenId)).eq(buyer.address);
+    expect(await SingleToken.ownerOf(updatedExhibit.tokenId)).eq(buyer.address);
   });
 });

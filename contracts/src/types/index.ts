@@ -9,7 +9,11 @@ export type Signer = ethers.Signer | any;
 export interface WithCoinType {
   coinType?: string;
 }
-export type AddressType = "market" | "creation" | "curation";
+export type AddressType =
+  | "market"
+  | "curation"
+  | "singleCollective"
+  | "multipleCollective";
 export type Address = string;
 export type Addresses = Record<AddressType, Address>;
 
@@ -19,5 +23,8 @@ export type SubmitTx = (payload: any) => Promise<any>;
 export interface Config {
   addresses: Addresses;
   submitTx?: SubmitTx;
-  provider?: ethers.providers.JsonRpcProvider | ethers.providers.BaseProvider | any;
+  provider?:
+    | ethers.providers.JsonRpcProvider
+    | ethers.providers.BaseProvider
+    | any;
 }
