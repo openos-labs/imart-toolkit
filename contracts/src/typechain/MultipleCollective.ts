@@ -27,10 +27,11 @@ import type {
   PromiseOrValue,
 } from "./common";
 
-export interface IMartCollectiveInterface extends utils.Interface {
+export interface MultipleCollectiveInterface extends utils.Interface {
   functions: {
     "createCollection(string,string,string[],string,string,address[],uint256[],uint64)": FunctionFragment;
-    "mint(string,address,string)": FunctionFragment;
+    "createRoot(string,string)": FunctionFragment;
+    "mint(string,uint256,string)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "setMarketplace(address)": FunctionFragment;
@@ -40,6 +41,7 @@ export interface IMartCollectiveInterface extends utils.Interface {
   getFunction(
     nameOrSignatureOrTopic:
       | "createCollection"
+      | "createRoot"
       | "mint"
       | "owner"
       | "renounceOwnership"
@@ -61,10 +63,14 @@ export interface IMartCollectiveInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
+    functionFragment: "createRoot",
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "mint",
     values: [
       PromiseOrValue<string>,
-      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>
     ]
   ): string;
@@ -86,6 +92,7 @@ export interface IMartCollectiveInterface extends utils.Interface {
     functionFragment: "createCollection",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "createRoot", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
@@ -153,12 +160,12 @@ export type OwnershipTransferredEvent = TypedEvent<
 export type OwnershipTransferredEventFilter =
   TypedEventFilter<OwnershipTransferredEvent>;
 
-export interface IMartCollective extends BaseContract {
+export interface MultipleCollective extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: IMartCollectiveInterface;
+  interface: MultipleCollectiveInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -192,9 +199,15 @@ export interface IMartCollective extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    createRoot(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     mint(
       _collection: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
+      balance: PromiseOrValue<BigNumberish>,
       uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -228,9 +241,15 @@ export interface IMartCollective extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  createRoot(
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   mint(
     _collection: PromiseOrValue<string>,
-    to: PromiseOrValue<string>,
+    balance: PromiseOrValue<BigNumberish>,
     uri: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -264,9 +283,15 @@ export interface IMartCollective extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    createRoot(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
     mint(
       _collection: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
+      balance: PromiseOrValue<BigNumberish>,
       uri: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -335,9 +360,15 @@ export interface IMartCollective extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    createRoot(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     mint(
       _collection: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
+      balance: PromiseOrValue<BigNumberish>,
       uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -372,9 +403,15 @@ export interface IMartCollective extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    createRoot(
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     mint(
       _collection: PromiseOrValue<string>,
-      to: PromiseOrValue<string>,
+      balance: PromiseOrValue<BigNumberish>,
       uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;

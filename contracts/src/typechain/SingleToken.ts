@@ -27,22 +27,24 @@ import type {
   PromiseOrValue,
 } from "./common";
 
-export interface IMartTokenInterface extends utils.Interface {
+export interface SingleTokenInterface extends utils.Interface {
   functions: {
     "approve(address,uint256)": FunctionFragment;
+    "assignOwner(address)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
-    "currentTokenId()": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "name()": FunctionFragment;
     "owner()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "safeMint(address,string)": FunctionFragment;
+    "safeMint(address,uint256,string)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "setMarketplace(address)": FunctionFragment;
+    "supply()": FunctionFragment;
+    "supply(uint256)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
     "tokenByIndex(uint256)": FunctionFragment;
@@ -56,8 +58,8 @@ export interface IMartTokenInterface extends utils.Interface {
   getFunction(
     nameOrSignatureOrTopic:
       | "approve"
+      | "assignOwner"
       | "balanceOf"
-      | "currentTokenId"
       | "getApproved"
       | "isApprovedForAll"
       | "name"
@@ -69,6 +71,8 @@ export interface IMartTokenInterface extends utils.Interface {
       | "safeTransferFrom(address,address,uint256,bytes)"
       | "setApprovalForAll"
       | "setMarketplace"
+      | "supply()"
+      | "supply(uint256)"
       | "supportsInterface"
       | "symbol"
       | "tokenByIndex"
@@ -84,12 +88,12 @@ export interface IMartTokenInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "balanceOf",
+    functionFragment: "assignOwner",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
-    functionFragment: "currentTokenId",
-    values?: undefined
+    functionFragment: "balanceOf",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getApproved",
@@ -111,7 +115,11 @@ export interface IMartTokenInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "safeMint",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "safeTransferFrom(address,address,uint256)",
@@ -137,6 +145,11 @@ export interface IMartTokenInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "setMarketplace",
     values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(functionFragment: "supply()", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "supply(uint256)",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
@@ -173,11 +186,11 @@ export interface IMartTokenInterface extends utils.Interface {
   ): string;
 
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "currentTokenId",
+    functionFragment: "assignOwner",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getApproved",
     data: BytesLike
@@ -208,6 +221,11 @@ export interface IMartTokenInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "setMarketplace",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "supply()", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "supply(uint256)",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -298,12 +316,12 @@ export type TransferEvent = TypedEvent<
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
-export interface IMartToken extends BaseContract {
+export interface SingleToken extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: IMartTokenInterface;
+  interface: SingleTokenInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -331,12 +349,15 @@ export interface IMartToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    assignOwner(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     balanceOf(
       owner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
-
-    currentTokenId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -364,7 +385,8 @@ export interface IMartToken extends BaseContract {
 
     safeMint(
       to: PromiseOrValue<string>,
-      _uri: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -393,6 +415,13 @@ export interface IMartToken extends BaseContract {
       _marketplace: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    "supply()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "supply(uint256)"(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
@@ -438,12 +467,15 @@ export interface IMartToken extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  assignOwner(
+    newOwner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   balanceOf(
     owner: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
-
-  currentTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
   getApproved(
     tokenId: PromiseOrValue<BigNumberish>,
@@ -471,7 +503,8 @@ export interface IMartToken extends BaseContract {
 
   safeMint(
     to: PromiseOrValue<string>,
-    _uri: PromiseOrValue<string>,
+    arg1: PromiseOrValue<BigNumberish>,
+    uri: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -500,6 +533,13 @@ export interface IMartToken extends BaseContract {
     _marketplace: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  "supply()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "supply(uint256)"(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   supportsInterface(
     interfaceId: PromiseOrValue<BytesLike>,
@@ -545,12 +585,15 @@ export interface IMartToken extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    assignOwner(
+      newOwner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     balanceOf(
       owner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    currentTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -576,7 +619,8 @@ export interface IMartToken extends BaseContract {
 
     safeMint(
       to: PromiseOrValue<string>,
-      _uri: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -605,6 +649,13 @@ export interface IMartToken extends BaseContract {
       _marketplace: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    "supply()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "supply(uint256)"(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
@@ -695,12 +746,15 @@ export interface IMartToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    assignOwner(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     balanceOf(
       owner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    currentTokenId(overrides?: CallOverrides): Promise<BigNumber>;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -728,7 +782,8 @@ export interface IMartToken extends BaseContract {
 
     safeMint(
       to: PromiseOrValue<string>,
-      _uri: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -756,6 +811,13 @@ export interface IMartToken extends BaseContract {
     setMarketplace(
       _marketplace: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    "supply()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "supply(uint256)"(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     supportsInterface(
@@ -803,12 +865,15 @@ export interface IMartToken extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    assignOwner(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     balanceOf(
       owner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
-
-    currentTokenId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -836,7 +901,8 @@ export interface IMartToken extends BaseContract {
 
     safeMint(
       to: PromiseOrValue<string>,
-      _uri: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -864,6 +930,13 @@ export interface IMartToken extends BaseContract {
     setMarketplace(
       _marketplace: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "supply()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "supply(uint256)"(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     supportsInterface(

@@ -4,6 +4,7 @@
 import type {
   BaseContract,
   BigNumber,
+  BigNumberish,
   BytesLike,
   CallOverrides,
   ContractTransaction,
@@ -22,40 +23,70 @@ import type {
   PromiseOrValue,
 } from "./common";
 
-export interface IMartInterface extends utils.Interface {
+export interface ITokenInterface extends utils.Interface {
   functions: {
-    "safeMint(address,string)": FunctionFragment;
+    "assignOwner(address)": FunctionFragment;
+    "safeMint(address,uint256,string)": FunctionFragment;
     "setMarketplace(address)": FunctionFragment;
+    "supply()": FunctionFragment;
+    "supply(uint256)": FunctionFragment;
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "safeMint" | "setMarketplace"
+    nameOrSignatureOrTopic:
+      | "assignOwner"
+      | "safeMint"
+      | "setMarketplace"
+      | "supply()"
+      | "supply(uint256)"
   ): FunctionFragment;
 
   encodeFunctionData(
+    functionFragment: "assignOwner",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "safeMint",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "setMarketplace",
     values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(functionFragment: "supply()", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "supply(uint256)",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
 
+  decodeFunctionResult(
+    functionFragment: "assignOwner",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "safeMint", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setMarketplace",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "supply()", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "supply(uint256)",
     data: BytesLike
   ): Result;
 
   events: {};
 }
 
-export interface IMart extends BaseContract {
+export interface IToken extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: IMartInterface;
+  interface: ITokenInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -77,9 +108,15 @@ export interface IMart extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    assignOwner(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     safeMint(
       to: PromiseOrValue<string>,
-      _uri: PromiseOrValue<string>,
+      balance: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -87,11 +124,24 @@ export interface IMart extends BaseContract {
       _marketplace: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    "supply()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "supply(uint256)"(
+      _id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
   };
+
+  assignOwner(
+    newOwner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   safeMint(
     to: PromiseOrValue<string>,
-    _uri: PromiseOrValue<string>,
+    balance: PromiseOrValue<BigNumberish>,
+    uri: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -100,10 +150,23 @@ export interface IMart extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  "supply()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "supply(uint256)"(
+    _id: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   callStatic: {
+    assignOwner(
+      newOwner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     safeMint(
       to: PromiseOrValue<string>,
-      _uri: PromiseOrValue<string>,
+      balance: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -111,14 +174,27 @@ export interface IMart extends BaseContract {
       _marketplace: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    "supply()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "supply(uint256)"(
+      _id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   filters: {};
 
   estimateGas: {
+    assignOwner(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     safeMint(
       to: PromiseOrValue<string>,
-      _uri: PromiseOrValue<string>,
+      balance: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -126,18 +202,38 @@ export interface IMart extends BaseContract {
       _marketplace: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
+
+    "supply()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "supply(uint256)"(
+      _id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    assignOwner(
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     safeMint(
       to: PromiseOrValue<string>,
-      _uri: PromiseOrValue<string>,
+      balance: PromiseOrValue<BigNumberish>,
+      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setMarketplace(
       _marketplace: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "supply()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "supply(uint256)"(
+      _id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }
