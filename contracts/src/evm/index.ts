@@ -20,6 +20,8 @@ import {
   CreateCurationOfferArgs,
   CreateGalleryArgs,
   CreationArgs,
+  MintTokenArgs,
+  CreateCollectionArgs,
   ListExhibitArgs,
   RedeemExhibitArgs,
   ReplyCurationOfferArgs,
@@ -40,6 +42,12 @@ export class Evm implements ContractProxy {
   }
   create(args: CreationArgs, signer?: Signer): Promise<Tx> {
     return this.creation.create(args, signer);
+  }
+  mintToken(args: MintTokenArgs, signer?: Signer): Promise<Tx> {
+    return this.creation.mintToken(args, signer);
+  }
+  createCollection(args: CreateCollectionArgs, signer?: Signer): Promise<Tx> {
+    return this.creation.createCollection(args, signer);
   }
   buyToken(args: FillOrderObject): Promise<Tx> {
     return this.market.buyToken(args);

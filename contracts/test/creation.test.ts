@@ -6,25 +6,25 @@ import { BigNumber } from "ethers";
 import { Evm } from "../src/evm";
 import { Aptos } from "../src/aptos";
 import { Contractor } from "../src/client";
-import { IMartToken, IMartToken__factory } from "../src";
+import { IMartCollective, IMartCollective__factory } from "../src";
 
 env.config();
 
 describe("EVM/creation tests", () => {
-  let IMartToken: IMartToken;
+  let IMartCollective: IMartCollective;
   let owner: SignerWithAddress;
   let alice: SignerWithAddress;
   let client: Evm | Aptos;
 
   before(async () => {
     [owner, alice] = await ethers.getSigners();
-    const IMartTokenFactory = new IMartToken__factory(owner);
-    IMartToken = await IMartTokenFactory.deploy("IMart token", "IMART");
-    await IMartToken.deployed();
+    const IMartCollectiveFactory = new IMartCollective__factory(owner);
+    IMartCollective = await IMartCollectiveFactory.deploy();
+    await IMartCollective.deployed();
     const config = {
       addresses: {
         market: "",
-        creation: IMartToken.address,
+        creation: IMartCollective.address,
         curation: "",
       },
       provider: ethers.getDefaultProvider(),
@@ -32,20 +32,58 @@ describe("EVM/creation tests", () => {
     client = Contractor(Evm, config);
   });
 
-  it("Alice create 1 NFT", async function () {
+  it("Create 1 NFT within untitled collection", async function () {
     const uri = "https://imart-nft.s3.amazonaws.com/imart/1674150362.json";
-    await client.create(
+    const untitledCollection = "untitled collection";
+    await client.mintToken(
       {
-        category: "ART",
-        title: "first NFT",
-        description: "yeah, my first NFT",
+        collection: "",
+        name: "test",
+        description: "desc",
+        to: alice.address,
         uri,
       },
       alice
     );
-    expect(await IMartToken.balanceOf(await alice.getAddress())).eq(
-      BigNumber.from("1")
+    const events = await IMartCollective.queryFilter(
+      IMartCollective.filters.CollectionCreated()
     );
-    expect(await IMartToken.tokenURI(0)).eq(uri);
+    const [, , name, , , , _uri, , , ,] = events[0].args;
+    expect(name).eq(untitledCollection);
+  });
+
+  it("Create 1 NFT within the selected collection", async function () {
+    const uri = "https://imart-nft.s3.amazonaws.com/imart/1674150362.json";
+    const collection = "Alice's daily";
+    await client.createCollection(
+      {
+        name: collection, // collection name
+        category: "ART",
+        tags: ["tag"],
+        description: "desc",
+        uri,
+        payees: [alice.address], // multiple payees
+        royalties: [ethers.utils.parseEther("0.001")],
+        maximum: BigNumber.from(10), // max supply
+      },
+      alice
+    );
+    await client.mintToken(
+      {
+        collection,
+        name: "test",
+        description: "desc",
+        to: alice.address, // token receiver
+        uri,
+      },
+      alice
+    );
+    const events = await IMartCollective.queryFilter(
+      IMartCollective.filters.CollectionCreated()
+    );
+    const [, , name, category, , , _uri, payees, , ,] = events[1].args;
+    expect(name).eq(collection);
+    expect(payees[0]).eq(alice.address);
+    expect(category).eq("ART");
   });
 });

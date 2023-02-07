@@ -8,7 +8,14 @@ import {
   FillOrderObject,
   AcceptOfferObject,
 } from "./types/market";
-import { Config, CreationArgs, Signer, Tx } from "./types";
+import {
+  Config,
+  CreateCollectionArgs,
+  MintTokenArgs,
+  CreationArgs,
+  Signer,
+  Tx,
+} from "./types";
 import {
   BuyExhibitArgs,
   CancelCurationOfferArgs,
@@ -23,6 +30,8 @@ import {
 export interface CreationInterface {
   config: Config;
   create(args: CreationArgs, signer?: Signer): Promise<Tx>;
+  mintToken(args: MintTokenArgs, signer?: Signer): Promise<Tx>;
+  createCollection(args: CreateCollectionArgs, signer?: Signer): Promise<Tx>;
 }
 
 export interface MarketInterface {
@@ -74,6 +83,11 @@ export abstract class ContractProxy
 
   // creation
   abstract create(args: CreationArgs, signer?: Signer): Promise<Tx>;
+  abstract mintToken(args: MintTokenArgs, signer?: Signer): Promise<Tx>;
+  abstract createCollection(
+    args: CreateCollectionArgs,
+    signer?: Signer
+  ): Promise<Tx>;
 
   // market
   abstract listToken(args: ListTokenArgs, signer?: Signer): Promise<Tx>;

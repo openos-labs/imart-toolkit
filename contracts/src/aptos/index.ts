@@ -1,106 +1,108 @@
 // @ts-nocheck
 
-import {ContractProxy} from "../proxy";
+import { ContractProxy } from "../proxy";
 import {
-    BuyTokenArgs,
-    ListTokenArgs,
-    DelistTokenArgs,
-    CreateOfferArgs,
-    CancelOfferArgs,
-    AcceptOfferArgs,
-    FillOrderObject,
-    CancelOfferObject,
-    CancelOrderObject,
+  ListTokenArgs,
+  CreateOfferArgs,
+  FillOrderObject,
+  CancelOfferObject,
+  CancelOrderObject,
 } from "../types/market";
 import {
-    BuyExhibitArgs,
-    CancelCurationOfferArgs,
-    CancelExhibitArgs,
-    Config,
-    CreateCurationOfferArgs,
-    CreateGalleryArgs,
-    CreationArgs,
-    ListExhibitArgs,
-    RedeemExhibitArgs,
-    ReplyCurationOfferArgs,
-    Tx,
+  BuyExhibitArgs,
+  CancelCurationOfferArgs,
+  CancelExhibitArgs,
+  Config,
+  CreateCurationOfferArgs,
+  CreateGalleryArgs,
+  CreationArgs,
+  ListExhibitArgs,
+  RedeemExhibitArgs,
+  ReplyCurationOfferArgs,
+  Tx,
 } from "../types";
-import {Creation} from "./creation";
-import {Market} from "./market";
-import {Curation} from "./curation";
+import { Creation } from "./creation";
+import { Market } from "./market";
+import { Curation } from "./curation";
 
 export class Aptos implements ContractProxy {
-    readonly config: Config;
-    private market: Market;
-    private creation: Creation;
-    private curation: Curation;
+  readonly config: Config;
+  private market: Market;
+  private creation: Creation;
+  private curation: Curation;
 
-    constructor(config: Config) {
-        this.market = new Market(config);
-        this.creation = new Creation(config);
-        this.curation = new Curation(config);
-    }
+  constructor(config: Config) {
+    this.market = new Market(config);
+    this.creation = new Creation(config);
+    this.curation = new Curation(config);
+  }
 
-    // creation
-    create(args: CreationArgs): Promise<Tx> {
-        return this.creation.create(args);
-    }
+  // creation
+  create(args: CreationArgs): Promise<Tx> {
+    return this.creation.create(args);
+  }
+  mintToken(args: MintTokenArgs, signer?: Signer): Promise<Tx> {
+    return this.creation.mintToken(args, signer);
+  }
+  createCollection(args: CreateCollectionArgs, signer?: Signer): Promise<Tx> {
+    return this.creation.createCollection(args, signer);
+  }
 
-    // market
-    buyToken(args: FillOrderObject): Promise<Tx> {
-        return this.market.buyToken(args);
-    }
+  // market
+  buyToken(args: FillOrderObject): Promise<Tx> {
+    return this.market.buyToken(args);
+  }
 
-    listToken(args: ListTokenArgs): Promise<Tx> {
-        return this.market.listToken(args);
-    }
+  listToken(args: ListTokenArgs): Promise<Tx> {
+    return this.market.listToken(args);
+  }
 
-    delistToken(args: CancelOrderObject): Promise<Tx> {
-        return this.market.delistToken(args);
-    }
+  delistToken(args: CancelOrderObject): Promise<Tx> {
+    return this.market.delistToken(args);
+  }
 
-    createOffer(args: CreateOfferArgs): Promise<Tx> {
-        return this.market.createOffer(args);
-    }
+  createOffer(args: CreateOfferArgs): Promise<Tx> {
+    return this.market.createOffer(args);
+  }
 
-    cancelOffer(args: CancelOfferObject): Promise<Tx> {
-        return this.market.cancelOffer(args);
-    }
+  cancelOffer(args: CancelOfferObject): Promise<Tx> {
+    return this.market.cancelOffer(args);
+  }
 
-    acceptOffer(args: AcceptOfferObject): Promise<Tx> {
-        return this.market.acceptOffer(args);
-    }
+  acceptOffer(args: AcceptOfferObject): Promise<Tx> {
+    return this.market.acceptOffer(args);
+  }
 
-    // curation
-    createGallery(args: CreateGalleryArgs): Promise<Tx> {
-        return this.curation.createGallery(args);
-    }
+  // curation
+  createGallery(args: CreateGalleryArgs): Promise<Tx> {
+    return this.curation.createGallery(args);
+  }
 
-    createCurationOffer(args: CreateCurationOfferArgs): Promise<Tx> {
-        return this.curation.createCurationOffer(args);
-    }
+  createCurationOffer(args: CreateCurationOfferArgs): Promise<Tx> {
+    return this.curation.createCurationOffer(args);
+  }
 
-    replyCurationOffer(args: ReplyCurationOfferArgs): Promise<Tx> {
-        return this.curation.replyCurationOffer(args);
-    }
+  replyCurationOffer(args: ReplyCurationOfferArgs): Promise<Tx> {
+    return this.curation.replyCurationOffer(args);
+  }
 
-    cancelCurationOffer(args: CancelCurationOfferArgs): Promise<Tx> {
-        return this.curation.cancelCurationOffer(args);
-    }
+  cancelCurationOffer(args: CancelCurationOfferArgs): Promise<Tx> {
+    return this.curation.cancelCurationOffer(args);
+  }
 
-    buyExhibit(args: BuyExhibitArgs): Promise<Tx> {
-        return this.curation.buyExhibit(args);
-    }
+  buyExhibit(args: BuyExhibitArgs): Promise<Tx> {
+    return this.curation.buyExhibit(args);
+  }
 
-    listExhibit(args: ListExhibitArgs): Promise<Tx> {
-        return this.curation.listExhibit(args);
-    }
+  listExhibit(args: ListExhibitArgs): Promise<Tx> {
+    return this.curation.listExhibit(args);
+  }
 
-    cancelExhibit(args: CancelExhibitArgs): Promise<Tx> {
-        return this.curation.cancelExhibit(args);
-    }
+  cancelExhibit(args: CancelExhibitArgs): Promise<Tx> {
+    return this.curation.cancelExhibit(args);
+  }
 
-    redeemExhibit(args: RedeemExhibitArgs): Promise<Tx> {
-        return this.curation.redeemExhibit(args);
-    }
+  redeemExhibit(args: RedeemExhibitArgs): Promise<Tx> {
+    return this.curation.redeemExhibit(args);
+  }
 }
