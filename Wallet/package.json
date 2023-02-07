@@ -1,5 +1,5 @@
 {
-  "name": "@mix-labs/wallet-hook",
+  "name": "@mix-labs/wallet",
   "version": "0.1.28",
   "main": "index.ts",
   "repository": "https://github.com/mix-labs/imart-toolkit.git",
