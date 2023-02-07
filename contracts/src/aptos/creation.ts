@@ -12,7 +12,7 @@ export class Creation implements CreationInterface {
   readonly handle: string;
   constructor(config: Config) {
     this.config = config;
-    this.handle = `${this.config.addresses["creation"]}::creation`;
+    this.handle = `${this.config.addresses["singleCollective"]}::creation`;
   }
 
   mintToken(args: MintTokenArgs): Promise<Tx> {

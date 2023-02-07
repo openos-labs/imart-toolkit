@@ -14,9 +14,11 @@ import {
     WICP,
     SEAPORT,
     APTOS_MARKET_ADDRESS,
-    APTOS_CREATION_ADDRESS,
+    APTOS_SINGLE_COLLECTIVE_ADDRESS,
+    APTOS_MULTIPLE_COLLECTIVE_ADDRESS,
     APTOS_CURATION_ADDRESS,
-    ETH_CREATION_ADDRESS,
+    ETH_SINGLE_COLLECTIVE_ADDRESS,
+    ETH_MULTIPLE_COLLECTIVE_ADDRESS,
     ETH_CURATION_ADDRESS,
     ETH_MARKET_ADDRESS
 } from './Config'
@@ -167,7 +169,8 @@ export const WalletHook = (): HookResponse => {
             case "ETH": {
                 const configuration = {
                     addresses: {
-                        creation: ETH_CREATION_ADDRESS,
+                        singleCollective: ETH_SINGLE_COLLECTIVE_ADDRESS,
+                        multipleCollective: ETH_MULTIPLE_COLLECTIVE_ADDRESS,
                         curation: ETH_CURATION_ADDRESS,
                         market: ETH_MARKET_ADDRESS
                     },
@@ -181,7 +184,8 @@ export const WalletHook = (): HookResponse => {
             default: {
                 const configuration = {
                     addresses: {
-                        creation: APTOS_CREATION_ADDRESS,
+                        singleCollective: APTOS_SINGLE_COLLECTIVE_ADDRESS,
+                        multipleCollective: APTOS_MULTIPLE_COLLECTIVE_ADDRESS,
                         curation: APTOS_CURATION_ADDRESS,
                         market: APTOS_MARKET_ADDRESS
                     },
