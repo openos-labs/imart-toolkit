@@ -31,14 +31,24 @@ import {
 
 export class Evm implements ContractProxy {
   readonly config: Config;
-  private market: Market;
-  private creation: Creation;
-  private curation: Curation;
+  private _market: Market;
+  private _creation: Creation;
+  private _curation: Curation;
+
+  get market() {
+    return this._market ?? (this._market = new Market(this.config));
+  }
+
+  get creation() {
+    return this._creation ?? (this._creation = new Creation(this.config));
+  }
+
+  get curation() {
+    return this._curation ?? (this._curation = new Curation(this.config));
+  }
 
   constructor(config: Config) {
-    this.market = new Market(config);
-    this.creation = new Creation(config);
-    this.curation = new Curation(config);
+    this.config = config;
   }
   create(args: CreationArgs, signer?: Signer): Promise<Tx> {
     return this.creation.create(args, signer);
