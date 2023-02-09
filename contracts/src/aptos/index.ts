@@ -53,6 +53,10 @@ export class Aptos implements ContractProxy {
     return this.market.buyToken(args);
   }
 
+  batchBuyTokens(args: FillOrderObject[]): Promise<any> {
+    return this.market.batchBuyTokens(args);
+  }
+
   listToken(args: ListTokenArgs): Promise<Tx> {
     return this.market.listToken(args);
   }

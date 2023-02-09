@@ -7,6 +7,7 @@ import {
   CreateOfferArgs,
   CancelOfferArgs,
   AcceptOfferArgs,
+  FillOrderObject,
 } from "../types/market";
 import { Config, Tx } from "../types";
 
@@ -30,6 +31,31 @@ export class Market implements MarketInterface {
         args.name,
         args.propertyVersion,
         args.tokenAmount,
+      ],
+    };
+    return this.config?.submitTx!(payload);
+  }
+
+  batchBuyTokens(args: FillOrderObject[]): Promise<any> {
+    const coinAmounts = args.map((_) => _.coinAmount);
+    const sellers = args.map((_) => _.seller);
+    const creators = args.map((_) => _.creator);
+    const collections = args.map((_) => _.collection);
+    const names = args.map((_) => _.name);
+    const propertyVersions = args.map((_) => _.propertyVersion);
+    const tokenAmounts = args.map((_) => _.tokenAmount);
+    const payload = {
+      type: "entry_function_payload",
+      function: `${this.handle}::batch_buy_tokens`,
+      type_arguments: [args.coinType],
+      arguments: [
+        coinAmounts,
+        sellers,
+        creators,
+        collections,
+        names,
+        propertyVersions,
+        tokenAmounts,
       ],
     };
     return this.config?.submitTx!(payload);

@@ -48,6 +48,18 @@ export class Market implements MarketInterface {
     return await executeAllActions();
   }
 
+  async batchBuyTokens(args: FillOrderObject[], _?: any): Promise<Tx> {
+    const account = await this.provider.getSigner().getAddress();
+    const orders = args.map((arg) => {
+      return { order: arg.protocolOrder };
+    });
+    const { executeAllActions } = await this.seaport.fulfillOrders({
+      fulfillOrderDetails: orders,
+      accountAddress: account,
+    });
+    return await executeAllActions();
+  }
+
   async listToken(args: ListTokenArgs, _?: Signer): Promise<Tx> {
     const offerer = await this.provider.getSigner().getAddress();
     let amount = BigNumber.from(args.coinAmount);
