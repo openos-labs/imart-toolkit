@@ -1,4 +1,5 @@
 import { OrderWithCounter } from "@opensea/seaport-js/lib/types";
+import { BigNumberish } from "ethers";
 import { WithCoinType } from ".";
 
 export type ProtocolOrder = {
@@ -31,6 +32,7 @@ export interface ListTokenArgs extends WithCoinType {
   tokenAmount: number;
   coinAmount: number | string;
   lockedUntilSecs: number;
+  royalties?: Record<string, BigNumberish>;
 }
 
 export interface DelistTokenArgs extends WithCoinType {
@@ -53,6 +55,7 @@ export interface CreateOfferArgs extends WithCoinType {
   propertyVersion: string;
   tokenAmount: string;
   duration: number;
+  royalties?: Record<string, BigNumberish>;
 }
 
 export interface AcceptOfferArgs extends WithCoinType {

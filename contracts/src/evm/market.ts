@@ -51,10 +51,45 @@ export class Market implements MarketInterface {
   async listToken(args: ListTokenArgs, _?: Signer): Promise<Tx> {
     const offerer = await this.provider.getSigner().getAddress();
     let amount = BigNumber.from(args.coinAmount);
-    const fee = amount
+    const consideration = [];
+
+    // opensea platform fee
+    const openseaFee = amount
       .mul(OPENSEA_FEE_BASIS_POINTS)
       .div(OPENSEA_FEE_DENOMINATOR);
-    amount = amount.sub(fee);
+    const openseaItem = {
+      token: NATIVE_ETH,
+      amount: openseaFee.toString(),
+      endAmount: openseaFee.toString(),
+      recipient: OPENSEA_FEE_RECEIPIENT,
+    };
+    consideration.push(openseaItem);
+
+    // multiple royalties
+    const totalRoyalty = BigNumber.from("0");
+    const royalties = args.royalties ?? {};
+    for (const [payee, royalty] of royalties) {
+      const fee = amount.mul(royalty).div(ethers.utils.parseEther("1"));
+      const item = {
+        token: NATIVE_ETH,
+        amount: fee.toString(),
+        endAmount: fee.toString(),
+        recipient: payee,
+      };
+      totalRoyalty = totalRoyalty.add(fee);
+      consideration.push(item);
+    }
+
+    // offerer
+    amount = amount.sub(openseaFee).sub(totalRoyalty);
+    const offererItem = {
+      token: NATIVE_ETH,
+      amount: amount.toString(),
+      endAmount: amount.toString(),
+      recipient: offerer,
+    };
+    consideration.push(offererItem);
+
     const { executeAllActions } = await this.seaport.createOrder(
       {
         endTime: this.endTime(MAX_DURATION).toString(),
@@ -67,20 +102,7 @@ export class Market implements MarketInterface {
             endAmount: "1",
           },
         ],
-        consideration: [
-          {
-            token: NATIVE_ETH,
-            amount: amount.toString(),
-            endAmount: amount.toString(),
-            recipient: offerer,
-          },
-          {
-            token: NATIVE_ETH,
-            amount: fee.toString(),
-            endAmount: fee.toString(),
-            recipient: OPENSEA_FEE_RECEIPIENT,
-          },
-        ],
+        consideration,
         conduitKey: CONDUIT_KEY,
       },
       offerer
@@ -104,9 +126,32 @@ export class Market implements MarketInterface {
   async createOffer(args: CreateOfferArgs, _?: Signer): Promise<Tx> {
     const offerer = await this.provider.getSigner().getAddress();
     let amount = BigNumber.from(args.coinAmount);
-    const fee = amount
+    const consideration = [];
+
+    // opensea platform fee
+    const openseaFee = amount
       .mul(OPENSEA_FEE_BASIS_POINTS)
       .div(OPENSEA_FEE_DENOMINATOR);
+    const openseaItem = {
+      token: NATIVE_ETH,
+      amount: openseaFee.toString(),
+      endAmount: openseaFee.toString(),
+      recipient: OPENSEA_FEE_RECEIPIENT,
+    };
+    consideration.push(openseaItem);
+
+    // multiple royalties
+    const royalties = args.royalties ?? {};
+    for (const [payee, royalty] of royalties) {
+      const fee = amount.mul(royalty).div(ethers.utils.parseEther("1"));
+      const item = {
+        token: NATIVE_ETH,
+        amount: fee.toString(),
+        endAmount: fee.toString(),
+        recipient: payee,
+      };
+      consideration.push(item);
+    }
     const { executeAllActions } = await this.seaport.createOrder(
       {
         endTime: this.endTime(args.duration).toString(),
@@ -126,12 +171,7 @@ export class Market implements MarketInterface {
             endAmount: "1",
             recipient: offerer,
           },
-          {
-            token: NATIVE_ETH,
-            amount: fee.toString(),
-            endAmount: fee.toString(),
-            recipient: OPENSEA_FEE_RECEIPIENT,
-          },
+          ...consideration,
         ],
         conduitKey: CONDUIT_KEY,
       },
