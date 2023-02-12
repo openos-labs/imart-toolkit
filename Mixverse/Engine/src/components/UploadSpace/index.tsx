@@ -37,7 +37,6 @@ export const UploadSpace = ({getUrl}: props) => {
                         end = file.size;
                     }
                     const chunk = result.slice(size * idx, end);
-                    console.log(chunk, "chunbk");
                     let blob = new Blob([chunk]);
                     console.log(await ToBlob(blob, name + idx), "await  ToBlob(blob, name + idx)");
                 }
@@ -52,10 +51,6 @@ export const UploadSpace = ({getUrl}: props) => {
                 // console.log(await ToBlob(blob, name + idx), "await  ToBlob(blob, name + idx)");
                 setAwsUrl(mainFileUrl);
                 setLoading(false);
-
-                console.log(mainFileUrl, "mainFest");
-
-
             };
         });
 
