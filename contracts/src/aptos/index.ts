@@ -20,6 +20,7 @@ import {
   RedeemExhibitArgs,
   ReplyCurationOfferArgs,
   Tx,
+  MintTokenArgs
 } from "../types";
 import { Creation } from "./creation";
 import { Market } from "./market";

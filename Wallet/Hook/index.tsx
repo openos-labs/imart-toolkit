@@ -8,6 +8,8 @@ import {
 } from "react";
 
 export * from './WalletHook/Types';
+export * from './WalletHook/Config';
+
 import {WalletHook} from './WalletHook'
 import {ChainResponse, ChainType, WalletType} from './WalletHook/Types';
 import {Contract, Contractor} from "../../contracts/src"
@@ -28,7 +30,7 @@ interface AuthProps {
     loginLoading: boolean,
     contractClient: Contract,
     contractor: Contract,
-    chainType: ChainType | string,
+    currentChainType: ChainType | string,
     walletType: WalletType | string
     switchChain: (chainType: ChainType, walletType: WalletType) => any,
 }
@@ -56,7 +58,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
     }, []);
 
     const Context: AuthProps = {
-        chainType: currentChainType,
+        currentChainType,
         walletType: currentWalletType,
         logOut: walletLogout,
         login: walletLogin,

@@ -58,7 +58,6 @@ export const WalletHook = (): HookResponse => {
     const walletLogin = async (chainType: ChainType, walletType: WalletType) => {
         setLoginLoading(true)
         await walletGather[chainType]['login'](walletType);
-
         // cache status
         Storage.setWalletTypeStorage(walletType);
         Storage.setChainTypeStorage(chainType);
@@ -131,9 +130,9 @@ export const WalletHook = (): HookResponse => {
         };
         const authResult = await auth(authPayload);
         if (authResult?.authorization) {
-            // axios.defaults.headers.common["Authorization"] =
-            //     authResult?.authorization;
-            // Storage.setJWT("token", authResult?.authorization);
+            axios.defaults.headers.common["Authorization"] =
+                authResult?.authorization;
+            Storage.setJWT("token", authResult?.authorization);
             return true;
         }
         return false;
@@ -141,6 +140,7 @@ export const WalletHook = (): HookResponse => {
 
 
     const switchChain = async (chainType: ChainType, walletType: WalletType) => {
+        Storage.clearWallet();
         await walletLogout();
         await walletLogin(chainType, walletType)
     }

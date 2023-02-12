@@ -24,6 +24,11 @@ export default class Storage {
         return localStorage.getItem(this.walletTypeKey) as WalletType;
     }
 
+    static clearWallet() {
+        localStorage.removeItem(this.chainTypeKey);
+        localStorage.removeItem(this.walletTypeKey);
+    }
+
     static getChainTypeStorage(): ChainType {
         return localStorage.getItem(this.chainTypeKey) as ChainType;
     }

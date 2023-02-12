@@ -26,8 +26,8 @@ export interface MintTokenArgs {
   collection: string;
   name: string;
   description: string;
-  to: string;
-  uri: string;
+  to?: string;
+  uri?: string;
   balance: BigNumberish;
-  type: CollectionType;
+  type?: CollectionType;
 }

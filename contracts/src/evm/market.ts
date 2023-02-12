@@ -78,7 +78,7 @@ export class Market implements MarketInterface {
     consideration.push(openseaItem);
 
     // multiple royalties
-    const totalRoyalty = BigNumber.from("0");
+    let totalRoyalty = BigNumber.from("0");
     const royalties = args.royalties ?? {};
     for (const [payee, royalty] of royalties) {
       const fee = amount.mul(royalty).div(ethers.utils.parseEther("1"));
