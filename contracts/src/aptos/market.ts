@@ -16,7 +16,7 @@ export class Market implements MarketInterface {
   readonly handle: string;
   constructor(config: Config) {
     this.config = config;
-    this.handle = `${this.config.addresses["market"]}::FixedMarket`;
+    this.handle = `${this.config.addresses["market"]}::fixed_price_market`;
   }
   buyToken(args: BuyTokenArgs): Promise<Tx> {
     const payload = {
