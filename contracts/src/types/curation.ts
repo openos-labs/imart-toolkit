@@ -7,8 +7,8 @@ export interface CreateGalleryArgs {
   name: string;
   spaceType: string;
   metadataUri: string;
-  payees: string[];
-  commissionRates: BigNumberish[];
+  payees?: string[];
+  commissionRates?: BigNumberish[];
 }
 export interface CreateCurationOfferArgs extends WithCoinType {
   tokenOwner: string;
@@ -18,7 +18,6 @@ export interface CreateCurationOfferArgs extends WithCoinType {
   tokenPropertyVersion: string;
   galleryId: string;
   price: string;
-  commissionFeeRate: string;
   offerDuration: number;
   exhibitExpiredAt: number;
   url: string;
