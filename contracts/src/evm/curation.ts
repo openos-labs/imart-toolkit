@@ -44,7 +44,9 @@ export class Curation implements CurationInterface {
         args.spaceType,
         args.name,
         args.metadataUri,
-        false
+        false,
+        args.payees,
+        args.commissionRates
       );
   }
 
@@ -57,7 +59,6 @@ export class Curation implements CurationInterface {
         args.tokenIdentifier,
         BigNumber.from(args.galleryId),
         BigNumber.from(args.price),
-        BigNumber.from(args.commissionFeeRate),
         BigNumber.from(args.offerDuration),
         BigNumber.from(args.exhibitExpiredAt),
         args.url,

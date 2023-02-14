@@ -1,3 +1,4 @@
+import { BigNumberish } from "ethers";
 import { WithCoinType } from ".";
 
 export interface CreateGalleryArgs {
@@ -6,6 +7,8 @@ export interface CreateGalleryArgs {
   name: string;
   spaceType: string;
   metadataUri: string;
+  payees: string[];
+  commissionRates: BigNumberish[];
 }
 export interface CreateCurationOfferArgs extends WithCoinType {
   tokenOwner: string;
