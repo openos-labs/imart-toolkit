@@ -100,7 +100,7 @@ export class Market implements MarketInterface {
       endAmount: amount.toString(),
       recipient: offerer,
     };
-    consideration.push(offererItem);
+    consideration.unshift(offererItem);
 
     const { executeAllActions } = await this.seaport.createOrder(
       {
