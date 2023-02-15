@@ -37,6 +37,7 @@ export class Market implements MarketInterface {
   }
 
   batchBuyTokens(args: FillOrderObject[]): Promise<any> {
+    if (args.length == 0) return;
     const coinAmounts = args.map((_) => _.coinAmount);
     const sellers = args.map((_) => _.seller);
     const creators = args.map((_) => _.creator);
@@ -47,7 +48,7 @@ export class Market implements MarketInterface {
     const payload = {
       type: "entry_function_payload",
       function: `${this.handle}::batch_buy_tokens`,
-      type_arguments: [args.coinType],
+      type_arguments: [args[0].coinType],
       arguments: [
         coinAmounts,
         sellers,
