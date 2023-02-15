@@ -79,8 +79,8 @@ export class Market implements MarketInterface {
 
     // multiple royalties
     let totalRoyalty = BigNumber.from("0");
-    const royalties = args.royalties ?? {};
-    for (const [payee, royalty] of royalties) {
+    const royalties = args.royalties || {};
+    for (const [payee, royalty] of Object.entries(royalties)) {
       const fee = amount.mul(royalty).div(ethers.utils.parseEther("1"));
       const item = {
         token: NATIVE_ETH,
