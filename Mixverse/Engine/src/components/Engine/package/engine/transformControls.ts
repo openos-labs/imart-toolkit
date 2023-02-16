@@ -92,6 +92,7 @@ createEffect(() => {
     })
     mode === "rotate" &&
         handle.watch(
+            // @ts-ignore
             onTransformControls(() => {
                 const { rotation } = target
                 if (

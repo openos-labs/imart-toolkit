@@ -57,7 +57,6 @@ export const ToBlob = (fileBlob: Blob, name: string) => {
             level: 9  // 压缩等级1~9    1压缩速度最快，9最优压缩方式
         }
     }).then(async (zipBlob: Blob) => { // 压缩的结果为blob类型（二进制流）,可用作文件上传
-        console.log(zipBlob, "zipBlob");
         return await AwsUploadModel(new File([zipBlob], name || "mixverse"));
     });
 };

@@ -28,7 +28,6 @@ export const UploadSpace = ({getUrl}: props) => {
             reader.onerror = () => console.log("file reading has failed");
             reader.onload = async (e: any) => {
                 const name = file.name.split(".")[0];
-                const totalSize = file.size;
                 const result = e.target.result;
                 const total = file.size / size; // 总的分为几片
                 for (let idx: number = 0; idx <= total; idx++) {
@@ -38,7 +37,7 @@ export const UploadSpace = ({getUrl}: props) => {
                     }
                     const chunk = result.slice(size * idx, end);
                     let blob = new Blob([chunk]);
-                    console.log(await ToBlob(blob, name + idx), "await  ToBlob(blob, name + idx)");
+                    await ToBlob(blob, name + idx)
                 }
                 const mainFest = new File([JSON.stringify({
                     total: Math.ceil(total),
@@ -48,63 +47,15 @@ export const UploadSpace = ({getUrl}: props) => {
                     type: "text/plain"
                 });
                 const mainFileUrl = await AwsUploadModel(mainFest);
-                // console.log(await ToBlob(blob, name + idx), "await  ToBlob(blob, name + idx)");
                 setAwsUrl(mainFileUrl);
                 setLoading(false);
             };
         });
 
     }, []);
-    const onDropFile = useCallback((acceptedFiles: any) => {
-        setAwsFileUrl("");
-        setLoadingFile(true);
-        acceptedFiles.forEach((file: any) => {
-            console.log(file, "file");
-            const reader = new FileReader();
-            reader.readAsArrayBuffer(file);
-            reader.onabort = () => console.log("file reading was aborted");
-            reader.onerror = () => console.log("file reading has failed");
-            reader.onload = async (e: any) => {
-
-
-                const name = file.name.split(".")[0];
-                const mainFileUrl = await AwsUploadModel(file);
-                setAwsFileUrl(mainFileUrl);
-
-                setLoadingFile(false);
-                console.log(mainFileUrl);
-                // let modelUrl = window.URL.createObjectURL(blob);
-
-                // const loader = new GLTFLoader().setDRACOLoader(new DRACOLoader().setDecoderPath(WASM_URL));
-                // loader.setMeshoptDecoder(MeshoptDecoder);
-                // loader.load(modelUrl, async (gltf: GLTF) => {
-                //     const modelUrl = await ExporterToZip(gltf, name);
-                //     console.log(modelUrl, "modelUrl");
-                //     setAwsUrl(modelUrl);
-                //     getUrl && getUrl(modelUrl);
-                //     setLoading(false);
-                // }, () => {
-                //
-                // }, async (err) => {
-                //     if (String(err).includes("KTX2")) {
-                //         const modelUrl = await ExporterToZip(blob, name);
-                //         console.log(modelUrl, "modelUrl");
-                //         setAwsUrl(modelUrl);
-                //         getUrl && getUrl(modelUrl);
-                //         setLoading(false);
-                //     }
-                // });
-
-            };
-        });
-
-    }, []);
 
     const {getRootProps, getInputProps, open} = useDropzone({noClick: true, onDrop});
-    const {getRootProps: getPros, getInputProps: inputProps, open: fileOpen} = useDropzone({
-        noClick: true,
-        onDrop: onDropFile
-    });
+
 
     return <> <Styled.Wrap {...getRootProps()}>
         <input {...getInputProps()} />
