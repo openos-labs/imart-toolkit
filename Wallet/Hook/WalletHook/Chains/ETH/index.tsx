@@ -18,7 +18,6 @@ export const ETHWallet = (): ChainResponse => {
         activate,
         deactivate,
     } = useWeb3React<Web3Provider>();
-   console.log(library,'library')
     const login = async () => {
         try {
             await activate(injected)
@@ -34,7 +33,29 @@ export const ETHWallet = (): ChainResponse => {
             console.log(ex)
         }
     }
+    const activateInjectedProvider=(providerName: 'MetaMask' | 'CoinBase')=> {
+        const { ethereum } = window as any;
+
+        if (!ethereum?.providers) {
+            return undefined;
+        }
+
+        let provider;
+        switch (providerName) {
+            case 'CoinBase':
+                provider = ethereum?.providers.find(({ isCoinbaseWallet }) => isCoinbaseWallet);
+                break;
+            case 'MetaMask':
+                provider = ethereum?.providers.find(({ isMetaMask }) => isMetaMask);
+                break;
+        }
+
+        if (provider) {
+            ethereum.setSelectedProvider(provider);
+        }
+    }
     useEffect(() => {
+        activateInjectedProvider('MetaMask');
         injected.isAuthorized().then((isAuthorized) => {
             if (isAuthorized) {
                 activate(injected, undefined, true).catch(() => {
@@ -47,12 +68,14 @@ export const ETHWallet = (): ChainResponse => {
     const walletSignMessage = (message: string, nonce: string) => {
         const from = address;
         const msg = `0x${Buffer.from(nonce, 'utf8').toString('hex')}`;
-       return  currentWallet.request({
+        return currentWallet.request({
             method: 'personal_sign',
             params: [msg, from, message],
         });
     }
-    const provider = new ethers.providers.Web3Provider(currentWallet);
+    const getProvider = () => {
+        return currentWallet ? new ethers.providers.Web3Provider(currentWallet) : ethers.providers.getDefaultProvider();
+    }
     return {
         login,
         connected,
@@ -60,7 +83,7 @@ export const ETHWallet = (): ChainResponse => {
         address,
         chainId,
         publicKey: 'undefined',
-        provider,
+        getProvider,
         walletSignMessage
     }
 }

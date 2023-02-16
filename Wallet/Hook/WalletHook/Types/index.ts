@@ -7,7 +7,7 @@ export interface ChainResponse {
     address: string | null | undefined,
     chainId?: number | undefined
     publicKey: string | null | undefined,
-    provider?: any | undefined,
+    getProvider?: any | undefined,
     walletSignMessage?: (message:string,nonce:string)=>any
 }
 

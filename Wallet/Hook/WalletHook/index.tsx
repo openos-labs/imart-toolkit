@@ -174,9 +174,9 @@ export const WalletHook = (): HookResponse => {
                         curation: ETH_CURATION_ADDRESS,
                         market: ETH_MARKET_ADDRESS
                     },
-                    provider: ETH.provider
+                    provider: ETH.getProvider()
                 }
-                if (!ETH.provider) {
+                if (!configuration.provider) {
                     return;
                 }
                 return Contractor(Evm, configuration)
