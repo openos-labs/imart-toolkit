@@ -44,6 +44,7 @@ export const WalletHook = (): HookResponse => {
     const APTOS = AptosWallet();
     const ETH = ETHWallet();
     const IC = ICWallet();
+    const [walletCertified,setWalletCertified] = useState<boolean>();
     const {signAndSubmitTransaction} = useWallet();
     const [_chainType, setChainType] = useState<ChainType>('');
     const [_walletType, setWalletType] = useState<WalletType>('')
@@ -91,6 +92,8 @@ export const WalletHook = (): HookResponse => {
     useEffect(() => {
         if (connected) {
             AuthImart()
+        }else {
+            setWalletCertified(false)
         }
     }, [connected])
 
@@ -157,6 +160,9 @@ export const WalletHook = (): HookResponse => {
     const checkLogin = async () => {
         const cachedChainType = Storage.getChainTypeStorage() ?? "";
         const cachedWalletType = Storage.getWalletTypeStorage() ?? "";
+        if (!await isAuth()) {
+            return;
+        }
         if (cachedChainType && cachedWalletType) {
             return walletLogin(cachedChainType, cachedWalletType)
         }
