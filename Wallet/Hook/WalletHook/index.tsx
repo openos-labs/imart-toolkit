@@ -181,7 +181,7 @@ export const WalletHook = (): HookResponse => {
                 }
                 return Contractor(Evm, configuration)
             }
-            default: {
+            case "APTOS":
                 const configuration = {
                     addresses: {
                         singleCollective: APTOS_SINGLE_COLLECTIVE_ADDRESS,
@@ -192,7 +192,7 @@ export const WalletHook = (): HookResponse => {
                     submitTx: signAndSubmitTransaction
                 }
                 return Contractor(Aptos, configuration)
-            }
+            default: {}
         }
     }, [_chainType, ETH, connected])
     return {
