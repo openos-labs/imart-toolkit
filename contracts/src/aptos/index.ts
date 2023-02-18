@@ -20,7 +20,7 @@ import {
   RedeemExhibitArgs,
   ReplyCurationOfferArgs,
   Tx,
-  MintTokenArgs
+  MintTokenArgs,
 } from "../types";
 import { Creation } from "./creation";
 import { Market } from "./market";
@@ -60,6 +60,10 @@ export class Aptos implements ContractProxy {
 
   listToken(args: ListTokenArgs): Promise<Tx> {
     return this.market.listToken(args);
+  }
+
+  batchListTokens(args: ListTokenArgs[]): Promise<any> {
+    return this.market.batchListTokens(args);
   }
 
   delistToken(args: CancelOrderObject): Promise<Tx> {
