@@ -126,6 +126,10 @@ export class Market implements MarketInterface {
     });
   }
 
+  async batchListTokens(args: ListTokenArgs[], signer?: any): Promise<any> {
+    throw new Error("Not implemented");
+  }
+
   async delistToken(args: CancelOrderObject, _?: Signer): Promise<Tx> {
     const seller = await this.provider.getSigner().getAddress();
     const { transact } = this.seaport.cancelOrders(

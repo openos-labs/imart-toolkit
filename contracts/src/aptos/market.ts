@@ -80,6 +80,32 @@ export class Market implements MarketInterface {
     return this.config?.submitTx!(payload);
   }
 
+  batchListTokens(args: ListTokenArgs[]): Promise<any> {
+    if (args.length == 0) return;
+    const creators = args.map((_) => _.creator);
+    const collections = args.map((_) => _.collection);
+    const names = args.map((_) => _.name);
+    const propertyVersions = args.map((_) => _.propertyVersion);
+    const tokenAmounts = args.map((_) => _.tokenAmount);
+    const coinAmounts = args.map((_) => _.coinAmount);
+    const lockedUntilSecs = args.map((_) => _.lockedUntilSecs);
+    const payload = {
+      type: "entry_function_payload",
+      function: `${this.handle}::batch_list_tokens`,
+      type_arguments: [args[0].coinType],
+      arguments: [
+        creators,
+        collections,
+        names,
+        propertyVersions,
+        tokenAmounts,
+        coinAmounts,
+        lockedUntilSecs,
+      ],
+    };
+    return this.config?.submitTx!(payload);
+  }
+
   delistToken(args: DelistTokenArgs): Promise<Tx> {
     const payload = {
       type: "entry_function_payload",

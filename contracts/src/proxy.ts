@@ -43,6 +43,7 @@ export interface MarketInterface {
   cancelOffer(args: CancelOfferObject, signer?: Signer): Promise<Tx>;
   acceptOffer(args: AcceptOfferObject, signer?: Signer): Promise<Tx>;
   batchBuyTokens(args: FillOrderObject[], signer?: Signer): Promise<Tx>;
+  batchListTokens(args: ListTokenArgs[], signer?: Signer): Promise<Tx>;
 }
 
 export interface CurationInterface {
@@ -97,6 +98,7 @@ export abstract class ContractProxy
     args: FillOrderObject[],
     signer?: Signer
   ): Promise<Tx>;
+  abstract batchListTokens(args: ListTokenArgs[], signer?: any): Promise<Tx>;
   abstract delistToken(args: CancelOrderObject, signer?: Signer): Promise<Tx>;
   abstract createOffer(args: CreateOfferArgs, signer?: Signer): Promise<Tx>;
   abstract acceptOffer(args: AcceptOfferObject, signer?: Signer): Promise<Tx>;
