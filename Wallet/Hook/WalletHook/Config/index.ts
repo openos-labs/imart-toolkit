@@ -18,3 +18,4 @@ export const WalletCategory: WalletCategoryProps = {
     APTOS: ['aptos:petra', 'aptos:martian'],
     IC: ['dfinity:plug']
 }
+
