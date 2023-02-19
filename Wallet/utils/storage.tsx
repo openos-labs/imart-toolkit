@@ -7,6 +7,7 @@ export default class Storage {
     static chainTypeKey = 'CHAIN_TYPE_KEY';
     static OrderKey = 'ORDER_KEY';
     static TabActive = 'TABACTIVE';
+    static LatestActivatedAccount = 'LATEST_ACTIVATED_ACCOUNT';
 
     static setJWT(address: string, value: string) {
         return localStorage.setItem(address, value);
@@ -22,6 +23,14 @@ export default class Storage {
 
     static getWalletTypeStorage(): WalletType {
         return localStorage.getItem(this.walletTypeKey) as WalletType;
+    }
+
+    static setLatestAccount(account: string) {
+        localStorage.setItem(this.LatestActivatedAccount, account);
+    }
+
+    static getLatestAccount(): string {
+        return localStorage.getItem(this.LatestActivatedAccount) || "";
     }
 
     static clearWallet() {

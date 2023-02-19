@@ -135,7 +135,7 @@ export const WalletHook = (): HookResponse => {
         if (authResult?.authorization) {
             axios.defaults.headers.common["Authorization"] =
                 authResult?.authorization;
-            Storage.setJWT("token", authResult?.authorization);
+            Storage.setJWT(`token:${address}`, authResult?.authorization);
             return true;
         }
         return false;
@@ -153,7 +153,9 @@ export const WalletHook = (): HookResponse => {
         if (!_chainType || !_walletType) {
             return;
         }
-        return walletGather[_chainType]['address'];
+        const address = walletGather[_chainType]['address'];
+        Storage.setLatestAccount(address);
+        return address;
     }, [_walletType, walletGather, _chainType]);
 
     // Check if you are logged in

@@ -3,7 +3,8 @@ import Storage from '../../../utils/storage';
 
 axios.interceptors.request.use(
     config => {
-        config.headers["Authorization"] = `${Storage.getJWT("token")}`;
+        const account = Storage.getLatestAccount();
+        config.headers["Authorization"] = Storage.getJWT(`token:${account}`) || "";
         return config;
     },
     error => {
