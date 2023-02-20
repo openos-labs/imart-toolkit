@@ -7,5 +7,5 @@ export const APTOS_MULTIPLE_COLLECTIVE_ADDRESS =
 export const APTOS_CURATION_ADDRESS =
     "0x5e895990e6134dc0e5774090b5657410e78713a1ae4839870857a1b57bd370b4";
 
-export const NODE_URL = "https://fullnode.devnet.aptoslabs.com";
+export const NODE_URL = "https://fullnode.testnet.aptoslabs.com";
 export const FAUCET_URL = "https://faucet.devnet.aptoslabs.com";

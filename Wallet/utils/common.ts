@@ -1,3 +1,5 @@
+import BigNumber from "bignumber.js";
+
 export class AwaitResolve {
     static awaitEvents: Map<string, Function> = new Map()
     static awaitValues: Map<string, any> = new Map()
@@ -22,3 +24,17 @@ export class AwaitResolve {
         })
     }
 }
+
+export const getCurrencyString = (
+    // eslint-disable-next-line no-undef
+    amount: BigInt | undefined | string | number,
+    // eslint-disable-next-line no-undef
+    decimals: BigInt | undefined | number,
+    toFixed: number | undefined = undefined
+) => {
+    if (!amount || typeof decimals === "undefined") return "0";
+    const num = new BigNumber(amount.toString()).div(
+        new BigNumber(10).pow(decimals.toString())
+    );
+    return typeof toFixed === "undefined" ? num.toString() : num.toFixed(toFixed);
+};

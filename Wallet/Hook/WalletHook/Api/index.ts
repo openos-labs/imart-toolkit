@@ -1,19 +1,8 @@
-import axios from "axios";
-import Storage from '../../../utils/storage';
+import axios from "../../../../network";
 
-const https = axios.create({})
-https.interceptors.request.use(
-    config => {
-        const account = Storage.getLatestAccount();
-        if (config.headers) config.headers["Authorization"] = Storage.getJWT(`token:${account}`) || "";
-        return config;
-    },
-    error => {
-        return Promise.reject(error);
-    }
-);
+const https = axios.create({baseURL: "/auth"})
 
-https.defaults.baseURL = "/auth";
+
 /**
  * @description:
  * @param {string} publicKey

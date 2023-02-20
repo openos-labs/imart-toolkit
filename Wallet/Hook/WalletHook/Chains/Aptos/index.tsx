@@ -3,7 +3,7 @@ import {ChainResponse, SignMessagePayload, WalletType} from "../../Types";
 import {AptosClient, AptosAccount, CoinClient, FaucetClient} from "aptos";
 import {NODE_URL, FAUCET_URL} from '../../Config'
 import {useEffect} from "react";
-import {AwaitResolve} from '../../../../utils/common'
+import {AwaitResolve, getCurrencyString} from '../../../../utils/common'
 
 export const AptosWallet = (): ChainResponse => {
     const {
@@ -51,12 +51,18 @@ export const AptosWallet = (): ChainResponse => {
         return await disconnect()
     }
     const getBalance = async () => {
-        const client = new AptosClient(NODE_URL);
-        const coinClient = new CoinClient(client);
-        await AwaitResolve.awaitFn('address')
+        try {
+            const client = new AptosClient(NODE_URL);
+            const coinClient = new CoinClient(client);
+            await AwaitResolve.awaitFn('address')
 
-        // @ts-ignore
-        return  await coinClient.checkBalance(account.address)
+            // @ts-ignore
+            const amount = await coinClient.checkBalance(account.address);
+            return  getCurrencyString(amount,8,4)
+        }catch (e) {
+            console.log(e,'er')
+        }
+
 
     }
     useEffect(() => {

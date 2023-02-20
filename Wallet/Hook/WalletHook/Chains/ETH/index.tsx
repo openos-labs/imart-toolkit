@@ -86,7 +86,8 @@ export const ETHWallet = (): ChainResponse => {
         }
         const web3 = new Web3(provider?.provider);
         const amount = await web3.eth.getBalance(address as string);
-        return ethers.utils.formatEther(amount)
+        const formateNumber = +ethers.utils.formatEther(amount)
+        return formateNumber.toFixed(4)
     }
     return {
         login,

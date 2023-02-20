@@ -99,11 +99,6 @@ export const WalletHook = (): HookResponse => {
     }, [_chainType, _walletType, walletGather]);
 
 
-    useEffect(() => {
-        if (connected) {
-            AuthImart()
-        }
-    }, [connected])
 
     // Authorization for imart backend
     const AuthImart = async () => {
@@ -204,7 +199,12 @@ export const WalletHook = (): HookResponse => {
             }
         }
     }, [_chainType, ETH, connected]);
-
+  // ------------------------watch state ----------------------
+    useEffect(() => {
+        if (connected) {
+            AuthImart()
+        }
+    }, [connected])
     return {
         contractor,
         walletLogin,
