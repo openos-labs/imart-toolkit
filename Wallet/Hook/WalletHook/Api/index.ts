@@ -1,10 +1,11 @@
 import axios from "axios";
 import Storage from '../../../utils/storage';
 
-axios.interceptors.request.use(
+const https = axios.create({})
+https.interceptors.request.use(
     config => {
         const account = Storage.getLatestAccount();
-        config.headers["Authorization"] = Storage.getJWT(`token:${account}`) || "";
+        if (config.headers) config.headers["Authorization"] = Storage.getJWT(`token:${account}`) || "";
         return config;
     },
     error => {
@@ -12,7 +13,7 @@ axios.interceptors.request.use(
     }
 );
 
-axios.defaults.baseURL = "/auth";
+https.defaults.baseURL = "/auth";
 /**
  * @description:
  * @param {string} publicKey
@@ -21,7 +22,7 @@ axios.defaults.baseURL = "/auth";
  */
 
 export const getNonce = async (publicKey: string, address: string) => {
-    const res = await axios.get(
+    const res = await https.get(
         `/auth/nonce?publicKey=${publicKey}&address=${address}`
     );
     return res.data;
@@ -35,14 +36,14 @@ export interface Auth {
 }
 
 export const auth = async (authParams: Auth) => {
-    const res = await axios.post(`/auth`, authParams);
+    const res = await https.post(`/auth`, authParams);
     return res.data
 }
 
 
 export const isAuth = async (): Promise<boolean> => {
     try {
-        const response = await axios.get(`/user/isLoggedIn`);
+        const response = await https.get(`/user/isLoggedIn`);
         return response.status == 200 && response.data.isLoggedIn;
     } catch (e) {
         return false;

@@ -7,12 +7,7 @@ import {getNonce, auth, isAuth} from "./Api";
 import axios from "axios";
 import Storage from "../../utils/storage";
 import {
-    MINT,
-    MARKET,
-    STORAGE,
-    SALSE,
-    WICP,
-    SEAPORT,
+    defaultValue,
     APTOS_MARKET_ADDRESS,
     APTOS_SINGLE_COLLECTIVE_ADDRESS,
     APTOS_MULTIPLE_COLLECTIVE_ADDRESS,
@@ -22,7 +17,7 @@ import {
     ETH_CURATION_ADDRESS,
     ETH_MARKET_ADDRESS
 } from './Config'
-import {ChainResponse, ChainType, SignMessagePayload, SignMessageResponse, WalletType} from './Types'
+import {ChainType, SignMessageResponse, WalletType} from './Types'
 import {Contractor, Aptos, Evm, Contract} from "../../../contracts/src";
 
 
@@ -38,13 +33,14 @@ export interface HookResponse {
     checkLogin: () => void;
     AuthImart: () => any;
     switchChain: (chainType: ChainType, walletType: WalletType) => any;
+    getBalance: () => any
 }
+
 
 export const WalletHook = (): HookResponse => {
     const APTOS = AptosWallet();
     const ETH = ETHWallet();
     const IC = ICWallet();
-    const [walletCertified,setWalletCertified] = useState<boolean>();
     const {signAndSubmitTransaction} = useWallet();
     const [_chainType, setChainType] = useState<ChainType>('');
     const [_walletType, setWalletType] = useState<WalletType>('')
@@ -70,30 +66,42 @@ export const WalletHook = (): HookResponse => {
     }
 
     // current already connected wallet object
-    const currentConnectedWallet: ChainResponse | undefined = useMemo(() => {
+    const {connected, address, walletLogout, currentConnectedWallet, getBalance} = useMemo(() => {
         if (!_chainType) {
-            return
+            return defaultValue
         }
-        return walletGather[_chainType]
-    }, [_chainType, _walletType, walletGather])
-    const connected = useMemo(() => {
-        return !!(currentConnectedWallet && currentConnectedWallet['connected'])
-    }, [currentConnectedWallet])
-
-    // logout
-    const walletLogout = useCallback(async () => {
-        if (!_chainType || !_walletType || !currentConnectedWallet) {
-            return
+        const _currentConnectedWallet = walletGather[_chainType];
+        //connected
+        const connected = (): boolean => {
+            return !!(_currentConnectedWallet && _currentConnectedWallet['connected']);
         }
-        return await currentConnectedWallet['logout']();
-    }, [currentConnectedWallet, _chainType, _walletType])
+        // address
+        const address = (): string => {
+            const _address = _currentConnectedWallet['address'];
+            Storage.setLatestAccount(_address);
+            return _address
+        }
+        // walletLogout
+        const walletLogout = async () => {
+            return await _currentConnectedWallet['logout']();
+        }
+        //getBalance
+        const getBalance = async () => {
+            return await _currentConnectedWallet?.getBalance();
+        }
+        return {
+            address: address(),
+            connected: connected(),
+            walletLogout,
+            currentConnectedWallet: _currentConnectedWallet,
+            getBalance
+        }
+    }, [_chainType, _walletType, walletGather]);
 
 
     useEffect(() => {
         if (connected) {
             AuthImart()
-        }else {
-            setWalletCertified(false)
         }
     }, [connected])
 
@@ -148,20 +156,12 @@ export const WalletHook = (): HookResponse => {
         await walletLogin(chainType, walletType)
     }
 
-    //  wallet address
-    const address = useMemo(() => {
-        if (!_chainType || !_walletType) {
-            return;
-        }
-        const address = walletGather[_chainType]['address'];
-        Storage.setLatestAccount(address);
-        return address;
-    }, [_walletType, walletGather, _chainType]);
 
     // Check if you are logged in
     const checkLogin = async () => {
         const cachedChainType = Storage.getChainTypeStorage() ?? "";
         const cachedWalletType = Storage.getWalletTypeStorage() ?? "";
+
         if (!await isAuth()) {
             return;
         }
@@ -200,9 +200,11 @@ export const WalletHook = (): HookResponse => {
                     submitTx: signAndSubmitTransaction
                 }
                 return Contractor(Aptos, configuration)
-            default: {}
+            default: {
+            }
         }
-    }, [_chainType, ETH, connected])
+    }, [_chainType, ETH, connected]);
+
     return {
         contractor,
         walletLogin,
@@ -214,6 +216,7 @@ export const WalletHook = (): HookResponse => {
         connected,
         loginLoading,
         checkLogin,
-        switchChain
+        switchChain,
+        getBalance
     }
 }

@@ -10,7 +10,7 @@ import {
 export * from './WalletHook/Types';
 export * from './WalletHook/Config';
 
-import {WalletHook} from './WalletHook'
+import {HookResponse, WalletHook} from './WalletHook'
 import {ChainResponse, ChainType, WalletType} from './WalletHook/Types';
 import {Contract, Contractor} from "../../contracts/src"
 
@@ -33,6 +33,7 @@ interface AuthProps {
     currentChainType: ChainType | string,
     walletType: WalletType | string
     switchChain: (chainType: ChainType, walletType: WalletType) => any,
+    getBalance: () => any
 }
 
 interface AuthProviderProps {
@@ -50,7 +51,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         checkLogin,
         currentChainType,
         currentWalletType,
-        switchChain
+        switchChain,
+        getBalance
     } = WalletHook()
 
     useEffect(() => {
@@ -67,7 +69,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         loginLoading,
         contractClient: contractor,
         contractor,
-        switchChain
+        switchChain,
+        getBalance
     };
     // save common data
     return (

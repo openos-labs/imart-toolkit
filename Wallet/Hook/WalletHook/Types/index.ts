@@ -8,7 +8,8 @@ export interface ChainResponse {
     chainId?: number | undefined
     publicKey: string | null | undefined,
     getProvider?: any | undefined,
-    walletSignMessage?: (message:string,nonce:string)=>any
+    walletSignMessage?: (message: string, nonce: string) => any;
+    getBalance?: () => any;
 }
 
 export interface AuthContext {

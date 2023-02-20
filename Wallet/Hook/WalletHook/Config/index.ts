@@ -19,3 +19,11 @@ export const WalletCategory: WalletCategoryProps = {
     IC: ['dfinity:plug']
 }
 
+export const defaultValue = {
+    connected: false, walletLogout: () => {
+    },
+    currentConnectedWallet: undefined,
+    address: '',
+    getBalance: () => {
+    }
+}

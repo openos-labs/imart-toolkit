@@ -11,3 +11,4 @@ export const AptosWalletType = {
     PETRA: "aptos:petra",
     MARTIAN: "aptos:martian"
 }
+

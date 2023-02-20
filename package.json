@@ -6,7 +6,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "repository":"https://github.com/mix-labs/imart-toolkit.git",
+  "repository": "https://github.com/mix-labs/imart-toolkit.git",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mix-labs/imart-toolkit/issues"
@@ -41,14 +41,16 @@
   "dependencies": {
     "@dfinity/principal": "^0.10.1",
     "@opensea/seaport-js": "^1.0.8",
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "@web3-react/metamask": "^8.0.29-beta.0",
+    "add": "^2.0.6",
+    "aptos": "^1.6.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-styled-components": "^1.12.0",
     "react-is": "^17.0.2",
     "rollup": "^2.47.0",
     "themeprovider-storybook": "^1.7.2",
-    "web3": "^1.8.1",
-    "@web3-react/core": "^6.1.9",
-    "@web3-react/injected-connector": "^6.0.7",
-    "@web3-react/metamask": "^8.0.29-beta.0"
+    "web3": "^1.8.1"
   }
 }
