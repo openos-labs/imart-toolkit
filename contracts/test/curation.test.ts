@@ -68,7 +68,6 @@ async function sendOffer(
       tokenPropertyVersion: "",
       galleryId: gallery.id.toString(),
       price: price.toString(),
-      commissionFeeRate: feerate.toString(),
       offerDuration: offerDuration,
       exhibitExpiredAt: exhibitDuration,
       url: "https://github.com",

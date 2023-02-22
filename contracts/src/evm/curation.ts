@@ -40,11 +40,13 @@ export class Curation implements CurationInterface {
       args.collection === ""
         ? "0x0000000000000000000000000000000000000000"
         : args.collection;
+    const tokenIdentifier =
+      args.tokenIdentifier === "" ? "0" : args.tokenIdentifier;
     return this.curation
       .connect(this.signer)
       .createGallery(
         contract,
-        args.tokenIdentifier,
+        tokenIdentifier,
         args.spaceType,
         args.name,
         args.metadataUri,
