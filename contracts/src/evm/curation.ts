@@ -36,10 +36,14 @@ export class Curation implements CurationInterface {
 
   //curator.create_gallery
   createGallery(args: CreateGalleryArgs, _?: Signer): Promise<Tx> {
+    const contract =
+      args.collection === ""
+        ? "0x0000000000000000000000000000000000000000"
+        : args.collection;
     return this.curation
       .connect(this.signer)
       .createGallery(
-        args.collection,
+        contract,
         args.tokenIdentifier,
         args.spaceType,
         args.name,
