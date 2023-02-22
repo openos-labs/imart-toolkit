@@ -13,6 +13,7 @@ import { Config, Signer, Tx } from "../types";
 import { Seaport } from "@opensea/seaport-js";
 import { ItemType } from "@opensea/seaport-js/lib/constants";
 import { ethers, BigNumber } from "ethers";
+import { CreateOrderInput } from "@opensea/seaport-js/lib/types";
 
 const NATIVE_ETH = "0x0000000000000000000000000000000000000000";
 const SEAPORT_URL = "https://testnets-api.opensea.io/v2/orders/goerli/seaport";
@@ -60,7 +61,7 @@ export class Market implements MarketInterface {
     return await executeAllActions();
   }
 
-  async listToken(args: ListTokenArgs, _?: Signer): Promise<Tx> {
+  orderInputOf(args: ListTokenArgs): CreateOrderInput {
     const offerer = await this.provider.getSigner().getAddress();
     let amount = BigNumber.from(args.coinAmount);
     const consideration = [];
@@ -101,22 +102,27 @@ export class Market implements MarketInterface {
       recipient: offerer,
     };
     consideration.unshift(offererItem);
+    return {
+      endTime: this.endTime(MAX_DURATION).toString(),
+      offer: [
+        {
+          itemType: ItemType.ERC721,
+          token: args.collectionId,
+          identifier: args.tokenId,
+          amount: "1",
+          endAmount: "1",
+        },
+      ],
+      consideration,
+      conduitKey: CONDUIT_KEY,
+    };
+  }
 
+  async listToken(args: ListTokenArgs, _?: Signer): Promise<Tx> {
+    const offerer = await this.provider.getSigner().getAddress();
+    const orderInput = this.orderInputOf(args);
     const { executeAllActions } = await this.seaport.createOrder(
-      {
-        endTime: this.endTime(MAX_DURATION).toString(),
-        offer: [
-          {
-            itemType: ItemType.ERC721,
-            token: args.collectionId,
-            identifier: args.tokenId,
-            amount: "1",
-            endAmount: "1",
-          },
-        ],
-        consideration,
-        conduitKey: CONDUIT_KEY,
-      },
+      orderInput,
       offerer
     );
     const order = await executeAllActions();
@@ -126,8 +132,22 @@ export class Market implements MarketInterface {
     });
   }
 
-  async batchListTokens(args: ListTokenArgs[], signer?: any): Promise<any> {
-    throw new Error("Not implemented");
+  async batchListTokens(args: ListTokenArgs[], _?: any): Promise<any> {
+    const offerer = await this.provider.getSigner().getAddress();
+    const orderInputs = args.map((item) => this.orderInputOf(item));
+    const { executeAllActions } = await this.seaport.createBulkOrders(
+      orderInputs,
+      offerer
+    );
+    const orders = await executeAllActions();
+    return await Promise.all(
+      orders.map(async (order) => {
+        await axios.post(`${SEAPORT_URL}/listings`, {
+          parameters: order.parameters,
+          signature: order.signature,
+        });
+      })
+    );
   }
 
   async delistToken(args: CancelOrderObject, _?: Signer): Promise<Tx> {

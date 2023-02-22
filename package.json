@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@dfinity/principal": "^0.10.1",
-    "@opensea/seaport-js": "^1.0.8",
+    "@opensea/seaport-js": "github:ProjectOpenSea/seaport-js#main",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/metamask": "^8.0.29-beta.0",
