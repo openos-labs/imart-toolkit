@@ -45,6 +45,7 @@
     "hardhat-gas-reporter": "^1.0.9",
     "js-cookie": "^2.2.1",
     "mocha": "^10.2.0",
+    "seaport": "ProjectOpenSea/seaport#1.2",
     "solidity-coverage": "^0.8.2",
     "typechain": "^8.1.1"
   }
