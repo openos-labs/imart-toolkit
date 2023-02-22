@@ -10,7 +10,7 @@ import {
   AcceptOfferObject,
 } from "../types/market";
 import { Config, Signer, Tx } from "../types";
-import { Seaport } from "@opensea/seaport-js";
+import { Seaport } from "@opensea/seaport-js/lib";
 import { ItemType } from "@opensea/seaport-js/lib/constants";
 import { ethers, BigNumber } from "ethers";
 import { CreateOrderInput } from "@opensea/seaport-js/lib/types";
