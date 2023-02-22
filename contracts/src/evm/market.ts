@@ -61,8 +61,7 @@ export class Market implements MarketInterface {
     return await executeAllActions();
   }
 
-  orderInputOf(args: ListTokenArgs): CreateOrderInput {
-    const offerer = await this.provider.getSigner().getAddress();
+  orderInputOf(args: ListTokenArgs, offerer: string): CreateOrderInput {
     let amount = BigNumber.from(args.coinAmount);
     const consideration = [];
 
@@ -120,7 +119,7 @@ export class Market implements MarketInterface {
 
   async listToken(args: ListTokenArgs, _?: Signer): Promise<Tx> {
     const offerer = await this.provider.getSigner().getAddress();
-    const orderInput = this.orderInputOf(args);
+    const orderInput = this.orderInputOf(args, offerer);
     const { executeAllActions } = await this.seaport.createOrder(
       orderInput,
       offerer
@@ -134,7 +133,7 @@ export class Market implements MarketInterface {
 
   async batchListTokens(args: ListTokenArgs[], _?: any): Promise<any> {
     const offerer = await this.provider.getSigner().getAddress();
-    const orderInputs = args.map((item) => this.orderInputOf(item));
+    const orderInputs = args.map((item) => this.orderInputOf(item, offerer));
     const { executeAllActions } = await this.seaport.createBulkOrders(
       orderInputs,
       offerer
