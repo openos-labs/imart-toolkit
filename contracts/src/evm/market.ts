@@ -45,6 +45,7 @@ export class Market implements MarketInterface {
     const { executeAllActions } = await this.seaport.fulfillOrder({
       order: args.protocolOrder,
       accountAddress: account,
+      exactApproval: true,
     });
     return await executeAllActions();
   }
@@ -57,6 +58,7 @@ export class Market implements MarketInterface {
     const { executeAllActions } = await this.seaport.fulfillOrders({
       fulfillOrderDetails: orders,
       accountAddress: account,
+      exactApproval: true,
     });
     return await executeAllActions();
   }
@@ -122,7 +124,8 @@ export class Market implements MarketInterface {
     const orderInput = this.orderInputOf(args, offerer);
     const { executeAllActions } = await this.seaport.createOrder(
       orderInput,
-      offerer
+      offerer,
+      true
     );
     const order = await executeAllActions();
     return await axios.post(`${SEAPORT_URL}/listings`, {
@@ -136,7 +139,8 @@ export class Market implements MarketInterface {
     const orderInputs = args.map((item) => this.orderInputOf(item, offerer));
     const { executeAllActions } = await this.seaport.createBulkOrders(
       orderInputs,
-      offerer
+      offerer,
+      true
     );
     const orders = await executeAllActions();
     return await Promise.all(
@@ -210,7 +214,8 @@ export class Market implements MarketInterface {
         ],
         conduitKey: CONDUIT_KEY,
       },
-      offerer
+      offerer,
+      true
     );
 
     const offer = await executeAllActions();
@@ -235,6 +240,7 @@ export class Market implements MarketInterface {
       order: args.protocolOrder,
       accountAddress: account,
       recipientAddress: args.buyer,
+      exactApproval: true,
     });
     return await executeAllActions();
   }
