@@ -13,13 +13,13 @@ export type AcceptOfferObject = AcceptOfferArgs & ProtocolOrder;
 export interface BuyTokenArgs extends WithCoinType {
   collectionId: string;
   tokenId: string;
-  coinAmount: number;
+  coinAmount: BigNumberish;
   seller: string;
   creator: string;
   collection: string;
   name: string;
   propertyVersion: string;
-  tokenAmount: number;
+  tokenAmount: BigNumberish;
 }
 
 export interface ListTokenArgs extends WithCoinType {
@@ -29,8 +29,8 @@ export interface ListTokenArgs extends WithCoinType {
   collection: string;
   name: string;
   propertyVersion: string;
-  tokenAmount: number;
-  coinAmount: number | string;
+  tokenAmount: BigNumberish;
+  coinAmount: BigNumberish;
   lockedUntilSecs: number;
   royalties?: Record<string, BigNumberish>;
 }
@@ -42,7 +42,7 @@ export interface DelistTokenArgs extends WithCoinType {
   collection: string;
   name: string;
   propertyVersion: string;
-  tokenAmount: number;
+  tokenAmount: BigNumberish;
 }
 
 export interface CreateOfferArgs extends WithCoinType {
@@ -109,7 +109,7 @@ export interface Order {
   price: string;
   quantity: string;
   currency: string;
-  decimals: number;
+  decimals: BigNumberish;
   tokenId: string;
   collectionId: string;
   seller: string;
