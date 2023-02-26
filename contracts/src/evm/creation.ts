@@ -59,6 +59,30 @@ export class Creation implements CreationInterface {
     }
   }
 
+  async isApproved(args: ApproveArgs, signer?: any): Promise<Tx> {
+    const address = await this.signer.getAddress();
+    const curationContract = this.config.addresses["curation"];
+    switch (args.type) {
+      case "single":
+        const erc721 = ERC721__factory.connect(
+          args.collectionIdentifier,
+          this.provider
+        );
+        const approved = await erc721
+          .connect(this.signer || signer)
+          .getApproved(args.tokenIdentifier);
+        return approved === curationContract;
+      case "multiple":
+        const erc1155 = ERC1155__factory.connect(
+          args.collectionIdentifier,
+          this.provider
+        );
+        return await erc1155
+          .connect(this.signer || signer)
+          .isApprovedForAll(address, curationContract);
+    }
+  }
+
   approve(args: ApproveArgs, signer?: Signer): Promise<Tx> {
     const curationContract = this.config.addresses["curation"];
     switch (args.type) {

@@ -54,6 +54,9 @@ export class Evm implements ContractProxy {
   create(args: CreationArgs, signer?: Signer): Promise<Tx> {
     return this.creation.create(args, signer);
   }
+  isApproved(args: ApproveArgs, signer?: Signer): Promise<Tx> {
+    return this.creation.isApproved(args, signer);
+  }
   approve(args: ApproveArgs, signer?: Signer): Promise<Tx> {
     return this.creation.approve(args, signer);
   }

@@ -49,6 +49,9 @@ export class Aptos implements ContractProxy {
   createCollection(args: CreateCollectionArgs, signer?: Signer): Promise<Tx> {
     return this.creation.createCollection(args, signer);
   }
+  isApproved(args: ApproveArgs, signer?: Signer): Promise<Tx> {
+    return this.creation.isApproved(args, signer);
+  }
   approve(args: ApproveArgs, signer?: any): Promise<any> {
     return this.creation.approve(args, signer);
   }

@@ -32,6 +32,7 @@ export interface CreationInterface {
   config: Config;
   create(args: CreationArgs, signer?: Signer): Promise<Tx>;
   approve(args: ApproveArgs, signer?: Signer): Promise<Tx>;
+  isApproved(args: ApproveArgs, signer?: Signer): Promise<Tx>;
   mintToken(args: MintTokenArgs, signer?: Signer): Promise<Tx>;
   createCollection(args: CreateCollectionArgs, signer?: Signer): Promise<Tx>;
 }
@@ -87,6 +88,7 @@ export abstract class ContractProxy
 
   // creation
   abstract create(args: CreationArgs, signer?: Signer): Promise<Tx>;
+  abstract isApproved(args: ApproveArgs, signer?: any): Promise<Tx>;
   abstract approve(args: ApproveArgs, signer?: any): Promise<Tx>;
   abstract mintToken(args: MintTokenArgs, signer?: Signer): Promise<Tx>;
   abstract createCollection(
