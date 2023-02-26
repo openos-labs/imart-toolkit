@@ -24,13 +24,13 @@ export class Market implements MarketInterface {
       function: `${this.handle}::buy_token`,
       type_arguments: [args.coinType],
       arguments: [
-        args.coinAmount,
+        args.coinAmount.toString(),
         args.seller,
         args.creator,
         args.collection,
         args.name,
         args.propertyVersion,
-        args.tokenAmount,
+        args.tokenAmount.toString(),
       ],
     };
     return this.config?.submitTx!(payload);
@@ -38,13 +38,13 @@ export class Market implements MarketInterface {
 
   batchBuyTokens(args: FillOrderObject[]): Promise<any> {
     if (args.length == 0) return;
-    const coinAmounts = args.map((_) => _.coinAmount);
+    const coinAmounts = args.map((_) => _.coinAmount.toString());
     const sellers = args.map((_) => _.seller);
     const creators = args.map((_) => _.creator);
     const collections = args.map((_) => _.collection);
     const names = args.map((_) => _.name);
     const propertyVersions = args.map((_) => _.propertyVersion);
-    const tokenAmounts = args.map((_) => _.tokenAmount);
+    const tokenAmounts = args.map((_) => _.tokenAmount.toString());
     const payload = {
       type: "entry_function_payload",
       function: `${this.handle}::batch_buy_tokens`,
@@ -72,8 +72,8 @@ export class Market implements MarketInterface {
         args.collection,
         args.name,
         args.propertyVersion,
-        args.tokenAmount,
-        args.coinAmount,
+        args.tokenAmount.toString(),
+        args.coinAmount.toString(),
         args.lockedUntilSecs,
       ],
     };
@@ -86,8 +86,8 @@ export class Market implements MarketInterface {
     const collections = args.map((_) => _.collection);
     const names = args.map((_) => _.name);
     const propertyVersions = args.map((_) => _.propertyVersion);
-    const tokenAmounts = args.map((_) => _.tokenAmount);
-    const coinAmounts = args.map((_) => _.coinAmount);
+    const tokenAmounts = args.map((_) => _.tokenAmount.toString());
+    const coinAmounts = args.map((_) => _.coinAmount.toString());
     const lockedUntilSecs = args.map((_) => _.lockedUntilSecs);
     const payload = {
       type: "entry_function_payload",
@@ -116,7 +116,7 @@ export class Market implements MarketInterface {
         args.collection,
         args.name,
         args.propertyVersion,
-        args.tokenAmount,
+        args.tokenAmount.toString(),
       ],
     };
     return this.config?.submitTx!(payload);
@@ -132,7 +132,7 @@ export class Market implements MarketInterface {
         args.collection,
         args.name,
         args.propertyVersion,
-        args.tokenAmount,
+        args.tokenAmount.toString(),
         args.duration,
       ],
     };
@@ -163,7 +163,7 @@ export class Market implements MarketInterface {
         args.collection,
         args.name,
         args.propertyVersion,
-        args.tokenAmount,
+        args.tokenAmount.toString(),
       ],
     };
     return this.config?.submitTx!(payload);
