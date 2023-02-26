@@ -16,11 +16,11 @@ export class Creation implements CreationInterface {
     this.handle = `${this.config.addresses["singleCollective"]}::creation`;
   }
 
-  isApproved(_: ApproveArgs, _?: Signer): Promise<Tx> {
+  isApproved(args: ApproveArgs, _?: Signer): Promise<Tx> {
     return true;
   }
 
-  approve(_: ApproveArgs, _?: Signer): Promise<Tx> {}
+  approve(args: ApproveArgs, _?: Signer): Promise<Tx> {}
 
   mintToken(args: MintTokenArgs): Promise<Tx> {
     const payload = {
