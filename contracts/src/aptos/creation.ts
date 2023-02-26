@@ -6,6 +6,7 @@ import {
   MintTokenArgs,
   CreateCollectionArgs,
   Tx,
+  ApproveArgs,
 } from "../types";
 export class Creation implements CreationInterface {
   readonly config: Config;
@@ -14,6 +15,8 @@ export class Creation implements CreationInterface {
     this.config = config;
     this.handle = `${this.config.addresses["singleCollective"]}::creation`;
   }
+
+  approve(args: ApproveArgs, signer?: any): Promise<Tx> {}
 
   mintToken(args: MintTokenArgs): Promise<Tx> {
     const payload = {

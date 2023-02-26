@@ -3,6 +3,8 @@
 import { CreationInterface } from "../proxy";
 import { BigNumber, ethers } from "ethers";
 import {
+  ERC1155__factory,
+  ERC721__factory,
   MultipleCollective,
   MultipleCollective__factory,
   SingleCollective,
@@ -15,6 +17,7 @@ import {
   MintTokenArgs,
   CreateCollectionArgs,
   Signer,
+  ApproveArgs,
 } from "../types";
 
 export class Creation implements CreationInterface {
@@ -53,6 +56,28 @@ export class Creation implements CreationInterface {
         return this.multipleCollective
           .connect(this.signer ?? signer)
           .mint(args.collection, args.balance, args.uri);
+    }
+  }
+
+  approve(args: ApproveArgs, signer?: Signer): Promise<Tx> {
+    const curationContract = this.config.addresses["curation"];
+    switch (args.type) {
+      case "single":
+        const erc721 = ERC721__factory.connect(
+          args.collectionIdentifier,
+          this.provider
+        );
+        return erc721
+          .connect(this.signer || signer)
+          .approve(curationContract, args.tokenIdentifier);
+      case "multiple":
+        const erc1155 = ERC1155__factory.connect(
+          args.collectionIdentifier,
+          this.provider
+        );
+        return erc1155
+          .connect(this.signer || signer)
+          .setApprovalForAll(curationContract, true);
     }
   }
 

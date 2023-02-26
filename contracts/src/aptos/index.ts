@@ -21,6 +21,7 @@ import {
   ReplyCurationOfferArgs,
   Tx,
   MintTokenArgs,
+  ApproveArgs,
 } from "../types";
 import { Creation } from "./creation";
 import { Market } from "./market";
@@ -47,6 +48,9 @@ export class Aptos implements ContractProxy {
   }
   createCollection(args: CreateCollectionArgs, signer?: Signer): Promise<Tx> {
     return this.creation.createCollection(args, signer);
+  }
+  approve(args: ApproveArgs, signer?: any): Promise<any> {
+    return this.creation.approve(args, signer);
   }
 
   // market

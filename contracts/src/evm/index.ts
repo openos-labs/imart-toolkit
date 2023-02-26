@@ -27,6 +27,7 @@ import {
   ReplyCurationOfferArgs,
   Signer,
   Tx,
+  ApproveArgs,
 } from "../types";
 
 export class Evm implements ContractProxy {
@@ -52,6 +53,9 @@ export class Evm implements ContractProxy {
   }
   create(args: CreationArgs, signer?: Signer): Promise<Tx> {
     return this.creation.create(args, signer);
+  }
+  approve(args: ApproveArgs, signer?: Signer): Promise<Tx> {
+    return this.creation.approve(args, signer);
   }
   mintToken(args: MintTokenArgs, signer?: Signer): Promise<Tx> {
     return this.creation.mintToken(args, signer);

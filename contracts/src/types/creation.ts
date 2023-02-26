@@ -31,3 +31,10 @@ export interface MintTokenArgs {
   balance: BigNumberish;
   type?: CollectionType;
 }
+
+export interface ApproveArgs {
+  type: CollectionType;
+  to: string;
+  tokenIdentifier: BigNumberish;
+  collectionIdentifier: BigNumberish;
+}
