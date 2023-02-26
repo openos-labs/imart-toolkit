@@ -13,7 +13,9 @@ export interface CreateGalleryArgs {
 export interface CreateCurationOfferArgs extends WithCoinType {
   tokenOwner: string;
   tokenCreator: string;
-  tokenCollection: string;
+  collectionName: string;
+  collectionIdentifier: string;
+  tokenName: string;
   tokenIdentifier: string; // Aptos: token name, EVM: token id
   tokenPropertyVersion: string;
   galleryId: string;

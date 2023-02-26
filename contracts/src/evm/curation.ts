@@ -58,17 +58,11 @@ export class Curation implements CurationInterface {
 
   // curator.create_offer
   createCurationOffer(args: CreateCurationOfferArgs, _?: Signer): Promise<Tx> {
-    const contract =
-      args.collection === ""
-        ? "0x0000000000000000000000000000000000000000"
-        : args.collection;
-    const tokenIdentifier =
-      args.tokenIdentifier === "" ? "0" : args.tokenIdentifier;
     return this.curation
       .connect(this.signer)
       .sendOffer(
-        contract,
-        tokenIdentifier,
+        args.collectionIdentifier,
+        args.tokenIdentifier,
         BigNumber.from(args.galleryId),
         BigNumber.from(args.price),
         BigNumber.from(args.offerDuration),

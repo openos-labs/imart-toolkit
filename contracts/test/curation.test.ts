@@ -63,7 +63,9 @@ async function sendOffer(
     {
       tokenOwner: "",
       tokenCreator: "",
-      tokenCollection: SingleToken.address,
+      collectionName: "",
+      tokenName: "",
+      collectionIdentifier: SingleToken.address,
       tokenIdentifier: tokenId.toString(),
       tokenPropertyVersion: "",
       galleryId: gallery.id.toString(),

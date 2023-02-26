@@ -47,8 +47,8 @@ export class Curation implements CurationInterface {
       arguments: [
         args.tokenOwner,
         args.tokenCreator,
-        args.tokenCollection,
-        args.tokenIdentifier,
+        args.collectionName,
+        args.tokenName,
         args.tokenPropertyVersion,
         args.galleryId,
         args.price,
