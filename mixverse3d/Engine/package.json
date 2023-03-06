@@ -1,6 +1,6 @@
 {
     "name": "@mix-labs/mixverse3d",
-    "version": "0.0.4",
+    "version": "0.0.9",
     "description": "3d",
     "repository": "https://github.com/mix-labs/imart-toolkit.git",
     "homepage": "https://github.com/mix-labs/imart-toolkit.git",
@@ -43,7 +43,10 @@
         "three": "0.144.0",
         "three-mesh-bvh": "0.5.16",
         "uuid": "8.3.2",
-        "xstate": "4.34.0"
+        "xstate": "4.34.0",
+        "@ungap/structured-clone": "^1.0.1",
+        "stats.js": "0.17.0",
+        "wavesurfer.js": "6.4.0"
     },
     "devDependencies": {
         "@preact/preset-vite": "^2.3.0",

@@ -18,7 +18,7 @@ export default defineConfig({
       formats: ["es"]
     },
     rollupOptions: {
-      external: ["react", "react-dom",'@ungap/structured-clone','stats.js','wavesurfer.js']
+      external: ["react", "react-dom"]
     }
   },
   publicDir: false
