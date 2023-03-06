@@ -13,6 +13,7 @@ import {
   CancelExhibitArgs,
   RedeemExhibitArgs,
   CancelCurationOfferArgs,
+  ListOwnedExhibitArgs,
 } from "../types/curation";
 export class Curation implements CurationInterface {
   readonly config: Config;
@@ -104,6 +105,11 @@ export class Curation implements CurationInterface {
         BigNumber.from(args.exhibitId),
         args.additionalInfo
       );
+  }
+
+  // curator.list_owned_exhibit
+  listOwnedExhibit(args: ListOwnedExhibitArgs, _?: Signer): Promise<Tx> {
+    return {};
   }
 
   // curator.cancel_exhibit

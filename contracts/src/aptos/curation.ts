@@ -10,6 +10,7 @@ import {
   CancelExhibitArgs,
   RedeemExhibitArgs,
   CancelCurationOfferArgs,
+  ListOwnedExhibitArgs,
 } from "../types/curation";
 
 export class Curation implements CurationInterface {
@@ -101,6 +102,25 @@ export class Curation implements CurationInterface {
       function: `${this.handle}::list`,
       type_arguments: [args.coinType || "0x1::aptos_coin::AptosCoin"],
       arguments: [args.galleryId, args.exhibitId, args.additionalInfo],
+    };
+    return this.config?.submitTx!(payload);
+  }
+
+  // curator.list_owned_exhibit
+  listOwnedExhibit(args: ListOwnedExhibitArgs): Promise<Tx> {
+    const payload = {
+      type: "entry_function_payload",
+      function: `${this.handle}::list_owned`,
+      type_arguments: [args.coinType || "0x1::aptos_coin::AptosCoin"],
+      arguments: [
+        args.galleryId,
+        args.creator,
+        args.collectionIdentifier,
+        args.tokenIdentifier,
+        args.propertyVersion,
+        args.price,
+        args.location,
+      ],
     };
     return this.config?.submitTx!(payload);
   }

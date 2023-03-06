@@ -24,6 +24,7 @@ import {
   CreateCurationOfferArgs,
   CreateGalleryArgs,
   ListExhibitArgs,
+  ListOwnedExhibitArgs,
   RedeemExhibitArgs,
   ReplyCurationOfferArgs,
 } from "./types/curation";
@@ -67,6 +68,7 @@ export interface CurationInterface {
 
   buyExhibit(args: BuyExhibitArgs, signer?: Signer): Promise<Tx>;
   listExhibit(args: ListExhibitArgs, signer?: Signer): Promise<Tx>;
+  listOwnedExhibit(args: ListOwnedExhibitArgs, signer?: Signer): Promise<Tx>;
   cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx>;
   redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx>;
 }
@@ -125,6 +127,10 @@ export abstract class ContractProxy
   ): Promise<Tx>;
   abstract buyExhibit(args: BuyExhibitArgs, signer?: Signer): Promise<Tx>;
   abstract listExhibit(args: ListExhibitArgs, signer?: Signer): Promise<Tx>;
+  abstract listOwnedExhibit(
+    args: ListOwnedExhibitArgs,
+    signer?: Signer
+  ): Promise<Tx>;
   abstract cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx>;
   abstract redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx>;
 }

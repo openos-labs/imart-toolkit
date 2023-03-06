@@ -44,6 +44,17 @@ export interface ListExhibitArgs extends WithCoinType {
   exhibitId: string;
   additionalInfo: string;
 }
+
+export interface ListOwnedExhibitArgs extends WithCoinType {
+  galleryId: string;
+  creator: string;
+  collectionIdentifier: string;
+  tokenIdentifier: string;
+  propertyVersion: BigNumberish;
+  price: BigNumberish;
+  location: string;
+}
+
 export interface CancelExhibitArgs extends WithCoinType {
   galleryId: string;
   exhibitId: string;

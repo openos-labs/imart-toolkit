@@ -23,6 +23,7 @@ import {
   MintTokenArgs,
   CreateCollectionArgs,
   ListExhibitArgs,
+  ListOwnedExhibitArgs,
   RedeemExhibitArgs,
   ReplyCurationOfferArgs,
   Signer,
@@ -116,6 +117,9 @@ export class Evm implements ContractProxy {
   }
   listExhibit(args: ListExhibitArgs, signer?: Signer): Promise<any> {
     return this.curation.listExhibit(args, signer);
+  }
+  listOwnedExhibit(args: ListOwnedExhibitArgs, signer?: Signer): Promise<any> {
+    return this.curation.listOwnedExhibit(args, signer);
   }
   cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<any> {
     return this.curation.cancelExhibit(args, signer);

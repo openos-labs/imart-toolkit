@@ -17,6 +17,7 @@ import {
   CreateGalleryArgs,
   CreationArgs,
   ListExhibitArgs,
+  ListOwnedExhibitArgs,
   RedeemExhibitArgs,
   ReplyCurationOfferArgs,
   Tx,
@@ -111,6 +112,10 @@ export class Aptos implements ContractProxy {
   }
 
   listExhibit(args: ListExhibitArgs): Promise<Tx> {
+    return this.curation.listExhibit(args);
+  }
+
+  listOwnedExhibit(args: ListOwnedExhibitArgs): Promise<Tx> {
     return this.curation.listExhibit(args);
   }
 
