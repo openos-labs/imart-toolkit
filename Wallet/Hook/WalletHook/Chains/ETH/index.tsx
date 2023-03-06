@@ -5,9 +5,8 @@ import {InjectedConnector} from '@web3-react/injected-connector';
 import {ethers} from "ethers";
 import Web3 from 'web3'
 import {useEffect} from "react";
-
 export const injected = new InjectedConnector({});
-
+import {Buffer} from 'buffer'
 export const ETHWallet = (): ChainResponse => {
     const currentWallet = window.ethereum;
     const {

@@ -1,6 +1,6 @@
 {
   "name": "@mix-labs/imart-toolkit",
-  "version": "0.1.56",
+  "version": "0.1.57",
   "main": "./index.ts",
   "description": "IMart frontend packages",
   "publishConfig": {
@@ -50,6 +50,7 @@
     "react-is": "^17.0.2",
     "rollup": "^2.47.0",
     "themeprovider-storybook": "^1.7.2",
-    "web3": "^1.8.1"
+    "web3": "^1.8.1",
+    "buffer": "^6.0.3"
   }
 }
