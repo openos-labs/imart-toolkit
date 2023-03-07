@@ -2,7 +2,7 @@ import axios from "axios";
 import JSZip from "jszip";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
-import DBUtil from "@/utils/indexDB";
+import DBUtil from "../indexDB";
 
 const new_zip = new JSZip();
 const baseUrl = "https://imart-nft.s3.amazonaws.com/template/";
