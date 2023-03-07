@@ -1,3 +1,3 @@
-export * from './components/UploadSpace';
+export * from './components';
 
 
