@@ -21,5 +21,5 @@ export default defineConfig({
       external: ["react", "react-dom"]
     }
   },
-  publicDir: false
+  publicDir: "public",
 })
