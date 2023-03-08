@@ -116,7 +116,7 @@ export class Aptos implements ContractProxy {
   }
 
   listOwnedExhibit(args: ListOwnedExhibitArgs): Promise<Tx> {
-    return this.curation.listExhibit(args);
+    return this.curation.listOwnedExhibit(args);
   }
 
   cancelExhibit(args: CancelExhibitArgs): Promise<Tx> {
