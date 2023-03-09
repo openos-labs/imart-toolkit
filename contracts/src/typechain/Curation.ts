@@ -417,7 +417,7 @@ export interface CurationInterface extends utils.Interface {
     "ExhibitSold(uint256,uint256,address,uint256,address,uint256,uint64)": EventFragment;
     "GalleryCreated(uint256,address,uint256,address,string,string,string,bool,uint64,address[],uint256[],address)": EventFragment;
     "Initialized(uint8)": EventFragment;
-    "OfferAccepted(uint256,address,uint256,address,address,uint256,uint256,uint64,uint64)": EventFragment;
+    "OfferAccepted(uint256,address,uint256,address,address,uint256,uint256,uint256,uint64,uint64)": EventFragment;
     "OfferCanceled(uint256,address,uint256,address,address,uint64)": EventFragment;
     "OfferCreated(uint256,address,uint256,address,address,uint256,uint256,uint64,uint64,uint64,string,string)": EventFragment;
     "OfferRejected(uint256,address,uint256,address,address,uint64)": EventFragment;
@@ -578,6 +578,7 @@ export interface OfferAcceptedEventObject {
   to: string;
   price: BigNumber;
   galleryId: BigNumber;
+  exhibitId: BigNumber;
   exhibitExpiredAt: BigNumber;
   timestamp: BigNumber;
 }
@@ -588,6 +589,7 @@ export type OfferAcceptedEvent = TypedEvent<
     BigNumber,
     string,
     string,
+    BigNumber,
     BigNumber,
     BigNumber,
     BigNumber,
@@ -1512,7 +1514,7 @@ export interface Curation extends BaseContract {
     "Initialized(uint8)"(version?: null): InitializedEventFilter;
     Initialized(version?: null): InitializedEventFilter;
 
-    "OfferAccepted(uint256,address,uint256,address,address,uint256,uint256,uint64,uint64)"(
+    "OfferAccepted(uint256,address,uint256,address,address,uint256,uint256,uint256,uint64,uint64)"(
       id?: PromiseOrValue<BigNumberish> | null,
       collection?: null,
       tokenId?: null,
@@ -1520,6 +1522,7 @@ export interface Curation extends BaseContract {
       to?: null,
       price?: null,
       galleryId?: null,
+      exhibitId?: null,
       exhibitExpiredAt?: null,
       timestamp?: null
     ): OfferAcceptedEventFilter;
@@ -1531,6 +1534,7 @@ export interface Curation extends BaseContract {
       to?: null,
       price?: null,
       galleryId?: null,
+      exhibitId?: null,
       exhibitExpiredAt?: null,
       timestamp?: null
     ): OfferAcceptedEventFilter;
