@@ -1,7 +1,7 @@
 import { BigNumberish } from "ethers";
-import { WithCoinType } from ".";
+import { Base, WithCoinType } from ".";
 
-export interface CreateGalleryArgs {
+export interface CreateGalleryArgs extends Base {
   collection: string;
   tokenIdentifier: string;
   name: string;
@@ -10,7 +10,7 @@ export interface CreateGalleryArgs {
   payees?: string[];
   commissionRates?: BigNumberish[];
 }
-export interface CreateCurationOfferArgs extends WithCoinType {
+export interface CreateCurationOfferArgs extends Base, WithCoinType {
   tokenOwner: string;
   tokenCreator: string;
   collectionName: string;
@@ -25,27 +25,27 @@ export interface CreateCurationOfferArgs extends WithCoinType {
   url: string;
   additionalInfo: string;
 }
-export interface ReplyCurationOfferArgs extends WithCoinType {
+export interface ReplyCurationOfferArgs extends Base, WithCoinType {
   offerId: string;
   reply: boolean;
 }
 
-export interface CancelCurationOfferArgs {
+export interface CancelCurationOfferArgs extends Base {
   offerId: string;
 }
 
-export interface BuyExhibitArgs extends WithCoinType {
+export interface BuyExhibitArgs extends Base, WithCoinType {
   galleryId: string;
   exhibitId: string;
   price: string;
 }
-export interface ListExhibitArgs extends WithCoinType {
+export interface ListExhibitArgs extends Base, WithCoinType {
   galleryId: string;
   exhibitId: string;
   additionalInfo: string;
 }
 
-export interface ListOwnedExhibitArgs extends WithCoinType {
+export interface ListOwnedExhibitArgs extends Base, WithCoinType {
   galleryId: string;
   creator: string;
   collectionIdentifier: string;
@@ -55,11 +55,16 @@ export interface ListOwnedExhibitArgs extends WithCoinType {
   location: string;
 }
 
-export interface CancelExhibitArgs extends WithCoinType {
+export interface CancelExhibitArgs extends Base, WithCoinType {
   galleryId: string;
   exhibitId: string;
 }
-export interface RedeemExhibitArgs extends WithCoinType {
+export interface RedeemExhibitArgs extends Base, WithCoinType {
+  galleryId: string;
+  exhibitId: string;
+}
+
+export interface FreezeExhibitArgs extends Base, WithCoinType {
   galleryId: string;
   exhibitId: string;
 }

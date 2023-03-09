@@ -11,22 +11,24 @@ import {
   RedeemExhibitArgs,
   CancelCurationOfferArgs,
   ListOwnedExhibitArgs,
+  FreezeExhibitArgs,
 } from "../types/curation";
 
 export class Curation implements CurationInterface {
   readonly config: Config;
-  readonly handle: string;
+  readonly contract: string;
 
   constructor(config: Config) {
     this.config = config;
-    this.handle = `${this.config.addresses["curation"]}::curation`;
+    this.contract = `${this.config.addresses["curation"]}`;
   }
 
   //curator.create_gallery
   createGallery(args: CreateGalleryArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::create_gallery`,
+      function: `${contract}::curation::create_gallery`,
       type_arguments: [],
       arguments: [
         args.name,
@@ -41,9 +43,10 @@ export class Curation implements CurationInterface {
 
   // curator.create_offer
   createCurationOffer(args: CreateCurationOfferArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::send_offer`,
+      function: `${contract}::curation::send_offer`,
       type_arguments: [],
       arguments: [
         args.tokenOwner,
@@ -64,9 +67,10 @@ export class Curation implements CurationInterface {
 
   // invitee.reply_offer
   replyCurationOffer(args: ReplyCurationOfferArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::reply_offer`,
+      function: `${contract}::curation::reply_offer`,
       type_arguments: ["0x1::aptos_coin::AptosCoin"],
       arguments: [args.offerId, args.reply],
     };
@@ -75,9 +79,10 @@ export class Curation implements CurationInterface {
 
   // curator.cancel_offer
   cancelCurationOffer(args: CancelCurationOfferArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::cancel_offer`,
+      function: `${contract}::curation::cancel_offer`,
       type_arguments: [],
       arguments: [args.offerId],
     };
@@ -86,9 +91,10 @@ export class Curation implements CurationInterface {
 
   // visitor.buy_exhibit
   buyExhibit(args: BuyExhibitArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::buy`,
+      function: `${contract}::curation::buy`,
       type_arguments: [args.coinType || "0x1::aptos_coin::AptosCoin"],
       arguments: [args.galleryId, args.exhibitId],
     };
@@ -97,9 +103,10 @@ export class Curation implements CurationInterface {
 
   // curator.list_exhibit
   listExhibit(args: ListExhibitArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::list`,
+      function: `${contract}::curation::list`,
       type_arguments: [args.coinType || "0x1::aptos_coin::AptosCoin"],
       arguments: [args.galleryId, args.exhibitId, args.additionalInfo],
     };
@@ -108,9 +115,10 @@ export class Curation implements CurationInterface {
 
   // curator.list_owned_exhibit
   listOwnedExhibit(args: ListOwnedExhibitArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::list_owned`,
+      function: `${contract}::curation::list_owned`,
       type_arguments: [args.coinType || "0x1::aptos_coin::AptosCoin"],
       arguments: [
         args.galleryId,
@@ -127,9 +135,10 @@ export class Curation implements CurationInterface {
 
   // curator.cancel_exhibit
   cancelExhibit(args: CancelExhibitArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::cancel`,
+      function: `${contract}::curation::cancel`,
       type_arguments: [args.coinType || "0x1::aptos_coin::AptosCoin"],
       arguments: [args.galleryId, args.exhibitId],
     };
@@ -138,9 +147,22 @@ export class Curation implements CurationInterface {
 
   // nft_owner.redeem
   redeemExhibit(args: RedeemExhibitArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::redeem_with_freeze`,
+      function: `${contract}::curation::redeem_with_freeze`,
+      type_arguments: [args.coinType || "0x1::aptos_coin::AptosCoin"],
+      arguments: [args.galleryId, args.exhibitId],
+    };
+    return this.config?.submitTx!(payload);
+  }
+
+  // nft_owner.freeze
+  freezeExhibit(args: FreezeExhibitArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
+    const payload = {
+      type: "entry_function_payload",
+      function: `${contract}::curation::redeem_with_freeze`,
       type_arguments: [args.coinType || "0x1::aptos_coin::AptosCoin"],
       arguments: [args.galleryId, args.exhibitId],
     };

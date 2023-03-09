@@ -10,10 +10,10 @@ import {
 } from "../types";
 export class Creation implements CreationInterface {
   readonly config: Config;
-  readonly handle: string;
+  readonly contract: string;
   constructor(config: Config) {
     this.config = config;
-    this.handle = `${this.config.addresses["singleCollective"]}::creation`;
+    this.contract = this.config.addresses["singleCollective"];
   }
 
   isApproved(args: ApproveArgs, _?: Signer): Promise<Tx> {
@@ -23,9 +23,10 @@ export class Creation implements CreationInterface {
   approve(args: ApproveArgs, _?: Signer): Promise<Tx> {}
 
   mintToken(args: MintTokenArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::create_token`,
+      function: `${contract}::creation::create_token`,
       type_arguments: [],
       arguments: [
         args.collection,
@@ -39,9 +40,10 @@ export class Creation implements CreationInterface {
   }
 
   createCollection(args: CreateCollectionArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::create_collection`,
+      function: `${contract}::creation::create_collection`,
       type_arguments: [],
       arguments: [
         args.category,

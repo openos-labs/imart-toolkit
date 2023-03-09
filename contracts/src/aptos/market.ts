@@ -13,15 +13,16 @@ import { Config, Tx } from "../types";
 
 export class Market implements MarketInterface {
   readonly config: Config;
-  readonly handle: string;
+  readonly contract: string;
   constructor(config: Config) {
     this.config = config;
-    this.handle = `${this.config.addresses["market"]}::fixed_price_market`;
+    this.contract = `${this.config.addresses["market"]}`;
   }
   buyToken(args: BuyTokenArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::buy_token`,
+      function: `${contract}::fixed_price_market::buy_token`,
       type_arguments: [args.coinType],
       arguments: [
         args.coinAmount.toString(),
@@ -45,9 +46,10 @@ export class Market implements MarketInterface {
     const names = args.map((_) => _.name);
     const propertyVersions = args.map((_) => _.propertyVersion);
     const tokenAmounts = args.map((_) => _.tokenAmount.toString());
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::batch_buy_tokens`,
+      function: `${contract}::fixed_price_market::batch_buy_tokens`,
       type_arguments: [args[0].coinType],
       arguments: [
         coinAmounts,
@@ -63,9 +65,10 @@ export class Market implements MarketInterface {
   }
 
   listToken(args: ListTokenArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::list_token`,
+      function: `${contract}::fixed_price_market::list_token`,
       type_arguments: [args.coinType],
       arguments: [
         args.creator,
@@ -89,9 +92,10 @@ export class Market implements MarketInterface {
     const tokenAmounts = args.map((_) => _.tokenAmount.toString());
     const coinAmounts = args.map((_) => _.coinAmount.toString());
     const lockedUntilSecs = args.map((_) => _.lockedUntilSecs);
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::batch_list_tokens`,
+      function: `${contract}::fixed_price_market::batch_list_tokens`,
       type_arguments: [args[0].coinType],
       arguments: [
         creators,
@@ -107,9 +111,10 @@ export class Market implements MarketInterface {
   }
 
   delistToken(args: DelistTokenArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
       type: "entry_function_payload",
-      function: `${this.handle}::delist_token`,
+      function: `${contract}::fixed_price_market::delist_token`,
       type_arguments: [args.coinType],
       arguments: [
         args.creator,
@@ -123,8 +128,9 @@ export class Market implements MarketInterface {
   }
 
   createOffer(args: CreateOfferArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
-      function: `${this.handle}::create_offer`,
+      function: `${contract}::fixed_price_market::create_offer`,
       type_arguments: [args.coinType],
       arguments: [
         args.price,
@@ -140,8 +146,9 @@ export class Market implements MarketInterface {
   }
 
   cancelOffer(args: CancelOfferArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
-      function: `${this.handle}::cancel_offer`,
+      function: `${contract}::fixed_price_market::cancel_offer`,
       type_arguments: [args.coinType],
       arguments: [
         args.creator,
@@ -154,8 +161,9 @@ export class Market implements MarketInterface {
   }
 
   acceptOffer(args: AcceptOfferArgs): Promise<Tx> {
+    const contract = args.contract || this.contract;
     const payload = {
-      function: `${this.handle}::accept_offer`,
+      function: `${contract}::fixed_price_market::accept_offer`,
       type_arguments: [args.coinType],
       arguments: [
         args.buyer,

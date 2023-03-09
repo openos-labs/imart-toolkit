@@ -6,9 +6,13 @@ export * from "./creation";
 
 export type Signer = ethers.Signer | any;
 
+export interface Base {
+  contract?: string;
+}
 export interface WithCoinType {
   coinType?: string;
 }
+
 export type AddressType =
   | "market"
   | "curation"

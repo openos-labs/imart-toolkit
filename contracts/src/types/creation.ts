@@ -1,16 +1,17 @@
 import { BigNumberish } from "ethers";
+import { Base } from ".";
 
 export type Category = "SPACE" | "MUSIC" | "ART";
 export type CollectionType = "single" | "multiple";
 
-export interface CreationArgs {
+export interface CreationArgs extends Base {
   category: Category;
   title: string;
   description: string;
   uri: string;
 }
 
-export interface CreateCollectionArgs {
+export interface CreateCollectionArgs extends Base {
   name: string;
   category: Category;
   tags: string[];
@@ -22,7 +23,7 @@ export interface CreateCollectionArgs {
   type: CollectionType;
 }
 
-export interface MintTokenArgs {
+export interface MintTokenArgs extends Base {
   collection: string;
   name: string;
   description: string;
@@ -32,7 +33,7 @@ export interface MintTokenArgs {
   type?: CollectionType;
 }
 
-export interface ApproveArgs {
+export interface ApproveArgs extends Base {
   type: CollectionType;
   to: string;
   tokenIdentifier: BigNumberish;

@@ -1,6 +1,6 @@
 import { OrderWithCounter } from "@opensea/seaport-js/lib/types";
 import { BigNumberish } from "ethers";
-import { WithCoinType } from ".";
+import { Base, WithCoinType } from ".";
 
 export type ProtocolOrder = {
   protocolOrder?: OrderWithCounter | any;
@@ -10,7 +10,7 @@ export type CancelOfferObject = CancelOfferArgs & ProtocolOrder;
 export type FillOrderObject = BuyTokenArgs & ProtocolOrder;
 export type AcceptOfferObject = AcceptOfferArgs & ProtocolOrder;
 
-export interface BuyTokenArgs extends WithCoinType {
+export interface BuyTokenArgs extends Base, WithCoinType {
   collectionId: string;
   tokenId: string;
   coinAmount: BigNumberish;
@@ -22,7 +22,7 @@ export interface BuyTokenArgs extends WithCoinType {
   tokenAmount: BigNumberish;
 }
 
-export interface ListTokenArgs extends WithCoinType {
+export interface ListTokenArgs extends Base, WithCoinType {
   collectionId: string;
   tokenId: string;
   creator: string;
@@ -35,7 +35,7 @@ export interface ListTokenArgs extends WithCoinType {
   royalties?: Record<string, BigNumberish>;
 }
 
-export interface DelistTokenArgs extends WithCoinType {
+export interface DelistTokenArgs extends Base, WithCoinType {
   collectionId: string;
   tokenId: string;
   creator: string;
@@ -45,7 +45,7 @@ export interface DelistTokenArgs extends WithCoinType {
   tokenAmount: BigNumberish;
 }
 
-export interface CreateOfferArgs extends WithCoinType {
+export interface CreateOfferArgs extends Base, WithCoinType {
   collectionId: string;
   tokenId: string;
   price: string;
@@ -58,7 +58,7 @@ export interface CreateOfferArgs extends WithCoinType {
   royalties?: Record<string, BigNumberish>;
 }
 
-export interface AcceptOfferArgs extends WithCoinType {
+export interface AcceptOfferArgs extends Base, WithCoinType {
   collectionId: string;
   tokenId: string;
   buyer: string;
@@ -69,7 +69,7 @@ export interface AcceptOfferArgs extends WithCoinType {
   tokenAmount: string;
 }
 
-export interface CancelOfferArgs extends WithCoinType {
+export interface CancelOfferArgs extends Base, WithCoinType {
   collectionId: string;
   tokenId: string;
   creator: string;

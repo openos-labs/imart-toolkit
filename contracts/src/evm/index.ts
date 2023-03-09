@@ -25,6 +25,7 @@ import {
   ListExhibitArgs,
   ListOwnedExhibitArgs,
   RedeemExhibitArgs,
+  FreezeExhibitArgs,
   ReplyCurationOfferArgs,
   Signer,
   Tx,
@@ -126,5 +127,8 @@ export class Evm implements ContractProxy {
   }
   redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<any> {
     return this.curation.redeemExhibit(args, signer);
+  }
+  freezeExhibit(args: FreezeExhibitArgs, signer?: Signer): Promise<any> {
+    return this.curation.freezeExhibit(args, signer);
   }
 }

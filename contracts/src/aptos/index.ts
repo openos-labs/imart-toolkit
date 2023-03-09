@@ -19,6 +19,7 @@ import {
   ListExhibitArgs,
   ListOwnedExhibitArgs,
   RedeemExhibitArgs,
+  FreezeExhibitArgs,
   ReplyCurationOfferArgs,
   Tx,
   MintTokenArgs,
@@ -125,5 +126,9 @@ export class Aptos implements ContractProxy {
 
   redeemExhibit(args: RedeemExhibitArgs): Promise<Tx> {
     return this.curation.redeemExhibit(args);
+  }
+
+  freezeExhibit(args: FreezeExhibitArgs): Promise<Tx> {
+    return this.curation.freezeExhibit(args);
   }
 }

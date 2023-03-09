@@ -23,6 +23,7 @@ import {
   CancelExhibitArgs,
   CreateCurationOfferArgs,
   CreateGalleryArgs,
+  FreezeExhibitArgs,
   ListExhibitArgs,
   ListOwnedExhibitArgs,
   RedeemExhibitArgs,
@@ -71,6 +72,7 @@ export interface CurationInterface {
   listOwnedExhibit(args: ListOwnedExhibitArgs, signer?: Signer): Promise<Tx>;
   cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx>;
   redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx>;
+  freezeExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx>;
 }
 
 export interface ResourceInterface {
@@ -133,4 +135,5 @@ export abstract class ContractProxy
   ): Promise<Tx>;
   abstract cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx>;
   abstract redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx>;
+  abstract freezeExhibit(args: FreezeExhibitArgs, signer?: Signer): Promise<Tx>;
 }
