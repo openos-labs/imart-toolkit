@@ -33,7 +33,7 @@ const Game = () => {
                 bloom={true}
                 scale={10}
                 y={undefined}
-                src="https://imart-nft.s3.amazonaws.com/template/cyberRoom-v1.glb"
+                src="https://d1ktb2pux2fae3.cloudfront.net/template/cyberRoom-v1.glb"
                 onClick={(e:any) => {
                     setArrowPosition(e.point)
                     setRunning(true)
@@ -53,7 +53,7 @@ const Game = () => {
                 bloom={true}
                 scale={10}
                 y={undefined}
-                src="https://imart-nft.s3.amazonaws.com/template/cyberRoom-v1.glb"
+                src="https://d1ktb2pux2fae3.cloudfront.net/template/cyberRoom-v1.glb"
                 onClick={(e:any) => {
                     setArrowPosition(e.point)
                     setRunning(true)

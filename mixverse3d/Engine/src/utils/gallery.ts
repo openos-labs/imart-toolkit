@@ -31,7 +31,7 @@ export const getModelUrl = (gender: string, type: string): string => {
         } else if (ladyIndex < 0) {
             ladyIndex = personLadtModel.length - 1;
         }
-        return "https://imart-nft.s3.amazonaws.com/people/" + personLadtModel[ladyIndex] + ".glb";
+        return "https://d1ktb2pux2fae3.cloudfront.net/people/" + personLadtModel[ladyIndex] + ".glb";
     } else if (gender === "male") {
         if (type === "next") {
             manIndex++;
@@ -43,7 +43,7 @@ export const getModelUrl = (gender: string, type: string): string => {
         } else if (manIndex < 0) {
             manIndex = personMantModel.length - 1;
         }
-        return "https://imart-nft.s3.amazonaws.com/people/" + personMantModel[manIndex] + ".glb";
+        return "https://d1ktb2pux2fae3.cloudfront.net/people/" + personMantModel[manIndex] + ".glb";
     }
     return "";
 };

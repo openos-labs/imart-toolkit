@@ -12,7 +12,7 @@ const https = axios.create({baseURL: API_URI});
 https.interceptors.response.use(onFulfilled);
 export const getAwsJsonData = async (url: string) => {
 	try {
-		return await https.get("https://imart-nft.s3.us-east-1.amazonaws.com/mixverse/" + url);
+		return await https.get("https://d1ktb2pux2fae3.cloudfront.net/mixverse/" + url);
 	} catch (e) {
 		return false;
 	}

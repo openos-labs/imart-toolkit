@@ -45,7 +45,7 @@ describe("EVM/creation tests", () => {
   });
 
   it("Create 1 Erc721 token within untitled collection", async function () {
-    const uri = "https://imart-nft.s3.amazonaws.com/imart/1674150362.json";
+    const uri = "https://d1ktb2pux2fae3.cloudfront.net/imart/1674150362.json";
     const untitledCollection = "untitled collection";
     const tx = (await client.mintToken(
       {
@@ -68,7 +68,7 @@ describe("EVM/creation tests", () => {
   });
 
   it("Create 10 Erc1155 tokens within untitled collection", async function () {
-    const uri = "https://imart-nft.s3.amazonaws.com/imart/1674150362.json";
+    const uri = "https://d1ktb2pux2fae3.cloudfront.net/imart/1674150362.json";
     const untitledCollection = "untitled collection";
     const tx = (await client.mintToken(
       {
@@ -91,7 +91,7 @@ describe("EVM/creation tests", () => {
   });
 
   it("Create 1 Erc721 token within the selected collection", async function () {
-    const uri = "https://imart-nft.s3.amazonaws.com/imart/1674150362.json";
+    const uri = "https://d1ktb2pux2fae3.cloudfront.net/imart/1674150362.json";
     const collection = "Alice's daily 2";
     const tx1 = (await client.createCollection(
       {

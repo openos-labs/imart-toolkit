@@ -5,7 +5,7 @@ import * as THREE from "three";
 import DBUtil from "../indexDB";
 
 const new_zip = new JSZip();
-const baseUrl = "https://imart-nft.s3.amazonaws.com/template/";
+const baseUrl = "https://d1ktb2pux2fae3.cloudfront.net/template/";
 export default class LoadModelCache {
     public static modelAssets: { model: string } = { model: "" };
     public static Url: string = "https://nft-ic.oss-cn-shanghai.aliyuncs.com/model.zip";
