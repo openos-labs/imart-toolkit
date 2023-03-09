@@ -50,11 +50,11 @@ export class Creation implements CreationInterface {
     switch (args.type) {
       case "single":
         return this.singleCollective
-          .connect(this.signer ?? signer)
+          .connect(signer ?? this.signer)
           .mint(args.collection, BigNumber.from("1"), args.uri);
       case "multiple":
         return this.multipleCollective
-          .connect(this.signer ?? signer)
+          .connect(signer ?? this.signer)
           .mint(args.collection, args.balance, args.uri);
     }
   }
@@ -69,7 +69,7 @@ export class Creation implements CreationInterface {
           this.provider
         );
         const approved = await erc721
-          .connect(this.signer || signer)
+          .connect(signer ?? this.signer)
           .getApproved(args.tokenIdentifier);
         return approved === curationContract;
       case "multiple":
@@ -78,7 +78,7 @@ export class Creation implements CreationInterface {
           this.provider
         );
         return await erc1155
-          .connect(this.signer || signer)
+          .connect(signer ?? this.signer)
           .isApprovedForAll(address, curationContract);
     }
   }
@@ -92,7 +92,7 @@ export class Creation implements CreationInterface {
           this.provider
         );
         return erc721
-          .connect(this.signer || signer)
+          .connect(signer ?? this.signer)
           .approve(curationContract, args.tokenIdentifier);
       case "multiple":
         const erc1155 = ERC1155__factory.connect(
@@ -100,7 +100,7 @@ export class Creation implements CreationInterface {
           this.provider
         );
         return erc1155
-          .connect(this.signer || signer)
+          .connect(signer ?? this.signer)
           .setApprovalForAll(curationContract, true);
     }
   }
@@ -109,7 +109,7 @@ export class Creation implements CreationInterface {
     switch (args.type) {
       case "single":
         return this.singleCollective
-          .connect(this.signer ?? signer)
+          .connect(signer ?? this.signer)
           .createCollection(
             args.name,
             args.category,
@@ -122,7 +122,7 @@ export class Creation implements CreationInterface {
           );
       case "multiple":
         return this.multipleCollective
-          .connect(this.signer ?? signer)
+          .connect(signer ?? this.signer)
           .createCollection(
             args.name,
             args.category,

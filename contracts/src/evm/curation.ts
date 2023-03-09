@@ -109,7 +109,15 @@ export class Curation implements CurationInterface {
 
   // curator.list_owned_exhibit
   listOwnedExhibit(args: ListOwnedExhibitArgs, _?: Signer): Promise<Tx> {
-    return {};
+    return this.curation
+      .connect(this.signer)
+      .listOwned(
+        args.galleryId,
+        args.collectionIdentifier,
+        args.tokenIdentifier,
+        args.price,
+        args.location
+      );
   }
 
   // curator.cancel_exhibit

@@ -7,19 +7,22 @@ import "typechain";
 import {
   Contractor,
   Curation,
-  Curation__factory,
-  SingleToken,
-  SingleToken__factory,
   MixverseSpace,
   MixverseSpace__factory,
+  SingleCollective__factory,
+  SingleCollective,
+  ERC721__factory,
+  ERC721,
 } from "../src";
 import { Evm } from "../src/evm";
 import { alice_arts, bob_arts } from "./testdata";
+import * as addr from "./addresses.json";
 
 let contractor: Evm;
-let SingleToken: SingleToken;
+let singleCollective: SingleCollective;
 let mixverseSpace: MixverseSpace;
 let curation: Curation;
+let erc721: ERC721;
 let owner: SignerWithAddress;
 let alice: SignerWithAddress;
 let bob: SignerWithAddress;
@@ -65,7 +68,7 @@ async function sendOffer(
       tokenCreator: "",
       collectionName: "",
       tokenName: "",
-      collectionIdentifier: SingleToken.address,
+      collectionIdentifier: erc721.address,
       tokenIdentifier: tokenId.toString(),
       tokenPropertyVersion: "",
       galleryId: gallery.id.toString(),
@@ -157,13 +160,13 @@ async function getReceivedOffers(
 ): Promise<Curation.OfferStructOutput[]> {
   return await curation.connect(signer).getReceivedOffers();
 }
+const provider = new ethers.providers.JsonRpcProvider(process.env.NODE_URL);
+const signer = new ethers.Wallet(process.env.TEST_ONLY, provider);
 
 async function deployAndMint() {
   // Modeler create space tempate and curator buy space template
   [owner, alice, bob, curator, buyer] = await ethers.getSigners();
-  const mixverseSpaceFactory = new MixverseSpace__factory(owner);
-  mixverseSpace = await mixverseSpaceFactory.deploy();
-  await mixverseSpace.deployed();
+  mixverseSpace = MixverseSpace__factory.connect(addr.MixverseSpace, signer);
   const amount = 10;
   const cid = "QmXwfwQxrdxg9czutZ5ta1NgJLfea6m1SRoTYnVyjzMTTK";
   await mixverseSpace.create(amount, cid);
@@ -175,34 +178,52 @@ async function deployAndMint() {
     ethers.utils.formatBytes32String("")
   );
 
-  const curationFactory = new Curation__factory(owner);
-  curation = await curationFactory.deploy();
-  await curation.deployed();
-
   // user mint NFT on IMart
-  const SingleTokenFactory = new SingleToken__factory(owner);
-  SingleToken = await SingleTokenFactory.deploy("SingleToken", "IMART");
-  await SingleToken.deployed();
+  singleCollective = SingleCollective__factory.connect(
+    addr.SingleCollective,
+    provider
+  );
+
+  singleCollective
+    .connect(signer)
+    .createCollection(
+      "test",
+      "ART",
+      ["test"],
+      "test only",
+      "https://bing.com",
+      [],
+      [],
+      1
+    );
+
+  const events = await singleCollective.queryFilter(
+    singleCollective.filters.CollectionCreated()
+  );
+  const [root, , name, , , , _uri, , , ,] = events[0].args;
+  erc721 = ERC721__factory.connect(root, signer);
 
   const balance = BigNumber.from("1");
-  await SingleToken.setMarketplace(curation.address);
+  await singleCollective.connect(signer).setMarketplace(curation.address);
   for (const art of alice_arts) {
-    await SingleToken.safeMint(alice.address, balance, art);
+    await singleCollective.connect(signer).mint(alice.address, balance, art);
   }
   for (const art of bob_arts) {
-    await SingleToken.safeMint(bob.address, balance, art);
+    await singleCollective.connect(signer).mint(bob.address, balance, art);
   }
-  await SingleToken.safeMint(buyer.address, balance, alice_arts[0]);
+  await singleCollective
+    .connect(signer)
+    .mint(buyer.address, balance, alice_arts[0]);
 
   const configuration = {
     addresses: {
-      singleCollective: "",
-      multipleCollective: "",
-      creation: SingleToken.address,
-      curation: curation.address,
+      singleCollective: addr.SingleCollective,
+      multipleCollective: addr.MultipleCollective,
+      creation: singleCollective.address,
+      curation: addr.Curation,
       market: "",
     },
-    provider: ethers.getDefaultProvider(),
+    provider: provider,
   };
   contractor = Contractor(Evm, configuration) as Evm;
 }
@@ -213,7 +234,7 @@ describe("Curation-1: create gallery", () => {
   });
   it("Add curator to whitelist", async () => {
     await addWhitelist();
-    const enable = await curation.whitelist(curator.address);
+    const enable = await curation.connect(signer).whitelist(curator.address);
     expect(enable).eq(true);
   });
   it("Curator create gallery", async () => {
@@ -232,7 +253,7 @@ describe("Curation-2: send offer & accept offer", () => {
     await createGallery();
   });
   it("Curator send offer to artist", async () => {
-    const tokenId = await SingleToken.tokenOfOwnerByIndex(alice.address, 0);
+    const tokenId = await erc721.tokenOfOwnerByIndex(alice.address, 0);
     await sendOffer(curator, tokenId);
 
     const sentOffers = await getSentOffers(curator);
@@ -247,7 +268,7 @@ describe("Curation-2: send offer & accept offer", () => {
   });
 
   it("Alice accept offer", async () => {
-    const tokenId = await SingleToken.tokenOfOwnerByIndex(alice.address, 1);
+    const tokenId = await erc721.tokenOfOwnerByIndex(alice.address, 1);
     await sendOffer(curator, tokenId);
     const sentOffers = await getSentOffers(curator);
     const sentOffer = sentOffers.slice(-1)[0];
@@ -258,7 +279,7 @@ describe("Curation-2: send offer & accept offer", () => {
   });
 
   it("Bob reject offer", async () => {
-    const tokenId = await SingleToken.tokenOfOwnerByIndex(bob.address, 2);
+    const tokenId = await erc721.tokenOfOwnerByIndex(bob.address, 2);
     await sendOffer(curator, tokenId);
     const sentOffers = await getSentOffers(curator);
     const sentOffer = sentOffers.slice(-1)[0];
@@ -268,7 +289,7 @@ describe("Curation-2: send offer & accept offer", () => {
     expect(receivedOffer!.status).eq(2); // pending: 0, accepted: 1, rejected: 2
   });
   it("Curator cancel offer", async () => {
-    const tokenId = await SingleToken.tokenOfOwnerByIndex(buyer.address, 0);
+    const tokenId = await erc721.tokenOfOwnerByIndex(buyer.address, 0);
     await sendOffer(curator, tokenId);
     const sentOffers = await getSentOffers(curator);
     const sentOffer = sentOffers.slice(-1)[0];
@@ -286,14 +307,14 @@ describe("Curation-3: list / delist / buy exhibit", () => {
     await createGallery();
 
     // alice accept offer
-    const tokenId_A = await SingleToken.tokenOfOwnerByIndex(alice.address, 1);
+    const tokenId_A = await erc721.tokenOfOwnerByIndex(alice.address, 1);
     await sendOffer(curator, tokenId_A);
     const receivedOffers_A = await getReceivedOffers(alice);
     const receivedOffer_A = receivedOffers_A.slice(-1)[0];
     await acceptOffer(alice, receivedOffer_A.id);
 
     // bob reject offer
-    const tokenId_B = await SingleToken.tokenOfOwnerByIndex(bob.address, 1);
+    const tokenId_B = await erc721.tokenOfOwnerByIndex(bob.address, 1);
     await sendOffer(curator, tokenId_B);
     const receivedOffers_B = await getReceivedOffers(bob);
     const receivedOffer_B = receivedOffers_B.slice(-1)[0];
@@ -340,6 +361,6 @@ describe("Curation-3: list / delist / buy exhibit", () => {
       await curation.getGalleryExhibits(gallery.id)
     ).slice(-1)[0];
     expect(updatedExhibit.status).eq(3); // reserved: 0, listing: 1, expired: 2, sold: 3
-    expect(await SingleToken.ownerOf(updatedExhibit.tokenId)).eq(buyer.address);
+    expect(await erc721.ownerOf(updatedExhibit.tokenId)).eq(buyer.address);
   });
 });
