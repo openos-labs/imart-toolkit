@@ -14,7 +14,7 @@ import { Seaport } from "@opensea/seaport-js";
 import { ItemType } from "@opensea/seaport-js/lib/constants";
 import { ethers, BigNumber } from "ethers";
 import { BigNumber as BN } from "bignumber.js";
-import { CreateOrderInput } from "@opensea/seaport-js/lib/types";
+import { CreateOrderInput, SeaportConfig } from "@opensea/seaport-js/lib/types";
 
 const NATIVE_ETH = "0x0000000000000000000000000000000000000000";
 const SEAPORT_URL = "https://testnets-api.opensea.io/v2/orders/goerli/seaport";
@@ -37,9 +37,10 @@ export class Market implements MarketInterface {
       config.provider instanceof ethers.providers.Web3Provider
     ) {
       this.provider = config.provider as ethers.providers.JsonRpcProvider;
-      this.seaport = new Seaport(this.provider, {
-        overrides: { contractAddress: config.addresses["market"] },
-      });
+      const seaportConfig: SeaportConfig = {
+        seaportVersion: "1.4",
+      };
+      this.seaport = new Seaport(this.provider, seaportConfig);
     }
   }
 
