@@ -122,6 +122,8 @@ export class Market implements MarketInterface {
       ],
       consideration,
       conduitKey: CONDUIT_KEY,
+      restrictedByZone: false,
+      allowPartialFills: true,
     };
   }
 
@@ -222,6 +224,8 @@ export class Market implements MarketInterface {
           ...consideration,
         ],
         conduitKey: CONDUIT_KEY,
+        restrictedByZone: false,
+        allowPartialFills: true,
       },
       offerer,
       true
