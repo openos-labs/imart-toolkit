@@ -37,7 +37,9 @@ export class Market implements MarketInterface {
       config.provider instanceof ethers.providers.Web3Provider
     ) {
       this.provider = config.provider as ethers.providers.JsonRpcProvider;
-      this.seaport = new Seaport(this.provider);
+      this.seaport = new Seaport(this.provider, {
+        overrides: { contractAddress: config.addresses["market"] },
+      });
     }
   }
 
