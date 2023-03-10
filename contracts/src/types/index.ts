@@ -8,6 +8,7 @@ export type Signer = ethers.Signer | any;
 
 export interface Base {
   contract?: string;
+  standard?: Standard;
 }
 export interface WithCoinType {
   coinType?: string;
@@ -23,6 +24,7 @@ export type Addresses = Record<AddressType, Address>;
 
 export type Tx = { hash: string } | any;
 export type SubmitTx = (payload: any) => Promise<any>;
+export type Standard = "ERC721" | "ERC1155";
 
 export interface Config {
   addresses: Addresses;

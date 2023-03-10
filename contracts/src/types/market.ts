@@ -53,7 +53,7 @@ export interface CreateOfferArgs extends Base, WithCoinType {
   collection: string;
   name: string;
   propertyVersion: string;
-  tokenAmount: string;
+  tokenAmount: BigNumberish;
   duration: number;
   royalties?: Record<string, BigNumberish>;
 }

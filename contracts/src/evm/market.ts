@@ -13,6 +13,7 @@ import { Config, Signer, Tx } from "../types";
 import { Seaport } from "@opensea/seaport-js";
 import { ItemType } from "@opensea/seaport-js/lib/constants";
 import { ethers, BigNumber } from "ethers";
+import { BigNumber as BN } from "bignumber.js";
 import { CreateOrderInput } from "@opensea/seaport-js/lib/types";
 
 const NATIVE_ETH = "0x0000000000000000000000000000000000000000";
@@ -103,15 +104,18 @@ export class Market implements MarketInterface {
       recipient: offerer,
     };
     consideration.unshift(offererItem);
+    const itemType =
+      args.standard === "ERC1155" ? ItemType.ERC1155 : ItemType.ERC721;
+    const tokenAmount = BN.max(new BN(args.tokenAmount), new BN("1"));
     return {
       endTime: this.endTime(MAX_DURATION).toString(),
       offer: [
         {
-          itemType: ItemType.ERC721,
+          itemType,
           token: args.collectionId,
           identifier: args.tokenId,
-          amount: "1",
-          endAmount: "1",
+          amount: tokenAmount.toFixed(0),
+          endAmount: tokenAmount.toFixed(0),
         },
       ],
       consideration,
@@ -191,6 +195,9 @@ export class Market implements MarketInterface {
       };
       consideration.push(item);
     }
+    const itemType =
+      args.standard === "ERC1155" ? ItemType.ERC1155 : ItemType.ERC721;
+    const tokenAmount = BN.max(new BN(args.tokenAmount), new BN("1"));
     const { executeAllActions } = await this.seaport.createOrder(
       {
         endTime: this.endTime(args.duration).toString(),
@@ -203,11 +210,11 @@ export class Market implements MarketInterface {
         ],
         consideration: [
           {
-            itemType: ItemType.ERC721,
+            itemType,
             token: args.collectionId,
             identifier: args.tokenId,
-            amount: "1",
-            endAmount: "1",
+            amount: tokenAmount.toFixed(0),
+            endAmount: tokenAmount.toFixed(0),
             recipient: offerer,
           },
           ...consideration,
