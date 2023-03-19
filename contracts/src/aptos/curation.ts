@@ -123,8 +123,8 @@ export class Curation implements CurationInterface {
       arguments: [
         args.galleryId,
         args.creator,
-        args.collectionIdentifier,
-        args.tokenIdentifier,
+        args.collectionName,
+        args.tokenName,
         args.propertyVersion,
         args.price,
         args.location,

@@ -50,6 +50,8 @@ export interface ListOwnedExhibitArgs extends Base, WithCoinType {
   creator: string;
   collectionIdentifier: string;
   tokenIdentifier: string;
+  collectionName?: string;
+  tokenName?: string;
   propertyVersion: BigNumberish;
   price: BigNumberish;
   location: string;
