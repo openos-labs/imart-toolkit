@@ -78,10 +78,10 @@ export const ETHWallet = (): ChainResponse => {
         return currentWallet ? new ethers.providers.Web3Provider(currentWallet) : ethers.providers.getDefaultProvider();
     }
 
-    const getBalance = async () => {
+    const getBalance = async ():Promise<string> => {
         const provider = getProvider();
         if (!provider) {
-            return
+            return ''
         }
         const web3 = new Web3(provider?.provider);
         const amount = await web3.eth.getBalance(address as string);

@@ -50,7 +50,7 @@ export const AptosWallet = (): ChainResponse => {
     const logout = async () => {
         return await disconnect()
     }
-    const getBalance = async () => {
+    const getBalance = async ():Promise<string> => {
         try {
             const client = new AptosClient(NODE_URL);
             const coinClient = new CoinClient(client);
@@ -60,7 +60,8 @@ export const AptosWallet = (): ChainResponse => {
             const amount = await coinClient.checkBalance(account.address);
             return  getCurrencyString(amount,8,4)
         }catch (e) {
-            console.log(e,'er')
+	        console.log(e,'er')
+	        return  ''
         }
 
 
