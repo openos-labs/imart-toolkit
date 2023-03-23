@@ -31,6 +31,7 @@ import {
   Tx,
   ApproveArgs,
 } from "../types";
+import { ethers } from "ethers";
 
 export class Evm implements ContractProxy {
   readonly config: Config;
@@ -52,6 +53,9 @@ export class Evm implements ContractProxy {
 
   constructor(config: Config) {
     this.config = config;
+  }
+  wait(tx: Tx): Promise<TxReceipt> {
+    return (tx as ethers.ContractTransaction).wait();
   }
   create(args: CreationArgs, signer?: Signer): Promise<Tx> {
     return this.creation.create(args, signer);

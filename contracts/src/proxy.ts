@@ -16,6 +16,7 @@ import {
   Signer,
   Tx,
   ApproveArgs,
+  TxReceipt,
 } from "./types";
 import {
   BuyExhibitArgs,
@@ -89,6 +90,8 @@ export abstract class ContractProxy
   constructor(config: Config) {
     this.config = config;
   }
+
+  abstract wait(tx: Tx): Promise<TxReceipt>;
 
   // creation
   abstract create(args: CreationArgs, signer?: Signer): Promise<Tx>;

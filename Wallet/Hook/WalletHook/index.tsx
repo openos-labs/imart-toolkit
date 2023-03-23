@@ -18,7 +18,7 @@ import {
 	ETH_MARKET_ADDRESS
 } from "./Config"
 import { ChainType, SignMessageResponse, WalletType } from "./Types"
-import { Contractor, Aptos, Evm, Contract } from "../../../contracts/src"
+import { Contractor, Aptos, Evm, Contract, Config } from "../../../contracts/src"
 
 
 export interface HookResponse {
@@ -170,7 +170,8 @@ export const WalletHook = (): HookResponse => {
 		}
 		switch (_chainType) {
 			case "ETH": {
-				const configuration = {
+				const configuration: Config = {
+					network: "testnet",
 					addresses: {
 						singleCollective: ETH_SINGLE_COLLECTIVE_ADDRESS,
 						multipleCollective: ETH_MULTIPLE_COLLECTIVE_ADDRESS,
@@ -185,7 +186,8 @@ export const WalletHook = (): HookResponse => {
 				return Contractor(Evm, configuration)
 			}
 			case "APTOS":
-				const configuration = {
+				const configuration: Config = {
+					network: "testnet",
 					addresses: {
 						singleCollective: APTOS_SINGLE_COLLECTIVE_ADDRESS,
 						multipleCollective: APTOS_MULTIPLE_COLLECTIVE_ADDRESS,

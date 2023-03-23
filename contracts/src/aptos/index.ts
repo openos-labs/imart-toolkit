@@ -28,17 +28,25 @@ import {
 import { Creation } from "./creation";
 import { Market } from "./market";
 import { Curation } from "./curation";
+import { AptosClient } from "aptos";
 
 export class Aptos implements ContractProxy {
   readonly config: Config;
   private market: Market;
   private creation: Creation;
   private curation: Curation;
+  private client: AptosClient;
 
   constructor(config: Config) {
     this.market = new Market(config);
     this.creation = new Creation(config);
     this.curation = new Curation(config);
+    this.client = new AptosClient(`https://${config.network}.aptoslabs.com`);
+  }
+
+  wait(tx: Tx): Promise<TxReceipt> {
+    const { hash } = tx;
+    return this.client.waitForTransactionWithResult(hash);
   }
 
   // creation

@@ -22,11 +22,17 @@ export type AddressType =
 export type Address = string;
 export type Addresses = Record<AddressType, Address>;
 
-export type Tx = { hash: string } | any;
-export type SubmitTx = (payload: any) => Promise<any>;
+export type Tx = { hash: string } | ethers.ContractTransaction | any;
+export type TxReceipt =
+  | ethers.ContractReceipt
+  | { hash: string; success?: boolean }
+  | any;
+export type SubmitTx = (payload: any) => Promise<Tx>;
 export type Standard = "ERC721" | "ERC1155";
+export type Network = "mainnet" | "testnet" | "devnet";
 
 export interface Config {
+  network?: Network;
   addresses: Addresses;
   submitTx?: SubmitTx;
   provider?:
