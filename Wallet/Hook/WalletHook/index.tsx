@@ -19,6 +19,7 @@ import {
 } from "./Config"
 import { ChainType, SignMessageResponse, WalletType } from "./Types"
 import { Contractor, Aptos, Evm, Contract, Config } from "../../../contracts/src"
+import { POLYGON_CURATION_ADDRESS, POLYGON_MARKET_ADDRESS, POLYGON_MULTIPLE_COLLECTIVE_ADDRESS, POLYGON_SINGLE_COLLECTIVE_ADDRESS } from "./Config/POLYGON"
 
 
 export interface HookResponse {
@@ -41,6 +42,7 @@ export interface HookResponse {
 export const WalletHook = (): HookResponse => {
     const APTOS = AptosWallet();
     const ETH = ETHWallet();
+	const POLYGON = ETHWallet();
     const IC = ICWallet();
     const {signAndSubmitTransaction} = useWallet();
     const [_chainType, setChainType] = useState<ChainType>('');
@@ -48,8 +50,8 @@ export const WalletHook = (): HookResponse => {
 	const [loginLoading, setLoginLoading] = useState<boolean>(false)
 	// wallet  gather
 	const walletGather = useMemo(() => {
-		return { APTOS, ETH, IC }
-	}, [APTOS, ETH, IC])
+		return { APTOS, POLYGON, ETH }
+	}, [APTOS, POLYGON, ETH])
 	
 	
 	// login
@@ -119,10 +121,10 @@ export const WalletHook = (): HookResponse => {
 		)
 		
 		let _singMessage
-		if (_chainType === "ETH") {
-			_singMessage = ETH.walletSignMessage
-		} else if (_chainType === "APTOS") {
+		if (_chainType === "APTOS") {
 			_singMessage = APTOS.walletSignMessage
+		} else {
+			_singMessage = ETH.walletSignMessage
 		}
 		if (!_singMessage) {
 			throw new Error("no this wallet")
@@ -185,6 +187,21 @@ export const WalletHook = (): HookResponse => {
 				}
 				return Contractor(Evm, configuration)
 			}
+			case "POLYGON": 
+				const polygonConf: Config = {
+					network: "testnet",
+					addresses: {
+						singleCollective: POLYGON_SINGLE_COLLECTIVE_ADDRESS,
+						multipleCollective: POLYGON_MULTIPLE_COLLECTIVE_ADDRESS,
+						curation: POLYGON_CURATION_ADDRESS,
+						market: POLYGON_MARKET_ADDRESS
+					},
+					provider: ETH.getProvider()
+				}
+				if (!polygonConf.provider) {
+					return
+				}
+				return Contractor(Evm, polygonConf)
 			case "APTOS":
 				const configuration: Config = {
 					network: "testnet",
@@ -212,10 +229,10 @@ export const WalletHook = (): HookResponse => {
 		switch (_chainType) {
 			case "APTOS":
 				return "APT"
-			case "IC":
-				return "ICP"
 			case "ETH":
 				return "ETH"
+			case "POLYGON":
+				return "MATIC"
 			default:
 				return ""
 		}
