@@ -39,6 +39,7 @@ export interface SignMessageResponse {
 
 
 export type EthereumWalletType = "ethereum:metamask";
+export type PolygonWalletType = "polygon:metamask";
 export type DfinityWalletType = "dfinity:II" | "dfinity:plug";
 export type AptosWalletType = "aptos:petra" | "aptos:martian";
 export type WalletType = AptosWalletType | DfinityWalletType | EthereumWalletType | "";
