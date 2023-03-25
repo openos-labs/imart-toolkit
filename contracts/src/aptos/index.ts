@@ -41,7 +41,7 @@ export class Aptos implements ContractProxy {
     this.market = new Market(config);
     this.creation = new Creation(config);
     this.curation = new Curation(config);
-    this.client = new AptosClient(`https://${config.network}.aptoslabs.com`);
+    this.client = new AptosClient(`https://fullnode.${config.network}.aptoslabs.com`);
   }
 
   wait(tx: Tx): Promise<TxReceipt> {
