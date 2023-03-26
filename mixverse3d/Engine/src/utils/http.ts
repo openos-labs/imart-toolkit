@@ -1,5 +1,5 @@
 import {AxiosResponse} from "axios";
-import axios from "@mix-labs/network";
+import axios from "@mix-labs/imart-toolkit/network";
 
 export const onFulfilled: (value: any) => any = (
 	response: AxiosResponse
