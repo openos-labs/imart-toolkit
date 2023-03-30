@@ -10,6 +10,7 @@ export interface ChainResponse {
     getProvider?: any | undefined,
     walletSignMessage?: (message: string, nonce: string) => any;
     getBalance?: () => any;
+    getEnsName?:()=> any;
 }
 
 export interface AuthContext {

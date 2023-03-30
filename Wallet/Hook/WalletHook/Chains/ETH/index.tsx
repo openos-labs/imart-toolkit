@@ -5,6 +5,8 @@ import {InjectedConnector} from '@web3-react/injected-connector';
 import {ethers} from "ethers";
 import Web3 from 'web3'
 import {useEffect} from "react";
+import { ENS } from '@ensdomains/ensjs'
+
 export const injected = new InjectedConnector({});
 import {Buffer} from 'buffer'
 export const ETHWallet = (): ChainResponse => {
@@ -89,10 +91,10 @@ export const ETHWallet = (): ChainResponse => {
         return formateNumber.toFixed(4)
     }
     
-   const getEns=()=>{
-       const accounts = ethereum.enable();
-       var web3 = new Web3(ethereum);
-       var ens = web3.eth.ens;
+   const getEnsName:any=async (address)=>{
+       const ENSInstance = new ENS()
+       await ENSInstance.setProvider(getProvider())
+	     return  await ENSInstance.getName(address)
     }
     return {
         login,
@@ -103,6 +105,7 @@ export const ETHWallet = (): ChainResponse => {
         publicKey: 'undefined',
         getProvider,
         walletSignMessage,
-        getBalance
+        getBalance,
+        getEnsName
     }
 }

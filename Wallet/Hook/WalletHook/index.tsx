@@ -69,7 +69,7 @@ export const WalletHook = (): HookResponse => {
 	}
 	
 	// current already connected wallet object
-	const { connected, address, walletLogout, currentConnectedWallet, getBalance } = useMemo(() => {
+	const { connected, address, walletLogout, currentConnectedWallet, getBalance, } = useMemo(() => {
 		if (!_chainType) {
 			return defaultValue
 		}
@@ -187,7 +187,7 @@ export const WalletHook = (): HookResponse => {
 				}
 				return Contractor(Evm, configuration)
 			}
-			case "POLYGON": 
+			case "POLYGON":
 				const polygonConf: Config = {
 					network: "testnet",
 					addresses: {
