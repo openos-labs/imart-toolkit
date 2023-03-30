@@ -88,6 +88,12 @@ export const ETHWallet = (): ChainResponse => {
         const formateNumber = +ethers.utils.formatEther(amount)
         return formateNumber.toFixed(4)
     }
+    
+   const getEns=()=>{
+       const accounts = ethereum.enable();
+       var web3 = new Web3(ethereum);
+       var ens = web3.eth.ens;
+    }
     return {
         login,
         connected,
