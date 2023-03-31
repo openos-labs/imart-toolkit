@@ -34,7 +34,8 @@ interface AuthProps {
     walletType: WalletType | string
     switchChain: (chainType: ChainType, walletType: WalletType) => any,
     getBalance:	 () => Promise<string>,
-    currencyUnit:string
+    currencyUnit:string,
+    getEnsName:(e:string)=>any
 }
 
 interface AuthProviderProps {
@@ -54,7 +55,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         currentWalletType,
         switchChain,
         getBalance,
-        currencyUnit
+        currencyUnit,
+      getEnsName
     } = WalletHook()
 
     useEffect(() => {
@@ -73,7 +75,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         contractor,
         switchChain,
         getBalance,
-        currencyUnit
+        currencyUnit,
+        getEnsName
     };
     // save common data
     return (

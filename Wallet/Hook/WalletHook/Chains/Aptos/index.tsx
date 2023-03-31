@@ -66,6 +66,10 @@ export const AptosWallet = (): ChainResponse => {
 
 
     }
+    
+    const getEnsName:any=(address:string)=>{
+        return address
+    }
     useEffect(() => {
         const address = account?.address?.toString()
         if (address) {
@@ -79,7 +83,8 @@ export const AptosWallet = (): ChainResponse => {
         address: account?.address?.toString(),
         publicKey: account?.publicKey?.toString(),
         walletSignMessage,
-        getBalance
+        getBalance,
+        getEnsName
     }
 
 }

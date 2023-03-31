@@ -35,7 +35,8 @@ export interface HookResponse {
 	AuthImart: () => any;
 	switchChain: (chainType: ChainType, walletType: WalletType) => any;
 	getBalance: () => Promise<string>|any,
-	currencyUnit: string
+	currencyUnit: string,
+	getEnsName:(e:string)=>any
 }
 
 
@@ -69,7 +70,7 @@ export const WalletHook = (): HookResponse => {
 	}
 	
 	// current already connected wallet object
-	const { connected, address, walletLogout, currentConnectedWallet, getBalance, } = useMemo(() => {
+	const { connected, address, walletLogout, currentConnectedWallet, getBalance, getEnsName} = useMemo(() => {
 		if (!_chainType) {
 			return defaultValue
 		}
@@ -92,12 +93,17 @@ export const WalletHook = (): HookResponse => {
 		const getBalance = async ()=> {
 			return await _currentConnectedWallet?.getBalance()
 		}
+		
+		const getEnsName = async ()=>{
+			return  _currentConnectedWallet?.getEnsName()
+		}
 		return {
 			address: address(),
 			connected: connected(),
 			walletLogout,
 			currentConnectedWallet: _currentConnectedWallet,
-			getBalance
+			getBalance,
+			getEnsName
 		}
 	}, [_chainType, _walletType, walletGather])
 	
@@ -251,6 +257,7 @@ export const WalletHook = (): HookResponse => {
 		checkLogin,
 		switchChain,
 		getBalance,
-		currencyUnit
+		currencyUnit,
+		getEnsName
 	}
 }

@@ -27,5 +27,6 @@ export const defaultValue = {
     currentConnectedWallet: undefined,
     address: '',
     getBalance: () => {
-    }
+    },
+    getEnsName:()=>{}
 }
