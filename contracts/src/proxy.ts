@@ -70,7 +70,9 @@ export interface CurationInterface {
 
   buyExhibit(args: BuyExhibitArgs, signer?: Signer): Promise<Tx>;
   listExhibit(args: ListExhibitArgs, signer?: Signer): Promise<Tx>;
+  batchListExhibits(args: ListExhibitArgs[], signer?:Signer): Promise<Tx>;
   listOwnedExhibit(args: ListOwnedExhibitArgs, signer?: Signer): Promise<Tx>;
+  batchListOwnedExhibits(args: ListOwnedExhibitArgs[], signer?: Signer): Promise<Tx>;
   cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx>;
   redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx>;
   freezeExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx>;
@@ -90,7 +92,6 @@ export abstract class ContractProxy
   constructor(config: Config) {
     this.config = config;
   }
-
   abstract wait(tx: Tx): Promise<TxReceipt>;
 
   // creation
@@ -139,4 +140,7 @@ export abstract class ContractProxy
   abstract cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx>;
   abstract redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx>;
   abstract freezeExhibit(args: FreezeExhibitArgs, signer?: Signer): Promise<Tx>;
+  abstract batchListExhibits(args: ListExhibitArgs[], signer?: Signer): Promise<Tx>;
+  abstract batchListOwnedExhibits(args: ListOwnedExhibitArgs[], signer?: Signer): Promise<Tx>;
+
 }

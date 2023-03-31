@@ -110,6 +110,16 @@ export class Curation implements CurationInterface {
       );
   }
 
+  // curator.batch_list_exhibit
+  batchListExhibits(args: ListExhibitArgs[], _?: Signer): Promise<Tx> {
+    return this.curation(args.contract)
+      .connect(this.signer)
+      .batchList(
+        args.map((i) => BigNumber.from(i.galleryId)),
+        args.map((i) => BigNumber.from(i.exhibitId))
+      );
+  }
+
   // curator.list_owned_exhibit
   listOwnedExhibit(args: ListOwnedExhibitArgs, _?: Signer): Promise<Tx> {
     return this.curation(args.contract)
@@ -120,6 +130,18 @@ export class Curation implements CurationInterface {
         args.tokenIdentifier,
         args.price,
         args.location
+      );
+  }
+
+  // curator.batch_list_owned_exhibit
+  batchListOwnedExhibits(args: ListOwnedExhibitArgs[], _?: Signer): Promise<Tx> {
+    return this.curation(args.contract)
+      .connect(this.signer)
+      .batchListOwned(
+        args.map((i) => i.galleryId),
+        args.map((i) => i.collectionIdentifier),
+        args.map((i) => i.tokenIdentifier),
+        args.map((i) => i.price)
       );
   }
 

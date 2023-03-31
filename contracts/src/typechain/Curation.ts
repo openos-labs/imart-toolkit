@@ -28,127 +28,10 @@ import type {
   PromiseOrValue,
 } from "./common";
 
-export declare namespace Curation {
-  export type GalleryStruct = {
-    id: PromiseOrValue<BigNumberish>;
-    collection: PromiseOrValue<string>;
-    tokenId: PromiseOrValue<BigNumberish>;
-    owner: PromiseOrValue<string>;
-    spaceType: PromiseOrValue<string>;
-    name: PromiseOrValue<string>;
-    metadataUri: PromiseOrValue<string>;
-    commissionPool: PromiseOrValue<string>;
-  };
-
-  export type GalleryStructOutput = [
-    BigNumber,
-    string,
-    BigNumber,
-    string,
-    string,
-    string,
-    string,
-    string
-  ] & {
-    id: BigNumber;
-    collection: string;
-    tokenId: BigNumber;
-    owner: string;
-    spaceType: string;
-    name: string;
-    metadataUri: string;
-    commissionPool: string;
-  };
-
-  export type ExhibitStruct = {
-    id: PromiseOrValue<BigNumberish>;
-    galleryId: PromiseOrValue<BigNumberish>;
-    collection: PromiseOrValue<string>;
-    tokenId: PromiseOrValue<BigNumberish>;
-    origin: PromiseOrValue<string>;
-    expiration: PromiseOrValue<BigNumberish>;
-    price: PromiseOrValue<BigNumberish>;
-    location: PromiseOrValue<string>;
-    url: PromiseOrValue<string>;
-    detail: PromiseOrValue<string>;
-    status: PromiseOrValue<BigNumberish>;
-  };
-
-  export type ExhibitStructOutput = [
-    BigNumber,
-    BigNumber,
-    string,
-    BigNumber,
-    string,
-    BigNumber,
-    BigNumber,
-    string,
-    string,
-    string,
-    number
-  ] & {
-    id: BigNumber;
-    galleryId: BigNumber;
-    collection: string;
-    tokenId: BigNumber;
-    origin: string;
-    expiration: BigNumber;
-    price: BigNumber;
-    location: string;
-    url: string;
-    detail: string;
-    status: number;
-  };
-
-  export type OfferStruct = {
-    id: PromiseOrValue<BigNumberish>;
-    collection: PromiseOrValue<string>;
-    tokenId: PromiseOrValue<BigNumberish>;
-    from: PromiseOrValue<string>;
-    to: PromiseOrValue<string>;
-    price: PromiseOrValue<BigNumberish>;
-    galleryId: PromiseOrValue<BigNumberish>;
-    offerStartAt: PromiseOrValue<BigNumberish>;
-    offerExpiredAt: PromiseOrValue<BigNumberish>;
-    exhibitExpiredAt: PromiseOrValue<BigNumberish>;
-    url: PromiseOrValue<string>;
-    detail: PromiseOrValue<string>;
-    status: PromiseOrValue<BigNumberish>;
-  };
-
-  export type OfferStructOutput = [
-    BigNumber,
-    string,
-    BigNumber,
-    string,
-    string,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    string,
-    string,
-    number
-  ] & {
-    id: BigNumber;
-    collection: string;
-    tokenId: BigNumber;
-    from: string;
-    to: string;
-    price: BigNumber;
-    galleryId: BigNumber;
-    offerStartAt: BigNumber;
-    offerExpiredAt: BigNumber;
-    exhibitExpiredAt: BigNumber;
-    url: string;
-    detail: string;
-    status: number;
-  };
-}
-
 export interface CurationInterface extends utils.Interface {
   functions: {
+    "batchList(uint256[],uint256[])": FunctionFragment;
+    "batchListOwned(uint256[],address[],uint256[],uint256[])": FunctionFragment;
     "buy(uint256,uint256)": FunctionFragment;
     "cancel(uint256,uint256)": FunctionFragment;
     "cancelOffer(uint256)": FunctionFragment;
@@ -156,10 +39,6 @@ export interface CurationInterface extends utils.Interface {
     "exhibits(uint256)": FunctionFragment;
     "freeze(uint256,uint256)": FunctionFragment;
     "galleries(uint256)": FunctionFragment;
-    "getCuratorGalleries(address)": FunctionFragment;
-    "getGalleryExhibits(uint256)": FunctionFragment;
-    "getReceivedOffers()": FunctionFragment;
-    "getSentOffers()": FunctionFragment;
     "initialize(address)": FunctionFragment;
     "list(uint256,uint256,string)": FunctionFragment;
     "listOwned(uint256,address,uint256,uint256,string)": FunctionFragment;
@@ -179,6 +58,8 @@ export interface CurationInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "batchList"
+      | "batchListOwned"
       | "buy"
       | "cancel"
       | "cancelOffer"
@@ -186,10 +67,6 @@ export interface CurationInterface extends utils.Interface {
       | "exhibits"
       | "freeze"
       | "galleries"
-      | "getCuratorGalleries"
-      | "getGalleryExhibits"
-      | "getReceivedOffers"
-      | "getSentOffers"
       | "initialize"
       | "list"
       | "listOwned"
@@ -207,6 +84,19 @@ export interface CurationInterface extends utils.Interface {
       | "whitelist"
   ): FunctionFragment;
 
+  encodeFunctionData(
+    functionFragment: "batchList",
+    values: [PromiseOrValue<BigNumberish>[], PromiseOrValue<BigNumberish>[]]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "batchListOwned",
+    values: [
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<string>[],
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<BigNumberish>[]
+    ]
+  ): string;
   encodeFunctionData(
     functionFragment: "buy",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
@@ -243,22 +133,6 @@ export interface CurationInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "galleries",
     values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getCuratorGalleries",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getGalleryExhibits",
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getReceivedOffers",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getSentOffers",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "initialize",
@@ -340,6 +214,11 @@ export interface CurationInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
 
+  decodeFunctionResult(functionFragment: "batchList", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "batchListOwned",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "cancel", data: BytesLike): Result;
   decodeFunctionResult(
@@ -353,22 +232,6 @@ export interface CurationInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "exhibits", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "freeze", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "galleries", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getCuratorGalleries",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getGalleryExhibits",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getReceivedOffers",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getSentOffers",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "list", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "listOwned", data: BytesLike): Result;
@@ -410,64 +273,21 @@ export interface CurationInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
 
   events: {
-    "ExhibitCanceled(uint256,uint256,address,uint256,address,uint64)": EventFragment;
-    "ExhibitFrozen(uint256,uint256,address,uint256,address,uint64)": EventFragment;
-    "ExhibitListed(uint256,uint256,address,uint256,address,uint64,uint256,string,string,string,uint64)": EventFragment;
-    "ExhibitRedeemed(uint256,uint256,address,uint256,address,uint64)": EventFragment;
-    "ExhibitSold(uint256,uint256,address,uint256,address,uint256,uint64)": EventFragment;
-    "GalleryCreated(uint256,address,uint256,address,string,string,string,bool,uint64,address[],uint256[],address)": EventFragment;
+    "ExhibitChanged(uint256,string,uint256,address,uint256,address,uint64,uint256,string,string,string,uint64)": EventFragment;
+    "GalleryChanged(uint256,string,address,uint256,address,string,string,string,bool,uint64,address[],uint256[],address)": EventFragment;
     "Initialized(uint8)": EventFragment;
-    "OfferAccepted(uint256,address,uint256,address,address,uint256,uint256,uint256,uint64,uint64)": EventFragment;
-    "OfferCanceled(uint256,address,uint256,address,address,uint64)": EventFragment;
-    "OfferCreated(uint256,address,uint256,address,address,uint256,uint256,uint64,uint64,uint64,string,string)": EventFragment;
-    "OfferRejected(uint256,address,uint256,address,address,uint64)": EventFragment;
+    "OfferChanged(uint256,string,address,uint256,address,address,uint256,uint256,uint64,uint64,uint64,string,string,uint64)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "ExhibitCanceled"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ExhibitFrozen"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ExhibitListed"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ExhibitRedeemed"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ExhibitSold"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "GalleryCreated"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ExhibitChanged"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "GalleryChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OfferAccepted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OfferCanceled"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OfferCreated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OfferRejected"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "OfferChanged"): EventFragment;
 }
 
-export interface ExhibitCanceledEventObject {
+export interface ExhibitChangedEventObject {
   id: BigNumber;
-  galleryId: BigNumber;
-  collection: string;
-  tokenId: BigNumber;
-  origin: string;
-  timestamp: BigNumber;
-}
-export type ExhibitCanceledEvent = TypedEvent<
-  [BigNumber, BigNumber, string, BigNumber, string, BigNumber],
-  ExhibitCanceledEventObject
->;
-
-export type ExhibitCanceledEventFilter = TypedEventFilter<ExhibitCanceledEvent>;
-
-export interface ExhibitFrozenEventObject {
-  id: BigNumber;
-  galleryId: BigNumber;
-  collection: string;
-  tokenId: BigNumber;
-  origin: string;
-  timestamp: BigNumber;
-}
-export type ExhibitFrozenEvent = TypedEvent<
-  [BigNumber, BigNumber, string, BigNumber, string, BigNumber],
-  ExhibitFrozenEventObject
->;
-
-export type ExhibitFrozenEventFilter = TypedEventFilter<ExhibitFrozenEvent>;
-
-export interface ExhibitListedEventObject {
-  id: BigNumber;
+  eventType: string;
   galleryId: BigNumber;
   collection: string;
   tokenId: BigNumber;
@@ -479,9 +299,10 @@ export interface ExhibitListedEventObject {
   detail: string;
   timestamp: BigNumber;
 }
-export type ExhibitListedEvent = TypedEvent<
+export type ExhibitChangedEvent = TypedEvent<
   [
     BigNumber,
+    string,
     BigNumber,
     string,
     BigNumber,
@@ -493,44 +314,14 @@ export type ExhibitListedEvent = TypedEvent<
     string,
     BigNumber
   ],
-  ExhibitListedEventObject
+  ExhibitChangedEventObject
 >;
 
-export type ExhibitListedEventFilter = TypedEventFilter<ExhibitListedEvent>;
+export type ExhibitChangedEventFilter = TypedEventFilter<ExhibitChangedEvent>;
 
-export interface ExhibitRedeemedEventObject {
+export interface GalleryChangedEventObject {
   id: BigNumber;
-  galleryId: BigNumber;
-  collection: string;
-  tokenId: BigNumber;
-  origin: string;
-  timestamp: BigNumber;
-}
-export type ExhibitRedeemedEvent = TypedEvent<
-  [BigNumber, BigNumber, string, BigNumber, string, BigNumber],
-  ExhibitRedeemedEventObject
->;
-
-export type ExhibitRedeemedEventFilter = TypedEventFilter<ExhibitRedeemedEvent>;
-
-export interface ExhibitSoldEventObject {
-  id: BigNumber;
-  galleryId: BigNumber;
-  collection: string;
-  tokenId: BigNumber;
-  origin: string;
-  price: BigNumber;
-  timestamp: BigNumber;
-}
-export type ExhibitSoldEvent = TypedEvent<
-  [BigNumber, BigNumber, string, BigNumber, string, BigNumber, BigNumber],
-  ExhibitSoldEventObject
->;
-
-export type ExhibitSoldEventFilter = TypedEventFilter<ExhibitSoldEvent>;
-
-export interface GalleryCreatedEventObject {
-  id: BigNumber;
+  eventType: string;
   collection: string;
   tokenId: BigNumber;
   owner: string;
@@ -543,9 +334,10 @@ export interface GalleryCreatedEventObject {
   commissionRates: BigNumber[];
   commissionPool: string;
 }
-export type GalleryCreatedEvent = TypedEvent<
+export type GalleryChangedEvent = TypedEvent<
   [
     BigNumber,
+    string,
     string,
     BigNumber,
     string,
@@ -558,10 +350,10 @@ export type GalleryCreatedEvent = TypedEvent<
     BigNumber[],
     string
   ],
-  GalleryCreatedEventObject
+  GalleryChangedEventObject
 >;
 
-export type GalleryCreatedEventFilter = TypedEventFilter<GalleryCreatedEvent>;
+export type GalleryChangedEventFilter = TypedEventFilter<GalleryChangedEvent>;
 
 export interface InitializedEventObject {
   version: number;
@@ -570,53 +362,9 @@ export type InitializedEvent = TypedEvent<[number], InitializedEventObject>;
 
 export type InitializedEventFilter = TypedEventFilter<InitializedEvent>;
 
-export interface OfferAcceptedEventObject {
+export interface OfferChangedEventObject {
   id: BigNumber;
-  collection: string;
-  tokenId: BigNumber;
-  from: string;
-  to: string;
-  price: BigNumber;
-  galleryId: BigNumber;
-  exhibitId: BigNumber;
-  exhibitExpiredAt: BigNumber;
-  timestamp: BigNumber;
-}
-export type OfferAcceptedEvent = TypedEvent<
-  [
-    BigNumber,
-    string,
-    BigNumber,
-    string,
-    string,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber
-  ],
-  OfferAcceptedEventObject
->;
-
-export type OfferAcceptedEventFilter = TypedEventFilter<OfferAcceptedEvent>;
-
-export interface OfferCanceledEventObject {
-  id: BigNumber;
-  collection: string;
-  tokenId: BigNumber;
-  from: string;
-  to: string;
-  timestamp: BigNumber;
-}
-export type OfferCanceledEvent = TypedEvent<
-  [BigNumber, string, BigNumber, string, string, BigNumber],
-  OfferCanceledEventObject
->;
-
-export type OfferCanceledEventFilter = TypedEventFilter<OfferCanceledEvent>;
-
-export interface OfferCreatedEventObject {
-  id: BigNumber;
+  eventType: string;
   collection: string;
   tokenId: BigNumber;
   from: string;
@@ -628,11 +376,13 @@ export interface OfferCreatedEventObject {
   exhibitExpiredAt: BigNumber;
   url: string;
   detail: string;
+  timestamp: BigNumber;
 }
-export type OfferCreatedEvent = TypedEvent<
+export type OfferChangedEvent = TypedEvent<
   [
     BigNumber,
     string,
+    string,
     BigNumber,
     string,
     string,
@@ -642,27 +392,13 @@ export type OfferCreatedEvent = TypedEvent<
     BigNumber,
     BigNumber,
     string,
-    string
+    string,
+    BigNumber
   ],
-  OfferCreatedEventObject
+  OfferChangedEventObject
 >;
 
-export type OfferCreatedEventFilter = TypedEventFilter<OfferCreatedEvent>;
-
-export interface OfferRejectedEventObject {
-  id: BigNumber;
-  collection: string;
-  tokenId: BigNumber;
-  from: string;
-  to: string;
-  timestamp: BigNumber;
-}
-export type OfferRejectedEvent = TypedEvent<
-  [BigNumber, string, BigNumber, string, string, BigNumber],
-  OfferRejectedEventObject
->;
-
-export type OfferRejectedEventFilter = TypedEventFilter<OfferRejectedEvent>;
+export type OfferChangedEventFilter = TypedEventFilter<OfferChangedEvent>;
 
 export interface Curation extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -691,6 +427,20 @@ export interface Curation extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    batchList(
+      galleryIds: PromiseOrValue<BigNumberish>[],
+      exhibitIds: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    batchListOwned(
+      galleryIds: PromiseOrValue<BigNumberish>[],
+      collections: PromiseOrValue<string>[],
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      prices: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     buy(
       galleryId: PromiseOrValue<BigNumberish>,
       exhibitId: PromiseOrValue<BigNumberish>,
@@ -772,24 +522,6 @@ export interface Curation extends BaseContract {
         commissionPool: string;
       }
     >;
-
-    getCuratorGalleries(
-      curator: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[Curation.GalleryStructOutput[]]>;
-
-    getGalleryExhibits(
-      galleryId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[Curation.ExhibitStructOutput[]]>;
-
-    getReceivedOffers(
-      overrides?: CallOverrides
-    ): Promise<[Curation.OfferStructOutput[]]>;
-
-    getSentOffers(
-      overrides?: CallOverrides
-    ): Promise<[Curation.OfferStructOutput[]]>;
 
     initialize(
       owner: PromiseOrValue<string>,
@@ -922,6 +654,20 @@ export interface Curation extends BaseContract {
     ): Promise<[boolean]>;
   };
 
+  batchList(
+    galleryIds: PromiseOrValue<BigNumberish>[],
+    exhibitIds: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  batchListOwned(
+    galleryIds: PromiseOrValue<BigNumberish>[],
+    collections: PromiseOrValue<string>[],
+    tokenIds: PromiseOrValue<BigNumberish>[],
+    prices: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   buy(
     galleryId: PromiseOrValue<BigNumberish>,
     exhibitId: PromiseOrValue<BigNumberish>,
@@ -1003,24 +749,6 @@ export interface Curation extends BaseContract {
       commissionPool: string;
     }
   >;
-
-  getCuratorGalleries(
-    curator: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<Curation.GalleryStructOutput[]>;
-
-  getGalleryExhibits(
-    galleryId: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<Curation.ExhibitStructOutput[]>;
-
-  getReceivedOffers(
-    overrides?: CallOverrides
-  ): Promise<Curation.OfferStructOutput[]>;
-
-  getSentOffers(
-    overrides?: CallOverrides
-  ): Promise<Curation.OfferStructOutput[]>;
 
   initialize(
     owner: PromiseOrValue<string>,
@@ -1153,6 +881,20 @@ export interface Curation extends BaseContract {
   ): Promise<boolean>;
 
   callStatic: {
+    batchList(
+      galleryIds: PromiseOrValue<BigNumberish>[],
+      exhibitIds: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    batchListOwned(
+      galleryIds: PromiseOrValue<BigNumberish>[],
+      collections: PromiseOrValue<string>[],
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      prices: PromiseOrValue<BigNumberish>[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     buy(
       galleryId: PromiseOrValue<BigNumberish>,
       exhibitId: PromiseOrValue<BigNumberish>,
@@ -1234,24 +976,6 @@ export interface Curation extends BaseContract {
         commissionPool: string;
       }
     >;
-
-    getCuratorGalleries(
-      curator: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<Curation.GalleryStructOutput[]>;
-
-    getGalleryExhibits(
-      galleryId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<Curation.ExhibitStructOutput[]>;
-
-    getReceivedOffers(
-      overrides?: CallOverrides
-    ): Promise<Curation.OfferStructOutput[]>;
-
-    getSentOffers(
-      overrides?: CallOverrides
-    ): Promise<Curation.OfferStructOutput[]>;
 
     initialize(
       owner: PromiseOrValue<string>,
@@ -1385,42 +1109,9 @@ export interface Curation extends BaseContract {
   };
 
   filters: {
-    "ExhibitCanceled(uint256,uint256,address,uint256,address,uint64)"(
+    "ExhibitChanged(uint256,string,uint256,address,uint256,address,uint64,uint256,string,string,string,uint64)"(
       id?: PromiseOrValue<BigNumberish> | null,
-      galleryId?: null,
-      collection?: null,
-      tokenId?: null,
-      origin?: null,
-      timestamp?: null
-    ): ExhibitCanceledEventFilter;
-    ExhibitCanceled(
-      id?: PromiseOrValue<BigNumberish> | null,
-      galleryId?: null,
-      collection?: null,
-      tokenId?: null,
-      origin?: null,
-      timestamp?: null
-    ): ExhibitCanceledEventFilter;
-
-    "ExhibitFrozen(uint256,uint256,address,uint256,address,uint64)"(
-      id?: PromiseOrValue<BigNumberish> | null,
-      galleryId?: null,
-      collection?: null,
-      tokenId?: null,
-      origin?: null,
-      timestamp?: null
-    ): ExhibitFrozenEventFilter;
-    ExhibitFrozen(
-      id?: PromiseOrValue<BigNumberish> | null,
-      galleryId?: null,
-      collection?: null,
-      tokenId?: null,
-      origin?: null,
-      timestamp?: null
-    ): ExhibitFrozenEventFilter;
-
-    "ExhibitListed(uint256,uint256,address,uint256,address,uint64,uint256,string,string,string,uint64)"(
-      id?: PromiseOrValue<BigNumberish> | null,
+      eventType?: null,
       galleryId?: null,
       collection?: null,
       tokenId?: null,
@@ -1431,9 +1122,10 @@ export interface Curation extends BaseContract {
       url?: null,
       detail?: null,
       timestamp?: null
-    ): ExhibitListedEventFilter;
-    ExhibitListed(
+    ): ExhibitChangedEventFilter;
+    ExhibitChanged(
       id?: PromiseOrValue<BigNumberish> | null,
+      eventType?: null,
       galleryId?: null,
       collection?: null,
       tokenId?: null,
@@ -1444,46 +1136,11 @@ export interface Curation extends BaseContract {
       url?: null,
       detail?: null,
       timestamp?: null
-    ): ExhibitListedEventFilter;
+    ): ExhibitChangedEventFilter;
 
-    "ExhibitRedeemed(uint256,uint256,address,uint256,address,uint64)"(
+    "GalleryChanged(uint256,string,address,uint256,address,string,string,string,bool,uint64,address[],uint256[],address)"(
       id?: PromiseOrValue<BigNumberish> | null,
-      galleryId?: null,
-      collection?: null,
-      tokenId?: null,
-      origin?: null,
-      timestamp?: null
-    ): ExhibitRedeemedEventFilter;
-    ExhibitRedeemed(
-      id?: PromiseOrValue<BigNumberish> | null,
-      galleryId?: null,
-      collection?: null,
-      tokenId?: null,
-      origin?: null,
-      timestamp?: null
-    ): ExhibitRedeemedEventFilter;
-
-    "ExhibitSold(uint256,uint256,address,uint256,address,uint256,uint64)"(
-      id?: PromiseOrValue<BigNumberish> | null,
-      galleryId?: null,
-      collection?: null,
-      tokenId?: null,
-      origin?: null,
-      price?: null,
-      timestamp?: null
-    ): ExhibitSoldEventFilter;
-    ExhibitSold(
-      id?: PromiseOrValue<BigNumberish> | null,
-      galleryId?: null,
-      collection?: null,
-      tokenId?: null,
-      origin?: null,
-      price?: null,
-      timestamp?: null
-    ): ExhibitSoldEventFilter;
-
-    "GalleryCreated(uint256,address,uint256,address,string,string,string,bool,uint64,address[],uint256[],address)"(
-      id?: PromiseOrValue<BigNumberish> | null,
+      eventType?: null,
       collection?: null,
       tokenId?: null,
       owner?: null,
@@ -1495,9 +1152,10 @@ export interface Curation extends BaseContract {
       payees?: null,
       commissionRates?: null,
       commissionPool?: null
-    ): GalleryCreatedEventFilter;
-    GalleryCreated(
+    ): GalleryChangedEventFilter;
+    GalleryChanged(
       id?: PromiseOrValue<BigNumberish> | null,
+      eventType?: null,
       collection?: null,
       tokenId?: null,
       owner?: null,
@@ -1509,55 +1167,14 @@ export interface Curation extends BaseContract {
       payees?: null,
       commissionRates?: null,
       commissionPool?: null
-    ): GalleryCreatedEventFilter;
+    ): GalleryChangedEventFilter;
 
     "Initialized(uint8)"(version?: null): InitializedEventFilter;
     Initialized(version?: null): InitializedEventFilter;
 
-    "OfferAccepted(uint256,address,uint256,address,address,uint256,uint256,uint256,uint64,uint64)"(
+    "OfferChanged(uint256,string,address,uint256,address,address,uint256,uint256,uint64,uint64,uint64,string,string,uint64)"(
       id?: PromiseOrValue<BigNumberish> | null,
-      collection?: null,
-      tokenId?: null,
-      from?: null,
-      to?: null,
-      price?: null,
-      galleryId?: null,
-      exhibitId?: null,
-      exhibitExpiredAt?: null,
-      timestamp?: null
-    ): OfferAcceptedEventFilter;
-    OfferAccepted(
-      id?: PromiseOrValue<BigNumberish> | null,
-      collection?: null,
-      tokenId?: null,
-      from?: null,
-      to?: null,
-      price?: null,
-      galleryId?: null,
-      exhibitId?: null,
-      exhibitExpiredAt?: null,
-      timestamp?: null
-    ): OfferAcceptedEventFilter;
-
-    "OfferCanceled(uint256,address,uint256,address,address,uint64)"(
-      id?: PromiseOrValue<BigNumberish> | null,
-      collection?: null,
-      tokenId?: null,
-      from?: null,
-      to?: null,
-      timestamp?: null
-    ): OfferCanceledEventFilter;
-    OfferCanceled(
-      id?: PromiseOrValue<BigNumberish> | null,
-      collection?: null,
-      tokenId?: null,
-      from?: null,
-      to?: null,
-      timestamp?: null
-    ): OfferCanceledEventFilter;
-
-    "OfferCreated(uint256,address,uint256,address,address,uint256,uint256,uint64,uint64,uint64,string,string)"(
-      id?: PromiseOrValue<BigNumberish> | null,
+      eventType?: null,
       collection?: null,
       tokenId?: null,
       from?: null,
@@ -1568,10 +1185,12 @@ export interface Curation extends BaseContract {
       offerExpiredAt?: null,
       exhibitExpiredAt?: null,
       url?: null,
-      detail?: null
-    ): OfferCreatedEventFilter;
-    OfferCreated(
+      detail?: null,
+      timestamp?: null
+    ): OfferChangedEventFilter;
+    OfferChanged(
       id?: PromiseOrValue<BigNumberish> | null,
+      eventType?: null,
       collection?: null,
       tokenId?: null,
       from?: null,
@@ -1582,28 +1201,26 @@ export interface Curation extends BaseContract {
       offerExpiredAt?: null,
       exhibitExpiredAt?: null,
       url?: null,
-      detail?: null
-    ): OfferCreatedEventFilter;
-
-    "OfferRejected(uint256,address,uint256,address,address,uint64)"(
-      id?: PromiseOrValue<BigNumberish> | null,
-      collection?: null,
-      tokenId?: null,
-      from?: null,
-      to?: null,
+      detail?: null,
       timestamp?: null
-    ): OfferRejectedEventFilter;
-    OfferRejected(
-      id?: PromiseOrValue<BigNumberish> | null,
-      collection?: null,
-      tokenId?: null,
-      from?: null,
-      to?: null,
-      timestamp?: null
-    ): OfferRejectedEventFilter;
+    ): OfferChangedEventFilter;
   };
 
   estimateGas: {
+    batchList(
+      galleryIds: PromiseOrValue<BigNumberish>[],
+      exhibitIds: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    batchListOwned(
+      galleryIds: PromiseOrValue<BigNumberish>[],
+      collections: PromiseOrValue<string>[],
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      prices: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     buy(
       galleryId: PromiseOrValue<BigNumberish>,
       exhibitId: PromiseOrValue<BigNumberish>,
@@ -1648,20 +1265,6 @@ export interface Curation extends BaseContract {
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
-
-    getCuratorGalleries(
-      curator: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getGalleryExhibits(
-      galleryId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    getReceivedOffers(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getSentOffers(overrides?: CallOverrides): Promise<BigNumber>;
 
     initialize(
       owner: PromiseOrValue<string>,
@@ -1758,6 +1361,20 @@ export interface Curation extends BaseContract {
   };
 
   populateTransaction: {
+    batchList(
+      galleryIds: PromiseOrValue<BigNumberish>[],
+      exhibitIds: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    batchListOwned(
+      galleryIds: PromiseOrValue<BigNumberish>[],
+      collections: PromiseOrValue<string>[],
+      tokenIds: PromiseOrValue<BigNumberish>[],
+      prices: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     buy(
       galleryId: PromiseOrValue<BigNumberish>,
       exhibitId: PromiseOrValue<BigNumberish>,
@@ -1802,20 +1419,6 @@ export interface Curation extends BaseContract {
       arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
-
-    getCuratorGalleries(
-      curator: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getGalleryExhibits(
-      galleryId: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    getReceivedOffers(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getSentOffers(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     initialize(
       owner: PromiseOrValue<string>,

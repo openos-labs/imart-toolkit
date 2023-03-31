@@ -102,37 +102,43 @@ export class Evm implements ContractProxy {
   createCurationOffer(
     args: CreateCurationOfferArgs,
     signer?: Signer
-  ): Promise<any> {
+  ): Promise<Tx> {
     return this.curation.createCurationOffer(args, signer);
   }
   replyCurationOffer(
     args: ReplyCurationOfferArgs,
     signer?: Signer
-  ): Promise<any> {
+  ): Promise<Tx> {
     return this.curation.replyCurationOffer(args, signer);
   }
   cancelCurationOffer(
     args: CancelCurationOfferArgs,
     signer?: Signer
-  ): Promise<any> {
+  ): Promise<Tx> {
     return this.curation.cancelCurationOffer(args, signer);
   }
-  buyExhibit(args: BuyExhibitArgs, signer?: Signer): Promise<any> {
+  buyExhibit(args: BuyExhibitArgs, signer?: Signer): Promise<Tx> {
     return this.curation.buyExhibit(args, signer);
   }
-  listExhibit(args: ListExhibitArgs, signer?: Signer): Promise<any> {
+  listExhibit(args: ListExhibitArgs, signer?: Signer): Promise<Tx> {
     return this.curation.listExhibit(args, signer);
   }
-  listOwnedExhibit(args: ListOwnedExhibitArgs, signer?: Signer): Promise<any> {
+  listOwnedExhibit(args: ListOwnedExhibitArgs, signer?: Signer): Promise<Tx> {
     return this.curation.listOwnedExhibit(args, signer);
   }
-  cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<any> {
+  batchListExhibits(args: ListExhibitArgs[], signer?: Signer): Promise<Tx> {
+    return this.curation.batchListExhibits(args, signer);
+  }
+  batchListOwnedExhibits(args: ListOwnedExhibitArgs[], signer?: Signer): Promise<Tx> {
+    return this.curation.batchListOwnedExhibits(args, signer);
+  }
+  cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx> {
     return this.curation.cancelExhibit(args, signer);
   }
-  redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<any> {
+  redeemExhibit(args: RedeemExhibitArgs, signer?: Signer): Promise<Tx> {
     return this.curation.redeemExhibit(args, signer);
   }
-  freezeExhibit(args: FreezeExhibitArgs, signer?: Signer): Promise<any> {
+  freezeExhibit(args: FreezeExhibitArgs, signer?: Signer): Promise<Tx> {
     return this.curation.freezeExhibit(args, signer);
   }
 }

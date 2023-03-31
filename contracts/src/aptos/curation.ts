@@ -113,6 +113,21 @@ export class Curation implements CurationInterface {
     return this.config?.submitTx!(payload);
   }
 
+  // curator.batch_list_exhibits
+  batchListExhibits(args: ListExhibitArgs[]): Promise<Tx> {
+    const payload = {
+      type: "entry_function_payload",
+      function: `${this.contract}::curation::batch_list`,
+      type_arguments: ["0x1::aptos_coin::AptosCoin"],
+      arguments: [
+        args.map((i) => i.galleryId), 
+        args.map((i) => i.exhibitId)
+      ],
+    };
+    return this.config?.submitTx!(payload);
+  }
+
+
   // curator.list_owned_exhibit
   listOwnedExhibit(args: ListOwnedExhibitArgs): Promise<Tx> {
     const contract = args.contract || this.contract;
@@ -128,6 +143,24 @@ export class Curation implements CurationInterface {
         args.propertyVersion,
         args.price,
         args.location,
+      ],
+    };
+    return this.config?.submitTx!(payload);
+  }
+
+  //curator.batch_list_owned_exhibits
+  batchListOwnedExhibits(args: ListOwnedExhibitArgs[]): Promise<Tx> {
+    const payload = {
+      type: "entry_function_payload",
+      function: `${this.contract}::curation::batch_list_owned`,
+      type_arguments: ["0x1::aptos_coin::AptosCoin"],
+      arguments: [
+        args.map((i) => i.galleryId),
+        args.map((i) => i.creator),
+        args.map((i) => i.collectionName),
+        args.map((i) => i.tokenName),
+        args.map((i) => i.propertyVersion),
+        args.map((i) => i.price)
       ],
     };
     return this.config?.submitTx!(payload);
