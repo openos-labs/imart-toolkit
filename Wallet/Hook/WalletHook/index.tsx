@@ -7,19 +7,12 @@ import { getNonce, auth, isAuth } from "./Api"
 import axios from "axios"
 import Storage from "../../utils/storage"
 import {
-	defaultValue,
-	APTOS_MARKET_ADDRESS,
-	APTOS_SINGLE_COLLECTIVE_ADDRESS,
-	APTOS_MULTIPLE_COLLECTIVE_ADDRESS,
-	APTOS_CURATION_ADDRESS,
-	ETH_SINGLE_COLLECTIVE_ADDRESS,
-	ETH_MULTIPLE_COLLECTIVE_ADDRESS,
-	ETH_CURATION_ADDRESS,
-	ETH_MARKET_ADDRESS
+	Specs,
+	AptosSpec,
+	defaultValue
 } from "./Config"
 import { ChainType, SignMessageResponse, WalletType } from "./Types"
-import { Contractor, Aptos, Evm, Contract, Config } from "../../../contracts/src"
-import { POLYGON_CURATION_ADDRESS, POLYGON_MARKET_ADDRESS, POLYGON_MULTIPLE_COLLECTIVE_ADDRESS, POLYGON_SINGLE_COLLECTIVE_ADDRESS } from "./Config/POLYGON"
+import { Contractor, Aptos, Evm, Contract, Config } from "@mix-labs/contracts"
 
 
 export interface HookResponse {
@@ -172,54 +165,33 @@ export const WalletHook = (): HookResponse => {
 			return walletLogin(cachedChainType, cachedWalletType)
 		}
 	}
+	const network = "testnet"
 	const contractor: Contract = useMemo(() => {
 		if (!connected) {
 			return {} as any
 		}
+		const config: Config = {
+			...Specs[_chainType]!.configs[network],
+			network
+		}
 		switch (_chainType) {
-			case "ETH": {
-				const configuration: Config = {
-					network: "testnet",
-					addresses: {
-						singleCollective: ETH_SINGLE_COLLECTIVE_ADDRESS,
-						multipleCollective: ETH_MULTIPLE_COLLECTIVE_ADDRESS,
-						curation: ETH_CURATION_ADDRESS,
-						market: ETH_MARKET_ADDRESS
-					},
+			case "ETH":
+			case "POLYGON": {
+				const evmconf: Config = {
+					...config,
 					provider: ETH.getProvider()
 				}
-				if (!configuration.provider) {
+				if (!evmconf.provider) {
 					return
 				}
-				return Contractor(Evm, configuration)
+				return Contractor(Evm, evmconf)
 			}
-			case "POLYGON":
-				const polygonConf: Config = {
-					network: "testnet",
-					addresses: {
-						singleCollective: POLYGON_SINGLE_COLLECTIVE_ADDRESS,
-						multipleCollective: POLYGON_MULTIPLE_COLLECTIVE_ADDRESS,
-						curation: POLYGON_CURATION_ADDRESS,
-						market: POLYGON_MARKET_ADDRESS
-					},
-					provider: ETH.getProvider()
-				}
-				if (!polygonConf.provider) {
-					return
-				}
-				return Contractor(Evm, polygonConf)
 			case "APTOS":
-				const configuration: Config = {
-					network: "testnet",
-					addresses: {
-						singleCollective: APTOS_SINGLE_COLLECTIVE_ADDRESS,
-						multipleCollective: APTOS_MULTIPLE_COLLECTIVE_ADDRESS,
-						curation: APTOS_CURATION_ADDRESS,
-						market: APTOS_MARKET_ADDRESS
-					},
+				const aptconf: Config = {
+					...config,
 					submitTx: signAndSubmitTransaction
 				}
-				return Contractor(Aptos, configuration)
+				return Contractor(Aptos, aptconf)
 			default: {
 			}
 		}

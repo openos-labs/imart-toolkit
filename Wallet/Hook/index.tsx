@@ -12,7 +12,7 @@ export * from './WalletHook/Config';
 
 import {HookResponse, WalletHook} from './WalletHook'
 import {ChainResponse, ChainType, WalletType} from './WalletHook/Types';
-import {Contract, Contractor} from "../../contracts/src"
+import {Contract, Contractor} from "@mix-labs/contracts"
 
 declare global {
     interface Window {
@@ -48,7 +48,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({children}) => {
         loginLoading,
         walletLogin,
         walletLogout,
-        contractor: contractor,
+        contractor,
         connected,
         checkLogin,
         currentChainType,
