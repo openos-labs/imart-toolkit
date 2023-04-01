@@ -80,7 +80,10 @@ export const ETHWallet = (): ChainResponse => {
 
     const siwe: (_: string, nonce: string) => Promise<{message: string, signature: string}> = 
         async (_: string, nonce: string) => {
+            const now = new Date()
+            const expiration = new Date(now.setDate(now.getDate() + 1))
             const siweMsg = new SiweMessage({
+                expirationTime: expiration.toISOString(),
                 domain: window?.location?.host,
                 uri: window?.location?.origin,
                 address: address || "",
