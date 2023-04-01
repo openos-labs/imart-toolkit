@@ -84,6 +84,7 @@ export const ETHWallet = (): ChainResponse => {
             const expiration = new Date(now.setDate(now.getDate() + 1))
             const siweMsg = new SiweMessage({
                 expirationTime: expiration.toISOString(),
+                notBefore: new Date().toISOString(),
                 domain: window?.location?.host,
                 uri: window?.location?.origin,
                 address: address || "",
