@@ -1,9 +1,9 @@
 import {AptosWalletName, MartianWalletName, useWallet, WalletName} from "@manahippo/aptos-wallet-adapter";
 import {ChainResponse, SignMessagePayload, WalletType} from "../../Types";
 import {AptosClient, AptosAccount, CoinClient, FaucetClient} from "aptos";
-import {NODE_URL, FAUCET_URL} from '../../Config'
 import {useEffect} from "react";
 import {AwaitResolve, getCurrencyString} from '../../../../utils/common'
+import { AptosSpec } from "../../Config";
 
 export const AptosWallet = (): ChainResponse => {
     const {
@@ -52,7 +52,7 @@ export const AptosWallet = (): ChainResponse => {
     }
     const getBalance = async ():Promise<string> => {
         try {
-            const client = new AptosClient(NODE_URL);
+            const client = new AptosClient(AptosSpec.NODE_URL);
             const coinClient = new CoinClient(client);
             await AwaitResolve.awaitFn('address')
 
