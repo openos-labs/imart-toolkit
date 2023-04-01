@@ -81,6 +81,8 @@ export const ETHWallet = (): ChainResponse => {
     const siwe: (_: string, nonce: string) => Promise<{message: string, signature: string}> = 
         async (_: string, nonce: string) => {
             const siweMsg = new SiweMessage({
+                domain: window?.location?.host,
+                uri: window?.location?.origin,
                 address: address || "",
                 statement: "Sign in with Ethereum to the app.",
                 version: '1',
