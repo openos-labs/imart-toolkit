@@ -22,6 +22,7 @@ export interface Auth {
     address: string;
     publicKey: string;
     signature: string;
+    message?: string;
 }
 
 export const auth = async (authParams: Auth) => {
