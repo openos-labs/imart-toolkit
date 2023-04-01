@@ -606,9 +606,10 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@mix-labs/contracts@https://gitpkg.now.sh/mix-labs/imart-toolkit/contracts?main":
-  version "0.1.29"
-  resolved "https://gitpkg.now.sh/mix-labs/imart-toolkit/contracts?main#ddafabe3b6f48d6e585f82ed843788901f003242"
+"@mix-labs/contracts@0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@mix-labs/contracts/0.3.0/5904553006db5b15cff46a8ba58e6904e5116262#5904553006db5b15cff46a8ba58e6904e5116262"
+  integrity sha512-+sYobYlc/41SQjlhewMijzzCF/xZlWYGyHaMpEb7vsQ/ZGI2LO42pwv9rek49bTo/IvcM12GOMw2K7Pn22sXBw==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
     "@ethersproject/providers" "^5.7.2"
@@ -631,6 +632,13 @@
     mocha "^10.2.0"
     solidity-coverage "^0.8.2"
     typechain "^8.1.1"
+
+"@mix-labs/network@0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@mix-labs/network/0.3.0/4d7e3d9ac35942c144afc70cdceecd5ad1c372a3#4d7e3d9ac35942c144afc70cdceecd5ad1c372a3"
+  integrity sha512-6QAT6balrVRZaLNEiD+qiVaye1TEH9/OCoJCd88fwZMLXudXpY6g5F3nEE7OkR0Qn6nwvk4qHSSedi6kUFIq2Q==
+  dependencies:
+    axios "^0.21.1"
 
 "@morgan-stanley/ts-mocking-bird@^0.6.2":
   version "0.6.4"
@@ -1824,7 +1832,7 @@ axios@0.27.2:
     follow-redirects "^1.14.9"
     form-data "^4.0.0"
 
-axios@^0.21.0:
+axios@^0.21.0, axios@^0.21.1:
   version "0.21.4"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
   integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
