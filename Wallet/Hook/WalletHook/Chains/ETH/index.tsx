@@ -6,6 +6,7 @@ import {ethers} from "ethers";
 import Web3 from 'web3'
 import {useEffect} from "react";
 import { ENS } from '@ensdomains/ensjs'
+import { SiweMessage } from 'siwe';
 
 export const injected = new InjectedConnector({});
 import {Buffer} from 'buffer'
@@ -76,8 +77,23 @@ export const ETHWallet = (): ChainResponse => {
             params: [msg, from, message],
         });
     }
+
+    const siwe: (_: string, nonce: string) => Promise<{message: string, signature: string}> = 
+        async (_: string, nonce: string) => {
+            const siweMsg = new SiweMessage({
+                address: address || "",
+                statement: "Sign in with Ethereum to the app.",
+                version: '1',
+                chainId,
+                nonce
+            })
+            const message = siweMsg.prepareMessage();
+            const signature = await getProvider().getSigner().signMessage(siweMsg.prepareMessage()) 
+            return { message, signature }
+        }
+
     const getProvider = (): any => {
-        return currentWallet ? new ethers.providers.Web3Provider(currentWallet) : ethers.providers.getDefaultProvider();
+        return currentWallet ? new ethers.providers.Web3Provider(currentWallet): ethers.providers.getDefaultProvider();
     }
 
     const getBalance = async ():Promise<string> => {
@@ -105,6 +121,7 @@ export const ETHWallet = (): ChainResponse => {
         publicKey: 'undefined',
         getProvider,
         walletSignMessage,
+        siwe,
         getBalance,
         getEnsName
     }

@@ -9,6 +9,7 @@ export interface ChainResponse {
     publicKey: string | null | undefined,
     getProvider?: any | undefined,
     walletSignMessage?: (message: string, nonce: string) => any;
+    siwe?: (message: string, nonce: string) => Promise<any>;
     getBalance?: () => any;
     getEnsName?:()=> any;
 }

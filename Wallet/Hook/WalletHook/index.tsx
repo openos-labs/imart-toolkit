@@ -120,19 +120,23 @@ export const WalletHook = (): HookResponse => {
 		)
 		
 		let _singMessage
-		if (_chainType === "APTOS") {
-			_singMessage = APTOS.walletSignMessage
-		} else {
-			_singMessage = ETH.walletSignMessage
-		}
-		if (!_singMessage) {
-			throw new Error("no this wallet")
+		switch (_chainType) {
+			case "APTOS":
+				_singMessage = APTOS.walletSignMessage
+				break;
+			case "ETH":
+			case "POLYGON":
+				_singMessage = ETH.siwe
+				break;
+			default:
+				throw new Error("no this wallet")
 		}
 		const signed = (await _singMessage(data.message, data.nonce)) as SignMessageResponse
 		const authPayload = {
 			chain: _chainType,
 			address: address!.toString(),
 			publicKey: publicKey!.toString(),
+			message: signed?.message,
 			signature: (signed?.signature || signed) as string
 		}
 		const authResult = await auth(authPayload)
