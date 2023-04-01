@@ -11,6 +11,7 @@
     "@dfinity/candid": "^0.10.2",
     "@dfinity/identity": "^0.10.2",
     "@dfinity/principal": "^0.10.2",
+    "@ensdomains/ensjs": "^3.0.0-alpha.54",
     "@manahippo/aptos-wallet-adapter": "1.0.10",
     "@mix-labs/contracts": "https://gitpkg.now.sh/mix-labs/imart-toolkit/contracts?main",
     "@opensea/seaport-js": "^1.0.8",
