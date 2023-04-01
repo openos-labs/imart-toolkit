@@ -1,6 +1,6 @@
 {
   "name": "@mix-labs/network",
-  "version": "0.1.2",
+  "version": "0.3.0",
   "main": "./src/index.ts",
   "description": "IMart frontend packages",
   "publishConfig": {
