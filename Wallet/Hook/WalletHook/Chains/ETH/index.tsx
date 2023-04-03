@@ -6,7 +6,7 @@ import {ethers} from "ethers";
 import Web3 from 'web3'
 import {useEffect} from "react";
 import { ENS } from '@ensdomains/ensjs'
-import { SiweMessage } from 'siwe';
+import { SiweMessage } from "siwe";
 
 export const injected = new InjectedConnector({});
 import {Buffer} from 'buffer'
@@ -78,7 +78,7 @@ export const ETHWallet = (): ChainResponse => {
         });
     }
 
-    const siwe: (_: string, nonce: string) => Promise<{message: string, signature: string}> = 
+    const siwe: (_: string, nonce: string) => Promise<{message: string, signature: string}> =
         async (_: string, nonce: string) => {
             const now = new Date()
             const expiration = new Date(now.setDate(now.getDate() + 1))
@@ -94,7 +94,7 @@ export const ETHWallet = (): ChainResponse => {
                 nonce
             })
             const message = siweMsg.prepareMessage();
-            const signature = await getProvider().getSigner().signMessage(siweMsg.prepareMessage()) 
+            const signature = await getProvider().getSigner().signMessage(siweMsg.prepareMessage())
             return { message, signature }
         }
 
