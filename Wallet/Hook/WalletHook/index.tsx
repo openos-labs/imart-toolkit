@@ -12,7 +12,7 @@ import {
 	defaultValue
 } from "./Config"
 import { ChainType, SignMessageResponse, WalletType } from "./Types"
-import { Contractor, Aptos, Evm, Contract, Config } from "@mix-labs/contracts"
+import { Contractor, Aptos, Evm, Contract, Config } from "../../../contracts"
 
 
 export interface HookResponse {
