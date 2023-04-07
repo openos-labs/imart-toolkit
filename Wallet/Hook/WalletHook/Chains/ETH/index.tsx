@@ -97,7 +97,7 @@ export const ETHWallet = (): ChainResponse => {
             const signature = await getProvider().getSigner().signMessage(siweMsg.prepareMessage())
             return { message, signature }
         }
-
+        
     const getProvider = (): any => {
         return currentWallet ? new ethers.providers.Web3Provider(currentWallet): ethers.providers.getDefaultProvider();
     }
@@ -118,6 +118,24 @@ export const ETHWallet = (): ChainResponse => {
        await ENSInstance.setProvider(getProvider())
 	     return  await ENSInstance.getName(address)
     }
+    
+    const changeToTestNetwork = () => {
+        // @ts-ignore
+        window.ethereum.request({
+            method: 'wallet_addEthereumChain', // Metamask的api名称
+            params: [{
+                chainId: Web3.utils.numberToHex(5), // 网络id，16进制的字符串
+                chainName: "Goerli 测试网络", // 添加到钱包后显示的网络名称
+                rpcUrls: [
+                    'https://goerli.infura.io/v3/', // rpc地址
+                ],
+                blockExplorerUrls: [
+                    'https://goerli.etherscan.io' // 网络对应的区块浏览器
+                ]
+            }]
+        })
+    }
+
     return {
         login,
         connected,
