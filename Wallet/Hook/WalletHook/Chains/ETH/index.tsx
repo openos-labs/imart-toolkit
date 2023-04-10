@@ -122,16 +122,9 @@ export const ETHWallet = (): ChainResponse => {
     const changeToTestNetwork = () => {
         // @ts-ignore
         window.ethereum.request({
-            method: 'wallet_addEthereumChain', // Metamask的api名称
+            method: 'wallet_switchEthereumChain', // Metamask的api名称
             params: [{
                 chainId: Web3.utils.numberToHex(5), // 网络id，16进制的字符串
-                chainName: "Goerli 测试网络", // 添加到钱包后显示的网络名称
-                rpcUrls: [
-                    'https://goerli.infura.io/v3/', // rpc地址
-                ],
-                blockExplorerUrls: [
-                    'https://goerli.etherscan.io' // 网络对应的区块浏览器
-                ]
             }]
         })
     }
