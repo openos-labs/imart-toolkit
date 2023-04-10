@@ -147,6 +147,7 @@ export const ETHWallet = (): ChainResponse => {
         walletSignMessage,
         siwe,
         getBalance,
-        getEnsName
+        getEnsName,
+        changeToTestNetwork
     }
 }

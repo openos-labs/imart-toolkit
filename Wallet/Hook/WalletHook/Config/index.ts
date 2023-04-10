@@ -38,5 +38,7 @@ export const defaultValue = {
     address: '',
     getBalance: () => {
     },
-    getEnsName:()=>{}
+    getEnsName:()=>{},
+    changeToTestNetwork:()=>{},
+    
 }

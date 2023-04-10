@@ -67,6 +67,10 @@ export const AptosWallet = (): ChainResponse => {
 
     }
     
+    const changeToTestNetwork=()=>{
+    
+    }
+    
     const getEnsName:any=(address:string)=>{
         return address
     }
@@ -76,6 +80,7 @@ export const AptosWallet = (): ChainResponse => {
             AwaitResolve.resolveFn('address', address)
         }
     }, [account?.address?.toString()])
+    
     return {
         logout,
         login,
@@ -84,7 +89,8 @@ export const AptosWallet = (): ChainResponse => {
         publicKey: account?.publicKey?.toString(),
         walletSignMessage,
         getBalance,
-        getEnsName
+        getEnsName,
+        changeToTestNetwork
     }
 
 }

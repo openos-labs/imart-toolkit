@@ -29,7 +29,8 @@ export interface HookResponse {
 	switchChain: (chainType: ChainType, walletType: WalletType) => any;
 	getBalance: () => Promise<string>|any,
 	currencyUnit: string,
-	getEnsName:(e:string)=>any
+	getEnsName:(e:string)=>any,
+	changeToTestNetwork:()=>any
 }
 
 
@@ -63,7 +64,7 @@ export const WalletHook = (): HookResponse => {
 	}
 	
 	// current already connected wallet object
-	const { connected, address, walletLogout, currentConnectedWallet, getBalance, getEnsName} = useMemo(() => {
+	const { connected, address, walletLogout, currentConnectedWallet, getBalance, getEnsName,changeToTestNetwork} = useMemo(() => {
 		if (!_chainType) {
 			return defaultValue
 		}
@@ -90,13 +91,18 @@ export const WalletHook = (): HookResponse => {
 		const getEnsName = async ()=>{
 			return  _currentConnectedWallet?.getEnsName()
 		}
+		
+		const changeToTestNetwork =  ()=>{
+			return _currentConnectedWallet?.changeToTestNetwork()
+		}
 		return {
 			address: address(),
 			connected: connected(),
 			walletLogout,
 			currentConnectedWallet: _currentConnectedWallet,
 			getBalance,
-			getEnsName
+			getEnsName,
+			changeToTestNetwork
 		}
 	}, [_chainType, _walletType, walletGather])
 	
@@ -234,6 +240,7 @@ export const WalletHook = (): HookResponse => {
 		switchChain,
 		getBalance,
 		currencyUnit,
-		getEnsName
+		getEnsName,
+		changeToTestNetwork
 	}
 }

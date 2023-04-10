@@ -12,6 +12,7 @@ export interface ChainResponse {
     siwe?: (message: string, nonce: string) => Promise<any>;
     getBalance?: () => any;
     getEnsName?:()=> any;
+    changeToTestNetwork:()=>any
 }
 
 export interface AuthContext {
