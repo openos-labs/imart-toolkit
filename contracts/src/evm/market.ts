@@ -138,7 +138,7 @@ export class Market implements MarketInterface {
     );
     const order = await executeAllActions();
     return await axios.post(`${SEAPORT_URL}/listings`, {
-      parameters: order.parameters,
+      parameters: {...order.parameters, nonce: 0},
       signature: order.signature,
     });
   }
@@ -155,7 +155,7 @@ export class Market implements MarketInterface {
     return await Promise.all(
       orders.map(async (order) => {
         await axios.post(`${SEAPORT_URL}/listings`, {
-          parameters: order.parameters,
+          parameters: {...order.parameters, nonce: 0},
           signature: order.signature,
         });
       })
@@ -234,7 +234,7 @@ export class Market implements MarketInterface {
 
     const offer = await executeAllActions();
     return await axios.post(`${SEAPORT_URL}/offers`, {
-      parameters: offer.parameters,
+      parameters: {...order.parameters, nonce: 0},
       signature: offer.signature,
     });
   }
