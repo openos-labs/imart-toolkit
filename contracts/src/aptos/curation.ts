@@ -36,6 +36,7 @@ export class Curation implements CurationInterface {
         args.metadataUri,
         args.payees || [],
         args.commissionRates || [],
+        args.addmissions || []
       ],
     };
     return this.config?.submitTx!(payload);

@@ -56,7 +56,8 @@ export class Curation implements CurationInterface {
         args.metadataUri,
         false,
         args.payees || [],
-        args.commissionRates || []
+        args.commissionRates || [],
+        args.addmissions || []
       );
   }
 

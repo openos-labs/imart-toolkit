@@ -36,7 +36,7 @@ export interface CurationInterface extends utils.Interface {
     "buy(uint256,uint256)": FunctionFragment;
     "cancel(uint256,uint256)": FunctionFragment;
     "cancelOffer(uint256)": FunctionFragment;
-    "createGallery(address,uint256,string,string,string,bool,address[],uint256[])": FunctionFragment;
+    "createGallery(address,uint256,string,string,string,bool,address[],uint256[],address[])": FunctionFragment;
     "freeze(uint256,uint256)": FunctionFragment;
     "initialize()": FunctionFragment;
     "list(uint256,uint256,string)": FunctionFragment;
@@ -119,7 +119,8 @@ export interface CurationInterface extends utils.Interface {
       PromiseOrValue<string>,
       PromiseOrValue<boolean>,
       PromiseOrValue<string>[],
-      PromiseOrValue<BigNumberish>[]
+      PromiseOrValue<BigNumberish>[],
+      PromiseOrValue<string>[]
     ]
   ): string;
   encodeFunctionData(
@@ -260,7 +261,7 @@ export interface CurationInterface extends utils.Interface {
 
   events: {
     "ExhibitChanged(uint256,string,uint256,address,uint256,address,uint64,uint256,string,string,string,uint64)": EventFragment;
-    "GalleryChanged(uint256,string,address,uint256,address,string,string,string,bool,uint64,address[],uint256[],address)": EventFragment;
+    "GalleryChanged(uint256,string,address,uint256,address,string,string,string,bool,uint64,address[],uint256[],address,address[])": EventFragment;
     "Initialized(uint8)": EventFragment;
     "OfferChanged(uint256,string,address,uint256,address,address,uint256,uint256,uint64,uint64,uint64,string,string,uint64)": EventFragment;
     "OwnershipTransferStarted(address,address)": EventFragment;
@@ -323,6 +324,7 @@ export interface GalleryChangedEventObject {
   payees: string[];
   commissionRates: BigNumber[];
   commissionPool: string;
+  admissions: string[];
 }
 export type GalleryChangedEvent = TypedEvent<
   [
@@ -338,7 +340,8 @@ export type GalleryChangedEvent = TypedEvent<
     BigNumber,
     string[],
     BigNumber[],
-    string
+    string,
+    string[]
   ],
   GalleryChangedEventObject
 >;
@@ -485,6 +488,7 @@ export interface Curation extends BaseContract {
       isToken: PromiseOrValue<boolean>,
       payees: PromiseOrValue<string>[],
       commissionRates: PromiseOrValue<BigNumberish>[],
+      admissions: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -618,6 +622,7 @@ export interface Curation extends BaseContract {
     isToken: PromiseOrValue<boolean>,
     payees: PromiseOrValue<string>[],
     commissionRates: PromiseOrValue<BigNumberish>[],
+    admissions: PromiseOrValue<string>[],
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -749,6 +754,7 @@ export interface Curation extends BaseContract {
       isToken: PromiseOrValue<boolean>,
       payees: PromiseOrValue<string>[],
       commissionRates: PromiseOrValue<BigNumberish>[],
+      admissions: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -864,7 +870,7 @@ export interface Curation extends BaseContract {
       timestamp?: null
     ): ExhibitChangedEventFilter;
 
-    "GalleryChanged(uint256,string,address,uint256,address,string,string,string,bool,uint64,address[],uint256[],address)"(
+    "GalleryChanged(uint256,string,address,uint256,address,string,string,string,bool,uint64,address[],uint256[],address,address[])"(
       id?: PromiseOrValue<BigNumberish> | null,
       eventType?: null,
       collection?: null,
@@ -877,7 +883,8 @@ export interface Curation extends BaseContract {
       timestamp?: null,
       payees?: null,
       commissionRates?: null,
-      commissionPool?: null
+      commissionPool?: null,
+      admissions?: null
     ): GalleryChangedEventFilter;
     GalleryChanged(
       id?: PromiseOrValue<BigNumberish> | null,
@@ -892,7 +899,8 @@ export interface Curation extends BaseContract {
       timestamp?: null,
       payees?: null,
       commissionRates?: null,
-      commissionPool?: null
+      commissionPool?: null,
+      admissions?: null
     ): GalleryChangedEventFilter;
 
     "Initialized(uint8)"(version?: null): InitializedEventFilter;
@@ -995,6 +1003,7 @@ export interface Curation extends BaseContract {
       isToken: PromiseOrValue<boolean>,
       payees: PromiseOrValue<string>[],
       commissionRates: PromiseOrValue<BigNumberish>[],
+      admissions: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1129,6 +1138,7 @@ export interface Curation extends BaseContract {
       isToken: PromiseOrValue<boolean>,
       payees: PromiseOrValue<string>[],
       commissionRates: PromiseOrValue<BigNumberish>[],
+      admissions: PromiseOrValue<string>[],
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

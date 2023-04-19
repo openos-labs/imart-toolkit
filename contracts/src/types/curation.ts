@@ -9,6 +9,7 @@ export interface CreateGalleryArgs extends Base {
   metadataUri: string;
   payees?: string[];
   commissionRates?: BigNumberish[];
+  addmissions?: string[];
 }
 export interface CreateCurationOfferArgs extends Base, WithCoinType {
   tokenOwner: string;
