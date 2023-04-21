@@ -42,6 +42,9 @@ export class Curation implements CurationInterface {
     return this.config?.submitTx!(payload);
   }
 
+  creatAret=()=>{
+  
+  }
   // curator.create_offer
   createCurationOffer(args: CreateCurationOfferArgs): Promise<Tx> {
     const contract = args.contract || this.contract;
@@ -121,7 +124,7 @@ export class Curation implements CurationInterface {
       function: `${this.contract}::curation::batch_list`,
       type_arguments: ["0x1::aptos_coin::AptosCoin"],
       arguments: [
-        args.map((i) => i.galleryId), 
+        args.map((i) => i.galleryId),
         args.map((i) => i.exhibitId)
       ],
     };
