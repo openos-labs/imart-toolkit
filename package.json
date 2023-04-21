@@ -1,6 +1,6 @@
 {
   "name": "@mix-labs/imart-toolkit",
-  "version": "0.3.4",
+  "version": "0.3.6",
   "main": "./index.ts",
   "description": "IMart frontend packages",
   "publishConfig": {
