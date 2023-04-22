@@ -131,7 +131,7 @@ export class Market implements MarketInterface {
     const { executeAllActions } = await this.seaport.createOrder(
       orderInput,
       offerer,
-      true
+      false 
     );
     const order = await executeAllActions();
     return await axios.post(`${SEAPORT_URL}/listings`, {
@@ -146,7 +146,7 @@ export class Market implements MarketInterface {
     const { executeAllActions } = await this.seaport.createBulkOrders(
       orderInputs,
       offerer,
-      true
+      false
     );
     const orders = await executeAllActions();
     return await Promise.all(
@@ -225,7 +225,7 @@ export class Market implements MarketInterface {
         allowPartialFills: ItemType.ERC1155 === itemType,
       },
       offerer,
-      true
+      false
     );
 
     const offer = await executeAllActions();
