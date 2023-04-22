@@ -19,8 +19,6 @@ import { CreateOrderInput, SeaportConfig } from "@opensea/seaport-js/lib/types";
 const NATIVE_ETH = "0x0000000000000000000000000000000000000000";
 const SEAPORT_URL = "https://test1.imart.io/goerli/seaport";
 const OPENSEA_FEE_RECEIPIENT = "0x0000a26b00c1F0DF003000390027140000fAa719";
-const CONDUIT_KEY =
-  "0x0000007b02230091a7ed01230072f7006a004d60a8d4e71d599b8104250f0000";
 const MAX_DURATION = 3600 * 24 * 180;
 const OPENSEA_FEE_BASIS_POINTS = BigNumber.from(250);
 const OPENSEA_FEE_DENOMINATOR = BigNumber.from(10000);
@@ -122,7 +120,6 @@ export class Market implements MarketInterface {
         },
       ],
       consideration,
-      conduitKey: CONDUIT_KEY,
       restrictedByZone: false,
       allowPartialFills: true,
     };
@@ -224,7 +221,6 @@ export class Market implements MarketInterface {
           },
           ...consideration,
         ],
-        conduitKey: CONDUIT_KEY,
         restrictedByZone: false,
         allowPartialFills: true,
       },
