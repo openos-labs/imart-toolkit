@@ -222,7 +222,7 @@ export class Market implements MarketInterface {
           ...consideration,
         ],
         restrictedByZone: false,
-        allowPartialFills: true,
+        allowPartialFills: ItemType.ERC1155 === itemType,
       },
       offerer,
       true
