@@ -47,7 +47,7 @@ export class Market implements MarketInterface {
     const { executeAllActions } = await this.seaport.fulfillOrder({
       order: args.protocolOrder,
       accountAddress: account,
-      exactApproval: true,
+      exactApproval: false,
     });
     return await executeAllActions();
   }
@@ -60,7 +60,7 @@ export class Market implements MarketInterface {
     const { executeAllActions } = await this.seaport.fulfillOrders({
       fulfillOrderDetails: orders,
       accountAddress: account,
-      exactApproval: true,
+      exactApproval: false,
     });
     return await executeAllActions();
   }
@@ -250,7 +250,7 @@ export class Market implements MarketInterface {
       order: args.protocolOrder,
       accountAddress: account,
       recipientAddress: args.buyer,
-      exactApproval: true,
+      exactApproval: false,
     });
     return await executeAllActions();
   }
