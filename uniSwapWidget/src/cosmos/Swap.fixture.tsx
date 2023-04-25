@@ -14,7 +14,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useValue } from 'react-cosmos/fixture'
 
 import { DAI, USDC_MAINNET } from '../constants/tokens'
-import EventFeed, { Event, HANDLERS } from './EventFeed'
+// import EventFeed, { Event, HANDLERS } from './EventFeed'
 import useOption from './useOption'
 import useProvider from './useProvider'
 
@@ -36,12 +36,12 @@ const tokenLists: Record<string, TokenInfo[] | string> = {
 
 function Fixture() {
   const [events, setEvents] = useState<Event[]>([])
-  const useHandleEvent = useCallback(
-    (name: string) =>
-      (...data: unknown[]) =>
-        setEvents((events) => [{ name, data }, ...events]),
-    []
-  )
+  // const useHandleEvent = useCallback(
+  //   (name: string) =>
+  //     (...data: unknown[]) =>
+  //       setEvents((events) => [{ name, data }, ...events]),
+  //   []
+  // )
 
   const [convenienceFee] = useValue('convenienceFee', { defaultValue: 0 })
   const convenienceFeeRecipient = useOption('convenienceFeeRecipient', {
@@ -93,11 +93,11 @@ console.log(defaultOutputToken,'defaultOutputToken')
     options: [DialogAnimationType.SLIDE, DialogAnimationType.FADE, DialogAnimationType.NONE],
   })
 
-  const eventHandlers = useMemo(
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    () => HANDLERS.reduce((handlers, name) => ({ ...handlers, [name]: useHandleEvent(name) }), {}),
-    [useHandleEvent]
-  )
+  // const eventHandlers = useMemo(
+  //   // eslint-disable-next-line react-hooks/rules-of-hooks
+  //   () => HANDLERS.reduce((handlers, name) => ({ ...handlers, [name]: useHandleEvent(name) }), {}),
+  //   [useHandleEvent]
+  // )
 console.log(convenienceFeeRecipient,'convenienceFeeRecipient',convenienceFee)
   console.log(defaultInputAmount,'defaultInputAmount',defaultInputToken)
   const widget = (
@@ -117,11 +117,7 @@ console.log(convenienceFeeRecipient,'convenienceFeeRecipient',convenienceFee)
       width={width}
       routerUrl={routerUrl}
       brandedFooter={brandedFooter}
-      dialogOptions={{
-        animationType: dialogAnimation,
-        pageCentered,
-      }}
-      {...eventHandlers}
+     
     />
   )
 
@@ -132,7 +128,7 @@ console.log(convenienceFeeRecipient,'convenienceFeeRecipient',convenienceFee)
   return (
     <Row flex align="start" justify="start" gap={0.5}>
       {widget}
-      <EventFeed events={events} onClear={() => setEvents([])} />
+      {/*<EventFeed events={events} onClear={() => setEvents([])} />*/}
     </Row>
   )
 }
