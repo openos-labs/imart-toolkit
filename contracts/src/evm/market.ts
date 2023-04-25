@@ -9,7 +9,7 @@ import {
   CancelOfferObject,
   AcceptOfferObject,
 } from "../types/market";
-import { Config, Signer, Tx } from "../types";
+import { Config, Signer, Tx, SUPPORTED_CHAINS } from "../types";
 import { Seaport } from "@opensea/seaport-js";
 import { ItemType } from "@opensea/seaport-js/lib/constants";
 import { ethers, BigNumber } from "ethers";
@@ -17,7 +17,6 @@ import { BigNumber as BN } from "bignumber.js";
 import { CreateOrderInput, SeaportConfig } from "@opensea/seaport-js/lib/types";
 
 const NATIVE_ETH = "0x0000000000000000000000000000000000000000";
-const SEAPORT_URL = "https://test1.imart.io/goerli/seaport";
 const OPENSEA_FEE_RECEIPIENT = "0x0000a26b00c1F0DF003000390027140000fAa719";
 const MAX_DURATION = 3600 * 24 * 180;
 const OPENSEA_FEE_BASIS_POINTS = BigNumber.from(250);
@@ -26,6 +25,7 @@ export class Market implements MarketInterface {
   private provider: ethers.providers.JsonRpcProvider;
   private seaport: Seaport;
   readonly config: Config;
+  readonly endpoint: string;
 
   constructor(config: Config) {
     this.config = config;
@@ -34,11 +34,15 @@ export class Market implements MarketInterface {
       config.provider &&
       config.provider instanceof ethers.providers.Web3Provider
     ) {
-      this.provider = config.provider as ethers.providers.JsonRpcProvider;
+      this.provider = config.provider as ethers.providers.Web3Provider;
       const seaportConfig: SeaportConfig = {
         seaportVersion: "1.4",
       };
       this.seaport = new Seaport(this.provider, seaportConfig);
+      this.provider.getNetwork().then((network) => {
+        const chain = SUPPORTED_CHAINS[network.chainId];
+        chain && (this.endpoint = `https://test1.imart.io/${chain}/seaport`);
+      });
     }
   }
 
@@ -131,11 +135,11 @@ export class Market implements MarketInterface {
     const { executeAllActions } = await this.seaport.createOrder(
       orderInput,
       offerer,
-      false 
+      false
     );
     const order = await executeAllActions();
-    return await axios.post(`${SEAPORT_URL}/listings`, {
-      parameters: {...order.parameters, nonce: 0},
+    return await axios.post(`${this.endpoint}/listings`, {
+      parameters: { ...order.parameters, nonce: 0 },
       signature: order.signature,
     });
   }
@@ -151,8 +155,8 @@ export class Market implements MarketInterface {
     const orders = await executeAllActions();
     return await Promise.all(
       orders.map(async (order) => {
-        await axios.post(`${SEAPORT_URL}/listings`, {
-          parameters: {...order.parameters, nonce: 0},
+        await axios.post(`${this.endpoint}/listings`, {
+          parameters: { ...order.parameters, nonce: 0 },
           signature: order.signature,
         });
       })
@@ -229,8 +233,8 @@ export class Market implements MarketInterface {
     );
 
     const offer = await executeAllActions();
-    return await axios.post(`${SEAPORT_URL}/offers`, {
-      parameters: {...order.parameters, nonce: 0},
+    return await axios.post(`${this.endpoint}/offers`, {
+      parameters: { ...order.parameters, nonce: 0 },
       signature: offer.signature,
     });
   }

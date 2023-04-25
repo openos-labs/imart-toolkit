@@ -30,6 +30,13 @@ export type TxReceipt =
 export type SubmitTx = (payload: any) => Promise<Tx>;
 export type Standard = "ERC721" | "ERC1155";
 export type Network = "mainnet" | "testnet" | "devnet";
+export type GoerliId = 5;
+export type MumbaiId = 80001;
+export type ChainId = GoerliId | MumbaiId;
+export const SUPPORTED_CHAINS: Record<ChainId, string> = {
+  5: "goerli",
+  80001: "mumbai",
+};
 
 export interface Config {
   network?: Network;
