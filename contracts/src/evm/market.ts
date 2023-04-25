@@ -17,10 +17,7 @@ import { BigNumber as BN } from "bignumber.js";
 import { CreateOrderInput, SeaportConfig } from "@opensea/seaport-js/lib/types";
 
 const NATIVE_ETH = "0x0000000000000000000000000000000000000000";
-const OPENSEA_FEE_RECEIPIENT = "0x0000a26b00c1F0DF003000390027140000fAa719";
 const MAX_DURATION = 3600 * 24 * 180;
-const OPENSEA_FEE_BASIS_POINTS = BigNumber.from(250);
-const OPENSEA_FEE_DENOMINATOR = BigNumber.from(10000);
 export class Market implements MarketInterface {
   private provider: ethers.providers.JsonRpcProvider;
   private seaport: Seaport;
@@ -72,18 +69,6 @@ export class Market implements MarketInterface {
   orderInputOf(args: ListTokenArgs, offerer: string): CreateOrderInput {
     let amount = BigNumber.from(args.coinAmount);
     const consideration = [];
-
-    // opensea platform fee
-    const openseaFee = amount
-      .mul(OPENSEA_FEE_BASIS_POINTS)
-      .div(OPENSEA_FEE_DENOMINATOR);
-    const openseaItem = {
-      token: NATIVE_ETH,
-      amount: openseaFee.toString(),
-      endAmount: openseaFee.toString(),
-      recipient: OPENSEA_FEE_RECEIPIENT,
-    };
-    consideration.push(openseaItem);
 
     // multiple royalties
     let totalRoyalty = BigNumber.from("0");
@@ -176,18 +161,6 @@ export class Market implements MarketInterface {
     const offerer = await this.provider.getSigner().getAddress();
     let amount = BigNumber.from(args.coinAmount);
     const consideration = [];
-
-    // opensea platform fee
-    const openseaFee = amount
-      .mul(OPENSEA_FEE_BASIS_POINTS)
-      .div(OPENSEA_FEE_DENOMINATOR);
-    const openseaItem = {
-      token: NATIVE_ETH,
-      amount: openseaFee.toString(),
-      endAmount: openseaFee.toString(),
-      recipient: OPENSEA_FEE_RECEIPIENT,
-    };
-    consideration.push(openseaItem);
 
     // multiple royalties
     const royalties = args.royalties ?? {};
