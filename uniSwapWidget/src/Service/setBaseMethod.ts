@@ -13,12 +13,12 @@ export default class SetBaseMethod {
   public swapEvent: (() => void) | undefined
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  protected swapError:(err: string)=>void = (err: string)=>{}
+   swapError:(err: string)=>void = (err: string)=>{}
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  protected onInputAmountChange: (_inputAmount: string | undefined) => void = () => {}
+   onInputAmountChange: (_inputAmount: string | undefined) => void = () => {}
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  protected onOutAmountChange: (_outAmount: string | undefined) => void = () => {}
+   onOutAmountChange: (_outAmount: string | undefined) => void = () => {}
 
   // information
   public swapInformation: any | SummaryRowProps[]

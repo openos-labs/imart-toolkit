@@ -118,13 +118,7 @@ export function FieldWrapper({
     }
   }, [field])
 
-  useEffect(() => {
-    if (Field.INPUT === field) {
-      UniswapInterface.handleOnInputAmountChange(amount)
-    } else {
-      UniswapInterface.handleOnOutAmountChange(amount)
-    }
-  }, [amount, field])
+
   // --------------------------
   const wrapper = useRef<HTMLDivElement>(null)
   const [input, setInput] = useState<TokenInputHandle | null>(null)

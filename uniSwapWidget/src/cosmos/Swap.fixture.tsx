@@ -59,10 +59,11 @@ function Fixture() {
     USDC: USDC_MAINNET.address,
   }
   const defaultInputToken = useOption('defaultInputToken', { options: currencies, defaultValue: 'Native' })
+  console.log(defaultInputToken,'defaultInputToken')
   const [defaultInputAmount] = useValue('defaultInputAmount', { defaultValue: 0 })
   const defaultOutputToken = useOption('defaultOutputToken', { options: currencies })
   const [defaultOutputAmount] = useValue('defaultOutputAmount', { defaultValue: 0 })
-
+console.log(defaultOutputToken,'defaultOutputToken')
   const [brandedFooter] = useValue('brandedFooter', { defaultValue: true })
   const [hideConnectionUI] = useValue('hideConnectionUI', { defaultValue: false })
   const [pageCentered] = useValue('pageCentered', { defaultValue: false })
@@ -77,11 +78,13 @@ function Fixture() {
     options: Object.keys(CHAIN_NAMES_TO_IDS),
     defaultValue: 'mainnet',
   })
+  console.log(defaultNetwork,'defaultNetwork')
   const defaultChainId = defaultNetwork ? CHAIN_NAMES_TO_IDS[defaultNetwork] : undefined
 
   const connector = useProvider(defaultChainId)
 
   const tokenList = useOption('tokenList', { options: tokenLists, defaultValue: 'Default', nullable: false })
+  console.log(tokenList,'tokenList')
 
   const [routerUrl] = useValue('routerUrl', { defaultValue: 'https://api.uniswap.org/v1/' })
 
@@ -95,7 +98,8 @@ function Fixture() {
     () => HANDLERS.reduce((handlers, name) => ({ ...handlers, [name]: useHandleEvent(name) }), {}),
     [useHandleEvent]
   )
-
+console.log(convenienceFeeRecipient,'convenienceFeeRecipient',convenienceFee)
+  console.log(defaultInputAmount,'defaultInputAmount',defaultInputToken)
   const widget = (
     <SwapWidget
       permit2
