@@ -2,7 +2,7 @@ import { Currency } from '@uniswap/sdk-core'
 
 import { SummaryRowProps } from '../components/Swap/Toolbar/ToolbarTradeSummary'
 import { WrappedTokenInfo } from '../state/lists/wrappedTokenInfo'
-const suppotTokens = ['ETH', 'USDC', 'DAI', 'USD']
+const suppotTokens = ['ETH', 'USDC', 'DAI', 'USDT']
 
 export default class SetBaseMethod {
   public selectInputToken: ((update: Currency) => void) | undefined
@@ -53,9 +53,7 @@ export default class SetBaseMethod {
   }
 
   set Tokens(_val: WrappedTokenInfo[]) {
-    this.tokens = _val.filter((_token) => {
-      return suppotTokens.includes(_token.symbol)
-    })
+    this.tokens = _val
   }
 
   handleOnInputAmountChange(_input: string | undefined) {
