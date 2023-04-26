@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { MarketInterface } from "../proxy";
 import axios from "axios";
 import {
@@ -21,8 +20,8 @@ const MAX_DURATION = 3600 * 24 * 180;
 export class Market implements MarketInterface {
   private provider: ethers.providers.JsonRpcProvider;
   private seaport: Seaport;
+  private endpoint: string;
   readonly config: Config;
-  readonly endpoint: string;
 
   constructor(config: Config) {
     this.config = config;
@@ -86,7 +85,7 @@ export class Market implements MarketInterface {
     }
 
     // offerer
-    amount = amount.sub(openseaFee).sub(totalRoyalty);
+    amount = amount.sub(totalRoyalty);
     const offererItem = {
       token: NATIVE_ETH,
       amount: amount.toString(),
@@ -96,7 +95,7 @@ export class Market implements MarketInterface {
     consideration.unshift(offererItem);
     const itemType =
       args.standard === "ERC1155" ? ItemType.ERC1155 : ItemType.ERC721;
-    const tokenAmount = BN.max(new BN(args.tokenAmount), new BN("1"));
+    const tokenAmount = BN.max(new BN(args.tokenAmount.toString()), new BN("1"));
     return {
       endTime: this.endTime(MAX_DURATION).toString(),
       offer: [
@@ -159,12 +158,12 @@ export class Market implements MarketInterface {
 
   async createOffer(args: CreateOfferArgs, _?: Signer): Promise<Tx> {
     const offerer = await this.provider.getSigner().getAddress();
-    let amount = BigNumber.from(args.coinAmount);
+    let amount = BigNumber.from(args.price);
     const consideration = [];
 
     // multiple royalties
     const royalties = args.royalties ?? {};
-    for (const [payee, royalty] of royalties) {
+    for (const [payee, royalty] of Object.entries(royalties)) {
       const fee = amount.mul(royalty).div(ethers.utils.parseEther("1"));
       const item = {
         token: NATIVE_ETH,
@@ -176,7 +175,7 @@ export class Market implements MarketInterface {
     }
     const itemType =
       args.standard === "ERC1155" ? ItemType.ERC1155 : ItemType.ERC721;
-    const tokenAmount = BN.max(new BN(args.tokenAmount), new BN("1"));
+    const tokenAmount = BN.max(new BN(args.tokenAmount.toString()), new BN("1"));
     const { executeAllActions } = await this.seaport.createOrder(
       {
         endTime: this.endTime(args.duration).toString(),
@@ -207,7 +206,7 @@ export class Market implements MarketInterface {
 
     const offer = await executeAllActions();
     return await axios.post(`${this.endpoint}/offers`, {
-      parameters: { ...order.parameters, nonce: 0 },
+      parameters: { ...offer.parameters, nonce: 0 },
       signature: offer.signature,
     });
   }
@@ -233,7 +232,7 @@ export class Market implements MarketInterface {
   }
 
   endTime(duration: number): number {
-    const nowsecs = parseInt(new Date().getTime() / 1000);
+    const nowsecs = new Date().getTime() / 1000;
     return nowsecs + duration;
   }
 }
