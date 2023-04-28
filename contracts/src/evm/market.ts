@@ -233,6 +233,6 @@ export class Market implements MarketInterface {
 
   endTime(duration: number): number {
     const nowsecs = new Date().getTime() / 1000;
-    return nowsecs + duration;
+    return Math.floor(nowsecs + duration);
   }
 }
