@@ -1,6 +1,6 @@
 {
   "name": "@mix-labs/wallet",
-  "version": "0.3.19",
+  "version": "0.3.20",
   "main": "index.ts",
   "repository": "https://github.com/mix-labs/imart-toolkit.git",
   "license": "MIT",
