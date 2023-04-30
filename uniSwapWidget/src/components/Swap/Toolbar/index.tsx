@@ -59,6 +59,7 @@ function CaptionRow() {
     }
 
     if (state === TradeState.LOADING && !trade) {
+      UniswapInterface.setLoading({status:'loading',message:"Fetching best price"})
       return { caption: <Caption.LoadingTrade gasUseEstimateUSD={gasUseEstimateUSD} /> }
     }
 
@@ -70,6 +71,8 @@ function CaptionRow() {
       }
 
       if (trade) {
+        UniswapInterface.setLoading({status:'trade',message:"swap"})
+  
         return {
           caption: (
             <Caption.Trade
@@ -86,6 +89,7 @@ function CaptionRow() {
       }
 
       if (state === TradeState.INVALID) {
+        UniswapInterface.setLoading({status:'err',message:"Error fetching trade"})
         return { caption: <Caption.Error /> }
       }
       if (state === TradeState.NO_ROUTE_FOUND) {
@@ -195,7 +199,7 @@ function ToolbarActionButton() {
   const isAmountPopulated = useIsAmountPopulated()
 
   const insufficientBalance: boolean | undefined = useMemo(() => {
-    return inputBalance && inputAmount && inputBalance.lessThan(inputAmount)
+    return inputBalance && inputAmount && inputBalance.lessThan(inputAmount.numerator)
   }, [inputAmount, inputBalance])
 
   if (insufficientBalance) {

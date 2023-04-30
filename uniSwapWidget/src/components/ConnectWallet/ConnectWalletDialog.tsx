@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Trans } from '@lingui/macro'
 import { Connector } from '@web3-react/types'
 import METAMASK_ICON_URL from 'assets/images/metamaskIcon.png'

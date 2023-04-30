@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro'
 import { formatPriceImpact } from '@uniswap/conedison/format'
-import { Currency, CurrencyAmount, Token } from '@uniswap/sdk-core'
+import { Currency, CurrencyAmount, Token } from '@mix-labs/sdk-core'
 import ActionButton, { Action, ActionButtonColor } from 'components/ActionButton'
 import Column from 'components/Column'
 import { Header, MIN_PAGE_CENTERED_DIALOG_WIDTH, useCloseDialog, useIsDialogPageCentered } from 'components/Dialog'
@@ -24,6 +24,7 @@ import SpeedBumpDialog from '../Speedbump'
 import Details from './Details'
 import SwapInputOutputEstimate from './Estimate'
 import Summary from './Summary'
+import UniswapInterface from 'Service'
 
 export default Summary
 
@@ -73,6 +74,7 @@ function useReviewState(onSwap: () => Promise<void>, allowance: Allowance, doesT
   }, [allowance, currentState, doesTradeDiffer, onStartSwapFlow])
 
   const onCancel = useCallback(() => setCurrentState(ReviewState.REVIEWING), [])
+  UniswapInterface._onStartSwapFlow = onStartSwapFlow;
   return { onStartSwapFlow, onCancel, currentState }
 }
 

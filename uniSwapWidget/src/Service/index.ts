@@ -5,6 +5,9 @@ class UniswapInterface extends BasMethod {
 	public handleSwap() {
 		this.swapEvent && this.swapEvent()
 	}
+	public onStartSwapFlow(){
+		this._onStartSwapFlow && this._onStartSwapFlow()
+	}
 	
 	public listenerInputAmount(_fn: (_inputAmount: string | undefined) => void) {
 		this.onInputAmountChange = _fn
@@ -12,6 +15,13 @@ class UniswapInterface extends BasMethod {
 	
 	public listenerSwapError(_fn: (err: string) => void) {
 		this.swapError = _fn
+	}
+	
+	public listenerStatus(fn:any){
+		this._setLoading = fn
+	}
+	public listenerSwapInformation(_fn: (err: string)=>void){
+		this.swapInformationFn = _fn
 	}
 	
 	// change receive amount

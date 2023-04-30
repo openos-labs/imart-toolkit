@@ -1,4 +1,4 @@
-import { SupportedChainId } from '@uniswap/sdk-core'
+import { SupportedChainId } from '@mix-labs/sdk-core'
 import { BASES_TO_CHECK_TRADES_AGAINST } from 'constants/routing'
 import { USDC_MAINNET } from 'constants/tokens'
 import { renderComponent, userEvent, waitFor } from 'test'

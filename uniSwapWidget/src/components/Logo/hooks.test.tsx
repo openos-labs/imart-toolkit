@@ -1,4 +1,4 @@
-import { SupportedChainId } from '@uniswap/sdk-core'
+import { SupportedChainId } from '@mix-labs/sdk-core'
 import { nativeOnChain } from 'constants/tokens'
 import { renderHook } from 'test'
 

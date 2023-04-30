@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Token } from '@uniswap/sdk-core'
+import { Currency, CurrencyAmount, Token } from '@mix-labs/sdk-core'
 import { UNIVERSAL_ROUTER_ADDRESS } from '@uniswap/universal-router-sdk'
 import { useWeb3React } from '@web3-react/core'
 import { QuoteType } from 'hooks/routing/types'
@@ -110,6 +110,7 @@ function useComputeSwapInfo(): SwapInfo {
 
   const permit2Enabled = usePermit2Enabled()
   const maximumAmountIn = useMemo(() => {
+    console.log(slippage.allowed,'slippage.allowed')
     const maximumAmountIn = trade.trade?.maximumAmountIn(slippage.allowed)
     return maximumAmountIn?.currency.isToken ? (maximumAmountIn as CurrencyAmount<Token>) : undefined
   }, [slippage.allowed, trade.trade])

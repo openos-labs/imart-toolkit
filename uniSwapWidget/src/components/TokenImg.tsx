@@ -1,4 +1,4 @@
-import { Currency } from '@uniswap/sdk-core'
+import { Currency } from '@mix-labs/sdk-core'
 import styled from 'styled-components/macro'
 
 import { Logo } from './Logo'

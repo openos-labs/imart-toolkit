@@ -1,4 +1,4 @@
-import { CurrencyAmount, Percent } from '@uniswap/sdk-core'
+import { CurrencyAmount, Percent } from '@mix-labs/sdk-core'
 import { DAI, USDC_MAINNET } from 'constants/tokens'
 
 import { computeFiatValuePriceImpact } from './computeFiatValuePriceImpact'

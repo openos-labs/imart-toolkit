@@ -1,5 +1,5 @@
 import { tokens } from '@uniswap/default-token-list'
-import { Currency, TradeType } from '@uniswap/sdk-core'
+import { Currency, TradeType } from '@mix-labs/sdk-core'
 import { Field, SupportedChainId, SwapWidget } from '@uniswap/widgets'
 import Row from 'components/Row'
 import { useCallback, useMemo, useState } from 'react'

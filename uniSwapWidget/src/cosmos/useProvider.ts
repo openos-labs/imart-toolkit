@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { initializeConnector } from '@web3-react/core'
 import { MetaMask } from '@web3-react/metamask'
 import { Connector } from '@web3-react/types'

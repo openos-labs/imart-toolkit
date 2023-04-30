@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { JsonRpcProvider } from '@ethersproject/providers'
 import { initializeConnector, Web3ReactHooks, Web3ReactProvider } from '@web3-react/core'
 import { EIP1193 } from '@web3-react/eip1193'

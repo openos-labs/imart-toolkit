@@ -1,5 +1,5 @@
 import { MixedRoute, partitionMixedRouteByProtocol, Protocol } from '@uniswap/router-sdk'
-import { Currency, CurrencyAmount, Percent, Token } from '@uniswap/sdk-core'
+import { Currency, CurrencyAmount, Percent, Token } from '@mix-labs/sdk-core'
 import { Pair } from '@uniswap/v2-sdk'
 import { Pool } from '@uniswap/v3-sdk'
 import { useWeb3React } from '@web3-react/core'
@@ -13,7 +13,7 @@ import { InterfaceTrade } from 'state/routing/types'
 import useGasPrice from './useGasPrice'
 import useUSDCPrice, { useUSDCValue } from './useUSDCPrice'
 
-const V3_SWAP_DEFAULT_SLIPPAGE = new Percent(50, 10_000) // .50%
+const V3_SWAP_DEFAULT_SLIPPAGE = new Percent(5, 10_000) // .50%
 const ONE_TENTHS_PERCENT = new Percent(10, 10_000) // .10%
 export const DEFAULT_AUTO_SLIPPAGE = ONE_TENTHS_PERCENT
 const GAS_ESTIMATE_BUFFER = new Percent(10, 100) // 10%
@@ -91,7 +91,6 @@ export default function useAutoSlippageTolerance({
 
   return useMemo(() => {
     if (!trade || onL2) return DEFAULT_AUTO_SLIPPAGE
-
     const nativeGasCost =
       nativeGasPrice && typeof gasEstimate === 'number'
         ? JSBI.multiply(nativeGasPrice, JSBI.BigInt(gasEstimate))

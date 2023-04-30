@@ -1,5 +1,5 @@
 // a list of tokens by chain
-import { NativeCurrency, Token } from '@uniswap/sdk-core'
+import { NativeCurrency, Token } from '@mix-labs/sdk-core'
 
 import { SupportedChainId } from './chains'
 import {
