@@ -17,6 +17,10 @@ class UniswapInterface extends BasMethod {
 		this.swapError = _fn
 	}
 	
+	public listenerSwapInfoData(fun:(e:any)=>void){
+		 this._swapInfData = fun
+	}
+	
 	public listenerStatus(fn:any){
 		this._setLoading = fn
 	}

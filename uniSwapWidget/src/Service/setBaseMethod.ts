@@ -17,6 +17,10 @@ export default class SetBaseMethod {
 	public _onStartSwapFlow:()=>void = ()=>{}
 	swapInformationFn: ((e: any) => void) | any
 	
+	
+	_swapInfData:(e:any)=>void  =  (err: string) => {
+	}
+	
 	_setLoading:(e:any)=>void =(e)=>{}
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	swapError: (err: string) => void = (err: string) => {
@@ -66,6 +70,9 @@ export default class SetBaseMethod {
 	
 	set Tokens(_val: WrappedTokenInfo[]) {
 		this.tokens = _val
+	}
+	set setSwapDataInfo(e:any){
+		this._swapInfData&&this._swapInfData(e)
 	}
 	
 	handleOnInputAmountChange(_input: string | undefined) {

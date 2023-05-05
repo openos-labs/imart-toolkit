@@ -18,7 +18,7 @@ import { Field, swapAtom, swapEventHandlersAtom } from 'state/swap'
 import { routerPreferenceAtom } from 'state/swap/settings'
 import { isExactInput } from 'utils/tradeType'
 import tryParseCurrencyAmount from 'utils/tryParseCurrencyAmount'
-
+import UniswapInterface from 'Service'
 import { SwapApproval, SwapApprovalState, useSwapApproval } from './useSwapApproval'
 import { useIsWrap } from './useWrapCallback'
 
@@ -186,7 +186,7 @@ export function SwapInfoProvider({ children }: PropsWithChildren) {
       onInitialSwapQuote?.(swapInfo.trade.trade)
     }
   }, [onInitialSwapQuote, swap, swapInfo.trade.state, swapInfo.trade.trade])
-
+  UniswapInterface.setSwapDataInfo=swapInfo
   return <SwapInfoContext.Provider value={swapInfo}>{children}</SwapInfoContext.Provider>
 }
 
