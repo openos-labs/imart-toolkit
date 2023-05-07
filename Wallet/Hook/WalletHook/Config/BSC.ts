@@ -1,8 +1,8 @@
-export namespace EthereumSpec {
+export namespace BscSpec {
     export const MARKET = "0x00000000000001ad428e4906aE43D8F9852d0dD6";
-    export const SINGLE_COLLECTIVE = "0x9ED826624d295a8B276947d567a5438Be83aaACC";
-    export const MULTIPLE_COLLECTIVE ="0x16F88C3af47971Eeb071bdcDD8fcA146BE5F7C90";
-    export const CURATION = "0xc1d86DfeD6ceb43d83c7fFEf264D8C9d764751eB";
+    export const SINGLE_COLLECTIVE = "0x83C62fD16A40288945553C9bC50036E6EC0f79A0";
+    export const MULTIPLE_COLLECTIVE ="0x78A6d7FCA59deA2cD7a0ae255B52dBffD90bb8bC";
+    export const CURATION = "0x846DcAd71124046E146bd01DcA744835EF216eb2";
     export const configs = {
       testnet: {
         addresses: {
