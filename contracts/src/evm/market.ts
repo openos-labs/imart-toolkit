@@ -48,6 +48,7 @@ export class Market implements MarketInterface {
       order: args.protocolOrder,
       accountAddress: account,
       exactApproval: false,
+      unitsToFill: args.tokenAmount
     });
     return await executeAllActions();
   }
