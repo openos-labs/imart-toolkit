@@ -4,6 +4,9 @@ import Swap, { SwapProps } from "components/Swap"
 import Widget, { WidgetProps } from "components/Widget"
 import UniswapInterface from "Service"
 
+export { formatCurrencyAmount, NumberType } from '@uniswap/conedison/format'
+
+
 export { UniswapInterface }
 export { getAssetsRepoURI, getNativeLogoURI, Logo, LogoUpdater, useLogo, useLogos } from "./components/Logo"
 export type { Provider as EthersProvider } from "@ethersproject/abstract-provider"

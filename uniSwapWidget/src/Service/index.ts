@@ -13,6 +13,10 @@ class UniswapInterface extends BasMethod {
 		this.onInputAmountChange = _fn
 	}
 	
+	public listenerExchangeMoney(_fn:(e:any)=>void){
+		   this.exchangeInfo = _fn
+	}
+	
 	public listenerSwapError(_fn: (err: string) => void) {
 		this.swapError = _fn
 	}

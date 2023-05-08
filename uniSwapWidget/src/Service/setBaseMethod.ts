@@ -5,7 +5,7 @@ import { WrappedTokenInfo } from "../state/lists/wrappedTokenInfo"
 
 const suppotTokens = ["ETH", "USDC", "DAI", "USDT"]
 
-export type StatusType ='err'|'trade'|'loading'
+export type StatusType = "err" | "trade" | "loading"
 export default class SetBaseMethod {
 	public selectInputToken: ((update: Currency) => void) | undefined
 	public selectOutToken: ((update: Currency) => void) | undefined
@@ -14,14 +14,19 @@ export default class SetBaseMethod {
 	public outAmount: ((update: string, origin?: "max") => void) | undefined
 	public swapEvent: (() => void) | undefined
 	
-	public _onStartSwapFlow:()=>void = ()=>{}
+	public _onStartSwapFlow: () => void = () => {
+	}
 	swapInformationFn: ((e: any) => void) | any
 	
-	
-	_swapInfData:(e:any)=>void  =  (err: string) => {
+	exchangeInfo: (e:any) => void = (e) => {
 	}
 	
-	_setLoading:(e:any)=>void =(e)=>{}
+	
+	_swapInfData: (e: any) => void = (err: string) => {
+	}
+	
+	_setLoading: (e: any) => void = (e) => {
+	}
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	swapError: (err: string) => void = (err: string) => {
 	}
@@ -61,9 +66,10 @@ export default class SetBaseMethod {
 		this.swapInformationFn && this.swapInformationFn(_val)
 	}
 	
-	 setLoading(e:{status:StatusType,message:string}){
+	setLoading(e: { status: StatusType, message: string }) {
 		this._setLoading(e)
 	}
+	
 	set setSwapInformation(_val: SummaryRowProps[]) {
 		this.swapInformation = _val
 	}
@@ -71,10 +77,14 @@ export default class SetBaseMethod {
 	set Tokens(_val: WrappedTokenInfo[]) {
 		this.tokens = _val
 	}
-	set setSwapDataInfo(e:any){
-		this._swapInfData&&this._swapInfData(e)
+	
+	set setSwapDataInfo(e: any) {
+		this._swapInfData && this._swapInfData(e)
 	}
 	
+	set  setExchangeInfo(e:any){
+		this.exchangeInfo(e)
+	}
 	handleOnInputAmountChange(_input: string | undefined) {
 		return this.onOutAmountChange(_input)
 	}
