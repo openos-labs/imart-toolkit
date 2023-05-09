@@ -5,6 +5,9 @@ class UniswapInterface extends BasMethod {
 	public handleSwap() {
 		this.swapEvent && this.swapEvent()
 	}
+	public handleNextSwap(){
+		this.nextSwap && this.nextSwap()
+	}
 	public onStartSwapFlow(){
 		this._onStartSwapFlow && this._onStartSwapFlow()
 	}

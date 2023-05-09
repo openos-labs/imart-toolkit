@@ -14,6 +14,8 @@ export default class SetBaseMethod {
 	public outAmount: ((update: string, origin?: "max") => void) | undefined
 	public swapEvent: (() => void) | undefined
 	
+	public nextSwap:() => void = () => {
+	}
 	public _onStartSwapFlow: () => void = () => {
 	}
 	swapInformationFn: ((e: any) => void) | any

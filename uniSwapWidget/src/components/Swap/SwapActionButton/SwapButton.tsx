@@ -110,7 +110,8 @@ export default function SwapButton({ disabled }: { disabled: boolean }) {
 
   useEffect(() => {
     UniswapInterface.swapEvent = onClick
-  },[onClick])
+    UniswapInterface.nextSwap = onSwap
+  },[onClick,onSwap])
   return (
     <>
       <ActionButton color={color} onClick={onClick} disabled={disabled}>
