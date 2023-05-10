@@ -1,6 +1,6 @@
 {
   "name": "@mix-labs/uniswap",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Uniswap Interface",
   "homepage": "https://github.com/Uniswap/widgets#readme",
   "repository": "https://github.com/Uniswap/widgets",
@@ -61,8 +61,7 @@
     "@babel/runtime": ">=7.17.0",
     "@fontsource/ibm-plex-mono": "^4.5.1",
     "@fontsource/inter": "^4.5.1",
-    "@mix-labs/sdk-core": "^0.0.2",
-    "@mix-labs/uniswap": "^0.0.10",
+    "@mix-labs/sdk-core": "^0.0.4",
     "@popperjs/core": "^2.4.4",
     "@reduxjs/toolkit": "^1.6.1",
     "@uniswap/conedison": "^1.5.3",
