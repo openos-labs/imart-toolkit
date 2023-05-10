@@ -63,6 +63,7 @@ module.exports = (webpackConfig) => {
       ...resolve,
       alias: {
         '@uniswap/widgets': path.resolve(__dirname, 'dist/'),
+        'jsbi': path.resolve(__dirname, '..', 'node_modules', 'jsbi', 'dist', 'jsbi-cjs.js')
       },
     },
     module: {
