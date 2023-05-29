@@ -38,6 +38,7 @@ export const WalletHook = (): HookResponse => {
     const APTOS = AptosWallet();
     const ETH = ETHWallet();
 	const POLYGON = ETHWallet();
+	const BSC = ETHWallet();
     const IC = ICWallet();
     const {signAndSubmitTransaction} = useWallet();
     const [_chainType, setChainType] = useState<ChainType>('');
@@ -45,8 +46,8 @@ export const WalletHook = (): HookResponse => {
 	const [loginLoading, setLoginLoading] = useState<boolean>(false)
 	// wallet  gather
 	const walletGather = useMemo(() => {
-		return { APTOS, POLYGON, ETH }
-	}, [APTOS, POLYGON, ETH])
+		return { APTOS, POLYGON, ETH, BSC}
+	}, [APTOS, POLYGON, ETH, BSC])
 	
 	
 	// login
@@ -131,6 +132,7 @@ export const WalletHook = (): HookResponse => {
 				_singMessage = APTOS.walletSignMessage
 				break;
 			case "ETH":
+			case "BSC":
 			case "POLYGON":
 				_singMessage = ETH.siwe
 				break;
@@ -186,6 +188,7 @@ export const WalletHook = (): HookResponse => {
 		}
 		switch (_chainType) {
 			case "ETH":
+			case "BSC":
 			case "POLYGON": {
 				const evmconf: Config = {
 					...config,
@@ -219,6 +222,8 @@ export const WalletHook = (): HookResponse => {
 				return "APT"
 			case "ETH":
 				return "ETH"
+			case "BSC":
+				return "BNB"
 			case "POLYGON":
 				return "MATIC"
 			default:
