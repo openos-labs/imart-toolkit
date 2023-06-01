@@ -12,7 +12,6 @@ import { Config, Signer, Tx, SUPPORTED_CHAINS } from "../types";
 import { Seaport } from "@opensea/seaport-js";
 import { ItemType } from "@opensea/seaport-js/lib/constants";
 import { ethers, BigNumber } from "ethers";
-import { BigNumber as BN } from "bignumber.js";
 import { CreateOrderInput, SeaportConfig } from "@opensea/seaport-js/lib/types";
 
 const NATIVE_ETH = "0x0000000000000000000000000000000000000000";
@@ -48,7 +47,7 @@ export class Market implements MarketInterface {
       order: args.protocolOrder,
       accountAddress: account,
       exactApproval: false,
-      unitsToFill: args.tokenAmount
+      unitsToFill: args.tokenAmount,
     });
     return await executeAllActions();
   }
@@ -67,7 +66,8 @@ export class Market implements MarketInterface {
   }
 
   orderInputOf(args: ListTokenArgs, offerer: string): CreateOrderInput {
-    let amount = BigNumber.from(args.coinAmount);
+    const tokenAmount = BigNumber.from(args.tokenAmount);
+    let amount = BigNumber.from(args.coinAmount).mul(tokenAmount);
     const consideration = [];
 
     // multiple royalties
@@ -96,7 +96,6 @@ export class Market implements MarketInterface {
     consideration.unshift(offererItem);
     const itemType =
       args.standard === "ERC1155" ? ItemType.ERC1155 : ItemType.ERC721;
-    const tokenAmount = BN.max(new BN(args.tokenAmount.toString()), new BN("1"));
     return {
       endTime: this.endTime(MAX_DURATION).toString(),
       offer: [
@@ -104,12 +103,11 @@ export class Market implements MarketInterface {
           itemType,
           token: args.collectionId,
           identifier: args.tokenId,
-          amount: tokenAmount.toFixed(0),
-          endAmount: tokenAmount.toFixed(0),
+          amount: tokenAmount.toString(),
+          endAmount: tokenAmount.toString(),
         },
       ],
       consideration,
-      restrictedByZone: false,
       allowPartialFills: ItemType.ERC1155 === itemType,
     };
   }
@@ -159,7 +157,8 @@ export class Market implements MarketInterface {
 
   async createOffer(args: CreateOfferArgs, _?: Signer): Promise<Tx> {
     const offerer = await this.provider.getSigner().getAddress();
-    let amount = BigNumber.from(args.price);
+    const tokenAmount = BigNumber.from(args.tokenAmount.toString());
+    let amount = BigNumber.from(args.price).mul(tokenAmount);
     const consideration = [];
 
     // multiple royalties
@@ -176,7 +175,6 @@ export class Market implements MarketInterface {
     }
     const itemType =
       args.standard === "ERC1155" ? ItemType.ERC1155 : ItemType.ERC721;
-    const tokenAmount = BN.max(new BN(args.tokenAmount.toString()), new BN("1"));
     const { executeAllActions } = await this.seaport.createOrder(
       {
         endTime: this.endTime(args.duration).toString(),
@@ -192,8 +190,8 @@ export class Market implements MarketInterface {
             itemType,
             token: args.collectionId,
             identifier: args.tokenId,
-            amount: tokenAmount.toFixed(0),
-            endAmount: tokenAmount.toFixed(0),
+            amount: tokenAmount,
+            endAmount: tokenAmount,
             recipient: offerer,
           },
           ...consideration,
