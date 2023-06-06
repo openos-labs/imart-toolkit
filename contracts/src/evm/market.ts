@@ -7,13 +7,15 @@ import {
   CancelOrderObject,
   CancelOfferObject,
   AcceptOfferObject,
+  listTokenDutchAuctionArgs,
+  listTokenAscendAuctionArgs
 } from "../types/market";
 import { Config, Signer, Tx, SUPPORTED_CHAINS } from "../types";
 import { Seaport } from "@opensea/seaport-js";
-import { ItemType } from "@opensea/seaport-js/lib/constants";
+import { ItemType, OrderType } from "@opensea/seaport-js/lib/constants";
 import { ethers, BigNumber } from "ethers";
 import { CreateOrderInput, SeaportConfig } from "@opensea/seaport-js/lib/types";
-
+import {generateRandomSalt} from "@opensea/seaport-js/lib/utils/order";
 const NATIVE_ETH = "0x0000000000000000000000000000000000000000";
 const MAX_DURATION = 3600 * 24 * 180;
 export class Market implements MarketInterface {
@@ -26,14 +28,13 @@ export class Market implements MarketInterface {
     this.config = config;
     this.provider = config.provider;
     if (
-      config.provider &&
-      config.provider instanceof ethers.providers.Web3Provider
+      config.provider 
     ) {
       this.provider = config.provider as ethers.providers.Web3Provider;
       const seaportConfig: SeaportConfig = {
         seaportVersion: "1.4",
       };
-      this.seaport = new Seaport(this.provider, seaportConfig);
+      this.seaport = new Seaport(config.provider, seaportConfig);
       this.provider.getNetwork().then((network) => {
         const chain = SUPPORTED_CHAINS[network.chainId];
         chain && (this.endpoint = `https://test1.imart.io/${chain}/seaport`);
@@ -126,6 +127,72 @@ export class Market implements MarketInterface {
       signature: order.signature,
     });
   }
+  // ascend auction / english auction
+  async listTokenAscendAuction(args: listTokenAscendAuctionArgs, signer?: Signer): Promise<Tx> {
+    const offerer = signer || await this.provider.getSigner()
+    const ascendAuctionOrderInputOf = (args: listTokenAscendAuctionArgs): CreateOrderInput => {
+      const startTime = args.startTime;
+      const endTime = args.endTime;
+      const salt = generateRandomSalt();
+      const offer = args.offer;
+      const consideration = args.consideration;
+      const fees = args.fees;
+      return {
+        startTime,
+        endTime,
+        salt,
+        offer,
+        consideration,
+        fees
+      }
+    }
+    const orderInput = ascendAuctionOrderInputOf(args);
+    const seaport = new Seaport(signer);
+    const { executeAllActions } = await seaport.createOrder(
+      orderInput,
+      offerer,
+      false
+    );
+    const order = await executeAllActions();
+    return await axios.post(`${this.endpoint}/listings`, {
+      parameters: { ...order.parameters,nonce: 0,orderType:OrderType.FULL_RESTRICTED },
+      signature: order.signature,
+    });
+  }
+
+  // dutch auction
+  async listTokenDutchAuction(args: listTokenDutchAuctionArgs, signer?: Signer): Promise<Tx> {
+    const offerer = signer || await this.provider.getSigner()
+    const duchAuctionOrderInputOf = (args: listTokenDutchAuctionArgs): CreateOrderInput => {
+      const startTime = args.startTime;
+      const endTime = args.endTime;
+      const salt = generateRandomSalt();
+      const offer = args.offer;
+      const consideration = args.consideration;
+      const fees = args.fees;
+      return {
+        startTime,
+        endTime,
+        salt,
+        offer,
+        consideration,
+        fees
+      }
+    }
+    const orderInput = duchAuctionOrderInputOf(args);
+    const seaport = new Seaport(offerer);
+    const { executeAllActions } = await seaport.createOrder(
+      orderInput,
+      offerer,
+      false
+    );
+    const order = await executeAllActions();
+    return await axios.post(`${this.endpoint}/listings`, {
+      parameters: { ...order.parameters, nonce: 0 },
+      signature: order.signature,
+    });
+  }
+
 
   async batchListTokens(args: ListTokenArgs[], _?: any): Promise<any> {
     const offerer = await this.provider.getSigner().getAddress();
