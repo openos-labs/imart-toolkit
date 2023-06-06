@@ -119,12 +119,10 @@ describe("EVM/create a dutch auction",  () => {
         curation: "",
       },
       provider: provider,
+      signer: signer,
     };
     let client = Contractor(Evm, config);
-    const tx = (await client.listTokenAscendAuction(
-      listTokenAscendAuctionArgs,
-      signer
-    )) as ContractTransaction;
+    const tx = (await client.listTokenAscendAuction(listTokenAscendAuctionArgs,signer)) as ContractTransaction;
     console.log("tx",tx)
   });
 
