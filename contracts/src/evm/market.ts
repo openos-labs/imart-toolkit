@@ -15,7 +15,6 @@ import { Seaport } from "@opensea/seaport-js";
 import { ItemType, OrderType } from "@opensea/seaport-js/lib/constants";
 import { ethers, BigNumber } from "ethers";
 import { CreateOrderInput, SeaportConfig } from "@opensea/seaport-js/lib/types";
-import {generateRandomSalt} from "@opensea/seaport-js/lib/utils/order";
 const NATIVE_ETH = "0x0000000000000000000000000000000000000000";
 const MAX_DURATION = 3600 * 24 * 180;
 export class Market implements MarketInterface {
@@ -27,9 +26,7 @@ export class Market implements MarketInterface {
   constructor(config: Config) {
     this.config = config;
     this.provider = config.provider;
-    if (
-      config.provider 
-    ) {
+    if (config.provider) {
       this.provider = config.provider as ethers.providers.Web3Provider;
       const seaportConfig: SeaportConfig = {
         seaportVersion: "1.4",
@@ -133,22 +130,22 @@ export class Market implements MarketInterface {
     const ascendAuctionOrderInputOf = (args: listTokenAscendAuctionArgs): CreateOrderInput => {
       const startTime = args.startTime;
       const endTime = args.endTime;
-      const salt = generateRandomSalt();
       const offer = args.offer;
       const consideration = args.consideration;
       const fees = args.fees;
       return {
         startTime,
         endTime,
-        salt,
         offer,
         consideration,
         fees
       }
     }
     const orderInput = ascendAuctionOrderInputOf(args);
-    const seaport = new Seaport(signer);
-    const { executeAllActions } = await seaport.createOrder(
+    if(signer || typeof signer !== 'undefined') {
+      this.seaport = new Seaport(signer);
+    }
+    const { executeAllActions } = await this.seaport.createOrder(
       orderInput,
       offerer,
       false
@@ -166,22 +163,22 @@ export class Market implements MarketInterface {
     const duchAuctionOrderInputOf = (args: listTokenDutchAuctionArgs): CreateOrderInput => {
       const startTime = args.startTime;
       const endTime = args.endTime;
-      const salt = generateRandomSalt();
       const offer = args.offer;
       const consideration = args.consideration;
       const fees = args.fees;
       return {
         startTime,
         endTime,
-        salt,
         offer,
         consideration,
         fees
       }
     }
     const orderInput = duchAuctionOrderInputOf(args);
-    const seaport = new Seaport(offerer);
-    const { executeAllActions } = await seaport.createOrder(
+    if(signer || typeof signer !== 'undefined') {
+      this.seaport = new Seaport(signer);
+    }
+    const { executeAllActions } = await this.seaport.createOrder(
       orderInput,
       offerer,
       false
