@@ -1273,10 +1273,15 @@ preact-svg@^1.6.0:
   optionalDependencies:
     preact "^4"
 
-preact@*, preact@10.11.3, preact@^10.0.0:
+preact@10.11.3, preact@^10.0.0:
   version "10.11.3"
   resolved "https://registry.npmjs.org/preact/-/preact-10.11.3.tgz"
   integrity sha512-eY93IVpod/zG3uMF22Unl8h9KkrcKIRs2EGar8hwLZZDU1lkjph303V9HZBwufh2s736U6VXuhD109LYqPoffg==
+
+preact@^4:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-4.8.0.tgz#4d0eebaab485255603fd4de8fdb1c22a80997844"
+  integrity sha512-PwVywEPz++oiRu65R5UxcgDP+aY2BtKQ4I/FFn/CBifUlmAocOhJAdjUgLkq03oc8YSvjJTsFVNIyMpgEbkWYA==
 
 prettier@2.7.1:
   version "2.7.1"
@@ -1580,10 +1585,10 @@ uuid@8.3.2:
   resolved "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
-vite@^3.0.2:
-  version "3.2.5"
-  resolved "https://registry.npmjs.org/vite/-/vite-3.2.5.tgz"
-  integrity sha512-4mVEpXpSOgrssFZAOmGIr85wPHKvaDAcXqxVxVRZhljkJOMZi1ibLibzjLHzJvcok8BMguLc7g1W6W/GqZbLdQ==
+vite@^3.2.7:
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-3.2.7.tgz#35a62826bd4d6b778ae5db8766d023bcd4e7bef3"
+  integrity sha512-29pdXjk49xAP0QBr0xXqu2s5jiQIXNvE/xwd0vUizYT2Hzqe4BksNNoWllFVXJf4eLZ+UlVQmXfB4lWrc+t18g==
   dependencies:
     esbuild "^0.15.9"
     postcss "^8.4.18"

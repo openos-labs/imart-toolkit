@@ -74,7 +74,7 @@
         "three-orbitcontrols": "^2.110.3",
         "tweakpane": "*",
         "typescript": "^4.7.4",
-        "vite": "^3.0.2"
+        "vite": "^3.2.7"
     },
     "private": false,
     "main": "./dist/mixverse3d.mjs",
