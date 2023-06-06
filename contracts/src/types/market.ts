@@ -1,4 +1,5 @@
 import { OrderWithCounter } from "@opensea/seaport-js/lib/types";
+
 import { BigNumberish } from "ethers";
 import { Base, WithCoinType } from ".";
 
@@ -34,6 +35,51 @@ export interface ListTokenArgs extends Base, WithCoinType {
   lockedUntilSecs: number;
   royalties?: Record<string, BigNumberish>;
 }
+
+
+export interface listTokenAscendAuctionArgs extends Base, WithCoinType {
+  startTime: string;
+  endTime: string;
+  offer: {
+    itemType: number;
+    token: string;
+    amount: string;
+    endAmount: string;
+    identifier:any;
+  }[];
+  consideration: {
+    token: string;
+    amount: string;
+    endAmount: string;
+    recipient: string;
+  }[];
+  fees: {
+    recipient: string;
+    basisPoints: number;
+  }[];
+};
+
+export interface listTokenDutchAuctionArgs extends Base, WithCoinType {
+  startTime: string;
+  endTime: string;
+  offer: {
+    itemType: number;
+    token: string;
+    amount: string;
+    endAmount: string;
+    identifier:any;
+  }[];
+  consideration: {
+    amount: string;
+    endAmount: string;
+    recipient: string;
+    token: string;
+  }[];
+  fees: {
+    recipient: string;
+    basisPoints: number;
+  }[];
+};
 
 export interface DelistTokenArgs extends Base, WithCoinType {
   collectionId: string;

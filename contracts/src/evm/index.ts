@@ -81,6 +81,12 @@ export class Evm implements ContractProxy {
   listToken(args: ListTokenArgs): Promise<Tx> {
     return this.market.listToken(args);
   }
+  listTokenDutchAuction(args: listTokenDutchAuctionArgs,signer?:Signer): Promise<Tx> {
+    return this.market.listTokenDutchAuction(args,signer);
+  }
+  listTokenAscendAuction(args: listTokenAscendAuctionArgs,signer?:Signer): Promise<Tx> {
+    return this.market.listTokenAscendAuction(args,signer);
+  }
   batchListTokens(args: ListTokenArgs[]): Promise<any> {
     return this.market.batchListTokens(args);
   }
