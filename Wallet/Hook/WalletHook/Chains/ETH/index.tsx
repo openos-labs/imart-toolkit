@@ -24,8 +24,6 @@ export const ETHWallet = (): ChainResponse => {
   const login = async () => {
     try {
       await activate(injected);
-      await changeToTestNetwork(chainId);
-      await getBalance();
       return { status: 200 };
     } catch (ex) {
       console.error(ex);
@@ -152,26 +150,27 @@ export const ETHWallet = (): ChainResponse => {
     chainName: EvmChainType;
     rpcUrls: string[];
   };
-  const chains: Record<number, Chain> = {
-    5: {
-      chainId: 8,
+  const chains: Record<EvmChainType, Chain> = {
+    ETH: {
+      chainId: 5,
       chainName: "ETH",
       rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
     },
-    80001: {
+    POLYGON: {
       chainId: 80001,
       chainName: "POLYGON",
       rpcUrls: ["https://ethereum-goerli.publicnode.com"],
     },
-    97: {
+    BSC: {
       chainId: 97,
       chainName: "BSC",
       rpcUrls: ["https://endpoints.omniatech.io/v1/bsc/testnet/public"],
     },
   };
 
-  const changeToTestNetwork = async (chainId?: Number) => {
-    if (!chainId) return;
+  const changeToTestNetwork = async (chainType?: string) => {
+    if (!chainType) return;
+    const chainId = chains[chainType]?.chainId;
     const hexChainId = "0x" + Number(chainId).toString(16);
     try {
       await window.ethereum.request({
