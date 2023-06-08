@@ -3,9 +3,7 @@ import { Web3Provider } from "@ethersproject/providers";
 import { ChainResponse } from "../../Types";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from "ethers";
-import Web3 from "web3";
 import { useEffect } from "react";
-import { ENS } from "@ensdomains/ensjs";
 import { SiweMessage } from "siwe";
 
 export const injected = new InjectedConnector({});
@@ -106,22 +104,22 @@ export const ETHWallet = (): ChainResponse => {
     return { message, signature };
   };
 
-  const getProvider = (): any => {
+  const getProvider = (): ethers.providers.JsonRpcProvider => {
     return currentWallet
       ? new ethers.providers.Web3Provider(currentWallet)
-      : ethers.providers.getDefaultProvider();
+      : new ethers.providers.JsonRpcProvider();
   };
 
   const getBalance = async (): Promise<string> => {
     return new Promise(async (resolve, reject) => {
       try {
         const provider = getProvider();
+
         if (!address || !provider) {
           resolve("");
           return;
         }
-        const web3 = new Web3(provider?.provider);
-        const amount = await web3.eth.getBalance(address);
+        const amount = await provider?.getBalance(address);
         const formateNumber = +ethers.utils.formatEther(amount);
         resolve(formateNumber.toFixed(4));
       } catch (error) {
@@ -130,21 +128,7 @@ export const ETHWallet = (): ChainResponse => {
     });
   };
 
-  const getEnsName: any = async (address) => {
-    const ENSInstance = new ENS();
-    await ENSInstance.setProvider(getProvider());
-    return await ENSInstance.getName(address);
-  };
-
   type EvmChainType = "ETH" | "POLYGON" | "BSC";
-  /*
-    ETH:
-    chainId=5, chainName=ETH goerli testnet, rpcUrls=["https://rpc-mumbai.maticvigil.com"]
-    POLYGON: 
-    chainId=80001, chainName=Polygon mumbai testnet, rpcUrls=["https://ethereum-goerli.publicnode.com "]
-    BSC: 
-    chainId=97 , chainName=BSC testnet, rpcUrls=["https://endpoints.omniatech.io/v1/bsc/testnet/public"]
-  */
   type Chain = {
     chainId: number;
     chainName: EvmChainType;
@@ -191,14 +175,6 @@ export const ETHWallet = (): ChainResponse => {
       }
       // handle other "switch" errors
     }
-    // window.ethereum.request({
-    //   method: "wallet_switchEthereumChain", // Metamask的api名称
-    //   params: [
-    //     {
-    //       chainId: Web3.utils.numberToHex(5), // 网络id，16进制的字符串
-    //     },
-    //   ],
-    // });
   };
 
   return {
@@ -212,7 +188,6 @@ export const ETHWallet = (): ChainResponse => {
     walletSignMessage,
     siwe,
     getBalance,
-    getEnsName,
     changeToTestNetwork,
   };
 };
