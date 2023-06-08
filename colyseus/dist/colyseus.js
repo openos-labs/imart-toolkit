@@ -3369,12 +3369,20 @@
                         }
                     }
                     else {
-                        var definition = ref['$changes'].parent._definition;
-                        var type = definition.schema[definition.fieldsByIndex[ref['$changes'].parentIndex]];
-                        if (typeof (Object.values(type)[0]) === "function") {
-                            Array.from(ref.values())
-                                .forEach(function (child) { return _this.removeRef(child['$changes'].refId); });
+                        try {
+                            if (ref['$changes'].parent){
+                                var definition = ref['$changes'].parent._definition;
+                                var type = definition.schema[definition.fieldsByIndex[ref['$changes'].parentIndex]];
+                                if (typeof (Object.values(type)[0]) === "function") {
+                                    Array.from(ref.values())
+                                        .forEach(function (child) { return _this.removeRef(child['$changes'].refId); });
+                                }
+                            }
+
+                        }catch (e) {
+
                         }
+
                     }
                     _this.refs.delete(refId);
                     delete _this.refCounts[refId];
