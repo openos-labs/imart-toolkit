@@ -52,8 +52,7 @@
     "ethers": "^5.1.4",
     "react-is": "^17.0.2",
     "rollup": "^2.47.0",
-    "themeprovider-storybook": "^1.7.2",
-    "web3": "^1.8.1",
-    "siwe": "^1.1.6"
+    "siwe": "^1.1.6",
+    "themeprovider-storybook": "^1.7.2"
   }
 }
