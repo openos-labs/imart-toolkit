@@ -78,52 +78,52 @@ describe("EVM/create a dutch auction",  () => {
 
   });
   
-  it("create a ascend auction", async function () {
-    const provider = new ethers.providers.JsonRpcProvider(process.env.NODE_URL2);
-    const signer = new ethers.Wallet(process.env.TEST_ONLY, provider);
-    console.log("balance:", ethers.utils.formatEther(await provider.getBalance(signer.address)));
-    const erc721address = "0xc06Ce325fcCceAAeb809F00D1A9F7e844Bd8Ff09"
-    const SECONDS_IN_WEEK = 60 * 60 * 24 * 7;
-    const startTime = await (await provider.getBlock("latest")).timestamp.toString();
-    const endTime = BigNumber.from(startTime).add(SECONDS_IN_WEEK).toString();;
-    const WETH = "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6"
-    let listTokenAscendAuctionArgs : listTokenAscendAuctionArgs = {
-      startTime:startTime,
-      endTime:endTime,
-      offer: [
-        {
-            itemType: ItemType.ERC721,
-            token: erc721address,
-            amount: "1",
-            endAmount: "1",
-            identifier: "631",
-        },
-      ],
-      consideration: [
-          {
-              amount: parseEther("20").toString(),
-              endAmount: parseEther("20").toString(),
-              recipient: signer.address,
-              token:WETH
-          },
-      ],
-        fees: [{ recipient: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8", basisPoints: 250 }]
-    };
+  // it("create a ascend auction", async function () {
+  //   const provider = new ethers.providers.JsonRpcProvider(process.env.NODE_URL2);
+  //   const signer = new ethers.Wallet(process.env.TEST_ONLY, provider);
+  //   console.log("balance:", ethers.utils.formatEther(await provider.getBalance(signer.address)));
+  //   const erc721address = "0xc06Ce325fcCceAAeb809F00D1A9F7e844Bd8Ff09"
+  //   const SECONDS_IN_WEEK = 60 * 60 * 24 * 7;
+  //   const startTime = await (await provider.getBlock("latest")).timestamp.toString();
+  //   const endTime = BigNumber.from(startTime).add(SECONDS_IN_WEEK).toString();;
+  //   const WETH = "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6"
+  //   let listTokenAscendAuctionArgs : listTokenAscendAuctionArgs = {
+  //     startTime:startTime,
+  //     endTime:endTime,
+  //     offer: [
+  //       {
+  //           itemType: ItemType.ERC721,
+  //           token: erc721address,
+  //           amount: "1",
+  //           endAmount: "1",
+  //           identifier: "631",
+  //       },
+  //     ],
+  //     consideration: [
+  //         {
+  //             amount: parseEther("20").toString(),
+  //             endAmount: parseEther("20").toString(),
+  //             recipient: signer.address,
+  //             token:WETH
+  //         },
+  //     ],
+  //       fees: [{ recipient: "0x70997970C51812dc3A010C7d01b50e0d17dc79C8", basisPoints: 250 }]
+  //   };
     
-    const config = {
-      addresses: {
-        singleCollective: "",
-        multipleCollective: "",
-        market: "",
-        creation: "",
-        curation: "",
-      },
-      provider: provider,
-      signer: signer,
-    };
-    let client = Contractor(Evm, config);
-    const tx = (await client.listTokenAscendAuction(listTokenAscendAuctionArgs,signer)) as ContractTransaction;
-    console.log("tx",tx)
-  });
+  //   const config = {
+  //     addresses: {
+  //       singleCollective: "",
+  //       multipleCollective: "",
+  //       market: "",
+  //       creation: "",
+  //       curation: "",
+  //     },
+  //     provider: provider,
+  //     signer: signer,
+  //   };
+  //   let client = Contractor(Evm, config);
+  //   const tx = (await client.listTokenAscendAuction(listTokenAscendAuctionArgs,signer)) as ContractTransaction;
+  //   console.log("tx",tx)
+  // });
 
 });

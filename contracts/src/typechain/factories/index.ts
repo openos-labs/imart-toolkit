@@ -10,5 +10,7 @@ export { IToken__factory } from "./IToken__factory";
 export { MixverseSpace__factory } from "./MixverseSpace__factory";
 export { MultipleCollective__factory } from "./MultipleCollective__factory";
 export { MultipleToken__factory } from "./MultipleToken__factory";
+export { NftLottery__factory } from "./NftLottery__factory";
+export { NftToken__factory } from "./NftToken__factory";
 export { SingleCollective__factory } from "./SingleCollective__factory";
 export { SingleToken__factory } from "./SingleToken__factory";
