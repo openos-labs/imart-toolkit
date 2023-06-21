@@ -136,16 +136,69 @@ export const ETHWallet = (): ChainResponse => {
     return await ENSInstance.getName(address);
   };
 
-  const changeToTestNetwork = () => {
-    // @ts-ignore
-    window.ethereum.request({
-      method: "wallet_switchEthereumChain", // Metamask的api名称
-      params: [
-        {
-          chainId: Web3.utils.numberToHex(5), // 网络id，16进制的字符串
-        },
-      ],
-    });
+  type EvmChainType = "ETH" | "POLYGON" | "BSC";
+  /*
+    ETH:
+    chainId=5, chainName=ETH goerli testnet, rpcUrls=["https://rpc-mumbai.maticvigil.com"]
+    POLYGON: 
+    chainId=80001, chainName=Polygon mumbai testnet, rpcUrls=["https://ethereum-goerli.publicnode.com "]
+    BSC: 
+    chainId=97 , chainName=BSC testnet, rpcUrls=["https://endpoints.omniatech.io/v1/bsc/testnet/public"]
+  */
+  type Chain = {
+    chainId: number;
+    chainName: EvmChainType;
+    rpcUrls: string[];
+  };
+  const chains: Record<EvmChainType, Chain> = {
+    ETH: {
+      chainId: 5,
+      chainName: "ETH",
+      rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
+    },
+    POLYGON: {
+      chainId: 80001,
+      chainName: "POLYGON",
+      rpcUrls: ["https://ethereum-goerli.publicnode.com"],
+    },
+    BSC: {
+      chainId: 97,
+      chainName: "BSC",
+      rpcUrls: ["https://endpoints.omniatech.io/v1/bsc/testnet/public"],
+    },
+  };
+
+  const changeToTestNetwork = async (chainType?: string) => {
+    if (!chainType) return;
+    const chainId = chains[chainType]?.chainId;
+    const hexChainId = "0x" + Number(chainId).toString(16);
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: hexChainId }],
+      });
+    } catch (switchError) {
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (switchError.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [chains[`${chainId}`]],
+          });
+        } catch (addError) {
+          // handle "add" error
+        }
+      }
+      // handle other "switch" errors
+    }
+    // window.ethereum.request({
+    //   method: "wallet_switchEthereumChain", // Metamask的api名称
+    //   params: [
+    //     {
+    //       chainId: Web3.utils.numberToHex(5), // 网络id，16进制的字符串
+    //     },
+    //   ],
+    // });
   };
 
   return {

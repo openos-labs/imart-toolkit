@@ -642,10 +642,10 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@mix-labs/contracts@0.4.6":
-  version "0.4.6"
-  resolved "https://npm.pkg.github.com/download/@mix-labs/contracts/0.4.6/35101bdfd3312e8f389baa3cd7d6530492bff9be#35101bdfd3312e8f389baa3cd7d6530492bff9be"
-  integrity sha512-+GoXokfXmpzA3W+dZoLnqOS4w8sEbjP3bh7+il4Wf5Myc0be5XFq/hdubqmNkS4iL4555FFsUHyeY1iHdWoVIQ==
+"@mix-labs/contracts@0.4.7":
+  version "0.4.7"
+  resolved "https://npm.pkg.github.com/download/@mix-labs/contracts/0.4.7/34d9d60a688c6b7adc6ef813e6f765961c81532d#34d9d60a688c6b7adc6ef813e6f765961c81532d"
+  integrity sha512-AJiuOExfGt/MPH0hM19YJBQ6j3GqYrL7NGcgcDHVIxYs3Si/devdUIXrQIwWR9obYuwEq7StKkvBgvI0CxN0KQ==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
     "@ethersproject/providers" "^5.7.2"
