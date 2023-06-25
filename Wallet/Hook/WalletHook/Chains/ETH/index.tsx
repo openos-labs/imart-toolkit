@@ -167,6 +167,10 @@ export const ETHWallet = (): ChainResponse => {
       rpcUrls: ["https://endpoints.omniatech.io/v1/bsc/testnet/public"],
     },
   };
+  const chainIdToTypes = Object.entries(chains).reduce((p, [k, v]) => {
+    p[v.chainId] = k;
+    return p;
+  }, {});
   const chainIdToHex = (chainId: number) => "0x" + Number(chainId).toString(16);
   const changeToTestNetwork = async (chainType?: string) => {
     if (!chainType) return;
@@ -208,5 +212,6 @@ export const ETHWallet = (): ChainResponse => {
     getBalance,
     getEnsName,
     changeToTestNetwork,
+    chainIdToTypes,
   };
 };

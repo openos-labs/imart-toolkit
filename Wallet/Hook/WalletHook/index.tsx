@@ -233,6 +233,11 @@ export const WalletHook = (): HookResponse => {
     }
   }, [_chainType]);
 
+  useEffect(() => {
+    if (!ETH.chainId) return;
+    setChainType(ETH.chainIdToTypes[ETH.chainId]);
+  }, [ETH?.chainId]);
+
   return {
     contractor,
     walletLogin,
