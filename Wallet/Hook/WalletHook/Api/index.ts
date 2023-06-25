@@ -1,7 +1,6 @@
-import axios from "../../../../network";
+import axios from "../../../../network/src";
 
-const https = axios.create({baseURL: "/auth"})
-
+const https = axios.create({ baseURL: "/auth" });
 
 /**
  * @description:
@@ -11,31 +10,30 @@ const https = axios.create({baseURL: "/auth"})
  */
 
 export const getNonce = async (publicKey: string, address: string) => {
-    const res = await https.get(
-        `/auth/nonce?publicKey=${publicKey}&address=${address}`
-    );
-    return res.data;
-}
+  const res = await https.get(
+    `/auth/nonce?publicKey=${publicKey}&address=${address}`
+  );
+  return res.data;
+};
 
 export interface Auth {
-    chain: string;
-    address: string;
-    publicKey: string;
-    signature: string;
-    message?: string;
+  chain: string;
+  address: string;
+  publicKey: string;
+  signature: string;
+  message?: string;
 }
 
 export const auth = async (authParams: Auth) => {
-    const res = await https.post(`/auth`, authParams);
-    return res.data
-}
-
+  const res = await https.post(`/auth`, authParams);
+  return res.data;
+};
 
 export const isAuth = async (): Promise<boolean> => {
-    try {
-        const response = await https.get(`/user/isLoggedIn`);
-        return response.status == 200 && response.data.isLoggedIn;
-    } catch (e) {
-        return false;
-    }
-}
+  try {
+    const response = await https.get(`/user/isLoggedIn`);
+    return response.status == 200 && response.data.isLoggedIn;
+  } catch (e) {
+    return false;
+  }
+};
