@@ -154,12 +154,12 @@ export const ETHWallet = (): ChainResponse => {
     ETH: {
       chainId: 5,
       chainName: "ETH goerli",
-      rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
+      rpcUrls: ["https://ethereum-goerli.publicnode.com"],
     },
     POLYGON: {
       chainId: 80001,
       chainName: "POLYGON mumbai",
-      rpcUrls: ["https://ethereum-goerli.publicnode.com"],
+      rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
     },
     BSC: {
       chainId: 97,
