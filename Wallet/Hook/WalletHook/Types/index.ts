@@ -13,6 +13,7 @@ export interface ChainResponse {
   getBalance?: () => any;
   getEnsName?: () => any;
   changeToTestNetwork: () => any;
+  chainIdToTypes: Record<number, ChainType>;
 }
 
 export interface AuthContext {

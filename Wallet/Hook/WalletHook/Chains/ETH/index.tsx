@@ -136,16 +136,67 @@ export const ETHWallet = (): ChainResponse => {
     return await ENSInstance.getName(address);
   };
 
-  const changeToTestNetwork = () => {
-    // @ts-ignore
-    window.ethereum.request({
-      method: "wallet_switchEthereumChain", // Metamask的api名称
-      params: [
-        {
-          chainId: Web3.utils.numberToHex(5), // 网络id，16进制的字符串
-        },
-      ],
-    });
+  type EvmChainType = "ETH" | "POLYGON" | "BSC";
+  /*
+    ETH:
+    chainId=5, chainName=ETH goerli testnet, rpcUrls=["https://rpc-mumbai.maticvigil.com"]
+    POLYGON: 
+    chainId=80001, chainName=Polygon mumbai testnet, rpcUrls=["https://ethereum-goerli.publicnode.com "]
+    BSC: 
+    chainId=97 , chainName=BSC testnet, rpcUrls=["https://endpoints.omniatech.io/v1/bsc/testnet/public"]
+  */
+  type Chain = {
+    chainId: number;
+    chainName: string;
+    rpcUrls: string[];
+  };
+  const chains: Record<EvmChainType, Chain> = {
+    ETH: {
+      chainId: 5,
+      chainName: "ETH goerli",
+      rpcUrls: ["https://ethereum-goerli.publicnode.com"],
+    },
+    POLYGON: {
+      chainId: 80001,
+      chainName: "POLYGON mumbai",
+      rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
+    },
+    BSC: {
+      chainId: 97,
+      chainName: "BSC testnet",
+      rpcUrls: ["https://endpoints.omniatech.io/v1/bsc/testnet/public"],
+    },
+  };
+  const chainIdToTypes = Object.entries(chains).reduce((p, [k, v]) => {
+    p[v.chainId] = k;
+    return p;
+  }, {});
+  const chainIdToHex = (chainId: number) => "0x" + Number(chainId).toString(16);
+  const changeToTestNetwork = async (chainType?: string) => {
+    if (!chainType) return;
+    const chainId = chains[chainType]?.chainId;
+    const hexChainId = chainIdToHex(chainId);
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: hexChainId }],
+      });
+    } catch (switchError) {
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (switchError.code === 4902) {
+        try {
+          const chain = chains[`${chainType}`];
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{ ...chain, chainId: chainIdToHex(chainId) }],
+          });
+        } catch (addError) {
+          // handle "add" error
+          // console.log("wallet_addEthereumChain error:", addError);
+        }
+      }
+      // handle other "switch" errors
+    }
   };
 
   return {
@@ -161,5 +212,6 @@ export const ETHWallet = (): ChainResponse => {
     getBalance,
     getEnsName,
     changeToTestNetwork,
+    chainIdToTypes,
   };
 };

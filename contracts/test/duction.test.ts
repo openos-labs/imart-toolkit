@@ -66,6 +66,7 @@ describe("EVM/create a dutch auction",  () => {
           creation: "",
           curation: "",
           nftlottery: "",
+
         },
         provider: provider,
       };
