@@ -38,6 +38,7 @@ describe("EVM/creation tests", () => {
         market: "",
         creation: "",
         curation: "",
+        nftlottery: "",
       },
       provider: provider,
     };
