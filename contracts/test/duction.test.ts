@@ -65,6 +65,8 @@ describe("EVM/create a dutch auction",  () => {
           market: "",
           creation: "",
           curation: "",
+          nftlottery: "",
+
         },
         provider: provider,
       };
@@ -117,6 +119,7 @@ describe("EVM/create a dutch auction",  () => {
         market: "",
         creation: "",
         curation: "",
+        nftlottery: "",
       },
       provider: provider,
       signer: signer,

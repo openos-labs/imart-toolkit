@@ -84,8 +84,19 @@ export interface ResourceInterface {
   collectionOrders(collectionId: string, tokenIds: string[]): Promise<Order[]>;
 }
 
+export interface NftLotteryInterface {
+  config: Config;
+  setApprovalForAll(_nftContractAddress:string,_operator: string, _approved: boolean, signer?: any):Promise<Tx>;
+  createActivity(_nftContractAddress: string, _endBlockNumber: number, _activityId: number, _tokenIds: number[], signer?: Signer): Promise<Tx>;
+  setMerkleRoot(_activityId: number, _merkleRoot: string,signer?: Signer): Promise<Tx>;
+  claim(_organizer: string, _activityId: number, _nftContract: string, _tokenId: number, merkleProof: string[],signer?: Signer): Promise<Tx>;
+  getActivityInfo(_organizer: string, _activityId: number): Promise<any>;
+  getRemainingTokenIds(_organizer: string, _activityId: number): Promise<any>;
+  withdrawPrize(_activityId: number,signer?: Signer): Promise<Tx>;
+}
+
 export abstract class ContractProxy
-  implements MarketInterface, CreationInterface, CurationInterface
+  implements MarketInterface, CreationInterface, CurationInterface,NftLotteryInterface
 {
   readonly config: Config;
 
@@ -143,4 +154,13 @@ export abstract class ContractProxy
   abstract batchListExhibits(args: ListExhibitArgs[], signer?: Signer): Promise<Tx>;
   abstract batchListOwnedExhibits(args: ListOwnedExhibitArgs[], signer?: Signer): Promise<Tx>;
 
+  // nft lottery
+
+  abstract setApprovalForAll(_nftContractAddress:string,_operator: string, _approved: boolean, signer?: any):Promise<Tx>;
+  abstract createActivity(_nftContractAddress: string, _endBlockNumber: number, _activityId: number, _tokenIds: number[],signer?: Signer): Promise<Tx>;
+  abstract setMerkleRoot(_activityId: number, _merkleRoot: string,signer?: Signer): Promise<Tx>;
+  abstract claim(_organizer: string, _activityId: number, _nftContract: string, _tokenId: number, merkleProof: string[],signer?: Signer): Promise<Tx>;
+  abstract getActivityInfo(_organizer: string, _activityId: number): Promise<any>;
+  abstract getRemainingTokenIds(_organizer: string, _activityId: number): Promise<any>;
+  abstract withdrawPrize(_activityId: number,signer?: Signer): Promise<Tx>;
 }

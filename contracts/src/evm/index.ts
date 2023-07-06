@@ -4,6 +4,7 @@ import { ContractProxy } from "../proxy";
 import { Creation } from "./creation";
 import { Market } from "./market";
 import { Curation } from "./curation";
+import { NftLottery } from "./nft_lottery";
 import {
   ListTokenArgs,
   CreateOfferArgs,
@@ -38,7 +39,7 @@ export class Evm implements ContractProxy {
   private _market: Market;
   private _creation: Creation;
   private _curation: Curation;
-
+  private _nftLottery: NftLottery;
   get market() {
     return this._market ?? (this._market = new Market(this.config));
   }
@@ -49,6 +50,10 @@ export class Evm implements ContractProxy {
 
   get curation() {
     return this._curation ?? (this._curation = new Curation(this.config));
+  }
+
+  get nftLottery() {
+    return this._nftLottery ?? (this._nftLottery = new NftLottery(this.config));
   }
 
   constructor(config: Config) {
@@ -147,4 +152,32 @@ export class Evm implements ContractProxy {
   freezeExhibit(args: FreezeExhibitArgs, signer?: Signer): Promise<Tx> {
     return this.curation.freezeExhibit(args, signer);
   }
+
+  // NFT Lottery
+  setApprovalForAll(_nftContractAddress: string, _operator: string, _approved: boolean, signer?: Signer): Promise<Tx> {
+    return this.nftLottery.setApprovalForAll(_nftContractAddress, _operator, _approved, signer);
+  }
+  
+  createActivity(_nftContractAddress: string, _endBlockNumber: number, _activityId: number, _tokenIds: number[], signer?: Signer): Promise<Tx> {
+    return this.nftLottery.createActivity(_nftContractAddress, _endBlockNumber, _activityId, _tokenIds, signer);
+  }
+
+  setMerkleRoot(_activityId: number, _merkleRoot: string, signer?: Signer): Promise<Tx> {
+    return this.nftLottery.setMerkleRoot(_activityId, _merkleRoot, signer);
+  }
+
+  claim(_organizer: string, _activityId: number, _nftContract: string, _tokenId: number, merkleProof: string[], signer?: Signer): Promise<Tx> {
+    return this.nftLottery.claim(_organizer, _activityId, _nftContract, _tokenId, merkleProof, signer);
+  }
+  getActivityInfo(_organizer: string, _activityId: number): Promise<any> {
+    return this.nftLottery.getActivityInfo(_organizer, _activityId);
+  }
+  getRemainingTokenIds(_organizer: string, _activityId: number): Promise<any> {
+    return this.nftLottery.getRemainingTokenIds(_organizer, _activityId);
+  }
+
+  withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx> {
+    return this.nftLottery.withdrawPrize(_activityId, signer);
+  }
+
 }

@@ -147,31 +147,35 @@ export const ETHWallet = (): ChainResponse => {
   */
   type Chain = {
     chainId: number;
-    chainName: EvmChainType;
+    chainName: string;
     rpcUrls: string[];
   };
   const chains: Record<EvmChainType, Chain> = {
     ETH: {
       chainId: 5,
-      chainName: "ETH",
-      rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
+      chainName: "ETH goerli",
+      rpcUrls: ["https://ethereum-goerli.publicnode.com"],
     },
     POLYGON: {
       chainId: 80001,
-      chainName: "POLYGON",
-      rpcUrls: ["https://ethereum-goerli.publicnode.com"],
+      chainName: "POLYGON mumbai",
+      rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
     },
     BSC: {
       chainId: 97,
-      chainName: "BSC",
+      chainName: "BSC testnet",
       rpcUrls: ["https://endpoints.omniatech.io/v1/bsc/testnet/public"],
     },
   };
-
+  const chainIdToTypes = Object.entries(chains).reduce((p, [k, v]) => {
+    p[v.chainId] = k;
+    return p;
+  }, {});
+  const chainIdToHex = (chainId: number) => "0x" + Number(chainId).toString(16);
   const changeToTestNetwork = async (chainType?: string) => {
     if (!chainType) return;
     const chainId = chains[chainType]?.chainId;
-    const hexChainId = "0x" + Number(chainId).toString(16);
+    const hexChainId = chainIdToHex(chainId);
     try {
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
@@ -181,24 +185,18 @@ export const ETHWallet = (): ChainResponse => {
       // This error code indicates that the chain has not been added to MetaMask.
       if (switchError.code === 4902) {
         try {
+          const chain = chains[`${chainType}`];
           await window.ethereum.request({
             method: "wallet_addEthereumChain",
-            params: [chains[`${chainId}`]],
+            params: [{ ...chain, chainId: chainIdToHex(chainId) }],
           });
         } catch (addError) {
           // handle "add" error
+          // console.log("wallet_addEthereumChain error:", addError);
         }
       }
       // handle other "switch" errors
     }
-    // window.ethereum.request({
-    //   method: "wallet_switchEthereumChain", // Metamask的api名称
-    //   params: [
-    //     {
-    //       chainId: Web3.utils.numberToHex(5), // 网络id，16进制的字符串
-    //     },
-    //   ],
-    // });
   };
 
   return {
@@ -214,5 +212,6 @@ export const ETHWallet = (): ChainResponse => {
     getBalance,
     getEnsName,
     changeToTestNetwork,
+    chainIdToTypes,
   };
 };
