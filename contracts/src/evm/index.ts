@@ -154,12 +154,12 @@ export class Evm implements ContractProxy {
   }
 
   // NFT Lottery
-  isApprovedForAll(contract: string, operator: string, signer?: Signer): Promise<boolean> {
-    return this.nftLottery.isApprovedForAll(contract, operator, signer);
+  isApprovedForAll(contract: string, signer?: Signer): Promise<boolean> {
+    return this.nftLottery.isApprovedForAll(contract, signer);
   }
   
-  setApprovalForAll(_nftContractAddress: string, _operator: string, _approved: boolean, signer?: Signer): Promise<Tx> {
-    return this.nftLottery.setApprovalForAll(_nftContractAddress, _operator, _approved, signer);
+  setApprovalForAll(_nftContractAddress: string, _approved: boolean, signer?: Signer): Promise<Tx> {
+    return this.nftLottery.setApprovalForAll(_nftContractAddress, _approved, signer);
   }
   
   createActivity(_nftContractAddress: string, _endBlockNumber: number, _activityId: number, _tokenIds: number[], signer?: Signer): Promise<Tx> {

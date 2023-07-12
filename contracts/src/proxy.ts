@@ -91,7 +91,6 @@ export interface NftLotteryInterface {
   config: Config;
   setApprovalForAll(
     _nftContractAddress: string,
-    _operator: string,
     _approved: boolean,
     signer?: any
   ): Promise<Tx>;
@@ -120,7 +119,6 @@ export interface NftLotteryInterface {
   withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx>;
   isApprovedForAll(
     _nftContractAddress: string,
-    _operator: string,
     signer?: any
   ): Promise<boolean>;
 }
@@ -198,13 +196,11 @@ export abstract class ContractProxy
 
   abstract setApprovalForAll(
     _nftContractAddress: string,
-    _operator: string,
     _approved: boolean,
     signer?: any
   ): Promise<Tx>;
   abstract isApprovedForAll(
     _nftContractAddress: string,
-    _operator: string,
     signer?: any
   ): Promise<boolean>;
   abstract createActivity(

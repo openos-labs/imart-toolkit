@@ -19,6 +19,7 @@ export class NftLottery implements NftLotteryInterface {
     ) {
       this.provider = config.provider as ethers.providers.JsonRpcProvider;
       this.signer = this.provider.getSigner();
+      this.config = config;
     }
     this.nftLotteryAddress = config.addresses["nftlottery"];
   }
@@ -33,24 +34,22 @@ export class NftLottery implements NftLotteryInterface {
 
   async setApprovalForAll(
     _nftContractAddress: string,
-    _operator: string,
     _approved: boolean,
     signer?: any
   ): Promise<Tx> {
     return this.erc721(_nftContractAddress)
       .connect(signer ?? this.signer)
-      .setApprovalForAll(_operator, _approved);
+      .setApprovalForAll(this.nftLotteryAddress, _approved);
   }
 
   async isApprovedForAll(
     _nftContractAddress: string,
-    _operator: string,
     signer?: any
   ): Promise<boolean> {
     const owner = (await signer) ?? this.signer.getAddress();
     return this.erc721(_nftContractAddress)
       .connect(signer ?? this.signer)
-      .isApprovedForAll(owner, _operator);
+      .isApprovedForAll(owner, this.nftLotteryAddress);
   }
 
   async createActivity(
