@@ -1,6 +1,6 @@
 {
   "name": "@mix-labs/wallet",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "main": "index.ts",
   "repository": "https://github.com/mix-labs/imart-toolkit.git",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "@dfinity/principal": "^0.10.2",
     "@ensdomains/ensjs": "^3.0.0-alpha.54",
     "@manahippo/aptos-wallet-adapter": "1.0.10",
-    "@mix-labs/contracts": "0.5.2",
+    "@mix-labs/contracts": "0.5.3",
     "@mix-labs/network": "0.3.0",
     "@opensea/seaport-js": "^1.0.8",
     "@types/react": "^17.0.8",
