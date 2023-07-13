@@ -7,6 +7,8 @@ import {
   CancelOfferObject,
   FillOrderObject,
   AcceptOfferObject,
+  listTokenDutchAuctionArgs,
+  listTokenAscendAuctionArgs,
 } from "./types/market";
 import {
   Config,
@@ -50,6 +52,8 @@ export interface MarketInterface {
   acceptOffer(args: AcceptOfferObject, signer?: Signer): Promise<Tx>;
   batchBuyTokens(args: FillOrderObject[], signer?: Signer): Promise<Tx>;
   batchListTokens(args: ListTokenArgs[], signer?: Signer): Promise<Tx>;
+  listTokenDutchAuction(args: listTokenDutchAuctionArgs,signer?:Signer): Promise<Tx>;
+  listTokenAscendAuction(args: listTokenAscendAuctionArgs,signer?:Signer): Promise<Tx>;
 }
 
 export interface CurationInterface {
@@ -159,7 +163,8 @@ export abstract class ContractProxy
   abstract createOffer(args: CreateOfferArgs, signer?: Signer): Promise<Tx>;
   abstract acceptOffer(args: AcceptOfferObject, signer?: Signer): Promise<Tx>;
   abstract cancelOffer(args: CancelOfferObject, signer?: Signer): Promise<Tx>;
-
+  abstract listTokenDutchAuction(args: listTokenDutchAuctionArgs,signer?:Signer): Promise<Tx>;
+  abstract listTokenAscendAuction(args: listTokenAscendAuctionArgs,signer?:Signer): Promise<Tx>;
   // curation
   abstract createGallery(args: CreateGalleryArgs, signer?: Signer): Promise<Tx>;
   abstract createCurationOffer(
