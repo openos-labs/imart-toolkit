@@ -41,7 +41,9 @@ export class Aptos implements ContractProxy {
     this.market = new Market(config);
     this.creation = new Creation(config);
     this.curation = new Curation(config);
-    this.client = new AptosClient(`https://fullnode.${config.network}.aptoslabs.com`);
+    this.client = new AptosClient(
+      `https://fullnode.${config.network}.aptoslabs.com`
+    );
   }
 
   wait(tx: Tx): Promise<TxReceipt> {
@@ -146,5 +148,53 @@ export class Aptos implements ContractProxy {
 
   freezeExhibit(args: FreezeExhibitArgs): Promise<Tx> {
     return this.curation.freezeExhibit(args);
+  }
+  setApprovalForAll(
+    _nftContractAddress: string,
+    _approved: boolean,
+    signer?: any
+  ): Promise<Tx> {
+    throw new Error("Not implemented yet");
+  }
+  isApprovedForAll(
+    _nftContractAddress: string,
+    signer?: any
+  ): Promise<boolean> {
+    throw new Error("Not implemented yet");
+  }
+  createActivity(
+    _nftContractAddress: string,
+    _endBlockNumber: number,
+    _activityId: number,
+    _tokenIds: number[],
+    signer?: Signer
+  ): Promise<Tx> {
+    throw new Error("Not implemented yet");
+  }
+  setMerkleRoot(
+    _activityId: number,
+    _merkleRoot: string,
+    signer?: Signer
+  ): Promise<Tx> {
+    throw new Error("Not implemented yet");
+  }
+  claim(
+    _organizer: string,
+    _activityId: number,
+    _nftContract: string,
+    _tokenId: number,
+    merkleProof: string[],
+    signer?: Signer
+  ): Promise<Tx> {
+    throw new Error("Not implemented yet");
+  }
+  getActivityInfo(_organizer: string, _activityId: number): Promise<any> {
+    throw new Error("Not implemented yet");
+  }
+  getRemainingTokenIds(_organizer: string, _activityId: number): Promise<any> {
+    throw new Error("Not implemented yet");
+  }
+  withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx> {
+    throw new Error("Not implemented yet");
   }
 }
