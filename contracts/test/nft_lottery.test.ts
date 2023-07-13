@@ -66,7 +66,7 @@ describe("Test NftLottery",  () => {
 
     // set approve all
     it("Set approve all", async () => {
-        const tx  = await(client.setApprovalForAll(nftTokenAddr, nftLottery.address,true, signer)) as ContractTransaction;
+        const tx  = await(client.setApprovalForAll(nftTokenAddr,true, signer)) as ContractTransaction;
         await tx.wait();
         expect(tx).to.exist;
     });
