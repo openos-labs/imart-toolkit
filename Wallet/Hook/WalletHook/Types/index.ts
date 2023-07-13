@@ -42,6 +42,7 @@ export interface SignMessageResponse {
 }
 
 export type EthereumWalletType = "ethereum:metamask";
+export type OPBNBWalletType = "opbnb:metamask";
 export type PolygonWalletType = "polygon:metamask";
 export type BscWalletType = "bsc:metamask";
 export type DfinityWalletType = "dfinity:II" | "dfinity:plug";
@@ -51,8 +52,9 @@ export type WalletType =
   | DfinityWalletType
   | EthereumWalletType
   | PolygonWalletType
+  | OPBNBWalletType
   | "";
 export type VariantType = "default" | "error" | "success" | "warning" | "info";
-export type ChainType = "IC" | "APTOS" | "ETH" | "POLYGON" | "BSC" | "";
+export type ChainType = "IC" | "APTOS" | "ETH" | "POLYGON" | "BSC" | "OPBNB" |"";
 
 export type ActorType = "noIdentity" | "identity" | undefined;

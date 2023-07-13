@@ -136,7 +136,7 @@ export const ETHWallet = (): ChainResponse => {
     return await ENSInstance.getName(address);
   };
 
-  type EvmChainType = "ETH" | "POLYGON" | "BSC";
+  type EvmChainType = "ETH" | "POLYGON" | "BSC" | "OPBNB";
   /*
     ETH:
     chainId=5, chainName=ETH goerli testnet, rpcUrls=["https://rpc-mumbai.maticvigil.com"]
@@ -166,6 +166,11 @@ export const ETHWallet = (): ChainResponse => {
       chainName: "BSC testnet",
       rpcUrls: ["https://endpoints.omniatech.io/v1/bsc/testnet/public"],
     },
+    OPBNB: {
+      chainId: 5611,
+      chainName: "opBNB testnet",
+      rpcUrls: ["https://opbnb-testnet-rpc.bnbchain.org"],
+    }
   };
   const chainIdToTypes = Object.entries(chains).reduce((p, [k, v]) => {
     p[v.chainId] = k;
