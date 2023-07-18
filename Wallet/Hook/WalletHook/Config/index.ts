@@ -10,6 +10,7 @@ import {
   PolygonWalletType,
   BscWalletType,
   OPBNBWalletType,
+  ZkSyncWalletType,
 } from "../Types";
 import { AptosSpec } from "./APTOS";
 import { EthereumSpec } from "./ETH";
@@ -17,10 +18,11 @@ import { PolygonSpec } from "./POLYGON";
 import { BscSpec } from "./BSC";
 import { Config } from "@mix-labs/contracts";
 import { OPBNBSpec } from "./OPBNB";
+import { ZkSyncSpec } from "./ZKSYNC";
 
-export const ChainTabs = ["ETH", "BSC", "OPBNB", "POLYGON", "APTOS"];
+export const ChainTabs = ["ETH", "BSC", "OPBNB", "ZKSYNC", "POLYGON", "APTOS"];
 
-export const Chains: Array<ChainType> = ["ETH", "BSC", "OPBNB", "POLYGON", "APTOS"];
+export const Chains: Array<ChainType> = ["ETH", "BSC", "OPBNB", "ZKSYNC", "POLYGON", "APTOS"];
 
 export type Spec = { configs: { testnet: Config } };
 
@@ -30,6 +32,7 @@ export const Specs: Partial<Record<ChainType, Spec>> = {
   APTOS: AptosSpec,
   POLYGON: PolygonSpec,
   OPBNB: OPBNBSpec,
+  ZKSYNC: ZkSyncSpec,
 };
 
 interface WalletCategoryProps {
@@ -38,12 +41,14 @@ interface WalletCategoryProps {
   POLYGON: Array<PolygonWalletType>;
   APTOS: Array<AptosWalletType>;
   IC: Array<DfinityWalletType>;
-  OPBNB: Array<OPBNBWalletType>
+  OPBNB: Array<OPBNBWalletType>;
+  ZKSYNC: Array<ZkSyncWalletType>;
 }
 
 export const WalletCategory: WalletCategoryProps = {
   BSC: ["bsc:metamask"],
   OPBNB: ["opbnb:metamask"],
+  ZKSYNC: ["zksync:metamask"],
   ETH: ["ethereum:metamask"],
   POLYGON: ["polygon:metamask"],
   APTOS: ["aptos:petra", "aptos:martian"],

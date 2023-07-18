@@ -1,12 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useWallet } from "@manahippo/aptos-wallet-adapter";
 import { AptosWallet } from "./Chains/Aptos";
 import { ETHWallet } from "./Chains/ETH";
-import { ICWallet } from "./Chains/IC";
 import { getNonce, auth, isAuth } from "./Api";
 import axios from "axios";
 import Storage from "../../utils/storage";
-import { Specs, AptosSpec, defaultValue } from "./Config";
+import { Specs, defaultValue } from "./Config";
 import { ChainType, SignMessageResponse, WalletType } from "./Types";
 import { Contractor, Aptos, Evm, Contract, Config } from "../../../contracts";
 
@@ -34,15 +33,15 @@ export const WalletHook = (): HookResponse => {
   const POLYGON = ETHWallet();
   const BSC = ETHWallet();
   const OPBNB = ETHWallet();
-  const IC = ICWallet();
+  const ZKSYNC = ETHWallet();
   const { signAndSubmitTransaction } = useWallet();
   const [_chainType, setChainType] = useState<ChainType>("");
   const [_walletType, setWalletType] = useState<WalletType>("");
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
   // wallet  gather
   const walletGather = useMemo(() => {
-    return { APTOS, POLYGON, ETH, BSC, OPBNB };
-  }, [APTOS, POLYGON, ETH, BSC, OPBNB]);
+    return { APTOS, POLYGON, ETH, ZKSYNC,BSC, OPBNB };
+  }, [APTOS, POLYGON, ETH, ZKSYNC, BSC, OPBNB]);
 
   // login
   const walletLogin = async (chainType: ChainType, walletType: WalletType) => {
@@ -133,14 +132,9 @@ export const WalletHook = (): HookResponse => {
       case "APTOS":
         _singMessage = APTOS.walletSignMessage;
         break;
-      case "ETH":
-      case "BSC":
-      case "OPBNB":
-      case "POLYGON":
+      default:
         _singMessage = ETH.siwe;
         break;
-      default:
-        throw new Error("no this wallet");
     }
     const signed = (await _singMessage(
       data.message,
@@ -191,10 +185,13 @@ export const WalletHook = (): HookResponse => {
       network,
     };
     switch (_chainType) {
-      case "ETH":
-      case "BSC":
-      case "OPBNB":
-      case "POLYGON": {
+      case "APTOS":
+        const aptconf: Config = {
+          ...config,
+          submitTx: signAndSubmitTransaction,
+        };
+        return Contractor(Aptos, aptconf);
+      default: {
         const evmconf: Config = {
           ...config,
           provider: ETH.getProvider(),
@@ -203,14 +200,6 @@ export const WalletHook = (): HookResponse => {
           return;
         }
         return Contractor(Evm, evmconf);
-      }
-      case "APTOS":
-        const aptconf: Config = {
-          ...config,
-          submitTx: signAndSubmitTransaction,
-        };
-        return Contractor(Aptos, aptconf);
-      default: {
       }
     }
   }, [_chainType, ETH, connected]);
@@ -221,21 +210,16 @@ export const WalletHook = (): HookResponse => {
     }
   }, [connected]);
 
+  const CURRENCIES = {
+    "APTOS":    "APT",
+    "ETH":      "ETH",
+    "ZKSYNC":   "ETH",
+    "BSC":      "BNB",
+    "POLYGON":  "MATIC",
+    "OPBNB":    "tBNB"
+  }
   const currencyUnit = useMemo(() => {
-    switch (_chainType) {
-      case "APTOS":
-        return "APT";
-      case "ETH":
-        return "ETH";
-      case "BSC":
-        return "BNB";
-      case "POLYGON":
-        return "MATIC";
-      case "OPBNB":
-        return "tBNB";
-      default:
-        return "";
-    }
+    return CURRENCIES[_chainType];
   }, [_chainType]);
 
   useEffect(() => {

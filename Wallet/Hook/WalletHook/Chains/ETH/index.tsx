@@ -136,7 +136,7 @@ export const ETHWallet = (): ChainResponse => {
     return await ENSInstance.getName(address);
   };
 
-  type EvmChainType = "ETH" | "POLYGON" | "BSC" | "OPBNB";
+  type EvmChainType = "ETH" | "POLYGON" | "BSC" | "OPBNB" | "ZKSYNC";
   /*
     ETH:
     chainId=5, chainName=ETH goerli testnet, rpcUrls=["https://rpc-mumbai.maticvigil.com"]
@@ -170,6 +170,11 @@ export const ETHWallet = (): ChainResponse => {
       chainId: 5611,
       chainName: "opBNB testnet",
       rpcUrls: ["https://opbnb-testnet-rpc.bnbchain.org"],
+    },
+    ZKSYNC: {
+      chainId: 280,
+      chainName: "zkSync Era Testnet",
+      rpcUrls: ["https://testnet.era.zksync.dev"]
     }
   };
   const chainIdToTypes = Object.entries(chains).reduce((p, [k, v]) => {
