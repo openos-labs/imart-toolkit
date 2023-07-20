@@ -8,7 +8,7 @@ import {
   CancelOfferObject,
   AcceptOfferObject,
   listTokenDutchAuctionArgs,
-  listTokenAscendAuctionArgs
+  listTokenAscendAuctionArgs,
 } from "../types/market";
 import { Config, Signer, Tx, SUPPORTED_CHAINS } from "../types";
 import { Seaport } from "@opensea/seaport-js";
@@ -94,8 +94,11 @@ export class Market implements MarketInterface {
     consideration.unshift(offererItem);
     const itemType =
       args.standard === "ERC1155" ? ItemType.ERC1155 : ItemType.ERC721;
-    return {
-      endTime: this.endTime(MAX_DURATION).toString(),
+    const endTime = args.endTime
+      ? args.endTime.toString()
+      : this.endTime(MAX_DURATION).toString();
+    const input: CreateOrderInput = {
+      endTime,
       offer: [
         {
           itemType,
@@ -108,6 +111,10 @@ export class Market implements MarketInterface {
       consideration,
       allowPartialFills: ItemType.ERC1155 === itemType,
     };
+    if (args.startTime) {
+      input.startTime = args.startTime.toString();
+    }
+    return input;
   }
 
   async listToken(args: ListTokenArgs, _?: Signer): Promise<Tx> {
@@ -119,15 +126,24 @@ export class Market implements MarketInterface {
       false
     );
     const order = await executeAllActions();
+    const parameters = { ...order.parameters, nonce: 0 };
+    if (args.orderType === "EnglishAuction") {
+      parameters.orderType = OrderType.FULL_RESTRICTED;
+    }
     return await axios.post(`${this.endpoint}/listings`, {
-      parameters: { ...order.parameters, nonce: 0 },
+      parameters,
       signature: order.signature,
     });
   }
   // ascend auction / english auction
-  async listTokenAscendAuction(args: listTokenAscendAuctionArgs, signer?: Signer): Promise<Tx> {
-    const offerer = signer || await this.provider.getSigner()
-    const ascendAuctionOrderInputOf = (args: listTokenAscendAuctionArgs): CreateOrderInput => {
+  async listTokenAscendAuction(
+    args: listTokenAscendAuctionArgs,
+    signer?: Signer
+  ): Promise<Tx> {
+    const offerer = signer || (await this.provider.getSigner());
+    const ascendAuctionOrderInputOf = (
+      args: listTokenAscendAuctionArgs
+    ): CreateOrderInput => {
       const startTime = args.startTime;
       const endTime = args.endTime;
       const offer = args.offer;
@@ -138,11 +154,11 @@ export class Market implements MarketInterface {
         endTime,
         offer,
         consideration,
-        fees
-      }
-    }
+        fees,
+      };
+    };
     const orderInput = ascendAuctionOrderInputOf(args);
-    if(signer || typeof signer !== 'undefined') {
+    if (signer || typeof signer !== "undefined") {
       this.seaport = new Seaport(signer);
     }
     const { executeAllActions } = await this.seaport.createOrder(
@@ -152,15 +168,24 @@ export class Market implements MarketInterface {
     );
     const order = await executeAllActions();
     return await axios.post(`${this.endpoint}/listings`, {
-      parameters: { ...order.parameters,nonce: 0,orderType:OrderType.FULL_RESTRICTED },
+      parameters: {
+        ...order.parameters,
+        nonce: 0,
+        orderType: OrderType.FULL_RESTRICTED,
+      },
       signature: order.signature,
     });
   }
 
   // dutch auction
-  async listTokenDutchAuction(args: listTokenDutchAuctionArgs, signer?: Signer): Promise<Tx> {
-    const offerer = signer || await this.provider.getSigner()
-    const duchAuctionOrderInputOf = (args: listTokenDutchAuctionArgs): CreateOrderInput => {
+  async listTokenDutchAuction(
+    args: listTokenDutchAuctionArgs,
+    signer?: Signer
+  ): Promise<Tx> {
+    const offerer = signer || (await this.provider.getSigner());
+    const duchAuctionOrderInputOf = (
+      args: listTokenDutchAuctionArgs
+    ): CreateOrderInput => {
       const startTime = args.startTime;
       const endTime = args.endTime;
       const offer = args.offer;
@@ -171,11 +196,11 @@ export class Market implements MarketInterface {
         endTime,
         offer,
         consideration,
-        fees
-      }
-    }
+        fees,
+      };
+    };
     const orderInput = duchAuctionOrderInputOf(args);
-    if(signer || typeof signer !== 'undefined') {
+    if (signer || typeof signer !== "undefined") {
       this.seaport = new Seaport(signer);
     }
     const { executeAllActions } = await this.seaport.createOrder(
@@ -189,7 +214,6 @@ export class Market implements MarketInterface {
       signature: order.signature,
     });
   }
-
 
   async batchListTokens(args: ListTokenArgs[], _?: any): Promise<any> {
     const offerer = await this.provider.getSigner().getAddress();

@@ -10,6 +10,7 @@ export type CancelOrderObject = DelistTokenArgs & ProtocolOrder;
 export type CancelOfferObject = CancelOfferArgs & ProtocolOrder;
 export type FillOrderObject = BuyTokenArgs & ProtocolOrder;
 export type AcceptOfferObject = AcceptOfferArgs & ProtocolOrder;
+export type OrderType = "FixedPrice" | "EnglishAuction" | "DutchAuction";
 
 export interface BuyTokenArgs extends Base, WithCoinType {
   collectionId: string;
@@ -33,9 +34,11 @@ export interface ListTokenArgs extends Base, WithCoinType {
   tokenAmount: BigNumberish;
   coinAmount: BigNumberish;
   lockedUntilSecs: number;
+  startTime?: number;
+  endTime?: number;
+  orderType?: OrderType;
   royalties?: Record<string, BigNumberish>;
 }
-
 
 export interface listTokenAscendAuctionArgs extends Base, WithCoinType {
   startTime: string;
@@ -45,7 +48,7 @@ export interface listTokenAscendAuctionArgs extends Base, WithCoinType {
     token: string;
     amount: string;
     endAmount: string;
-    identifier:any;
+    identifier: any;
   }[];
   consideration: {
     token: string;
@@ -57,7 +60,7 @@ export interface listTokenAscendAuctionArgs extends Base, WithCoinType {
     recipient: string;
     basisPoints: number;
   }[];
-};
+}
 
 export interface listTokenDutchAuctionArgs extends Base, WithCoinType {
   startTime: string;
@@ -67,7 +70,7 @@ export interface listTokenDutchAuctionArgs extends Base, WithCoinType {
     token: string;
     amount: string;
     endAmount: string;
-    identifier:any;
+    identifier: any;
   }[];
   consideration: {
     amount: string;
@@ -79,7 +82,7 @@ export interface listTokenDutchAuctionArgs extends Base, WithCoinType {
     recipient: string;
     basisPoints: number;
   }[];
-};
+}
 
 export interface DelistTokenArgs extends Base, WithCoinType {
   collectionId: string;
