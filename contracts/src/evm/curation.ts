@@ -135,7 +135,10 @@ export class Curation implements CurationInterface {
   }
 
   // curator.batch_list_owned_exhibit
-  batchListOwnedExhibits(args: ListOwnedExhibitArgs[], _?: Signer): Promise<Tx> {
+  batchListOwnedExhibits(
+    args: ListOwnedExhibitArgs[],
+    _?: Signer
+  ): Promise<Tx> {
     return this.curation(args.contract)
       .connect(this.signer)
       .batchListOwned(
@@ -166,5 +169,51 @@ export class Curation implements CurationInterface {
     return this.curation(args.contract)
       .connect(this.signer)
       .freeze(BigNumber.from(args.galleryId), BigNumber.from(args.exhibitId));
+  }
+
+  async isApproved(args: ApproveArgs, signer?: any): Promise<boolean> {
+    const address = await this.signer.getAddress();
+    const curationContract = this.config.addresses["curation"];
+    switch (args.type) {
+      case "single":
+        const erc721 = ERC721__factory.connect(
+          args.collectionIdentifier,
+          this.provider
+        );
+        const approved = await erc721
+          .connect(signer ?? this.signer)
+          .getApproved(args.tokenIdentifier);
+        return approved === curationContract;
+      case "multiple":
+        const erc1155 = ERC1155__factory.connect(
+          args.collectionIdentifier,
+          this.provider
+        );
+        return await erc1155
+          .connect(signer ?? this.signer)
+          .isApprovedForAll(address, curationContract);
+    }
+  }
+
+  approve(args: ApproveArgs, signer?: Signer): Promise<Tx> {
+    const curationContract = this.config.addresses["curation"];
+    switch (args.type) {
+      case "single":
+        const erc721 = ERC721__factory.connect(
+          args.collectionIdentifier,
+          this.provider
+        );
+        return erc721
+          .connect(signer ?? this.signer)
+          .approve(curationContract, args.tokenIdentifier);
+      case "multiple":
+        const erc1155 = ERC1155__factory.connect(
+          args.collectionIdentifier,
+          this.provider
+        );
+        return erc1155
+          .connect(signer ?? this.signer)
+          .setApprovalForAll(curationContract, true);
+    }
   }
 }

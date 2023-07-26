@@ -65,12 +65,6 @@ export class Evm implements ContractProxy {
   create(args: CreationArgs, signer?: Signer): Promise<Tx> {
     return this.creation.create(args, signer);
   }
-  isApproved(args: ApproveArgs, signer?: Signer): Promise<Tx> {
-    return this.creation.isApproved(args, signer);
-  }
-  approve(args: ApproveArgs, signer?: Signer): Promise<Tx> {
-    return this.creation.approve(args, signer);
-  }
   mintToken(args: MintTokenArgs, signer?: Signer): Promise<Tx> {
     return this.creation.mintToken(args, signer);
   }
@@ -106,6 +100,12 @@ export class Evm implements ContractProxy {
   }
   acceptOffer(args: AcceptOfferObject): Promise<Tx> {
     return this.market.acceptOffer(args);
+  }
+  isApproved(args: ApproveArgs, signer?: Signer): Promise<boolean> {
+    return this.curation.isApproved(args, signer);
+  }
+  approve(args: ApproveArgs, signer?: Signer): Promise<Tx> {
+    return this.curation.approve(args, signer);
   }
   createGallery(args: CreateGalleryArgs, signer?: Signer): Promise<any> {
     return this.curation.createGallery(args, signer);

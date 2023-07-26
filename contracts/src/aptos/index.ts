@@ -197,4 +197,10 @@ export class Aptos implements ContractProxy {
   withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx> {
     throw new Error("Not implemented yet");
   }
+  listTokenDutchAuction(args: listTokenDutchAuctionArgs,signer?:Signer): Promise<Tx>{
+    throw new Error("Not implemented yet");
+  }
+  listTokenAscendAuction(args: listTokenAscendAuctionArgs,signer?:Signer): Promise<Tx>{
+    throw new Error("Not implemented yet");
+  }
 }

@@ -1,6 +1,6 @@
 // @ts-check
 import { CurationInterface } from "../proxy";
-import { Config, Tx } from "../types";
+import { ApproveArgs, Config, Tx } from "../types";
 import {
   CreateGalleryArgs,
   CreateCurationOfferArgs,
@@ -22,7 +22,12 @@ export class Curation implements CurationInterface {
     this.config = config;
     this.contract = `${this.config.addresses["curation"]}`;
   }
-
+  approve(args: ApproveArgs, signer?: any): Promise<any> {
+    throw new Error("Method not implemented.");
+  }
+  isApproved(args: ApproveArgs, signer?: any): Promise<boolean> {
+    throw new Error("Method not implemented.");
+  }
   //curator.create_gallery
   createGallery(args: CreateGalleryArgs): Promise<Tx> {
     const contract = args.contract || this.contract;
@@ -36,7 +41,7 @@ export class Curation implements CurationInterface {
         args.metadataUri,
         args.payees || [],
         args.commissionRates || [],
-        args.addmissions || []
+        args.addmissions || [],
       ],
     };
     return this.config?.submitTx!(payload);
@@ -120,14 +125,10 @@ export class Curation implements CurationInterface {
       type: "entry_function_payload",
       function: `${this.contract}::curation::batch_list`,
       type_arguments: ["0x1::aptos_coin::AptosCoin"],
-      arguments: [
-        args.map((i) => i.galleryId), 
-        args.map((i) => i.exhibitId)
-      ],
+      arguments: [args.map((i) => i.galleryId), args.map((i) => i.exhibitId)],
     };
     return this.config?.submitTx!(payload);
   }
-
 
   // curator.list_owned_exhibit
   listOwnedExhibit(args: ListOwnedExhibitArgs): Promise<Tx> {
@@ -161,7 +162,7 @@ export class Curation implements CurationInterface {
         args.map((i) => i.collectionName),
         args.map((i) => i.tokenName),
         args.map((i) => i.propertyVersion),
-        args.map((i) => i.price)
+        args.map((i) => i.price),
       ],
     };
     return this.config?.submitTx!(payload);
