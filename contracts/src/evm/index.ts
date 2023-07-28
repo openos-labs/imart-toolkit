@@ -80,11 +80,17 @@ export class Evm implements ContractProxy {
   listToken(args: ListTokenArgs): Promise<Tx> {
     return this.market.listToken(args);
   }
-  listTokenDutchAuction(args: listTokenDutchAuctionArgs,signer?:Signer): Promise<Tx> {
-    return this.market.listTokenDutchAuction(args,signer);
+  listTokenDutchAuction(
+    args: listTokenDutchAuctionArgs,
+    signer?: Signer
+  ): Promise<Tx> {
+    return this.market.listTokenDutchAuction(args, signer);
   }
-  listTokenAscendAuction(args: listTokenAscendAuctionArgs,signer?:Signer): Promise<Tx> {
-    return this.market.listTokenAscendAuction(args,signer);
+  listTokenAscendAuction(
+    args: listTokenAscendAuctionArgs,
+    signer?: Signer
+  ): Promise<Tx> {
+    return this.market.listTokenAscendAuction(args, signer);
   }
   batchListTokens(args: ListTokenArgs[]): Promise<any> {
     return this.market.batchListTokens(args);
@@ -140,7 +146,10 @@ export class Evm implements ContractProxy {
   batchListExhibits(args: ListExhibitArgs[], signer?: Signer): Promise<Tx> {
     return this.curation.batchListExhibits(args, signer);
   }
-  batchListOwnedExhibits(args: ListOwnedExhibitArgs[], signer?: Signer): Promise<Tx> {
+  batchListOwnedExhibits(
+    args: ListOwnedExhibitArgs[],
+    signer?: Signer
+  ): Promise<Tx> {
     return this.curation.batchListOwnedExhibits(args, signer);
   }
   cancelExhibit(args: CancelExhibitArgs, signer?: Signer): Promise<Tx> {
@@ -157,21 +166,59 @@ export class Evm implements ContractProxy {
   isApprovedForAll(contract: string, signer?: Signer): Promise<boolean> {
     return this.nftLottery.isApprovedForAll(contract, signer);
   }
-  
-  setApprovalForAll(_nftContractAddress: string, _approved: boolean, signer?: Signer): Promise<Tx> {
-    return this.nftLottery.setApprovalForAll(_nftContractAddress, _approved, signer);
-  }
-  
-  createActivity(_nftContractAddress: string, _endBlockNumber: number, _activityId: number, _tokenIds: number[], signer?: Signer): Promise<Tx> {
-    return this.nftLottery.createActivity(_nftContractAddress, _endBlockNumber, _activityId, _tokenIds, signer);
+
+  setApprovalForAll(
+    _nftContractAddress: string,
+    _approved: boolean,
+    signer?: Signer
+  ): Promise<Tx> {
+    return this.nftLottery.setApprovalForAll(
+      _nftContractAddress,
+      _approved,
+      signer
+    );
   }
 
-  setMerkleRoot(_activityId: number, _merkleRoot: string, signer?: Signer): Promise<Tx> {
+  createActivity(
+    _nftContractAddress: string,
+    _endBlockNumber: number,
+    _activityId: number,
+    _tokenIds: number[],
+    signer?: Signer
+  ): Promise<Tx> {
+    return this.nftLottery.createActivity(
+      _nftContractAddress,
+      _endBlockNumber,
+      _activityId,
+      _tokenIds,
+      signer
+    );
+  }
+
+  setMerkleRoot(
+    _activityId: number,
+    _merkleRoot: string,
+    signer?: Signer
+  ): Promise<Tx> {
     return this.nftLottery.setMerkleRoot(_activityId, _merkleRoot, signer);
   }
 
-  claim(_organizer: string, _activityId: number, _nftContract: string, _tokenId: number, merkleProof: string[], signer?: Signer): Promise<Tx> {
-    return this.nftLottery.claim(_organizer, _activityId, _nftContract, _tokenId, merkleProof, signer);
+  claim(
+    _organizer: string,
+    _activityId: number,
+    _nftContract: string,
+    _tokenId: number,
+    merkleProof: string[],
+    signer?: Signer
+  ): Promise<Tx> {
+    return this.nftLottery.claim(
+      _organizer,
+      _activityId,
+      _nftContract,
+      _tokenId,
+      merkleProof,
+      signer
+    );
   }
   getActivityInfo(_organizer: string, _activityId: number): Promise<any> {
     return this.nftLottery.getActivityInfo(_organizer, _activityId);
@@ -183,5 +230,17 @@ export class Evm implements ContractProxy {
   withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx> {
     return this.nftLottery.withdrawPrize(_activityId, signer);
   }
-
+  getUserHasClaimed(
+    user: string,
+    organizer: string,
+    activityId: number,
+    signer?: any
+  ): Promise<boolean> {
+    return this.nftLottery.getUserHasClaimed(
+      user,
+      organizer,
+      activityId,
+      signer
+    );
+  }
 }
