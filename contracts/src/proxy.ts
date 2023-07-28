@@ -50,8 +50,14 @@ export interface MarketInterface {
   acceptOffer(args: AcceptOfferObject, signer?: Signer): Promise<Tx>;
   batchBuyTokens(args: FillOrderObject[], signer?: Signer): Promise<Tx>;
   batchListTokens(args: ListTokenArgs[], signer?: Signer): Promise<Tx>;
-  listTokenDutchAuction(args: listTokenDutchAuctionArgs,signer?:Signer): Promise<Tx>;
-  listTokenAscendAuction(args: listTokenAscendAuctionArgs,signer?:Signer): Promise<Tx>;
+  listTokenDutchAuction(
+    args: listTokenDutchAuctionArgs,
+    signer?: Signer
+  ): Promise<Tx>;
+  listTokenAscendAuction(
+    args: listTokenAscendAuctionArgs,
+    signer?: Signer
+  ): Promise<Tx>;
 }
 
 export interface CurationInterface {
@@ -93,6 +99,12 @@ export interface ResourceInterface {
 
 export interface NftLotteryInterface {
   config: Config;
+  getUserHasClaimed(
+    user: string,
+    organizer: string,
+    activityId: number,
+    signer?: any
+  ): Promise<boolean>;
   setApprovalForAll(
     _nftContractAddress: string,
     _approved: boolean,
@@ -121,10 +133,7 @@ export interface NftLotteryInterface {
   getActivityInfo(_organizer: string, _activityId: number): Promise<any>;
   getRemainingTokenIds(_organizer: string, _activityId: number): Promise<any>;
   withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx>;
-  isApprovedForAll(
-    _nftContractAddress: string,
-    signer?: any
-  ): Promise<boolean>;
+  isApprovedForAll(_nftContractAddress: string, signer?: any): Promise<boolean>;
 }
 
 export abstract class ContractProxy
@@ -140,6 +149,12 @@ export abstract class ContractProxy
     this.config = config;
   }
   abstract wait(tx: Tx): Promise<TxReceipt>;
+  abstract getUserHasClaimed(
+    user: string,
+    organizer: string,
+    activityId: number,
+    signer?: any
+  ): Promise<boolean>;
 
   // creation
   abstract create(args: CreationArgs, signer?: Signer): Promise<Tx>;
@@ -161,8 +176,14 @@ export abstract class ContractProxy
   abstract createOffer(args: CreateOfferArgs, signer?: Signer): Promise<Tx>;
   abstract acceptOffer(args: AcceptOfferObject, signer?: Signer): Promise<Tx>;
   abstract cancelOffer(args: CancelOfferObject, signer?: Signer): Promise<Tx>;
-  abstract listTokenDutchAuction(args: listTokenDutchAuctionArgs,signer?:Signer): Promise<Tx>;
-  abstract listTokenAscendAuction(args: listTokenAscendAuctionArgs,signer?:Signer): Promise<Tx>;
+  abstract listTokenDutchAuction(
+    args: listTokenDutchAuctionArgs,
+    signer?: Signer
+  ): Promise<Tx>;
+  abstract listTokenAscendAuction(
+    args: listTokenAscendAuctionArgs,
+    signer?: Signer
+  ): Promise<Tx>;
   // curation
   abstract isApproved(args: ApproveArgs, signer?: any): Promise<boolean>;
   abstract approve(args: ApproveArgs, signer?: any): Promise<Tx>;

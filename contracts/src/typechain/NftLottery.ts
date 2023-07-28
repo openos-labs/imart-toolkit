@@ -56,17 +56,22 @@ export declare namespace NftLottery {
 
 export interface NftLotteryInterface extends utils.Interface {
   functions: {
+    "acceptOwnership()": FunctionFragment;
     "acitivityExist(bytes32)": FunctionFragment;
     "acitivityPrizeTokenIds(bytes32,uint256)": FunctionFragment;
+    "checkWhitelist(address,uint256,bytes32[])": FunctionFragment;
     "claim(address,uint256,address,uint256,bytes32[])": FunctionFragment;
     "createActivity(address,uint256,uint256,uint256[])": FunctionFragment;
     "emergencyWithdraw(address,uint256,address)": FunctionFragment;
     "getActivityInfo(address,uint256)": FunctionFragment;
     "getRemainingTokenIds(address,uint256)": FunctionFragment;
+    "getUserHasClaimed(address,address,uint256)": FunctionFragment;
     "hasClaimed(bytes32)": FunctionFragment;
+    "initialize()": FunctionFragment;
     "onERC721Received(address,address,uint256,bytes)": FunctionFragment;
     "organizerActivityInfo(bytes32)": FunctionFragment;
     "owner()": FunctionFragment;
+    "pendingOwner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "setMerkleRoot(uint256,bytes32)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
@@ -75,17 +80,22 @@ export interface NftLotteryInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
+      | "acceptOwnership"
       | "acitivityExist"
       | "acitivityPrizeTokenIds"
+      | "checkWhitelist"
       | "claim"
       | "createActivity"
       | "emergencyWithdraw"
       | "getActivityInfo"
       | "getRemainingTokenIds"
+      | "getUserHasClaimed"
       | "hasClaimed"
+      | "initialize"
       | "onERC721Received"
       | "organizerActivityInfo"
       | "owner"
+      | "pendingOwner"
       | "renounceOwnership"
       | "setMerkleRoot"
       | "transferOwnership"
@@ -93,12 +103,24 @@ export interface NftLotteryInterface extends utils.Interface {
   ): FunctionFragment;
 
   encodeFunctionData(
+    functionFragment: "acceptOwnership",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "acitivityExist",
     values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "acitivityPrizeTokenIds",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "checkWhitelist",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>[]
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "claim",
@@ -136,8 +158,20 @@ export interface NftLotteryInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
+    functionFragment: "getUserHasClaimed",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
+  encodeFunctionData(
     functionFragment: "hasClaimed",
     values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "initialize",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "onERC721Received",
@@ -153,6 +187,10 @@ export interface NftLotteryInterface extends utils.Interface {
     values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "pendingOwner",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
@@ -171,11 +209,19 @@ export interface NftLotteryInterface extends utils.Interface {
   ): string;
 
   decodeFunctionResult(
+    functionFragment: "acceptOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "acitivityExist",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "acitivityPrizeTokenIds",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "checkWhitelist",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
@@ -195,7 +241,12 @@ export interface NftLotteryInterface extends utils.Interface {
     functionFragment: "getRemainingTokenIds",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getUserHasClaimed",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "hasClaimed", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "onERC721Received",
     data: BytesLike
@@ -205,6 +256,10 @@ export interface NftLotteryInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "pendingOwner",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
     data: BytesLike
@@ -223,27 +278,32 @@ export interface NftLotteryInterface extends utils.Interface {
   ): Result;
 
   events: {
-    "Claimed(address,uint256,uint256)": EventFragment;
+    "Claimed(address,address,uint256,uint256)": EventFragment;
     "CreateActivity(address,uint256,address,uint256[],uint256)": EventFragment;
+    "Initialized(uint8)": EventFragment;
     "MerkleRoot(uint256,bytes32)": EventFragment;
+    "OwnershipTransferStarted(address,address)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "WithdrawPrize(address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Claimed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "CreateActivity"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "MerkleRoot"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "OwnershipTransferStarted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WithdrawPrize"): EventFragment;
 }
 
 export interface ClaimedEventObject {
   claimer: string;
+  organizer: string;
   activityId: BigNumber;
   tokenId: BigNumber;
 }
 export type ClaimedEvent = TypedEvent<
-  [string, BigNumber, BigNumber],
+  [string, string, BigNumber, BigNumber],
   ClaimedEventObject
 >;
 
@@ -263,6 +323,13 @@ export type CreateActivityEvent = TypedEvent<
 
 export type CreateActivityEventFilter = TypedEventFilter<CreateActivityEvent>;
 
+export interface InitializedEventObject {
+  version: number;
+}
+export type InitializedEvent = TypedEvent<[number], InitializedEventObject>;
+
+export type InitializedEventFilter = TypedEventFilter<InitializedEvent>;
+
 export interface MerkleRootEventObject {
   activityId: BigNumber;
   merkleRoot: string;
@@ -273,6 +340,18 @@ export type MerkleRootEvent = TypedEvent<
 >;
 
 export type MerkleRootEventFilter = TypedEventFilter<MerkleRootEvent>;
+
+export interface OwnershipTransferStartedEventObject {
+  previousOwner: string;
+  newOwner: string;
+}
+export type OwnershipTransferStartedEvent = TypedEvent<
+  [string, string],
+  OwnershipTransferStartedEventObject
+>;
+
+export type OwnershipTransferStartedEventFilter =
+  TypedEventFilter<OwnershipTransferStartedEvent>;
 
 export interface OwnershipTransferredEventObject {
   previousOwner: string;
@@ -324,6 +403,10 @@ export interface NftLottery extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    acceptOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     acitivityExist(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -334,6 +417,13 @@ export interface NftLottery extends BaseContract {
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
+
+    checkWhitelist(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      merkleProof: PromiseOrValue<BytesLike>[],
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     claim(
       _organizer: PromiseOrValue<string>,
@@ -371,10 +461,21 @@ export interface NftLottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber[]]>;
 
+    getUserHasClaimed(
+      _user: PromiseOrValue<string>,
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
+
+    initialize(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     onERC721Received(
       operator: PromiseOrValue<string>,
@@ -399,6 +500,8 @@ export interface NftLottery extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
+    pendingOwner(overrides?: CallOverrides): Promise<[string]>;
+
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -420,6 +523,10 @@ export interface NftLottery extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
+  acceptOwnership(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   acitivityExist(
     arg0: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
@@ -430,6 +537,13 @@ export interface NftLottery extends BaseContract {
     arg1: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
+
+  checkWhitelist(
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+    merkleProof: PromiseOrValue<BytesLike>[],
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   claim(
     _organizer: PromiseOrValue<string>,
@@ -467,10 +581,21 @@ export interface NftLottery extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber[]>;
 
+  getUserHasClaimed(
+    _user: PromiseOrValue<string>,
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   hasClaimed(
     arg0: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<boolean>;
+
+  initialize(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   onERC721Received(
     operator: PromiseOrValue<string>,
@@ -495,6 +620,8 @@ export interface NftLottery extends BaseContract {
 
   owner(overrides?: CallOverrides): Promise<string>;
 
+  pendingOwner(overrides?: CallOverrides): Promise<string>;
+
   renounceOwnership(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -516,6 +643,8 @@ export interface NftLottery extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    acceptOwnership(overrides?: CallOverrides): Promise<void>;
+
     acitivityExist(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -526,6 +655,13 @@ export interface NftLottery extends BaseContract {
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    checkWhitelist(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      merkleProof: PromiseOrValue<BytesLike>[],
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     claim(
       _organizer: PromiseOrValue<string>,
@@ -563,10 +699,19 @@ export interface NftLottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber[]>;
 
+    getUserHasClaimed(
+      _user: PromiseOrValue<string>,
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    initialize(overrides?: CallOverrides): Promise<void>;
 
     onERC721Received(
       operator: PromiseOrValue<string>,
@@ -591,6 +736,8 @@ export interface NftLottery extends BaseContract {
 
     owner(overrides?: CallOverrides): Promise<string>;
 
+    pendingOwner(overrides?: CallOverrides): Promise<string>;
+
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     setMerkleRoot(
@@ -611,15 +758,17 @@ export interface NftLottery extends BaseContract {
   };
 
   filters: {
-    "Claimed(address,uint256,uint256)"(
+    "Claimed(address,address,uint256,uint256)"(
       claimer?: PromiseOrValue<string> | null,
+      organizer?: PromiseOrValue<string> | null,
       activityId?: PromiseOrValue<BigNumberish> | null,
-      tokenId?: PromiseOrValue<BigNumberish> | null
+      tokenId?: null
     ): ClaimedEventFilter;
     Claimed(
       claimer?: PromiseOrValue<string> | null,
+      organizer?: PromiseOrValue<string> | null,
       activityId?: PromiseOrValue<BigNumberish> | null,
-      tokenId?: PromiseOrValue<BigNumberish> | null
+      tokenId?: null
     ): ClaimedEventFilter;
 
     "CreateActivity(address,uint256,address,uint256[],uint256)"(
@@ -637,6 +786,9 @@ export interface NftLottery extends BaseContract {
       endBlockNumber?: PromiseOrValue<BigNumberish> | null
     ): CreateActivityEventFilter;
 
+    "Initialized(uint8)"(version?: null): InitializedEventFilter;
+    Initialized(version?: null): InitializedEventFilter;
+
     "MerkleRoot(uint256,bytes32)"(
       activityId?: PromiseOrValue<BigNumberish> | null,
       merkleRoot?: null
@@ -645,6 +797,15 @@ export interface NftLottery extends BaseContract {
       activityId?: PromiseOrValue<BigNumberish> | null,
       merkleRoot?: null
     ): MerkleRootEventFilter;
+
+    "OwnershipTransferStarted(address,address)"(
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
+    ): OwnershipTransferStartedEventFilter;
+    OwnershipTransferStarted(
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
+    ): OwnershipTransferStartedEventFilter;
 
     "OwnershipTransferred(address,address)"(
       previousOwner?: PromiseOrValue<string> | null,
@@ -666,6 +827,10 @@ export interface NftLottery extends BaseContract {
   };
 
   estimateGas: {
+    acceptOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     acitivityExist(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -674,6 +839,13 @@ export interface NftLottery extends BaseContract {
     acitivityPrizeTokenIds(
       arg0: PromiseOrValue<BytesLike>,
       arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    checkWhitelist(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      merkleProof: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -713,9 +885,20 @@ export interface NftLottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getUserHasClaimed(
+      _user: PromiseOrValue<string>,
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    initialize(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     onERC721Received(
@@ -732,6 +915,8 @@ export interface NftLottery extends BaseContract {
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
+
+    pendingOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
@@ -755,6 +940,10 @@ export interface NftLottery extends BaseContract {
   };
 
   populateTransaction: {
+    acceptOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     acitivityExist(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -763,6 +952,13 @@ export interface NftLottery extends BaseContract {
     acitivityPrizeTokenIds(
       arg0: PromiseOrValue<BytesLike>,
       arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    checkWhitelist(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      merkleProof: PromiseOrValue<BytesLike>[],
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -802,9 +998,20 @@ export interface NftLottery extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getUserHasClaimed(
+      _user: PromiseOrValue<string>,
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    initialize(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     onERC721Received(
@@ -821,6 +1028,8 @@ export interface NftLottery extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    pendingOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
