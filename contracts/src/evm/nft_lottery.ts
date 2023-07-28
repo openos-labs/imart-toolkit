@@ -32,6 +32,17 @@ export class NftLottery implements NftLotteryInterface {
     return NftToken__factory.connect(contract, this.provider);
   }
 
+  async getUserHasClaimed(
+    user: string,
+    organizer: string,
+    activityId: number,
+    signer?: any
+  ): Promise<boolean> {
+    return this.nftLottery()
+      .connect(signer ?? this.signer)
+      .getUserHasClaimed(user, organizer, activityId);
+  }
+
   async setApprovalForAll(
     _nftContractAddress: string,
     _approved: boolean,
