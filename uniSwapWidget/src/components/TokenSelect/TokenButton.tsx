@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import { Currency } from '@mix-labs/sdk-core'
+import { Currency } from '@openos-labs/sdk-core'
 import { Logo } from 'components/Logo'
 import { ChevronDown } from 'icons'
 import styled from 'styled-components/macro'

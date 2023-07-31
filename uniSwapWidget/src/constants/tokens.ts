@@ -1,4 +1,4 @@
-import { Currency, Ether, NativeCurrency, Token, WETH9 } from '@mix-labs/sdk-core'
+import { Currency, Ether, NativeCurrency, Token, WETH9 } from '@openos-labs/sdk-core'
 import invariant from 'tiny-invariant'
 
 import { UNI_ADDRESS } from './addresses'

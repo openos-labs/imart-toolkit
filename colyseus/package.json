@@ -1,6 +1,6 @@
 {
-  "name": "@mix-labs/colyseus",
-  "version": "0.0.3",
+  "name": "@openos-labs/colyseus",
+  "version": "1.0.0",
   "description": "Colyseus Multiplayer SDK for JavaScript/TypeScript",
   "author": "Endel Dreyer",
   "license": "MIT",

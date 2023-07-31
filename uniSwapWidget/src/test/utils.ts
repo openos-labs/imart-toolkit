@@ -1,4 +1,4 @@
-import { CurrencyAmount, Token } from '@mix-labs/sdk-core'
+import { CurrencyAmount, Token } from '@openos-labs/sdk-core'
 import { FeeAmount, Pool, Route as RouteV3 } from '@uniswap/v3-sdk'
 
 // helper function to make amounts more readable

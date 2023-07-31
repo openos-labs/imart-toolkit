@@ -16,7 +16,7 @@ import { AptosSpec } from "./APTOS";
 import { EthereumSpec } from "./ETH";
 import { PolygonSpec } from "./POLYGON";
 import { BscSpec } from "./BSC";
-import { Config } from "@mix-labs/contracts";
+import { Config } from "@openos-labs/contracts";
 import { OPBNBSpec } from "./OPBNB";
 import { ZkSyncSpec } from "./ZKSYNC";
 

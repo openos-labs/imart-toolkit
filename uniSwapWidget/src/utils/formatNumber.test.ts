@@ -1,4 +1,4 @@
-import { CurrencyAmount, Price } from '@mix-labs/sdk-core'
+import { CurrencyAmount, Price } from '@openos-labs/sdk-core'
 import { renBTC, USDC_MAINNET } from 'constants/tokens'
 
 import {

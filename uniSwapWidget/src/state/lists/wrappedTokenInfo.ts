@@ -1,4 +1,4 @@
-import { Currency, Token } from '@mix-labs/sdk-core'
+import { Currency, Token } from '@openos-labs/sdk-core'
 import { Tags, TokenInfo, TokenList } from '@uniswap/token-lists'
 import { isAddress } from 'utils'
 

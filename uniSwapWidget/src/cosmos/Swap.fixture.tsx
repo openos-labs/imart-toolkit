@@ -7,7 +7,7 @@ import {
   lightTheme,
   SupportedChainId,
   SwapWidget,
-} from '@mix-labs/uniswap'
+} from '@openos-labs/uniswap'
 import Row from 'components/Row'
 import { CHAIN_NAMES_TO_IDS } from 'constants/chains'
 import { useCallback, useEffect, useMemo, useState } from 'react'

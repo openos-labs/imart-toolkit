@@ -1,5 +1,5 @@
 import { formatPriceImpact } from '@uniswap/conedison/format'
-import { CurrencyAmount, Percent, Token } from '@mix-labs/sdk-core'
+import { CurrencyAmount, Percent, Token } from '@openos-labs/sdk-core'
 import useAutoSlippageTolerance, { DEFAULT_AUTO_SLIPPAGE } from 'hooks/useAutoSlippageTolerance'
 import { useAtomValue } from 'jotai/utils'
 import { useMemo } from 'react'

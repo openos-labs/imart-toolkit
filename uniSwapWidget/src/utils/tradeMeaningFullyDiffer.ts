@@ -1,4 +1,4 @@
-import { Percent } from '@mix-labs/sdk-core'
+import { Percent } from '@openos-labs/sdk-core'
 import { InterfaceTrade } from 'state/routing/types'
 
 /**

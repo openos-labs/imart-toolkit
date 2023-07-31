@@ -1,4 +1,4 @@
-import { Currency } from '@mix-labs/sdk-core'
+import { Currency } from '@openos-labs/sdk-core'
 import styled from 'styled-components/macro'
 import { ThemedText } from 'theme'
 

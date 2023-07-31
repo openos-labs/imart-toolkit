@@ -1,4 +1,4 @@
-import { Currency } from "@mix-labs/sdk-core"
+import { Currency } from "@openos-labs/sdk-core"
 
 import { SummaryRowProps } from "../components/Swap/Toolbar/ToolbarTradeSummary"
 import { WrappedTokenInfo } from "../state/lists/wrappedTokenInfo"

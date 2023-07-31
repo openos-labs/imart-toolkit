@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Price } from '@mix-labs/sdk-core'
+import { Currency, CurrencyAmount, Price } from '@openos-labs/sdk-core'
 
 import {
   currencyAmountToPreciseFloat,

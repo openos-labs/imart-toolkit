@@ -1,6 +1,6 @@
 {
-  "name": "@mix-labs/contracts",
-  "version": "0.5.19",
+  "name": "@openos-labs/contracts",
+  "version": "1.0.0",
   "main": "src/index.ts",
   "license": "MIT",
   "publishConfig": {

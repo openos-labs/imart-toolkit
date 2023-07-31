@@ -1,4 +1,4 @@
-import { Currency } from '@mix-labs/sdk-core'
+import { Currency } from '@openos-labs/sdk-core'
 import { useAtom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { useCallback, useEffect, useMemo } from "react"

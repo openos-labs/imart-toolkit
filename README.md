@@ -18,13 +18,13 @@ Authentication via npm login, using your Github email for the username and the p
 ## Installation
 
 ```
-npm install @mix-labs/imart-toolkit
+npm install @openos-labs/imart-toolkit
 ```
 
 ## Usage
 
 ```
-import { Contractor } from "@mix-labs/imart-toolkit/contracts";
+import { Contractor } from "@openos-labs/imart-toolkit/contracts";
 const configuration = {
     addresses: {
       creation: imartToken.address,

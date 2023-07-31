@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import { formatCurrencyAmount, formatPrice, NumberType } from '@uniswap/conedison/format'
-import { Currency, CurrencyAmount } from '@mix-labs/sdk-core'
+import { Currency, CurrencyAmount } from '@openos-labs/sdk-core'
 import Row from 'components/Row'
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { InterfaceTrade } from 'state/routing/types'

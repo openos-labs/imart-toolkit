@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber'
 import { splitSignature } from '@ethersproject/bytes'
-import { Currency, CurrencyAmount } from '@mix-labs/sdk-core'
+import { Currency, CurrencyAmount } from '@openos-labs/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { SupportedChainId } from 'constants/chains'
 import { DAI, UNI, USDC_MAINNET } from 'constants/tokens'

@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount } from '@mix-labs/sdk-core'
+import { Currency, CurrencyAmount } from '@openos-labs/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { SWAP_ROUTER_ADDRESSES } from 'constants/addresses'
 import { ErrorCode } from 'constants/eip1193'

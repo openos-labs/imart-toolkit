@@ -2149,18 +2149,6 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@mix-labs/sdk-core@^0.0.4":
-  version "0.0.4"
-  resolved "https://npm.pkg.github.com/download/@mix-labs/sdk-core/0.0.4/c9084e452bff934bb65aeceeb6f1093b8b2f4c94#c9084e452bff934bb65aeceeb6f1093b8b2f4c94"
-  integrity sha512-8LEC3pRsnzMk33GxfY36/DLe0p3qOmNlXWLNo2pa6q83MgJSnbqtw+yVYaAV7OfaQjW1+6WwMTfGoSrJw8/LaA==
-  dependencies:
-    "@ethersproject/address" "^5.0.2"
-    big.js "^5.2.2"
-    decimal.js-light "^2.5.0"
-    jsbi "^3.1.4"
-    tiny-invariant "^1.1.0"
-    toformat "^2.0.0"
-
 "@multiformats/base-x@^4.0.1":
   version "4.0.1"
   resolved "https://registry.npmjs.org/@multiformats/base-x/-/base-x-4.0.1.tgz"
@@ -2461,6 +2449,18 @@
   integrity sha512-s1zLBjWhdEI2zwaoSgyOFoKSl109CUcVBCc7biPJ3aAf6LGLU6szDvi31JPU7bxfla2lqfhjbbg/5DdFNxOwHw==
   dependencies:
     "@octokit/openapi-types" "^11.2.0"
+
+"@openos-labs/sdk-core@1.0.1":
+  version "1.0.1"
+  resolved "https://npm.pkg.github.com/download/@openos-labs/sdk-core/1.0.1/cb6f7a483977a074f48750fc3299d54456b2522d#cb6f7a483977a074f48750fc3299d54456b2522d"
+  integrity sha512-CgRriMiM4mK5RTYZdHEvx9iyu41+52HN+bCsj6MipfEyqWKfubOHkGbPN6pxl+aCj5MX7gk8h6KwbV6Rz9QW7A==
+  dependencies:
+    "@ethersproject/address" "^5.0.2"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    jsbi "^3.1.4"
+    tiny-invariant "^1.1.0"
+    toformat "^2.0.0"
 
 "@openzeppelin/contracts@3.4.1-solc-0.7-2":
   version "3.4.1-solc-0.7-2"

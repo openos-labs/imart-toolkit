@@ -1,4 +1,4 @@
-import { Token } from '@mix-labs/sdk-core'
+import { Token } from '@openos-labs/sdk-core'
 import { nativeOnChain } from 'constants/tokens'
 import { PoolType } from 'hooks/routing/types'
 import { amount, DAI, MKR, USDC } from 'test/utils'

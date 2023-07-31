@@ -642,41 +642,6 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@mix-labs/contracts@0.5.19":
-  version "0.5.19"
-  resolved "https://npm.pkg.github.com/download/@mix-labs/contracts/0.5.19/4cc24f9561a36e2d2e89bd2b3267384cd203071d#4cc24f9561a36e2d2e89bd2b3267384cd203071d"
-  integrity sha512-I4DdfBeEGguhOwVqk7e37ueFpF/ZHbn60As1Bc7BC8302d1Y2aiL9Jtiy2d2y1+MmxBoQAe3ch6JezydYeuygA==
-  dependencies:
-    "@ethersproject/abi" "^5.7.0"
-    "@ethersproject/providers" "^5.7.2"
-    "@nomicfoundation/hardhat-chai-matchers" "^1.0.5"
-    "@nomicfoundation/hardhat-network-helpers" "^1.0.7"
-    "@nomicfoundation/hardhat-toolbox" "^2.0.1"
-    "@nomiclabs/hardhat-ethers" "^2.2.2"
-    "@nomiclabs/hardhat-etherscan" "^3.1.5"
-    "@opensea/seaport-js" "^1.0.10"
-    "@typechain/ethers-v5" "^10.2.0"
-    "@typechain/hardhat" "^6.1.5"
-    "@types/js-cookie" "^2.2.6"
-    "@types/mocha" "^10.0.1"
-    aptos "^1.7.2"
-    axios "^1.3.2"
-    chai "^4.3.7"
-    dotenv "^16.1.4"
-    hardhat "^2.12.6"
-    hardhat-gas-reporter "^1.0.9"
-    js-cookie "^2.2.1"
-    mocha "^10.2.0"
-    solidity-coverage "^0.8.2"
-    typechain "^8.1.1"
-
-"@mix-labs/network@0.3.0":
-  version "0.3.0"
-  resolved "https://npm.pkg.github.com/download/@mix-labs/network/0.3.0/4d7e3d9ac35942c144afc70cdceecd5ad1c372a3#4d7e3d9ac35942c144afc70cdceecd5ad1c372a3"
-  integrity sha512-6QAT6balrVRZaLNEiD+qiVaye1TEH9/OCoJCd88fwZMLXudXpY6g5F3nEE7OkR0Qn6nwvk4qHSSedi6kUFIq2Q==
-  dependencies:
-    axios "^0.21.1"
-
 "@morgan-stanley/ts-mocking-bird@^0.6.2":
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/@morgan-stanley/ts-mocking-bird/-/ts-mocking-bird-0.6.4.tgz#2e4b60d42957bab3b50b67dbf14c3da2f62a39f7"
@@ -1027,6 +992,41 @@
     "@mysten/wallet-standard" "^0.2.8"
     mitt "^3.0.0"
     tronweb "^5.1.0"
+
+"@openos-labs/contracts@1.0.0":
+  version "1.0.0"
+  resolved "https://npm.pkg.github.com/download/@openos-labs/contracts/1.0.0/65eafa440004603d160c8b11310746878f0dabdc#65eafa440004603d160c8b11310746878f0dabdc"
+  integrity sha512-KkKIyhF9HkhAIcxgva8OGZeudfN76Bm/tln3duajHuSUnUUEXaa4Rmjogc/WORUTARuV9kwdgW4aE2PaxpDTFQ==
+  dependencies:
+    "@ethersproject/abi" "^5.7.0"
+    "@ethersproject/providers" "^5.7.2"
+    "@nomicfoundation/hardhat-chai-matchers" "^1.0.5"
+    "@nomicfoundation/hardhat-network-helpers" "^1.0.7"
+    "@nomicfoundation/hardhat-toolbox" "^2.0.1"
+    "@nomiclabs/hardhat-ethers" "^2.2.2"
+    "@nomiclabs/hardhat-etherscan" "^3.1.5"
+    "@opensea/seaport-js" "^1.0.10"
+    "@typechain/ethers-v5" "^10.2.0"
+    "@typechain/hardhat" "^6.1.5"
+    "@types/js-cookie" "^2.2.6"
+    "@types/mocha" "^10.0.1"
+    aptos "^1.7.2"
+    axios "^1.3.2"
+    chai "^4.3.7"
+    dotenv "^16.1.4"
+    hardhat "^2.12.6"
+    hardhat-gas-reporter "^1.0.9"
+    js-cookie "^2.2.1"
+    mocha "^10.2.0"
+    solidity-coverage "^0.8.2"
+    typechain "^8.1.1"
+
+"@openos-labs/network@1.0.0":
+  version "1.0.0"
+  resolved "https://npm.pkg.github.com/download/@openos-labs/network/1.0.0/811a6fcc450eb054b8fbc53cbbecebe8156bfdff#811a6fcc450eb054b8fbc53cbbecebe8156bfdff"
+  integrity sha512-VSCHZU1mg4+TfB3MQGtALN/J4mlbnqXLzTn2FykRLG4w0h0upOFX4p9csIJmelFrtf594AeWDjfdhyWy7NN1fg==
+  dependencies:
+    axios "^0.21.1"
 
 "@opensea/seaport-js@^1.0.10", "@opensea/seaport-js@^1.0.8":
   version "1.1.0"

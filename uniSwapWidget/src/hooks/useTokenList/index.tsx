@@ -1,4 +1,4 @@
-import { Token } from '@mix-labs/sdk-core'
+import { Token } from '@openos-labs/sdk-core'
 import { TokenInfo, TokenList } from '@uniswap/token-lists'
 import { useWeb3React } from '@web3-react/core'
 import { useAsyncError } from 'components/Error/ErrorBoundary'

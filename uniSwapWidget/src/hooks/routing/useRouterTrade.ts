@@ -1,5 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/query/react'
-import { Currency, CurrencyAmount, Token, TradeType } from '@mix-labs/sdk-core'
+import { Currency, CurrencyAmount, Token, TradeType } from '@openos-labs/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import useIsValidBlock from 'hooks/useIsValidBlock'
 import { useStablecoinAmountFromFiatValue } from 'hooks/useStablecoinAmountFromFiatValue'

@@ -1,6 +1,6 @@
 {
-  "name": "@mix-labs/imart-toolkit",
-  "version": "0.5.19",
+  "name": "@openos-labs/imart-toolkit",
+  "version": "1.0.0",
   "main": "./index.ts",
   "description": "IMart frontend packages",
   "publishConfig": {
@@ -41,6 +41,7 @@
   "dependencies": {
     "@dfinity/principal": "^0.10.1",
     "@ensdomains/ensjs": "latest",
+    "@openos-labs/network": "1.0.0",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/metamask": "^8.0.29-beta.0",
@@ -52,8 +53,8 @@
     "ethers": "^5.1.4",
     "react-is": "^17.0.2",
     "rollup": "^2.47.0",
+    "siwe": "^1.1.6",
     "themeprovider-storybook": "^1.7.2",
-    "web3": "^1.8.1",
-    "siwe": "^1.1.6"
+    "web3": "^1.8.1"
   }
 }

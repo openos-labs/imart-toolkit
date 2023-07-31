@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Percent } from '@mix-labs/sdk-core'
+import { Currency, CurrencyAmount, Percent } from '@openos-labs/sdk-core'
 import { ONE_HUNDRED_PERCENT } from 'constants/misc'
 import JSBI from 'jsbi'
 

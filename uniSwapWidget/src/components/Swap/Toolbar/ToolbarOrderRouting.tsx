@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro'
-import { CurrencyAmount, Token } from '@mix-labs/sdk-core'
+import { CurrencyAmount, Token } from '@openos-labs/sdk-core'
 import { BottomSheetModal } from 'components/BottomSheetModal'
 import Column from 'components/Column'
 import Popover from 'components/Popover'

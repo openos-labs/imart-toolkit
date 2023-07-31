@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Price, Token, TradeType } from '@mix-labs/sdk-core'
+import { Currency, CurrencyAmount, Price, Token, TradeType } from '@openos-labs/sdk-core'
 import { useAtom } from 'jotai'
 import { useMemo, useRef } from 'react'
 import { routerPreferenceAtom } from 'state/swap/settings'

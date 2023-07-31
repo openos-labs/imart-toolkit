@@ -1,4 +1,4 @@
-import { TradeType } from '@mix-labs/sdk-core'
+import { TradeType } from '@openos-labs/sdk-core'
 import { DAI, USDC_MAINNET } from 'constants/tokens'
 import { SwapInfoProvider } from 'hooks/swap/useSwapInfo'
 import Module from 'module'
