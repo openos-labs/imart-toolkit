@@ -1,5 +1,5 @@
 {
-  "name": "@openos-labs/uniswap",
+  "name": "@openoscom/uniswap",
   "version": "1.0.3",
   "description": "Uniswap Interface",
   "homepage": "https://github.com/Uniswap/widgets#readme",
@@ -62,6 +62,7 @@
     "@fontsource/ibm-plex-mono": "^4.5.1",
     "@fontsource/inter": "^4.5.1",
     "@openos-labs/sdk-core": "1.0.2",
+    "@openoscom/sdk-core": "1.0.3",
     "@popperjs/core": "^2.4.4",
     "@reduxjs/toolkit": "^1.6.1",
     "@uniswap/conedison": "^1.5.3",

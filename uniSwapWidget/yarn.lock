@@ -2462,6 +2462,18 @@
     tiny-invariant "^1.1.0"
     toformat "^2.0.0"
 
+"@openoscom/sdk-core@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@openoscom/sdk-core/-/sdk-core-1.0.3.tgz#300885977b59c8f0004fe66519b5f85e31a8996a"
+  integrity sha512-0nLSquSNwLMhubJg6DXZGWyq3nr3rbeqHqbIghs4eZAJtT7QnqBDUQbuxxctDGNye0nwHZpmm2VRh/JroXuM/g==
+  dependencies:
+    "@ethersproject/address" "^5.0.2"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    jsbi "^3.1.4"
+    tiny-invariant "^1.1.0"
+    toformat "^2.0.0"
+
 "@openzeppelin/contracts@3.4.1-solc-0.7-2":
   version "3.4.1-solc-0.7-2"
   resolved "https://registry.npmjs.org/@openzeppelin/contracts/-/contracts-3.4.1-solc-0.7-2.tgz"
