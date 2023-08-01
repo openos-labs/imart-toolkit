@@ -1,6 +1,6 @@
 {
   "name": "@openos-labs/wallet",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "main": "index.ts",
   "repository": "https://github.com/openos-labs/imart-toolkit.git",
   "license": "MIT",
