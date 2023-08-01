@@ -11,7 +11,6 @@
     "@dfinity/candid": "^0.10.2",
     "@dfinity/identity": "^0.10.2",
     "@dfinity/principal": "^0.10.2",
-    "@ensdomains/ensjs": "^3.0.0-alpha.54",
     "@manahippo/aptos-wallet-adapter": "1.0.10",
     "@openos-labs/contracts": "1.0.0",
     "@openos-labs/network": "1.0.0",

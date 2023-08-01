@@ -5,7 +5,6 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from "ethers";
 import Web3 from "web3";
 import { useEffect } from "react";
-import { ENS } from "@ensdomains/ensjs";
 import { SiweMessage } from "siwe";
 
 export const injected = new InjectedConnector({});
@@ -131,18 +130,16 @@ export const ETHWallet = (): ChainResponse => {
   };
 
   const getEnsName: any = async (address) => {
-    const ENSInstance = new ENS();
-    await ENSInstance.setProvider(getProvider());
-    return await ENSInstance.getName(address);
+    return ''
   };
 
   type EvmChainType = "ETH" | "POLYGON" | "BSC" | "OPBNB" | "ZKSYNC";
   /*
     ETH:
     chainId=5, chainName=ETH goerli testnet, rpcUrls=["https://rpc-mumbai.maticvigil.com"]
-    POLYGON: 
+    POLYGON:
     chainId=80001, chainName=Polygon mumbai testnet, rpcUrls=["https://ethereum-goerli.publicnode.com "]
-    BSC: 
+    BSC:
     chainId=97 , chainName=BSC testnet, rpcUrls=["https://endpoints.omniatech.io/v1/bsc/testnet/public"]
   */
   type Chain = {
