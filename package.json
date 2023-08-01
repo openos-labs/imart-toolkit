@@ -6,12 +6,12 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "repository": "https://github.com/mix-labs/imart-toolkit.git",
+  "repository": "https://github.com/openos-labs/imart-toolkit.git",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mix-labs/imart-toolkit/issues"
+    "url": "https://github.com/openos-labs/imart-toolkit/issues"
   },
-  "homepage": "https://github.com/mix-labs/imart-toolkit#readme",
+  "homepage": "https://github.com/openos-labs/imart-toolkit#readme",
   "scripts": {
     "build": "lerna run build",
     "test": "lerna run test",
