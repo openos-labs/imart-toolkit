@@ -15,7 +15,6 @@ package-lock.json
 # builds
 /cache
 /cosmos-export
-/dist
 /dts
 
 # IDE metadata
@@ -37,4 +36,4 @@ notes.txt
 
 # generated ajv schema
 /src/__generated__/*
-!/src/__generated__/.gitkeep 
+!/src/__generated__/.gitkeep
