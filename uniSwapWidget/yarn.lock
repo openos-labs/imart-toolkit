@@ -2450,10 +2450,10 @@
   dependencies:
     "@octokit/openapi-types" "^11.2.0"
 
-"@openos-labs/sdk-core@1.0.1":
-  version "1.0.1"
-  resolved "https://npm.pkg.github.com/download/@openos-labs/sdk-core/1.0.1/cb6f7a483977a074f48750fc3299d54456b2522d#cb6f7a483977a074f48750fc3299d54456b2522d"
-  integrity sha512-CgRriMiM4mK5RTYZdHEvx9iyu41+52HN+bCsj6MipfEyqWKfubOHkGbPN6pxl+aCj5MX7gk8h6KwbV6Rz9QW7A==
+"@openos-labs/sdk-core@1.0.2":
+  version "1.0.2"
+  resolved "https://npm.pkg.github.com/download/@openos-labs/sdk-core/1.0.2/025143999ffcf4fa09ea688293616ef9a133ca0b#025143999ffcf4fa09ea688293616ef9a133ca0b"
+  integrity sha512-4q/w5gV24Scvio+rO7oVym2FaqiRKd9N5bM+gx01ndQ2wcdYF0ay0B5y3MGIRLZgVLbhJO/wfo9Gdg0/SJ80OQ==
   dependencies:
     "@ethersproject/address" "^5.0.2"
     big.js "^5.2.2"

@@ -408,10 +408,10 @@
     "@types/lodash" "^4.14.187"
     lodash "^4.17.21"
 
-"@openos-labs/network@0.3.0":
-  version "0.3.0"
-  resolved "https://npm.pkg.github.com/download/@openos-labs/network/0.3.0/4d7e3d9ac35942c144afc70cdceecd5ad1c372a3"
-  integrity sha512-6QAT6balrVRZaLNEiD+qiVaye1TEH9/OCoJCd88fwZMLXudXpY6g5F3nEE7OkR0Qn6nwvk4qHSSedi6kUFIq2Q==
+"@openos-labs/network@1.0.0":
+  version "1.0.0"
+  resolved "https://npm.pkg.github.com/download/@openos-labs/network/1.0.0/811a6fcc450eb054b8fbc53cbbecebe8156bfdff#811a6fcc450eb054b8fbc53cbbecebe8156bfdff"
+  integrity sha512-VSCHZU1mg4+TfB3MQGtALN/J4mlbnqXLzTn2FykRLG4w0h0upOFX4p9csIJmelFrtf594AeWDjfdhyWy7NN1fg==
   dependencies:
     axios "^0.21.1"
 
