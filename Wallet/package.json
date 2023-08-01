@@ -2,7 +2,7 @@
   "name": "@openos-labs/wallet",
   "version": "1.0.0",
   "main": "index.ts",
-  "repository": "https://github.com/mix-labs/imart-toolkit.git",
+  "repository": "https://github.com/openos-labs/imart-toolkit.git",
   "license": "MIT",
   "dependencies": {
     "@dfinity/agent": "^0.10.2",
