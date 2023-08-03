@@ -1,5 +1,5 @@
 import {AxiosResponse} from "axios";
-import axios from "@openos-labs/network";
+import axios from "@openoscom/network";
 
 export const onFulfilled: (value: any) => any = (
 	response: AxiosResponse

@@ -408,10 +408,10 @@
     "@types/lodash" "^4.14.187"
     lodash "^4.17.21"
 
-"@openos-labs/network@1.0.0":
-  version "1.0.0"
-  resolved "https://npm.pkg.github.com/download/@openos-labs/network/1.0.0/811a6fcc450eb054b8fbc53cbbecebe8156bfdff#811a6fcc450eb054b8fbc53cbbecebe8156bfdff"
-  integrity sha512-VSCHZU1mg4+TfB3MQGtALN/J4mlbnqXLzTn2FykRLG4w0h0upOFX4p9csIJmelFrtf594AeWDjfdhyWy7NN1fg==
+"@openoscom/network@1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@openoscom/network/-/network-1.1.2.tgz#de23022a0fb987b87606110c5dddc1d43e5a67a7"
+  integrity sha512-2LS5ZRf6wo97S5Kl2mnf/ygQg23lFt94Y1NjgDRPOsdoGfiwVDxlWFK5Z0v4V7mYdsKGjniFxVAKeGY2L1AdPA==
   dependencies:
     axios "^0.21.1"
 
@@ -628,7 +628,7 @@ attr-accept@^2.2.2:
 
 axios@^0.21.1:
   version "0.21.4"
-  resolved "https://registry.npmmirror.com/axios/-/axios-0.21.4.tgz"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
   integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
   dependencies:
     follow-redirects "^1.14.0"
@@ -961,7 +961,7 @@ file-selector@^0.6.0:
 
 follow-redirects@^1.14.0:
   version "1.15.2"
-  resolved "https://registry.npmmirror.com/follow-redirects/-/follow-redirects-1.15.2.tgz"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
 
 framesync@6.1.2:
