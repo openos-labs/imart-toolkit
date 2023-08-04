@@ -243,4 +243,8 @@ export class Evm implements ContractProxy {
       signer
     );
   }
+
+  async hasPermissionOf(contracts: Array<string>, user: string) : Promise<boolean> {
+    return this.nftLottery.hasPermissionOf(contracts, user)
+  }
 }

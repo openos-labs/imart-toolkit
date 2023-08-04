@@ -134,6 +134,7 @@ export interface NftLotteryInterface {
   getRemainingTokenIds(_organizer: string, _activityId: number): Promise<any>;
   withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx>;
   isApprovedForAll(_nftContractAddress: string, signer?: any): Promise<boolean>;
+  hasPermissionOf(contracts: Array<string>, user: string) : Promise<boolean>;
 }
 
 export abstract class ContractProxy
@@ -258,4 +259,5 @@ export abstract class ContractProxy
     _activityId: number
   ): Promise<any>;
   abstract withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx>;
+  abstract hasPermissionOf(contracts: Array<string>, user: string) : Promise<boolean>;
 }
