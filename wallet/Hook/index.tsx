@@ -12,7 +12,7 @@ export * from "./WalletHook/Config"
 
 import { HookResponse, WalletHook } from "./WalletHook"
 import { ChainResponse, ChainType, WalletType } from "./WalletHook/Types"
-import { Contract, Contractor } from "@openos-labs/contracts"
+import { Contract, Contractor } from "@openoscom/contracts"
 
 declare global {
 	interface Window {
