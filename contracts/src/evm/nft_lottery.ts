@@ -43,6 +43,30 @@ export class NftLottery implements NftLotteryInterface {
       .getUserHasClaimed(user, organizer, activityId);
   }
 
+  async hasPermissionOf(contracts: Array<string>, user: string) : Promise<boolean> {
+    // const GetBalance = (contract: string): Promise<BigNumber> => {
+    //   return new Promise(async (resolve, reject) => {
+    //     try {
+    //       await this.erc721(contract).balanceOf(user).then( i => {
+    //       if(i) { 
+    //         resolve(i)
+    //         return
+    //       }
+    //       reject()
+    //     })
+    //     } catch (error) {
+    //       reject(error)
+    //     }
+    //   })
+    // }
+
+    // const fnArray = contracts.map(i => (async () => await GetBalance(i)))
+
+    // return Promise.all(fnArray).then((balances) => balances.every(i => i.iszero())).catch(_ => { return false })
+
+    return await Promise.all(contracts.map(async i => await this.erc721(i).balanceOf(user))).then((balances) => !balances.every(i => i.iszero())).catch(_ => { return false })
+  }
+
   async setApprovalForAll(
     _nftContractAddress: string,
     _approved: boolean,
