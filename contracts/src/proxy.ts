@@ -32,6 +32,9 @@ import {
   RedeemExhibitArgs,
   ReplyCurationOfferArgs,
 } from "./types/curation";
+import {BigNumber, BigNumberish, CallOverrides, ContractTransaction, Overrides} from "ethers";
+import {PromiseOrValue} from "./typechain/common";
+import {QuickDraw} from "./typechain";
 
 export interface CreationInterface {
   config: Config;
@@ -137,6 +140,43 @@ export interface NftLotteryInterface {
   hasPermissionOf(contracts: Array<string>, user: string) : Promise<boolean>;
 }
 
+export interface QuickLotteryInterface {
+  config: Config;
+  createActivity(
+    createActivityParam: QuickDraw.CreateActivityParamStruct,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+  joinActivity(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+  getRemainingTokenIds(
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<[BigNumber[]]>;
+  
+  getUserHasClaimed(
+    _user: PromiseOrValue<string>,
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+  
+  getUserHasWinner(
+    _user: PromiseOrValue<string>,
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+  
+  emergencyWithdraw(
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+}
 export abstract class ContractProxy
   implements
     MarketInterface,
