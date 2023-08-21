@@ -19,7 +19,9 @@ export type AddressType =
   | "curation"
   | "singleCollective"
   | "multipleCollective"
-  | "nftlottery";
+  | "nftlottery"
+  | "quickDraw"
+  ;
 export type Address = string;
 export type Addresses = Record<AddressType, Address>;
 
