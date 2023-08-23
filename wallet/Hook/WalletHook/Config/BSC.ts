@@ -1,4 +1,3 @@
-
 export namespace BscSpec {
   export const MARKET = "0x00000000000001ad428e4906aE43D8F9852d0dD6";
   export const SINGLE_COLLECTIVE = "0x7CEd67BfB6b25690C3d46a0773679cbeB0e059A6";
