@@ -1,6 +1,6 @@
 {
   "name": "@openoscom/network",
-  "version": "1.1.2",
+  "version": "2.0.0-stable",
   "main": "./src/index.ts",
   "description": "IMart frontend packages",
   "repository": "https://github.com//imart-toolkit.git",
