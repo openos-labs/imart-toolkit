@@ -130,10 +130,11 @@ export const ETHWallet = (): ChainResponse => {
   };
 
   const getEnsName: any = async (address) => {
-    return ''
+    return "";
   };
 
-  type EvmChainType = "ETH" | "POLYGON" | "BSC" | "OPBNB" | "ZKSYNC";
+  // type EvmChainType = "ETH" | "POLYGON" | "BSC" | "OPBNB" | "ZKSYNC";
+  type EvmChainType = "BSC";
   /*
     ETH:
     chainId=5, chainName=ETH goerli testnet, rpcUrls=["https://rpc-mumbai.maticvigil.com"]
@@ -147,32 +148,52 @@ export const ETHWallet = (): ChainResponse => {
     chainName: string;
     rpcUrls: string[];
   };
+  // const chains: Record<EvmChainType, Chain> = {
+  //   ETH: {
+  //     chainId: 5,
+  //     chainName: "ETH goerli",
+  //     rpcUrls: ["https://ethereum-goerli.publicnode.com"],
+  //   },
+  //   POLYGON: {
+  //     chainId: 80001,
+  //     chainName: "POLYGON mumbai",
+  //     rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
+  //   },
+  //   BSC: {
+  //     chainId: 97,
+  //     chainName: "BSC testnet",
+  //     rpcUrls: ["https://endpoints.omniatech.io/v1/bsc/testnet/public"],
+  //   },
+  //   OPBNB: {
+  //     chainId: 5611,
+  //     chainName: "opBNB testnet",
+  //     rpcUrls: ["https://opbnb-testnet-rpc.bnbchain.org"],
+  //   },
+  //   ZKSYNC: {
+  //     chainId: 280,
+  //     chainName: "zkSync Era Testnet",
+  //     rpcUrls: ["https://testnet.era.zksync.dev"]
+  //   }
+  // };
   const chains: Record<EvmChainType, Chain> = {
-    ETH: {
-      chainId: 5,
-      chainName: "ETH goerli",
-      rpcUrls: ["https://ethereum-goerli.publicnode.com"],
-    },
-    POLYGON: {
-      chainId: 80001,
-      chainName: "POLYGON mumbai",
-      rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
-    },
     BSC: {
-      chainId: 97,
-      chainName: "BSC testnet",
-      rpcUrls: ["https://endpoints.omniatech.io/v1/bsc/testnet/public"],
+      chainId: 56,
+      chainName: "BSC",
+      rpcUrls: [
+        "https://bsc-dataseed1.binance.org",
+        "https://bsc-dataseed2.binance.org",
+        "https://bsc-dataseed3.binance.org",
+        "https://bsc-dataseed4.binance.org",
+        "https://bsc-dataseed1.defibit.io",
+        "https://bsc-dataseed2.defibit.io",
+        "https://bsc-dataseed3.defibit.io",
+        "https://bsc-dataseed4.defibit.io",
+        "https://bsc-dataseed1.ninicoin.io",
+        "https://bsc-dataseed2.ninicoin.io",
+        "https://bsc-dataseed3.ninicoin.io",
+        "https://bsc-dataseed4.ninicoin.io",
+      ],
     },
-    OPBNB: {
-      chainId: 5611,
-      chainName: "opBNB testnet",
-      rpcUrls: ["https://opbnb-testnet-rpc.bnbchain.org"],
-    },
-    ZKSYNC: {
-      chainId: 280,
-      chainName: "zkSync Era Testnet",
-      rpcUrls: ["https://testnet.era.zksync.dev"]
-    }
   };
   const chainIdToTypes = Object.entries(chains).reduce((p, [k, v]) => {
     p[v.chainId] = k;
