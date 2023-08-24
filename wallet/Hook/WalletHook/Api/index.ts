@@ -25,8 +25,8 @@ export interface Auth {
 }
 
 export const auth = async (authParams: Auth) => {
- const inviter = window.localStorage.getItem('inviter')
- const _authParams = inviter ? { ...authParams, inviter } :authParams
+ const inviteCode = window.localStorage.getItem('inviter')
+ const _authParams = inviteCode ? { ...authParams, inviteCode } :authParams
   const res = await https.post(`/auth`, _authParams);
   return res.data;
 };
