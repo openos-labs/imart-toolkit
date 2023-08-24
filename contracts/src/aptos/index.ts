@@ -23,12 +23,15 @@ import {
   ReplyCurationOfferArgs,
   Tx,
   MintTokenArgs,
-  ApproveArgs,
+  ApproveArgs, Signer,
 } from "../types";
 import { Creation } from "./creation";
 import { Market } from "./market";
 import { Curation } from "./curation";
 import { AptosClient } from "aptos";
+import {PromiseOrValue} from "../typechain/common";
+import {BigNumberish, Overrides} from "ethers";
+import {QuickDraw as QUICKDRAW} from "../typechain";
 
 export class Aptos implements ContractProxy {
   readonly config: Config;
@@ -203,4 +206,29 @@ export class Aptos implements ContractProxy {
   listTokenAscendAuction(args: listTokenAscendAuctionArgs,signer?:Signer): Promise<Tx>{
     throw new Error("Not implemented yet");
   }
+  joinActivity(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
+    signer?: any
+  ): Promise<any> {
+    throw new Error("Not implemented yet");
+  }
+  createActivityQuickDraw(createActivityParam: QUICKDRAW.CreateActivityParamStruct, overrides?: Overrides & { from?: PromiseOrValue<string> }, signer?: any): Promise<any> {
+    throw new Error("Not implemented yet");
+  }
+
+  async getUserHasClaimedQuickDraw(user:string,_organizer: number,_activityId, signer?: Signer){
+    throw new Error("Not implemented yet");
+  }
+  async getUserHasWinnerQuickDraw(user:string,_organizer: number,_activityId, signer?: Signer){
+    throw new Error("Not implemented yet");
+  }
+  async emergencyWithdrawQuickDraw(_organizer: string,_activityId:number, signer?: Signer){
+    return this.quickDraw.emergencyWithdraw(_organizer,_activityId,signer)
+  }
+  async getRemainingTokenIdsQuickDraw(_organizer: string, _activityId: number, signer?: Signer){
+    throw new Error("Not implemented yet");
+  }
+
 }
