@@ -4,7 +4,9 @@ export namespace OPBNBSpec {
     export const MULTIPLE_COLLECTIVE ="0x9fdCcb58448A75ae5e04527B0afF5939f47448EA";
     export const CURATION = "0xcF48ACdeC262483008976792ea162d925Cf74E06";
     export const NFTLOTTERY = "";
-    export const configs = {
+    export const QUICKDRAW = ''
+  
+  export const configs = {
       testnet: {
         addresses: {
           singleCollective: SINGLE_COLLECTIVE,
