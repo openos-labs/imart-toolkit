@@ -5,6 +5,8 @@ export namespace PolygonSpec {
     "0x0f3ED7652caB58F0c9D79f97fF3eB13b307c5fdC";
   export const CURATION = "0x9fdCcb58448A75ae5e04527B0afF5939f47448EA";
   export const NFTLOTTERY = "";
+  export const QUICKDRAW = ''
+  
   export const configs = {
     testnet: {
       addresses: {
