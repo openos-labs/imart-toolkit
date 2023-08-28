@@ -3,9 +3,9 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 require('react');
-var index = require('./index-b4382dba.cjs');
+var index = require('./index-8527eb1e.cjs');
 var format = require('@uniswap/conedison/format');
-var sdkCore = require('@openos-labs/sdk-core');
+var sdkCore = require('@openoscom/sdk-core');
 require('buffer');
 require('@babel/runtime/helpers/slicedToArray');
 require('@babel/runtime/helpers/defineProperty');

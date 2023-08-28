@@ -1,5 +1,5 @@
-import { TradeType, Currency, Percent, CurrencyAmount, Token, Ether, NativeCurrency } from '@openos-labs/sdk-core';
-export { Currency, TradeType } from '@openos-labs/sdk-core';
+import { TradeType, Currency, Percent, CurrencyAmount, Token, Ether, NativeCurrency } from '@openoscom/sdk-core';
+export { Currency, TradeType } from '@openoscom/sdk-core';
 import { BaseProvider, JsonRpcProvider } from '@ethersproject/providers';
 export { JsonRpcProvider } from '@ethersproject/providers';
 import { Trade } from '@uniswap/router-sdk';
@@ -602,13 +602,13 @@ interface SummaryRowProps {
     };
 }
 
-declare type StatusType = "err" | "trade" | "loading";
+declare type StatusType = 'err' | 'trade' | 'loading';
 declare class SetBaseMethod {
     selectInputToken: ((update: Currency) => void) | undefined;
     selectOutToken: ((update: Currency) => void) | undefined;
     addEvent: (() => void) | undefined;
-    inputAmount: ((update: string, origin?: "max") => void) | undefined;
-    outAmount: ((update: string, origin?: "max") => void) | undefined;
+    inputAmount: ((update: string, origin?: 'max') => void) | undefined;
+    outAmount: ((update: string, origin?: 'max') => void) | undefined;
     swapEvent: (() => void) | undefined;
     nextSwap: () => void;
     _onStartSwapFlow: () => void;
@@ -623,8 +623,8 @@ declare class SetBaseMethod {
     tokens: WrappedTokenInfo[] | undefined | any;
     set setSelectInputToken(_selectInputToken: (update: Currency) => void);
     set setOutputToken(_selectOutToken: (update: Currency) => void);
-    set setInputAmount(_selectInputToken: (update: string, origin?: "max") => void);
-    set setOutAmount(_selectOutToken: (update: string, origin?: "max") => void);
+    set setInputAmount(_selectInputToken: (update: string, origin?: 'max') => void);
+    set setOutAmount(_selectOutToken: (update: string, origin?: 'max') => void);
     set setSwapEvent(_func: (() => void) | undefined);
     set setInformation(_val: SummaryRowProps[]);
     setLoading(e: {
