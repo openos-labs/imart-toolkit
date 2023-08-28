@@ -1,4 +1,4 @@
-import { NativeCurrency, Token } from '@openos-labs/sdk-core'
+import { NativeCurrency, Token } from '@openoscom/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { SupportedChainId } from 'constants/chains'
 import { nativeOnChain } from 'constants/tokens'

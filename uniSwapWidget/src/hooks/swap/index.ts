@@ -1,11 +1,11 @@
-import { Currency } from '@openos-labs/sdk-core'
+import { Currency } from '@openoscom/sdk-core'
 import { useAtom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
-import { useCallback, useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo } from 'react'
 import { pickAtom } from 'state/atoms'
 import { Field, swapAtom, swapEventHandlersAtom } from 'state/swap'
 import { invertTradeType, toTradeType } from 'utils/tradeType'
-import UniswapInterface from "../../Service"
+import UniswapInterface from '../../Service'
 export { ChainError, default as useSwapInfo } from './useSwapInfo'
 
 function otherField(field: Field) {
@@ -42,7 +42,7 @@ export function useSwapCurrency(field: Field): [Currency | undefined, (currency:
   const switchSwapCurrencies = useSwitchSwapCurrencies()
   const setOrSwitchCurrency = useCallback(
     (update: Currency) => {
-       console.log(field,'setOrSwitchCurrency',update)
+      console.log(field, 'setOrSwitchCurrency', update)
       if (update === currency) return
       if (update === otherCurrency) {
         switchSwapCurrencies()
@@ -79,8 +79,8 @@ export function useSwapAmount(field: Field): [string | undefined, (amount: strin
   const setSwap = useUpdateAtom(swapAtom)
   const updateAmount = useCallback(
     (update: string, origin?: 'max') => {
-      console.log(update,'updateAmount',origin)
-  
+      console.log(update, 'updateAmount', origin)
+
       if (update === amount) return
       onAmountChange?.(field, update, origin)
       setSwap((swap) => {
@@ -96,6 +96,6 @@ export function useSwapAmount(field: Field): [string | undefined, (amount: strin
     } else {
       UniswapInterface.handleOnOutAmountChange(amount)
     }
-  }, [field, onAmountChange, setSwap,amount])
+  }, [field, onAmountChange, setSwap, amount])
   return [amount, updateAmount]
 }

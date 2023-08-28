@@ -1,4 +1,4 @@
-import { Currency } from '@openos-labs/sdk-core'
+import { Currency } from '@openoscom/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import useCurrencyBalance from 'hooks/useCurrencyBalance'
 import useNativeEvent from 'hooks/useNativeEvent'

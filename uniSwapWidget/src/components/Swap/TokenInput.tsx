@@ -1,6 +1,6 @@
 import 'setimmediate'
 
-import { Currency } from '@openos-labs/sdk-core'
+import { Currency } from '@openoscom/sdk-core'
 import { loadingTransitionCss } from 'css/loading'
 import { forwardRef, PropsWithChildren, useCallback, useImperativeHandle, useRef } from 'react'
 import { Field } from 'state/swap'
@@ -48,7 +48,7 @@ export const TokenInput = forwardRef<TokenInputHandle, PropsWithChildren<TokenIn
   const input = useRef<HTMLInputElement>(null)
   const onSelect = useCallback(
     (currency: Currency) => {
-      console.log(currency,'currency')
+      console.log(currency, 'currency')
       onChangeCurrency(currency)
       setImmediate(() => input.current?.focus())
     },

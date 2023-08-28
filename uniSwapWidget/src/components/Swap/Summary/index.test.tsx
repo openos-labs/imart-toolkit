@@ -1,4 +1,4 @@
-import { CurrencyAmount, Percent, TradeType } from '@openos-labs/sdk-core'
+import { CurrencyAmount, Percent, TradeType } from '@openoscom/sdk-core'
 import assert from 'assert'
 import { SwapInfoProvider } from 'hooks/swap/useSwapInfo'
 import * as usePermit2Allowance from 'hooks/usePermit2Allowance'

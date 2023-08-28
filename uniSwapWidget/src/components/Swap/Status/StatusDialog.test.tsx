@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { CurrencyAmount, Percent, TradeType } from '@openos-labs/sdk-core'
+import { CurrencyAmount, Percent, TradeType } from '@openoscom/sdk-core'
 import { InterfaceTrade } from 'state/routing/types'
 import { Transaction, TransactionType } from 'state/transactions'
 import { renderComponent } from 'test'

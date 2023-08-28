@@ -1,4 +1,4 @@
-import { SupportedChainId } from '@openos-labs/sdk-core'
+import { SupportedChainId } from '@openoscom/sdk-core'
 import { nativeOnChain } from 'constants/tokens'
 import { renderHook } from 'test'
 

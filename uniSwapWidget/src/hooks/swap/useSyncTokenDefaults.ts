@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { Currency, TradeType } from '@openos-labs/sdk-core'
+import { Currency, TradeType } from '@openoscom/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { Connector } from '@web3-react/types'
 import { SupportedChainId } from 'constants/chains'

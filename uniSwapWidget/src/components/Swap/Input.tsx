@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro'
 import { formatCurrencyAmount, NumberType } from '@uniswap/conedison/format'
-import { Currency, CurrencyAmount } from '@openos-labs/sdk-core'
+import { Currency, CurrencyAmount } from '@openoscom/sdk-core'
 import { TextButton } from 'components/Button'
 import { loadingTransitionCss } from 'css/loading'
 import { useIsSwapFieldIndependent, useSwapAmount, useSwapCurrency, useSwapInfo } from 'hooks/swap'
@@ -117,7 +117,6 @@ export function FieldWrapper({
       UniswapInterface.outAmount = updateAmount
     }
   }, [field])
-
 
   // --------------------------
   const wrapper = useRef<HTMLDivElement>(null)

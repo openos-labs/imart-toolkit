@@ -1,5 +1,5 @@
 import { MixedRouteSDK } from '@uniswap/router-sdk'
-import { Currency, CurrencyAmount, Token } from '@openos-labs/sdk-core'
+import { Currency, CurrencyAmount, Token } from '@openoscom/sdk-core'
 import { Pair, Route as V2Route } from '@uniswap/v2-sdk'
 import { FeeAmount, Pool, Route as V3Route } from '@uniswap/v3-sdk'
 import { isPolygonChain } from 'constants/chains'
@@ -77,7 +77,7 @@ export function transformQuoteToTradeResult(args: GetQuoteArgs, data: QuoteData)
     v2Routes:
       routes
         ?.filter(
-          (r): r is typeof routes[0] & { routev2: NonNullable<typeof routes[0]['routev2']> } => r.routev2 !== null
+          (r): r is (typeof routes)[0] & { routev2: NonNullable<(typeof routes)[0]['routev2']> } => r.routev2 !== null
         )
         .map(({ routev2, inputAmount, outputAmount }) => ({
           routev2,
@@ -87,7 +87,7 @@ export function transformQuoteToTradeResult(args: GetQuoteArgs, data: QuoteData)
     v3Routes:
       routes
         ?.filter(
-          (r): r is typeof routes[0] & { routev3: NonNullable<typeof routes[0]['routev3']> } => r.routev3 !== null
+          (r): r is (typeof routes)[0] & { routev3: NonNullable<(typeof routes)[0]['routev3']> } => r.routev3 !== null
         )
         .map(({ routev3, inputAmount, outputAmount }) => ({
           routev3,
@@ -97,7 +97,7 @@ export function transformQuoteToTradeResult(args: GetQuoteArgs, data: QuoteData)
     mixedRoutes:
       routes
         ?.filter(
-          (r): r is typeof routes[0] & { mixedRoute: NonNullable<typeof routes[0]['mixedRoute']> } =>
+          (r): r is (typeof routes)[0] & { mixedRoute: NonNullable<(typeof routes)[0]['mixedRoute']> } =>
             r.mixedRoute !== null
         )
         .map(({ mixedRoute, inputAmount, outputAmount }) => ({

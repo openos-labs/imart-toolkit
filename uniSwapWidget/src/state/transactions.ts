@@ -1,5 +1,5 @@
 import { TransactionReceipt, TransactionResponse } from '@ethersproject/abstract-provider'
-import { Currency, CurrencyAmount, Percent, TradeType } from '@openos-labs/sdk-core'
+import { Currency, CurrencyAmount, Percent, TradeType } from '@openoscom/sdk-core'
 import { atomWithImmer } from 'jotai/immer'
 import { InterfaceTrade } from 'state/routing/types'
 

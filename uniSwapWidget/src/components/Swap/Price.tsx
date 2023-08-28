@@ -1,9 +1,9 @@
 // @ts-nocheck
 
 import { formatCurrencyAmount, formatPrice, NumberType } from '@uniswap/conedison/format'
-import { Currency, CurrencyAmount } from '@openos-labs/sdk-core'
+import { Currency, CurrencyAmount } from '@openoscom/sdk-core'
 import Row from 'components/Row'
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { InterfaceTrade } from 'state/routing/types'
 import { ThemedText } from 'theme'
 import UniswapInterface from 'Service'
@@ -52,9 +52,9 @@ export default function Price({ trade, outputUSDC }: PriceProps) {
   const onClick = useCallback(() => setDefaultBase(!defaultBase), [defaultBase])
 
   const [exchangeRate, usdcPrice] = useTradeExchangeRate(trade, outputUSDC, defaultBase ? 'input' : 'output')
-  useEffect(()=>{
-    UniswapInterface.setExchangeInfo = {exchangeRate, usdcPrice}
-  },[exchangeRate, usdcPrice])
+  useEffect(() => {
+    UniswapInterface.setExchangeInfo = { exchangeRate, usdcPrice }
+  }, [exchangeRate, usdcPrice])
   return (
     <TextButton
       color="primary"

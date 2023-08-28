@@ -1,4 +1,4 @@
-import { Currency } from '@openos-labs/sdk-core'
+import { Currency } from '@openoscom/sdk-core'
 import styled from 'styled-components/macro'
 
 import { Logo } from './Logo'
