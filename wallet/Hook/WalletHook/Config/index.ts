@@ -20,20 +20,27 @@ import { Config } from "@openoscom/contracts";
 import { OPBNBSpec } from "./OPBNB";
 import { ZkSyncSpec } from "./ZKSYNC";
 
-// export const ChainTabs = ["ETH", "BSC", "OPBNB", "ZKSYNC", "POLYGON", "APTOS"];
-export const ChainTabs = ["BSC"];
-/// console.log('', import.meta.env.ENV_CHAINS);
+const envChains: ChainType = import.meta.env.ENV_CHAINS || "";
+const envChainsArray = envChains.split(",") as unknown as ChainType[];
 
-// export const Chains: Array<ChainType> = [
-//   "ETH",
-//   "BSC",
-//   "OPBNB",
-//   "ZKSYNC",
-//   "POLYGON",
-//   "APTOS",
-// ];
-
-export const Chains: Array<ChainType> = ["BSC"];
+const envFindChains = (
+  sourceChain: ChainType[],
+  envChains = envChainsArray,
+) => {
+  if (envChains.length === 0) return sourceChain;
+  return sourceChain.filter((chain) => envChainsArray.includes(chain));
+};
+const sourceChainTabs: ChainType[] = [
+  "ETH",
+  "BSC",
+  "OPBNB",
+  "ZKSYNC",
+  "POLYGON",
+  "APTOS",
+];
+export const ChainTabs = envFindChains(sourceChainTabs);
+export const Chains: ChainType[] = envFindChains(sourceChainTabs);
+// export const Chains: Array<ChainType> = ["BSC"];
 
 export type Spec = { configs: { testnet: Config } };
 
@@ -56,15 +63,25 @@ interface WalletCategoryProps {
   ZKSYNC?: Array<ZkSyncWalletType>;
 }
 
-export const WalletCategory: WalletCategoryProps = {
+const sourceWalletCategory: WalletCategoryProps = {
   BSC: ["bsc:metamask"],
-  // OPBNB: ["opbnb:metamask"],
-  // ZKSYNC: ["zksync:metamask"],
-  // ETH: ["ethereum:metamask"],
-  // POLYGON: ["polygon:metamask"],
-  // APTOS: ["aptos:petra", "aptos:martian"],
-  // IC: ["dfinity:plug"],
+  OPBNB: ["opbnb:metamask"],
+  ZKSYNC: ["zksync:metamask"],
+  ETH: ["ethereum:metamask"],
+  POLYGON: ["polygon:metamask"],
+  APTOS: ["aptos:petra", "aptos:martian"],
+  IC: ["dfinity:plug"],
 };
+
+export const WalletCategory: WalletCategoryProps = ChainTabs.reduce(
+  (walletCategory, chain) => {
+    if (Object.hasOwnProperty.call(sourceWalletCategory, chain)) {
+      walletCategory[chain] = sourceWalletCategory[chain];
+    }
+    return walletCategory;
+  },
+  {},
+);
 
 export const defaultValue = {
   connected: false,

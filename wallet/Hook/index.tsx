@@ -15,18 +15,6 @@ import { HookResponse, WalletHook } from "./WalletHook";
 import { ChainResponse, ChainType, WalletType } from "./WalletHook/Types";
 import { Contract, Contractor } from "@openoscom/contracts";
 
-declare global {
-  interface Window {
-    ic: any;
-    aptos: any;
-    martian: any;
-  }
-
-  interface ImportMeta {
-    env: Record<"ENV_NETWORK" | "ENV_CHAINS", string>;
-  }
-}
-
 interface AuthProps {
   logOut: () => any;
   login: (chainType: ChainType, walletType: WalletType) => any;
