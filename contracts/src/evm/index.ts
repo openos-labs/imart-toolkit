@@ -233,9 +233,7 @@ export class Evm implements ContractProxy {
   getRemainingTokenIds(_organizer: string, _activityId: number): Promise<any> {
     return this.nftLottery.getRemainingTokenIds(_organizer, _activityId);
   }
-    getActivityTotalPartcipant(_organizer: string, _activityId: number): Promise<any> {
-    return this.nftLottery.getActivityTotalPartcipant(_organizer, _activityId);
-  }
+
 
   withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx> {
     return this.nftLottery.withdrawPrize(_activityId, signer);
@@ -274,5 +272,8 @@ export class Evm implements ContractProxy {
   }
   async createActivityQuickDraw(createActivityParam: QUICKDRAW.CreateActivityParamStruct, signer?: Signer){
     return this.quickDraw.createActivity(createActivityParam,signer)
+  }
+  getActivityTotalPartcipant(_organizer: string, _activityId: number): Promise<BigNumber> {
+    return this.quickDraw.getActivityTotalPartcipant(_organizer, _activityId);
   }
 }
