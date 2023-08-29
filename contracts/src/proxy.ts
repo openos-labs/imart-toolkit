@@ -180,9 +180,10 @@ export interface QuickLotteryInterface {
   getActivityTotalPartcipant(
     _organizer: PromiseOrValue<string>,
     _activityId: PromiseOrValue<BigNumberish>,
-  ): Promise<boolean>;
+  ): Promise<BigNumber>;
 
 }
+
 export abstract class ContractProxy
   implements
     MarketInterface,
