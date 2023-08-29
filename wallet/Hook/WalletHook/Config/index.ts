@@ -21,7 +21,9 @@ import { OPBNBSpec } from "./OPBNB";
 import { ZkSyncSpec } from "./ZKSYNC";
 
 const envChains: ChainType = import.meta.env.ENV_CHAINS || "";
-const envChainsArray = envChains.split(",") as unknown as ChainType[];
+const envChainsArray = ((arr) => arr.filter((value) => value))(
+  envChains.split(",") as unknown as ChainType[],
+);
 
 const envFindChains = (
   sourceChain: ChainType[],
@@ -73,15 +75,16 @@ const sourceWalletCategory: WalletCategoryProps = {
   IC: ["dfinity:plug"],
 };
 
-export const WalletCategory: WalletCategoryProps = ChainTabs.reduce(
-  (walletCategory, chain) => {
+const sourceWalletCategoryChains =
+  envChainsArray.length === 0 ? sourceChainTabs : envChainsArray;
+
+export const WalletCategory: WalletCategoryProps =
+  sourceWalletCategoryChains.reduce((walletCategory, chain) => {
     if (Object.hasOwnProperty.call(sourceWalletCategory, chain)) {
       walletCategory[chain] = sourceWalletCategory[chain];
     }
     return walletCategory;
-  },
-  {},
-);
+  }, {});
 
 export const defaultValue = {
   connected: false,
