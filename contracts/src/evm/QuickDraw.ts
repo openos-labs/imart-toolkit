@@ -59,4 +59,8 @@ export class QuickDraw implements QuickLotteryInterface {
 	getRemainingTokenIds(_organizer: PromiseOrValue<string>, _activityId: PromiseOrValue<BigNumberish>,signer?:any): Promise<any> {
 		return this.quickDraw().getRemainingTokenIds(_organizer,_activityId)
 	}
+	getActivityTotalPartcipant(_organizer: PromiseOrValue<string>, _activityId: PromiseOrValue<BigNumberish>): Promise<any> {
+		return this.quickDraw().getActivityTotalPartcipant(_organizer,_activityId)
+	}
+	
 }
