@@ -176,6 +176,12 @@ export interface QuickLotteryInterface {
     _activityId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  getActivityTotalPartcipant(
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+  ): Promise<boolean>;
+
 }
 export abstract class ContractProxy
   implements

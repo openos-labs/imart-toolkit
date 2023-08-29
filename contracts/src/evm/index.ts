@@ -233,6 +233,9 @@ export class Evm implements ContractProxy {
   getRemainingTokenIds(_organizer: string, _activityId: number): Promise<any> {
     return this.nftLottery.getRemainingTokenIds(_organizer, _activityId);
   }
+    getActivityTotalPartcipant(_organizer: string, _activityId: number): Promise<any> {
+    return this.nftLottery.getActivityTotalPartcipant(_organizer, _activityId);
+  }
 
   withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx> {
     return this.nftLottery.withdrawPrize(_activityId, signer);
