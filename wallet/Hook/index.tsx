@@ -23,7 +23,7 @@ declare global {
   }
 
   interface ImportMeta {
-    env: any;
+    env: Record<"ENV_NETWORK" | "ENV_CHAINS", string>;
   }
 }
 
