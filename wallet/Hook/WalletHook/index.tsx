@@ -40,7 +40,7 @@ export const WalletHook = (): HookResponse => {
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
   // wallet  gather
   const walletGather = useMemo(() => {
-    return { APTOS, POLYGON, ETH, ZKSYNC,BSC, OPBNB };
+    return { APTOS, POLYGON, ETH, ZKSYNC, BSC, OPBNB };
   }, [APTOS, POLYGON, ETH, ZKSYNC, BSC, OPBNB]);
 
   // login
@@ -138,7 +138,7 @@ export const WalletHook = (): HookResponse => {
     }
     const signed = (await _singMessage(
       data.message,
-      data.nonce
+      data.nonce,
     )) as SignMessageResponse;
     const authPayload = {
       chain: _chainType,
@@ -175,7 +175,7 @@ export const WalletHook = (): HookResponse => {
       return walletLogin(cachedChainType, cachedWalletType);
     }
   };
-  const network = "testnet";
+  const network = import.meta.env.ENV_NETWORK || "testnet";
   const contractor: Contract = useMemo(() => {
     if (!connected) {
       return {} as any;
@@ -211,13 +211,13 @@ export const WalletHook = (): HookResponse => {
   }, [connected]);
 
   const CURRENCIES = {
-    "APTOS":    "APT",
-    "ETH":      "ETH",
-    "ZKSYNC":   "ETH",
-    "BSC":      "BNB",
-    "POLYGON":  "MATIC",
-    "OPBNB":    "tBNB"
-  }
+    APTOS: "APT",
+    ETH: "ETH",
+    ZKSYNC: "ETH",
+    BSC: "BNB",
+    POLYGON: "MATIC",
+    OPBNB: "tBNB",
+  };
   const currencyUnit = useMemo(() => {
     return CURRENCIES[_chainType];
   }, [_chainType]);

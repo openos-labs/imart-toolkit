@@ -1,7 +1,7 @@
 import { BSCAddresses } from "./addresses.config";
 
 const { testnet, mainnet } = BSCAddresses;
-const network = import.meta.env.NETWORK;
+const network = import.meta.env.ENV_NETWORK || "testnet";
 const thatNetAddress = BSCAddresses[network];
 
 export namespace BscSpec {

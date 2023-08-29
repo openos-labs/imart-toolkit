@@ -22,6 +22,7 @@ import { ZkSyncSpec } from "./ZKSYNC";
 
 // export const ChainTabs = ["ETH", "BSC", "OPBNB", "ZKSYNC", "POLYGON", "APTOS"];
 export const ChainTabs = ["BSC"];
+/// console.log('', import.meta.env.ENV_CHAINS);
 
 // export const Chains: Array<ChainType> = [
 //   "ETH",
