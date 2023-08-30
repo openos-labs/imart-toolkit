@@ -1,5 +1,20 @@
 import { Web3Provider } from "@ethersproject/providers";
 
+declare global {
+  interface Window {
+    ic: any;
+    aptos: any;
+    martian: any;
+  }
+
+  interface ImportMeta {
+    env: {
+      ENV_NETWORK: "mainnet" | "testnet" | "";
+      ENV_CHAINS: ChainType;
+    };
+  }
+}
+
 export interface ChainResponse {
   login: (e: WalletType) => Promise<any> | undefined;
   logout: () => Promise<any>;
@@ -57,6 +72,14 @@ export type WalletType =
   | OPBNBWalletType
   | "";
 export type VariantType = "default" | "error" | "success" | "warning" | "info";
-export type ChainType = "IC" | "APTOS" | "ETH" | "ZKSYNC" | "POLYGON" | "BSC" | "OPBNB" |"";
+export type ChainType =
+  | "IC"
+  | "APTOS"
+  | "ETH"
+  | "ZKSYNC"
+  | "POLYGON"
+  | "BSC"
+  | "OPBNB"
+  | "";
 
 export type ActorType = "noIdentity" | "identity" | undefined;

@@ -1,4 +1,4 @@
-import { Fraction, Percent } from '@openos-labs/sdk-core'
+import { Fraction, Percent } from '@openoscom/sdk-core'
 import { Pair } from '@uniswap/v2-sdk'
 import { FeeAmount, Pool } from '@uniswap/v3-sdk'
 import {

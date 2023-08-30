@@ -1,4 +1,4 @@
-import { TradeType } from '@openos-labs/sdk-core'
+import { TradeType } from '@openoscom/sdk-core'
 import { SupportedChainId } from 'constants/chains'
 import { DAI, UNI, USDC_MAINNET } from 'constants/tokens'
 import { useAtomValue } from 'jotai/utils'

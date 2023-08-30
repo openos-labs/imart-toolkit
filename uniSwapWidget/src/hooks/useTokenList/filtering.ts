@@ -1,4 +1,4 @@
-import { NativeCurrency, Token } from '@openos-labs/sdk-core'
+import { NativeCurrency, Token } from '@openoscom/sdk-core'
 import { TokenInfo } from '@uniswap/token-lists'
 import { isAddress } from 'utils'
 

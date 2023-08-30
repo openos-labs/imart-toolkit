@@ -1,5 +1,5 @@
 import { parseUnits } from '@ethersproject/units'
-import { Currency, CurrencyAmount } from '@openos-labs/sdk-core'
+import { Currency, CurrencyAmount } from '@openoscom/sdk-core'
 import JSBI from 'jsbi'
 
 /**

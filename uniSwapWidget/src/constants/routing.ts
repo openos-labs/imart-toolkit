@@ -1,5 +1,5 @@
 // a list of tokens by chain
-import { NativeCurrency, Token } from '@openos-labs/sdk-core'
+import { NativeCurrency, Token } from '@openoscom/sdk-core'
 
 import { SupportedChainId } from './chains'
 import {

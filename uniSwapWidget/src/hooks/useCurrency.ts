@@ -1,6 +1,6 @@
 import { arrayify } from '@ethersproject/bytes'
 import { parseBytes32String } from '@ethersproject/strings'
-import { Currency, Token } from '@openos-labs/sdk-core'
+import { Currency, Token } from '@openoscom/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { TOKEN_SHORTHANDS } from 'constants/tokens'
 import { NEVER_RELOAD, useSingleCallResult } from 'hooks/multicall'

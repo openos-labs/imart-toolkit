@@ -1,4 +1,4 @@
-import { Percent } from '@openos-labs/sdk-core'
+import { Percent } from '@openoscom/sdk-core'
 import { renderComponent } from 'test'
 
 import { PriceImpactRow } from './PriceImpactRow'

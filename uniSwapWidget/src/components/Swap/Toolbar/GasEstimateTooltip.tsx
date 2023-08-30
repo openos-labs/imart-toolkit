@@ -1,5 +1,5 @@
 import { formatCurrencyAmount, NumberType } from '@uniswap/conedison/format'
-import { CurrencyAmount, Token } from '@openos-labs/sdk-core'
+import { CurrencyAmount, Token } from '@openoscom/sdk-core'
 import { BottomSheetModal } from 'components/BottomSheetModal'
 import Column from 'components/Column'
 import Popover from 'components/Popover'

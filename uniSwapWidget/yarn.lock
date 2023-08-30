@@ -2450,18 +2450,6 @@
   dependencies:
     "@octokit/openapi-types" "^11.2.0"
 
-"@openos-labs/sdk-core@1.0.2":
-  version "1.0.2"
-  resolved "https://npm.pkg.github.com/download/@openos-labs/sdk-core/1.0.2/025143999ffcf4fa09ea688293616ef9a133ca0b#025143999ffcf4fa09ea688293616ef9a133ca0b"
-  integrity sha512-4q/w5gV24Scvio+rO7oVym2FaqiRKd9N5bM+gx01ndQ2wcdYF0ay0B5y3MGIRLZgVLbhJO/wfo9Gdg0/SJ80OQ==
-  dependencies:
-    "@ethersproject/address" "^5.0.2"
-    big.js "^5.2.2"
-    decimal.js-light "^2.5.0"
-    jsbi "^3.1.4"
-    tiny-invariant "^1.1.0"
-    toformat "^2.0.0"
-
 "@openoscom/sdk-core@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@openoscom/sdk-core/-/sdk-core-1.0.3.tgz#300885977b59c8f0004fe66519b5f85e31a8996a"

@@ -1,4 +1,4 @@
-import { Currency } from '@openos-labs/sdk-core'
+import { Currency } from '@openoscom/sdk-core'
 import { useLogos } from 'components/Logo/hooks'
 import Vibrant from 'node-vibrant/lib/bundle.js'
 import { useEffect, useState } from 'react'

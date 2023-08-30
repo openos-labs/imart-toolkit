@@ -1,5 +1,5 @@
 import { PERMIT2_ADDRESS } from '@uniswap/permit2-sdk'
-import { CurrencyAmount, MaxUint256 } from '@openos-labs/sdk-core'
+import { CurrencyAmount, MaxUint256 } from '@openoscom/sdk-core'
 import { UNIVERSAL_ROUTER_ADDRESS } from '@uniswap/universal-router-sdk'
 import { SupportedChainId } from 'constants/chains'
 import { UNI } from 'constants/tokens'

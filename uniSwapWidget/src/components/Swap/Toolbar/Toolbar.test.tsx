@@ -1,4 +1,4 @@
-import { SupportedChainId, TradeType } from '@openos-labs/sdk-core'
+import { SupportedChainId, TradeType } from '@openoscom/sdk-core'
 import { DAI, ExtendedEther, USDC_MAINNET, WRAPPED_NATIVE_CURRENCY } from 'constants/tokens'
 import { SwapInfoProvider } from 'hooks/swap/useSwapInfo'
 import Module from 'module'

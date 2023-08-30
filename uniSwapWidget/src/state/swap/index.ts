@@ -1,4 +1,4 @@
-import { Currency, TradeType } from '@openos-labs/sdk-core'
+import { Currency, TradeType } from '@openoscom/sdk-core'
 import { FeeOptions } from '@uniswap/v3-sdk'
 import { SupportedChainId } from 'constants/chains'
 import { nativeOnChain } from 'constants/tokens'

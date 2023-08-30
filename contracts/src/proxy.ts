@@ -176,7 +176,14 @@ export interface QuickLotteryInterface {
     _activityId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  getActivityTotalPartcipant(
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+  ): Promise<BigNumber>;
+
 }
+
 export abstract class ContractProxy
   implements
     MarketInterface,
@@ -300,4 +307,14 @@ export abstract class ContractProxy
   ): Promise<any>;
   abstract withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx>;
   abstract hasPermissionOf(contracts: Array<string>, user: string) : Promise<boolean>;
+  abstract emergencyWithdraw(
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  abstract getActivityTotalPartcipant(
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+  ): Promise<BigNumber>;
 }

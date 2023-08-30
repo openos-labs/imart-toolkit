@@ -1,6 +1,6 @@
 {
   "name": "@openoscom/imart-toolkit",
-  "version": "1.2.11",
+  "version": "2.0.0-stable",
   "main": "./index.ts",
   "description": "IMart frontend packages",
   "repository": "https://github.com/openos-labs/imart-toolkit.git",

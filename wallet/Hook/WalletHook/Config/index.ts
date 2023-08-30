@@ -20,9 +20,29 @@ import { Config } from "@openoscom/contracts";
 import { OPBNBSpec } from "./OPBNB";
 import { ZkSyncSpec } from "./ZKSYNC";
 
-export const ChainTabs = ["ETH", "BSC", "OPBNB", "ZKSYNC", "POLYGON", "APTOS"];
+const envChains: ChainType = import.meta.env.ENV_CHAINS || "";
+const envChainsArray = ((arr) => arr.filter((value) => value))(
+  envChains.split(",") as unknown as ChainType[],
+);
 
-export const Chains: Array<ChainType> = ["ETH", "BSC", "OPBNB", "ZKSYNC", "POLYGON", "APTOS"];
+const envFindChains = (
+  sourceChain: ChainType[],
+  envChains = envChainsArray,
+) => {
+  if (envChains.length === 0) return sourceChain;
+  return sourceChain.filter((chain) => envChainsArray.includes(chain));
+};
+const sourceChainTabs: ChainType[] = [
+  "ETH",
+  "BSC",
+  "OPBNB",
+  "ZKSYNC",
+  "POLYGON",
+  "APTOS",
+];
+export const ChainTabs = envFindChains(sourceChainTabs);
+export const Chains: ChainType[] = envFindChains(sourceChainTabs);
+// export const Chains: Array<ChainType> = ["BSC"];
 
 export type Spec = { configs: { testnet: Config } };
 
@@ -36,16 +56,16 @@ export const Specs: Partial<Record<ChainType, Spec>> = {
 };
 
 interface WalletCategoryProps {
-  ETH: Array<EthereumWalletType>;
-  BSC: Array<BscWalletType>;
-  POLYGON: Array<PolygonWalletType>;
-  APTOS: Array<AptosWalletType>;
-  IC: Array<DfinityWalletType>;
-  OPBNB: Array<OPBNBWalletType>;
-  ZKSYNC: Array<ZkSyncWalletType>;
+  ETH?: Array<EthereumWalletType>;
+  BSC?: Array<BscWalletType>;
+  POLYGON?: Array<PolygonWalletType>;
+  APTOS?: Array<AptosWalletType>;
+  IC?: Array<DfinityWalletType>;
+  OPBNB?: Array<OPBNBWalletType>;
+  ZKSYNC?: Array<ZkSyncWalletType>;
 }
 
-export const WalletCategory: WalletCategoryProps = {
+const sourceWalletCategory: WalletCategoryProps = {
   BSC: ["bsc:metamask"],
   OPBNB: ["opbnb:metamask"],
   ZKSYNC: ["zksync:metamask"],
@@ -54,6 +74,17 @@ export const WalletCategory: WalletCategoryProps = {
   APTOS: ["aptos:petra", "aptos:martian"],
   IC: ["dfinity:plug"],
 };
+
+const sourceWalletCategoryChains =
+  envChainsArray.length === 0 ? sourceChainTabs : envChainsArray;
+
+export const WalletCategory: WalletCategoryProps =
+  sourceWalletCategoryChains.reduce((walletCategory, chain) => {
+    if (Object.hasOwnProperty.call(sourceWalletCategory, chain)) {
+      walletCategory[chain] = sourceWalletCategory[chain];
+    }
+    return walletCategory;
+  }, {});
 
 export const defaultValue = {
   connected: false,

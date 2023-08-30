@@ -1,4 +1,4 @@
-import { TradeType } from '@openos-labs/sdk-core'
+import { TradeType } from '@openoscom/sdk-core'
 import { Field } from 'state/swap'
 
 export function isExactInput(tradeType: TradeType): boolean {

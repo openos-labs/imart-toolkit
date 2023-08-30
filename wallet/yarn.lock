@@ -912,10 +912,10 @@
     mitt "^3.0.0"
     tronweb "^5.1.0"
 
-"@openoscom/contracts@^1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@openoscom/contracts/-/contracts-1.2.6.tgz#fbbf9faf1371eb0b501cdfc2aab9323916fcb5ee"
-  integrity sha512-4gex3Gm/pqJ2xM14VGLEHg8f/XMepgga6SMgCfuewYuCseLG+ma8worLk9Xnfb4EcDojfBth2xOMHU41Sa8fzA==
+"@openoscom/contracts@2.0.4-stable":
+  version "2.0.4-stable"
+  resolved "https://registry.yarnpkg.com/@openoscom/contracts/-/contracts-2.0.4-stable.tgz#ee070ead79b027235acc0011b8f0ae69bf95ed0d"
+  integrity sha512-EUn2Kzo7euQlNs3KcD7lh0rNWR/GCq8ZC1hB7XPlVFFqHa/w6nEIqhkCNxgMeXWPdv1/uXNspn0ijUgt+/lDYQ==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
     "@ethersproject/providers" "^5.7.2"
@@ -940,10 +940,10 @@
     solidity-coverage "^0.8.2"
     typechain "^8.1.1"
 
-"@openoscom/network@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@openoscom/network/-/network-1.1.2.tgz#de23022a0fb987b87606110c5dddc1d43e5a67a7"
-  integrity sha512-2LS5ZRf6wo97S5Kl2mnf/ygQg23lFt94Y1NjgDRPOsdoGfiwVDxlWFK5Z0v4V7mYdsKGjniFxVAKeGY2L1AdPA==
+"@openoscom/network@2.0.0-stable":
+  version "2.0.0-stable"
+  resolved "https://registry.yarnpkg.com/@openoscom/network/-/network-2.0.0-stable.tgz#e5b64cacbdbe802cec41e5fd5dbe1dbe4666b34a"
+  integrity sha512-91j904nbxCZPiSNoThMHoRnRhWHMjZoHobh1ZODSsK13IPWmX37SrQLYkPcjgWD+eq+rqQm3CwEGE7sfDj1fag==
   dependencies:
     axios "^0.21.1"
 

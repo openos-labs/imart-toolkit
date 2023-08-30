@@ -1,4 +1,4 @@
-import { Currency } from '@openos-labs/sdk-core'
+import { Currency } from '@openoscom/sdk-core'
 
 export function currencyId(currency: Currency): string {
   if (currency.isNative) return 'ETH'

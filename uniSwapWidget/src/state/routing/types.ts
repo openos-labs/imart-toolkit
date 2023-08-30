@@ -1,6 +1,6 @@
 import { BaseProvider } from '@ethersproject/providers'
 import { Trade } from '@uniswap/router-sdk'
-import { Currency, Token, TradeType } from '@openos-labs/sdk-core'
+import { Currency, Token, TradeType } from '@openoscom/sdk-core'
 import type { ChainId } from '@uniswap/smart-order-router'
 import { QuoteType, RouterPreference } from 'hooks/routing/types'
 import { OnSwapQuote } from 'state/swap'

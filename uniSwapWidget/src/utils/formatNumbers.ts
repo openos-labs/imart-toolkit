@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Price } from '@openos-labs/sdk-core'
+import { Currency, CurrencyAmount, Price } from '@openoscom/sdk-core'
 import { DEFAULT_LOCALE } from 'constants/locales'
 
 // Convert [CurrencyAmount] to number with necessary precision for price formatting.

@@ -1,4 +1,4 @@
-import { Currency } from '@openos-labs/sdk-core'
+import { Currency } from '@openoscom/sdk-core'
 import Row from 'components/Row'
 import TokenImg from 'components/TokenImg'
 import { BASES_TO_CHECK_TRADES_AGAINST } from 'constants/routing'

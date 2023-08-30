@@ -1,4 +1,4 @@
-import { Percent } from '@openos-labs/sdk-core'
+import { Percent } from '@openoscom/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { useUpdateAtom } from 'jotai/utils'
 import { useEffect } from 'react'

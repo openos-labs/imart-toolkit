@@ -1,4 +1,4 @@
-import { Percent } from '@openos-labs/sdk-core'
+import { Percent } from '@openoscom/sdk-core'
 import JSBI from 'jsbi'
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
