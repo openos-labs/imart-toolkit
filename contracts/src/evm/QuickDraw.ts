@@ -40,17 +40,14 @@ export class QuickDraw implements QuickLotteryInterface {
 		organizer: PromiseOrValue<string>,
 		signer?: any
 	): Promise<any> {
-		return this.quickDraw().connect(signer ?? this.signer).joinActivity(activityId, organizer)
+		return this.quickDraw().connect(this.signer ?? signer).joinActivity(activityId, organizer)
 	}
 	
 	async createActivity(createActivityParam: QUICKDRAW.CreateActivityParamStruct, signer?: any): Promise<any> {
-    	const { erc20Address, totalPrizeQuantity, erc20Amount, erc20Quantity } = createActivityParam
-		
+    	const { erc20Address, erc20Amount } = createActivityParam
 		const ERC20_INSTANCE = ERC20__factory.connect(erc20Address as string, this.provider)
-
-		await ERC20_INSTANCE.connect(signer ?? this.signer).approve(erc20Address, erc20Amount)
-
-		return this.quickDraw().connect(signer ?? this.signer).createActivity(createActivityParam)
+		await ERC20_INSTANCE.connect(this.signer ?? signer).approve(erc20Address, erc20Amount)
+		return this.quickDraw().connect(this.signer ?? signer).createActivity(createActivityParam)
 	}
 	
   getUserHasClaimed(_user: PromiseOrValue<string>, _organizer: PromiseOrValue<string>, _activityId: PromiseOrValue<BigNumberish>,signer?:any): Promise<boolean> {
@@ -61,7 +58,7 @@ export class QuickDraw implements QuickLotteryInterface {
 		return this.quickDraw().getUserHasWinner(_user,_organizer,_activityId)
 	}
 	emergencyWithdraw(_organizer: PromiseOrValue<string>, _activityId: PromiseOrValue<BigNumberish>,signer?:any): Promise<any> {
-		return this.quickDraw().connect(signer ?? this.signer).emergencyWithdraw(_organizer,_activityId)
+		return this.quickDraw().connect(this.signer ?? signer).emergencyWithdraw(_organizer,_activityId)
 	}
 	getRemainingTokenIds(_organizer: PromiseOrValue<string>, _activityId: PromiseOrValue<BigNumberish>,signer?:any): Promise<any> {
 		return this.quickDraw().getRemainingTokenIds(_organizer,_activityId)
