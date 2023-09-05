@@ -70,4 +70,11 @@ export class QuickDraw implements QuickLotteryInterface {
 		return this.quickDraw().getActivityTotalPartcipant(_organizer,_activityId)
 	}
 	
+	withdrawPrize(
+    	_organizer: PromiseOrValue<string>,
+    	overrides?: Overrides & { from?: PromiseOrValue<string> }
+  	): Promise<ContractTransaction> {
+		return this.quickDraw().withdrawPrize(_organizer, overrides)
+  	}
+
 }
