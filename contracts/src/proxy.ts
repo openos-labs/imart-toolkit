@@ -177,6 +177,11 @@ export interface QuickLotteryInterface {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  withdrawPrize(
+     _organizer: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   getActivityTotalPartcipant(
     _organizer: PromiseOrValue<string>,
     _activityId: PromiseOrValue<BigNumberish>,
