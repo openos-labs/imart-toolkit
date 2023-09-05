@@ -912,10 +912,10 @@
     mitt "^3.0.0"
     tronweb "^5.1.0"
 
-"@openoscom/contracts@2.0.4-stable":
-  version "2.0.4-stable"
-  resolved "https://registry.yarnpkg.com/@openoscom/contracts/-/contracts-2.0.4-stable.tgz#ee070ead79b027235acc0011b8f0ae69bf95ed0d"
-  integrity sha512-EUn2Kzo7euQlNs3KcD7lh0rNWR/GCq8ZC1hB7XPlVFFqHa/w6nEIqhkCNxgMeXWPdv1/uXNspn0ijUgt+/lDYQ==
+"@openoscom/contracts@2.0.5-stable":
+  version "2.0.5-stable"
+  resolved "https://registry.yarnpkg.com/@openoscom/contracts/-/contracts-2.0.5-stable.tgz#c9fe7ff324e49debab2b15ac02c1d49aad357da9"
+  integrity sha512-VPzw45z/zFcQBdYnQwFvJ4gM3k38Sb5l0Eu96YTXtyJXySXVjAa4dr0g39FswurRDfh8YGq9H0NLXO69mVUqqw==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
     "@ethersproject/providers" "^5.7.2"
@@ -947,19 +947,19 @@
   dependencies:
     axios "^0.21.1"
 
-"@opensea/seaport-js@^1.0.10":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@opensea/seaport-js/-/seaport-js-1.3.0.tgz#7149fa98d9326c8907318a2688d21790db0302c8"
-  integrity sha512-yKtjP4k2lLGfF/eBsjsIj0FPquD+WL2M1BfihrAiFTQuGIEb+PMAxZmVLUr9UAWX79TcAwnZGJW/qMxF3VsR3A==
+"@opensea/seaport-js@1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@opensea/seaport-js/-/seaport-js-1.0.10.tgz#538eed1316a99d2cf06a57fd874b719efad9c22e"
+  integrity sha512-k4kBmkCNYxAuB6DYRqwcGXik/8x80cHQ4r4bWWFyB0v4AxGNsqMGOwdeDiP1ajxbg4NnmdEpyA8b2p73GiaK7Q==
   dependencies:
     "@0xsequence/multicall" "^0.39.0"
     ethers "^5.6.7"
     merkletreejs "^0.3.9"
 
-"@opensea/seaport-js@^1.0.8":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@opensea/seaport-js/-/seaport-js-1.1.0.tgz#2c1bf0c599ffbad15f0564783d20fd343e3eb814"
-  integrity sha512-qbr40weL8t97SH24EGSO9rCGR4Ii1Hy/sLVVi/WYHjdOwsIBlP/3CtBOxEKRIhl630o034vjuPjGc4yMJLjLGQ==
+"@opensea/seaport-js@^1.0.10":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@opensea/seaport-js/-/seaport-js-1.3.0.tgz#7149fa98d9326c8907318a2688d21790db0302c8"
+  integrity sha512-yKtjP4k2lLGfF/eBsjsIj0FPquD+WL2M1BfihrAiFTQuGIEb+PMAxZmVLUr9UAWX79TcAwnZGJW/qMxF3VsR3A==
   dependencies:
     "@0xsequence/multicall" "^0.39.0"
     ethers "^5.6.7"
