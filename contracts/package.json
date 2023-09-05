@@ -1,6 +1,6 @@
 {
   "name": "@openoscom/contracts",
-  "version": "2.0.15-stable",
+  "version": "2.0.16-stable",
   "main": "src/index.ts",
   "license": "MIT",
   "repository": "https://github.com/openos-labs/imart-toolkit.git",

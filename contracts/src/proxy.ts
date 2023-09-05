@@ -322,4 +322,6 @@ export abstract class ContractProxy
     _organizer: PromiseOrValue<string>,
     _activityId: PromiseOrValue<BigNumberish>,
   ): Promise<BigNumber>;
+
+  abstract createActivityQuickDraw(createActivityParam: QuickDraw.CreateActivityParamStruct, signer?: Signer): Promise<Tx>;
 }
