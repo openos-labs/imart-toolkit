@@ -422,7 +422,7 @@ export interface QuickDraw extends BaseContract {
       _organizer: PromiseOrValue<string>,
       _activityId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<boolean>;
+    ): Promise<[boolean]>;
 
     getUserHasWinner(
       _user: PromiseOrValue<string>,
@@ -522,7 +522,7 @@ export interface QuickDraw extends BaseContract {
     _activityId: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
- 
+
   getActivityTotalPartcipant(
     _organizer: PromiseOrValue<string>,
     _activityId: PromiseOrValue<BigNumberish>,

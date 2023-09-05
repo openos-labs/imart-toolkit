@@ -4,6 +4,7 @@ import {
 	QuickDraw as QUICKDRAW,
 	QuickDraw__factory,
 	NftToken, NftToken__factory,
+	ERC20__factory
 } from "../typechain";
 import {Address, Config, Tx} from "../types";
 import {PromiseOrValue} from "../typechain/common";
@@ -42,7 +43,13 @@ export class QuickDraw implements QuickLotteryInterface {
 		return this.quickDraw().connect(signer ?? this.signer).joinActivity(activityId, organizer)
 	}
 	
-	createActivity(createActivityParam: QUICKDRAW.CreateActivityParamStruct, signer?: any): Promise<any> {
+	async createActivity(createActivityParam: QUICKDRAW.CreateActivityParamStruct, signer?: any): Promise<any> {
+    	const { erc20Address, totalPrizeQuantity, erc20Amount, erc20Quantity } = createActivityParam
+		
+		const ERC20_INSTANCE = ERC20__factory.connect(erc20Address as string, this.provider)
+
+		await ERC20_INSTANCE.approve(erc20Address, erc20Amount)
+
 		return this.quickDraw().connect(signer ?? this.signer).createActivity(createActivityParam)
 	}
 	
