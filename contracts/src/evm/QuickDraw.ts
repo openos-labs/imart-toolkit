@@ -48,7 +48,7 @@ export class QuickDraw implements QuickLotteryInterface {
 		
 		const ERC20_INSTANCE = ERC20__factory.connect(erc20Address as string, this.provider)
 
-		await ERC20_INSTANCE.approve(erc20Address, erc20Amount)
+		await ERC20_INSTANCE.connect(signer ?? this.signer).approve(erc20Address, erc20Amount)
 
 		return this.quickDraw().connect(signer ?? this.signer).createActivity(createActivityParam)
 	}
