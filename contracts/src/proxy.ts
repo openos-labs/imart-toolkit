@@ -32,9 +32,15 @@ import {
   RedeemExhibitArgs,
   ReplyCurationOfferArgs,
 } from "./types/curation";
-import {BigNumber, BigNumberish, CallOverrides, ContractTransaction, Overrides} from "ethers";
-import {PromiseOrValue} from "./typechain/common";
-import {QuickDraw} from "./typechain";
+import {
+  BigNumber,
+  BigNumberish,
+  CallOverrides,
+  ContractTransaction,
+  Overrides,
+} from "ethers";
+import { PromiseOrValue } from "./typechain/common";
+import { QuickDraw } from "./typechain";
 
 export interface CreationInterface {
   config: Config;
@@ -137,7 +143,7 @@ export interface NftLotteryInterface {
   getRemainingTokenIds(_organizer: string, _activityId: number): Promise<any>;
   withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx>;
   isApprovedForAll(_nftContractAddress: string, signer?: any): Promise<boolean>;
-  hasPermissionOf(contracts: Array<string>, user: string) : Promise<boolean>;
+  hasPermissionOf(contracts: Array<string>, user: string): Promise<boolean>;
 }
 
 export interface QuickLotteryInterface {
@@ -149,6 +155,7 @@ export interface QuickLotteryInterface {
   joinActivity(
     activityId: PromiseOrValue<BigNumberish>,
     organizer: PromiseOrValue<string>,
+    invitedCode: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
   getRemainingTokenIds(
@@ -156,21 +163,21 @@ export interface QuickLotteryInterface {
     _activityId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<[BigNumber[]]>;
-  
+
   getUserHasClaimed(
     _user: PromiseOrValue<string>,
     _organizer: PromiseOrValue<string>,
     _activityId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<boolean>;
-  
+
   getUserHasWinner(
     _user: PromiseOrValue<string>,
     _organizer: PromiseOrValue<string>,
     _activityId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<boolean>;
-  
+
   emergencyWithdraw(
     _organizer: PromiseOrValue<string>,
     _activityId: PromiseOrValue<BigNumberish>,
@@ -178,15 +185,41 @@ export interface QuickLotteryInterface {
   ): Promise<ContractTransaction>;
 
   withdrawPrize(
-     _organizer: PromiseOrValue<string>,
+    _organizer: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getActivityTotalPartcipant(
     _organizer: PromiseOrValue<string>,
-    _activityId: PromiseOrValue<BigNumberish>,
+    _activityId: PromiseOrValue<BigNumberish>
   ): Promise<BigNumber>;
 
+  createReffralPool(
+    createReffralPoolParam: QuickDraw.CreateReffralPoolParamStruct,
+    signer?: Signer
+  ): Promise<ContractTransaction>;
+
+  getInvitedCode(
+    userAddress: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<BigNumber>;
+
+  claimRefferallPrize(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<ContractTransaction>;
+  getLeaderboard(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<string[]>;
+  getUserInfo(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    userAddress: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<[string, BigNumber, BigNumber]>;
 }
 
 export abstract class ContractProxy
@@ -311,7 +344,10 @@ export abstract class ContractProxy
     _activityId: number
   ): Promise<any>;
   abstract withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx>;
-  abstract hasPermissionOf(contracts: Array<string>, user: string) : Promise<boolean>;
+  abstract hasPermissionOf(
+    contracts: Array<string>,
+    user: string
+  ): Promise<boolean>;
   abstract emergencyWithdraw(
     _organizer: PromiseOrValue<string>,
     _activityId: PromiseOrValue<BigNumberish>,
@@ -320,8 +356,11 @@ export abstract class ContractProxy
 
   abstract getActivityTotalPartcipant(
     _organizer: PromiseOrValue<string>,
-    _activityId: PromiseOrValue<BigNumberish>,
+    _activityId: PromiseOrValue<BigNumberish>
   ): Promise<BigNumber>;
 
-  abstract createActivityQuickDraw(createActivityParam: QuickDraw.CreateActivityParamStruct, signer?: Signer): Promise<Tx>;
+  abstract createActivityQuickDraw(
+    createActivityParam: QuickDraw.CreateActivityParamStruct,
+    signer?: Signer
+  ): Promise<Tx>;
 }

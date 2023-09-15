@@ -73,29 +73,71 @@ export declare namespace QuickDraw {
     erc20Quantity: BigNumber;
     erc20EachQuantity: BigNumber;
   };
+
+  export type CreateReffralPoolParamStruct = {
+    activityId: PromiseOrValue<BigNumberish>;
+    startTime: PromiseOrValue<BigNumberish>;
+    endTime: PromiseOrValue<BigNumberish>;
+    erc20Address: PromiseOrValue<string>;
+    totalErc20Amount: PromiseOrValue<BigNumberish>;
+    totalErc20Quantity: PromiseOrValue<BigNumberish>;
+    erc20EachQuantity: PromiseOrValue<BigNumberish>;
+  };
+
+  export type CreateReffralPoolParamStructOutput = [
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber
+  ] & {
+    activityId: BigNumber;
+    startTime: BigNumber;
+    endTime: BigNumber;
+    erc20Address: string;
+    totalErc20Amount: BigNumber;
+    totalErc20Quantity: BigNumber;
+    erc20EachQuantity: BigNumber;
+  };
 }
 
 export interface QuickDrawInterface extends utils.Interface {
   functions: {
     "acceptOwnership()": FunctionFragment;
     "acitivityExist(bytes32)": FunctionFragment;
+    "acitivityReffralPool(bytes32)": FunctionFragment;
+    "claimRefferallPrize(uint256,address)": FunctionFragment;
     "createActivity((uint256,uint256,uint256,uint256,uint256,address,uint256,uint256[],uint256,address,uint256,uint256,uint256))": FunctionFragment;
+    "createReffralPool((uint256,uint256,uint256,address,uint256,uint256,uint256))": FunctionFragment;
     "emergencyWithdraw(address,uint256)": FunctionFragment;
+    "extendExpiration(address,uint256,uint256)": FunctionFragment;
     "getActivityTotalPartcipant(address,uint256)": FunctionFragment;
+    "getInvitedCode(address)": FunctionFragment;
+    "getLeaderboard(uint256,address)": FunctionFragment;
     "getRemainingErc20(address,uint256)": FunctionFragment;
     "getRemainingTokenIds(address,uint256)": FunctionFragment;
     "getUserHasClaimed(address,address,uint256)": FunctionFragment;
     "getUserHasWinner(address,address,uint256)": FunctionFragment;
+    "getUserInfo(uint256,address,address)": FunctionFragment;
     "hasClaimed(bytes32)": FunctionFragment;
     "hasWinner(bytes32)": FunctionFragment;
     "initialize()": FunctionFragment;
-    "joinActivity(uint256,address)": FunctionFragment;
+    "invitedCodeUserAddress(uint256)": FunctionFragment;
+    "invitedLeaderboard(bytes32,uint256)": FunctionFragment;
+    "inviterHasRecorded(bytes32)": FunctionFragment;
+    "joinActivity(uint256,address,uint256)": FunctionFragment;
     "onERC721Received(address,address,uint256,bytes)": FunctionFragment;
     "organizerActivityInfo(bytes32)": FunctionFragment;
     "owner()": FunctionFragment;
     "pendingOwner()": FunctionFragment;
+    "reffralPoolExist(bytes32)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
+    "setInvitedCode()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "userDailyClaimCount(bytes32,uint256)": FunctionFragment;
+    "userInvitedCode(address)": FunctionFragment;
     "withdrawPrize(uint256)": FunctionFragment;
   };
 
@@ -103,23 +145,37 @@ export interface QuickDrawInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "acceptOwnership"
       | "acitivityExist"
+      | "acitivityReffralPool"
+      | "claimRefferallPrize"
       | "createActivity"
+      | "createReffralPool"
       | "emergencyWithdraw"
+      | "extendExpiration"
       | "getActivityTotalPartcipant"
+      | "getInvitedCode"
+      | "getLeaderboard"
       | "getRemainingErc20"
       | "getRemainingTokenIds"
       | "getUserHasClaimed"
       | "getUserHasWinner"
+      | "getUserInfo"
       | "hasClaimed"
       | "hasWinner"
       | "initialize"
+      | "invitedCodeUserAddress"
+      | "invitedLeaderboard"
+      | "inviterHasRecorded"
       | "joinActivity"
       | "onERC721Received"
       | "organizerActivityInfo"
       | "owner"
       | "pendingOwner"
+      | "reffralPoolExist"
       | "renounceOwnership"
+      | "setInvitedCode"
       | "transferOwnership"
+      | "userDailyClaimCount"
+      | "userInvitedCode"
       | "withdrawPrize"
   ): FunctionFragment;
 
@@ -132,16 +188,44 @@ export interface QuickDrawInterface extends utils.Interface {
     values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
+    functionFragment: "acitivityReffralPool",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "claimRefferallPrize",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "createActivity",
     values: [QuickDraw.CreateActivityParamStruct]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "createReffralPool",
+    values: [QuickDraw.CreateReffralPoolParamStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "emergencyWithdraw",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
+    functionFragment: "extendExpiration",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getActivityTotalPartcipant",
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getInvitedCode",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getLeaderboard",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getRemainingErc20",
@@ -168,6 +252,14 @@ export interface QuickDrawInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
+    functionFragment: "getUserInfo",
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>
+    ]
+  ): string;
+  encodeFunctionData(
     functionFragment: "hasClaimed",
     values: [PromiseOrValue<BytesLike>]
   ): string;
@@ -180,8 +272,24 @@ export interface QuickDrawInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "invitedCodeUserAddress",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "invitedLeaderboard",
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "inviterHasRecorded",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "joinActivity",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "onERC721Received",
@@ -202,11 +310,27 @@ export interface QuickDrawInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "reffralPoolExist",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "renounceOwnership",
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "setInvitedCode",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "transferOwnership",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "userDailyClaimCount",
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "userInvitedCode",
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
@@ -223,7 +347,19 @@ export interface QuickDrawInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "acitivityReffralPool",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "claimRefferallPrize",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "createActivity",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "createReffralPool",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -231,7 +367,19 @@ export interface QuickDrawInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "extendExpiration",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getActivityTotalPartcipant",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getInvitedCode",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getLeaderboard",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -250,9 +398,25 @@ export interface QuickDrawInterface extends utils.Interface {
     functionFragment: "getUserHasWinner",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getUserInfo",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "hasClaimed", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "hasWinner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "invitedCodeUserAddress",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "invitedLeaderboard",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "inviterHasRecorded",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "joinActivity",
     data: BytesLike
@@ -271,11 +435,27 @@ export interface QuickDrawInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "reffralPoolExist",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "setInvitedCode",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "userDailyClaimCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "userInvitedCode",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -388,8 +568,44 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    acitivityReffralPool(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        startTime: BigNumber;
+        endTime: BigNumber;
+        totalReffralCount: BigNumber;
+        erc20Address: string;
+        totalErc20Amount: BigNumber;
+        totalErc20Quantity: BigNumber;
+        usedErc20Quantity: BigNumber;
+        erc20EachQuantity: BigNumber;
+      }
+    >;
+
+    claimRefferallPrize(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     createActivity(
       createActivityParam: QuickDraw.CreateActivityParamStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    createReffralPool(
+      createReffralPoolParam: QuickDraw.CreateReffralPoolParamStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -399,11 +615,29 @@ export interface QuickDraw extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    extendExpiration(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      _newEndTime: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
     getActivityTotalPartcipant(
       _organizer: PromiseOrValue<string>,
       _activityId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
+
+    getInvitedCode(
+      userAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    getLeaderboard(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[string[]]>;
 
     getRemainingErc20(
       _organizer: PromiseOrValue<string>,
@@ -431,6 +665,13 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
+    getUserInfo(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      userAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[string, BigNumber, BigNumber]>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -445,9 +686,26 @@ export interface QuickDraw extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    invitedCodeUserAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    invitedLeaderboard(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    inviterHasRecorded(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     joinActivity(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
+      invitedCode: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -488,7 +746,16 @@ export interface QuickDraw extends BaseContract {
 
     pendingOwner(overrides?: CallOverrides): Promise<[string]>;
 
+    reffralPoolExist(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     renounceOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
+
+    setInvitedCode(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -496,6 +763,17 @@ export interface QuickDraw extends BaseContract {
       newOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
+
+    userDailyClaimCount(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[number]>;
+
+    userInvitedCode(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     withdrawPrize(
       _activityId: PromiseOrValue<BigNumberish>,
@@ -512,8 +790,44 @@ export interface QuickDraw extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  acitivityReffralPool(
+    arg0: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<
+    [
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      string,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber
+    ] & {
+      startTime: BigNumber;
+      endTime: BigNumber;
+      totalReffralCount: BigNumber;
+      erc20Address: string;
+      totalErc20Amount: BigNumber;
+      totalErc20Quantity: BigNumber;
+      usedErc20Quantity: BigNumber;
+      erc20EachQuantity: BigNumber;
+    }
+  >;
+
+  claimRefferallPrize(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   createActivity(
     createActivityParam: QuickDraw.CreateActivityParamStruct,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  createReffralPool(
+    createReffralPoolParam: QuickDraw.CreateReffralPoolParamStruct,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -523,11 +837,29 @@ export interface QuickDraw extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  extendExpiration(
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+    _newEndTime: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   getActivityTotalPartcipant(
     _organizer: PromiseOrValue<string>,
     _activityId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
+
+  getInvitedCode(
+    userAddress: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getLeaderboard(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<string[]>;
 
   getRemainingErc20(
     _organizer: PromiseOrValue<string>,
@@ -555,6 +887,13 @@ export interface QuickDraw extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  getUserInfo(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    userAddress: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<[string, BigNumber, BigNumber]>;
+
   hasClaimed(
     arg0: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
@@ -569,9 +908,26 @@ export interface QuickDraw extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  invitedCodeUserAddress(
+    arg0: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  invitedLeaderboard(
+    arg0: PromiseOrValue<BytesLike>,
+    arg1: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  inviterHasRecorded(
+    arg0: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   joinActivity(
     activityId: PromiseOrValue<BigNumberish>,
     organizer: PromiseOrValue<string>,
+    invitedCode: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -612,7 +968,16 @@ export interface QuickDraw extends BaseContract {
 
   pendingOwner(overrides?: CallOverrides): Promise<string>;
 
+  reffralPoolExist(
+    arg0: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   renounceOwnership(
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
+  setInvitedCode(
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -620,6 +985,17 @@ export interface QuickDraw extends BaseContract {
     newOwner: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
+
+  userDailyClaimCount(
+    arg0: PromiseOrValue<BytesLike>,
+    arg1: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<number>;
+
+  userInvitedCode(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   withdrawPrize(
     _activityId: PromiseOrValue<BigNumberish>,
@@ -634,8 +1010,44 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    acitivityReffralPool(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        startTime: BigNumber;
+        endTime: BigNumber;
+        totalReffralCount: BigNumber;
+        erc20Address: string;
+        totalErc20Amount: BigNumber;
+        totalErc20Quantity: BigNumber;
+        usedErc20Quantity: BigNumber;
+        erc20EachQuantity: BigNumber;
+      }
+    >;
+
+    claimRefferallPrize(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     createActivity(
       createActivityParam: QuickDraw.CreateActivityParamStruct,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    createReffralPool(
+      createReffralPoolParam: QuickDraw.CreateReffralPoolParamStruct,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -645,11 +1057,29 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    extendExpiration(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      _newEndTime: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     getActivityTotalPartcipant(
       _organizer: PromiseOrValue<string>,
       _activityId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    getInvitedCode(
+      userAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getLeaderboard(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<string[]>;
 
     getRemainingErc20(
       _organizer: PromiseOrValue<string>,
@@ -677,6 +1107,13 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
+    getUserInfo(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      userAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[string, BigNumber, BigNumber]>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -689,9 +1126,26 @@ export interface QuickDraw extends BaseContract {
 
     initialize(overrides?: CallOverrides): Promise<void>;
 
+    invitedCodeUserAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    invitedLeaderboard(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    inviterHasRecorded(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     joinActivity(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
+      invitedCode: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -732,12 +1186,30 @@ export interface QuickDraw extends BaseContract {
 
     pendingOwner(overrides?: CallOverrides): Promise<string>;
 
+    reffralPoolExist(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
+
+    setInvitedCode(overrides?: CallOverrides): Promise<void>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    userDailyClaimCount(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<number>;
+
+    userInvitedCode(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     withdrawPrize(
       _activityId: PromiseOrValue<BigNumberish>,
@@ -798,8 +1270,24 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    acitivityReffralPool(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    claimRefferallPrize(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     createActivity(
       createActivityParam: QuickDraw.CreateActivityParamStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    createReffralPool(
+      createReffralPoolParam: QuickDraw.CreateReffralPoolParamStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -809,9 +1297,27 @@ export interface QuickDraw extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    extendExpiration(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      _newEndTime: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
     getActivityTotalPartcipant(
       _organizer: PromiseOrValue<string>,
       _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getInvitedCode(
+      userAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getLeaderboard(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -841,6 +1347,13 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getUserInfo(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      userAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -855,9 +1368,26 @@ export interface QuickDraw extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    invitedCodeUserAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    invitedLeaderboard(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    inviterHasRecorded(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     joinActivity(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
+      invitedCode: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -878,13 +1408,33 @@ export interface QuickDraw extends BaseContract {
 
     pendingOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
+    reffralPoolExist(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     renounceOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    setInvitedCode(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    userDailyClaimCount(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    userInvitedCode(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     withdrawPrize(
@@ -903,8 +1453,24 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    acitivityReffralPool(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    claimRefferallPrize(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     createActivity(
       createActivityParam: QuickDraw.CreateActivityParamStruct,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    createReffralPool(
+      createReffralPoolParam: QuickDraw.CreateReffralPoolParamStruct,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -914,9 +1480,27 @@ export interface QuickDraw extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    extendExpiration(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      _newEndTime: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
     getActivityTotalPartcipant(
       _organizer: PromiseOrValue<string>,
       _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getInvitedCode(
+      userAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getLeaderboard(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -946,6 +1530,13 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getUserInfo(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      userAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -960,9 +1551,26 @@ export interface QuickDraw extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    invitedCodeUserAddress(
+      arg0: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    invitedLeaderboard(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    inviterHasRecorded(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     joinActivity(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
+      invitedCode: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -983,13 +1591,33 @@ export interface QuickDraw extends BaseContract {
 
     pendingOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    reffralPoolExist(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     renounceOwnership(
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setInvitedCode(
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    userDailyClaimCount(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    userInvitedCode(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     withdrawPrize(
