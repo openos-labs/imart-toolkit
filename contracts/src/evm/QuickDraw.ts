@@ -4,6 +4,7 @@ import {
   ContractTransaction,
   ethers,
   Overrides,
+  Signer,
 } from "ethers";
 import { QuickLotteryInterface } from "../proxy";
 import {
@@ -45,11 +46,12 @@ export class QuickDraw implements QuickLotteryInterface {
   joinActivity(
     activityId: PromiseOrValue<BigNumberish>,
     organizer: PromiseOrValue<string>,
+    invitedCode: PromiseOrValue<BigNumberish>,
     signer?: any
   ): Promise<any> {
     return this.quickDraw()
       .connect(this.signer ?? signer)
-      .joinActivity(activityId, organizer);
+      .joinActivity(activityId, organizer, invitedCode);
   }
 
   async createActivity(
@@ -70,6 +72,71 @@ export class QuickDraw implements QuickLotteryInterface {
     return this.quickDraw()
       .connect(this.signer ?? signer)
       .createActivity(createActivityParam);
+  }
+
+  async createReffralPool(
+    createReffralPoolParam: QUICKDRAW.CreateReffralPoolParamStruct,
+    signer?: Signer
+  ): Promise<ContractTransaction> {
+    const { erc20Address, totalErc20Amount } = createReffralPoolParam;
+    const ERC20_INSTANCE = ERC20__factory.connect(
+      erc20Address as string,
+      this.provider
+    );
+
+    const tx = await ERC20_INSTANCE.connect(this.signer ?? signer).approve(
+      this.quickDrawAddress,
+      totalErc20Amount
+    );
+    return this.quickDraw().createReffralPool(createReffralPoolParam);
+  }
+
+  async getInvitedCode(
+    userAddress: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<BigNumber> {
+    const INSTANCE = this.getInstance(signer);
+    let code = await INSTANCE.getInvitedCode(userAddress);
+    if (code.toNumber() > 0) {
+      return code;
+    }
+
+    const tx = await INSTANCE.setInvitedCode();
+    await tx.wait();
+    code = await INSTANCE.getInvitedCode(userAddress);
+
+    return code;
+  }
+
+  claimRefferallPrize(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<ContractTransaction> {
+    return this.quickDraw()
+      .connect(this.signer ?? signer)
+      .claimRefferallPrize(activityId, organizer);
+  }
+
+  getLeaderboard(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<string[]> {
+    return this.quickDraw()
+      .connect(this.signer ?? signer)
+      .getLeaderboard(activityId, organizer);
+  }
+
+  getUserInfo(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    userAddress: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<[string, BigNumber, BigNumber]> {
+    return this.quickDraw()
+      .connect(this.signer ?? signer)
+      .getUserInfo(activityId, organizer, userAddress);
   }
 
   getUserHasClaimed(
@@ -117,5 +184,9 @@ export class QuickDraw implements QuickLotteryInterface {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction> {
     return this.quickDraw().withdrawPrize(_organizer, overrides);
+  }
+
+  getInstance(signer?: Signer): QUICKDRAW {
+    return this.quickDraw().connect(this.signer ?? signer);
   }
 }
