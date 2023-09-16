@@ -13,7 +13,7 @@ export * from "./WalletHook/Config";
 
 import { HookResponse, WalletHook } from "./WalletHook";
 import { ChainResponse, ChainType, WalletType } from "./WalletHook/Types";
-import { Contract, Contractor } from "@openoscom/contracts";
+import { Contract, Contractor, ContractorV2 } from "@openoscom/contracts";
 
 interface AuthProps {
   logOut: () => any;
@@ -23,6 +23,7 @@ interface AuthProps {
   loginLoading: boolean;
   contractClient: Contract;
   contractor: Contract;
+  contractorV2: ContractorV2;
   currentChainType: ChainType | string;
   walletType: WalletType | string;
   switchChain: (chainType: ChainType, walletType: WalletType) => any;
@@ -43,6 +44,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     walletLogin,
     walletLogout,
     contractor,
+    contractorV2,
     connected,
     checkLogin,
     currentChainType,
@@ -68,6 +70,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     loginLoading,
     contractClient: contractor,
     contractor,
+    contractorV2,
     switchChain,
     getBalance,
     currencyUnit,
