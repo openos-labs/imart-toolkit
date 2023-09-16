@@ -79,6 +79,7 @@ export class QuickDraw implements QuickLotteryInterface {
     signer?: Signer
   ): Promise<ContractTransaction> {
     const { erc20Address, totalErc20Amount } = createReffralPoolParam;
+
     const ERC20_INSTANCE = ERC20__factory.connect(
       erc20Address as string,
       this.provider
@@ -88,7 +89,11 @@ export class QuickDraw implements QuickLotteryInterface {
       this.quickDrawAddress,
       totalErc20Amount
     );
-    return this.quickDraw().createReffralPool(createReffralPoolParam);
+
+    await tx.wait();
+    return this.quickDraw()
+      .connect(this.signer ?? signer)
+      .createReffralPool(createReffralPoolParam);
   }
 
   async getInvitedCode(
