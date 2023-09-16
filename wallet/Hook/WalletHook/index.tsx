@@ -210,8 +210,12 @@ export const WalletHook = (): HookResponse => {
     }
     const config: Config = {
       ...Specs[_chainType]!.configs[network],
+      provider: ETH.getProvider(),
       network,
     };
+    if (!config.provider) {
+      return;
+    }
     return new ContractorV2(config);
   }, [_chainType, ETH, connected]);
   // ------------------------watch state ----------------------

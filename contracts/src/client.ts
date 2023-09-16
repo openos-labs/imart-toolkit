@@ -30,6 +30,7 @@ export class ContractorV2 {
     }
   }
   get quickDraw() {
-    return this._quickDraw ?? (this._quickDraw = QuickDraw__factory.connect(this.config.addresses["quickDraw"], this.provider));
+    this._quickDraw || (this._quickDraw = QuickDraw__factory.connect(this.config.addresses["quickDraw"], this.provider));
+    return this.signer ? this._quickDraw.connect(this.signer) : this._quickDraw;
   }
 }
