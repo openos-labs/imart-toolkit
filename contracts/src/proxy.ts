@@ -363,4 +363,32 @@ export abstract class ContractProxy
     createActivityParam: QuickDraw.CreateActivityParamStruct,
     signer?: Signer
   ): Promise<Tx>;
+
+  abstract createReffralPool(
+    createReffralPoolParam: QuickDraw.CreateReffralPoolParamStruct,
+    signer?: Signer
+  ): Promise<ContractTransaction>;
+
+  abstract getInvitedCode(
+    userAddress: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<BigNumber>;
+
+  abstract claimRefferallPrize(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<ContractTransaction>;
+  abstract getLeaderboard(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<string[]>;
+
+  abstract getUserInfo(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    userAddress: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<[string, BigNumber, BigNumber]>;
 }
