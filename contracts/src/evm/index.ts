@@ -5,7 +5,7 @@ import { Creation } from "./creation";
 import { Market } from "./market";
 import { Curation } from "./curation";
 import { NftLottery } from "./nft_lottery";
-import {QuickDraw} from './QuickDraw'
+import { QuickDraw } from "./QuickDraw";
 import {
   ListTokenArgs,
   CreateOfferArgs,
@@ -34,7 +34,7 @@ import {
   ApproveArgs,
 } from "../types";
 import { ethers } from "ethers";
-import {QuickDraw as QUICKDRAW} from "../typechain";
+import { QuickDraw as QUICKDRAW } from "../typechain";
 
 export class Evm implements ContractProxy {
   readonly config: Config;
@@ -42,7 +42,7 @@ export class Evm implements ContractProxy {
   private _creation: Creation;
   private _curation: Curation;
   private _nftLottery: NftLottery;
-  private _quickDraw:  QuickDraw
+  private _quickDraw: QuickDraw;
   get market() {
     return this._market ?? (this._market = new Market(this.config));
   }
@@ -59,10 +59,10 @@ export class Evm implements ContractProxy {
     return this._nftLottery ?? (this._nftLottery = new NftLottery(this.config));
   }
 
-  get quickDraw(){
+  get quickDraw() {
     return this._quickDraw ?? (this._quickDraw = new QuickDraw(this.config));
   }
-  
+
   constructor(config: Config) {
     this.config = config;
   }
@@ -234,7 +234,6 @@ export class Evm implements ContractProxy {
     return this.nftLottery.getRemainingTokenIds(_organizer, _activityId);
   }
 
-
   withdrawPrize(_activityId: number, signer?: Signer): Promise<Tx> {
     return this.nftLottery.withdrawPrize(_activityId, signer);
   }
@@ -252,28 +251,100 @@ export class Evm implements ContractProxy {
     );
   }
 
-  async hasPermissionOf(contracts: Array<string>, user: string) : Promise<boolean> {
-    return this.nftLottery.hasPermissionOf(contracts, user)
+  async hasPermissionOf(
+    contracts: Array<string>,
+    user: string
+  ): Promise<boolean> {
+    return this.nftLottery.hasPermissionOf(contracts, user);
   }
-  async joinActivity(_activityId:number,_organizer: string, signer?: Signer){
-    return this.quickDraw.joinActivity(_activityId,_organizer,signer)
+  async joinActivity(_activityId: number, _organizer: string, signer?: Signer) {
+    return this.quickDraw.joinActivity(_activityId, _organizer, signer);
   }
-  async getUserHasClaimedQuickDraw(user:string,_organizer: string,_activityId:number, signer?: Signer){
-    return this.quickDraw.getUserHasClaimed(user,_organizer,_activityId)
+  async getUserHasClaimedQuickDraw(
+    user: string,
+    _organizer: string,
+    _activityId: number,
+    signer?: Signer
+  ) {
+    return this.quickDraw.getUserHasClaimed(user, _organizer, _activityId);
   }
-  async getUserHasWinnerQuickDraw(user:string,_organizer: string,_activityId:number, signer?: Signer){
-    return this.quickDraw.getUserHasWinner(user,_organizer,_activityId)
+  async getUserHasWinnerQuickDraw(
+    user: string,
+    _organizer: string,
+    _activityId: number,
+    signer?: Signer
+  ) {
+    return this.quickDraw.getUserHasWinner(user, _organizer, _activityId);
   }
-  async emergencyWithdrawQuickDraw(_organizer: string,_activityId:number, signer?: Signer){
-    return this.quickDraw.emergencyWithdraw(_organizer,_activityId,signer)
+  async emergencyWithdrawQuickDraw(
+    _organizer: string,
+    _activityId: number,
+    signer?: Signer
+  ) {
+    return this.quickDraw.emergencyWithdraw(_organizer, _activityId, signer);
   }
-  async getRemainingTokenIdsQuickDraw(_organizer: string, _activityId: number, signer?: Signer){
-    return this.quickDraw.getRemainingTokenIds(_organizer,_activityId)
+  async getRemainingTokenIdsQuickDraw(
+    _organizer: string,
+    _activityId: number,
+    signer?: Signer
+  ) {
+    return this.quickDraw.getRemainingTokenIds(_organizer, _activityId);
   }
-  async createActivityQuickDraw(createActivityParam: QUICKDRAW.CreateActivityParamStruct, signer?: Signer){
-    return this.quickDraw.createActivity(createActivityParam,signer)
+  async createActivityQuickDraw(
+    createActivityParam: QUICKDRAW.CreateActivityParamStruct,
+    signer?: Signer
+  ) {
+    return this.quickDraw.createActivity(createActivityParam, signer);
   }
-  getActivityTotalPartcipant(_organizer: string, _activityId: number): Promise<BigNumber> {
+  getActivityTotalPartcipant(
+    _organizer: string,
+    _activityId: number
+  ): Promise<BigNumber> {
     return this.quickDraw.getActivityTotalPartcipant(_organizer, _activityId);
+  }
+
+  createReffralPool(
+    createReffralPoolParam: QUICKDRAW.CreateReffralPoolParamStruct,
+    signer?: Signer
+  ): Promise<ContractTransaction> {
+    return this.quickDraw.createReffralPool(createReffralPoolParam, signer);
+  }
+  getInvitedCode(
+    userAddress: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<BigNumber> {
+    return this.quickDraw.getInvitedCode(userAddress, signer);
+  }
+
+  claimRefferallPrize(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<ContractTransaction> {
+    return this.quickDraw.claimRefferallPrize(activityId, organizer, signer);
+  }
+
+  getLeaderboard(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<string[]> {
+    return this.quickDraw.getLeaderboard(activityId, organizer, signer);
+  }
+  getUserInfo(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    userAddress: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<[string, BigNumber, BigNumber]> {
+    return this.quickDraw.getUserInfo(
+      activityId,
+      organizer,
+      userAddress,
+      signer
+    );
+  }
+  getQuickDrawInstance(signer?: Signer): QUICKDRAW {
+    return this.quickDraw.getInstance(signer);
   }
 }
