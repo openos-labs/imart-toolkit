@@ -912,10 +912,10 @@
     mitt "^3.0.0"
     tronweb "^5.1.0"
 
-"@openoscom/contracts@2.0.20-stable":
-  version "2.0.20-stable"
-  resolved "https://registry.yarnpkg.com/@openoscom/contracts/-/contracts-2.0.20-stable.tgz#7bfa82bf5a0ccd75d3c3d8b9abf3b7f19ada44a1"
-  integrity sha512-Qrhm/FbEwnDxOoc/mH92vF2i5HvdQfi71ks/xn2f9XgCYHt9opvA1yJCEQGHqIeEXU9lypHI5moUbKZYWCSUFw==
+"@openoscom/contracts@2.0.23-stable":
+  version "2.0.23-stable"
+  resolved "https://registry.yarnpkg.com/@openoscom/contracts/-/contracts-2.0.23-stable.tgz#c216c55d1ed213c947ed3ab372aa62bce4453670"
+  integrity sha512-aNZlXkBDv4DErGO0muf4SsvxphLhtULGhdgc+8xRRxdSUZOl7oNufhg+ZpxSvoH2+cCNIZgiI1BNyTG7fhWv+Q==
   dependencies:
     "@ethersproject/abi" "^5.7.0"
     "@ethersproject/providers" "^5.7.2"
