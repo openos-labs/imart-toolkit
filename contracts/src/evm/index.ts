@@ -257,8 +257,8 @@ export class Evm implements ContractProxy {
   ): Promise<boolean> {
     return this.nftLottery.hasPermissionOf(contracts, user);
   }
-  async joinActivity(_activityId: number, _organizer: string, signer?: Signer) {
-    return this.quickDraw.joinActivity(_activityId, _organizer, signer);
+  async joinActivity(_activityId: number, _organizer: string, inviteCode?:number,signer?: Signer) {
+    return this.quickDraw.joinActivity(_activityId, _organizer, inviteCode, signer);
   }
   async getUserHasClaimedQuickDraw(
     user: string,

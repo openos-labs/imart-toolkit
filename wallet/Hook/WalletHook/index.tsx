@@ -7,7 +7,7 @@ import axios from "axios";
 import Storage from "../../utils/storage";
 import { Specs, defaultValue } from "./Config";
 import { ChainType, SignMessageResponse, WalletType } from "./Types";
-import { Contractor, Aptos, Evm, Contract, Config } from "../../../contracts";
+import { Contractor, Aptos, Evm, Contract, Config, ContractorV2 } from "../../../contracts";
 
 export interface HookResponse {
   walletLogout: () => any;
@@ -16,6 +16,7 @@ export interface HookResponse {
   address: string;
   loginLoading: boolean;
   contractor: Contract;
+  contractorV2: ContractorV2;
   currentChainType: ChainType | string;
   currentWalletType: WalletType | string;
   checkLogin: () => void;
@@ -203,6 +204,16 @@ export const WalletHook = (): HookResponse => {
       }
     }
   }, [_chainType, ETH, connected]);
+  const contractorV2: ContractorV2 = useMemo(() => {
+    if (!connected) {
+      return {} as any;
+    }
+    const config: Config = {
+      ...Specs[_chainType]!.configs[network],
+      network,
+    };
+    return new ContractorV2(config);
+  }, [_chainType, ETH, connected]);
   // ------------------------watch state ----------------------
   useEffect(() => {
     if (connected) {
@@ -229,6 +240,7 @@ export const WalletHook = (): HookResponse => {
 
   return {
     contractor,
+    contractorV2,
     walletLogin,
     walletLogout,
     AuthImart,
