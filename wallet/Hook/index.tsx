@@ -13,7 +13,7 @@ export * from "./WalletHook/Config";
 
 import { HookResponse, WalletHook } from "./WalletHook";
 import { ChainResponse, ChainType, WalletType } from "./WalletHook/Types";
-import { Contract, Contractor, ContractorV2 } from "@openoscom/contracts";
+import { Contract, Contractor,Config,ContractorV2 } from "@openoscom/contracts";
 
 interface AuthProps {
   logOut: () => any;
@@ -31,6 +31,7 @@ interface AuthProps {
   currencyUnit: string;
   getEnsName: (e: string) => any;
   changeToTestNetwork: () => any;
+  currentConfig:Config
 }
 
 interface AuthProviderProps {
@@ -54,6 +55,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     currencyUnit,
     getEnsName,
     changeToTestNetwork,
+    currentConfig
   } = WalletHook();
 
   useEffect(() => {
@@ -76,6 +78,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     currencyUnit,
     getEnsName,
     changeToTestNetwork,
+    currentConfig
   };
   // save common data
   return (

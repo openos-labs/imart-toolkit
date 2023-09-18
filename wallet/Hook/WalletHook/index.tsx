@@ -26,6 +26,7 @@ export interface HookResponse {
   currencyUnit: string;
   getEnsName: (e: string) => any;
   changeToTestNetwork: (chainType?: string) => any;
+  currentConfig:Config
 }
 
 export const WalletHook = (): HookResponse => {
@@ -69,7 +70,10 @@ export const WalletHook = (): HookResponse => {
     getBalance,
     getEnsName,
     changeToTestNetwork,
+    currentConfig
   } = useMemo(() => {
+    const network = import.meta.env.ENV_NETWORK || "testnet";
+  
     if (!_chainType) {
       return defaultValue;
     }
@@ -80,6 +84,12 @@ export const WalletHook = (): HookResponse => {
         _currentConnectedWallet && _currentConnectedWallet["connected"]
       );
     };
+  
+    const currentConfig: Config = {
+      ...Specs[_chainType]!.configs[network],
+      network,
+    };
+    
     // address
     const address = (): string => {
       const _address = _currentConnectedWallet["address"];
@@ -110,6 +120,7 @@ export const WalletHook = (): HookResponse => {
       getBalance,
       getEnsName,
       changeToTestNetwork,
+      currentConfig
     };
   }, [_chainType, _walletType, walletGather]);
 

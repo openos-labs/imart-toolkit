@@ -28,8 +28,7 @@ export class Creation implements CreationInterface {
   constructor(config: Config) {
     this.config = config;
     if (
-      config.provider &&
-      config.provider instanceof ethers.providers.JsonRpcProvider
+      config.provider
     ) {
       this.provider = config.provider as ethers.providers.JsonRpcProvider;
       this.signer = this.provider.getSigner();

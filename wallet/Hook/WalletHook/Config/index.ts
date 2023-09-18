@@ -94,4 +94,5 @@ export const defaultValue = {
   getBalance: () => {},
   getEnsName: () => {},
   changeToTestNetwork: () => {},
+  currentConfig:{}
 };
