@@ -30,7 +30,8 @@ export class Curation implements CurationInterface {
     this.config = config;
     this.address = config.addresses["curation"];
     if (
-      config.provider
+      config.provider &&
+      config.provider instanceof ethers.providers.Web3Provider
     ) {
       this.provider = config.provider as ethers.providers.Web3Provider;
       this.signer = this.provider.getSigner();

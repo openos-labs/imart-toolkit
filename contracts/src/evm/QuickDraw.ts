@@ -25,7 +25,8 @@ export class QuickDraw implements QuickLotteryInterface {
 
   constructor(config: Config) {
     if (
-      config.provider
+      config.provider &&
+      config.provider instanceof ethers.providers.JsonRpcProvider
     ) {
       this.provider = config.provider as ethers.providers.JsonRpcProvider;
       this.signer = this.provider.getSigner();
