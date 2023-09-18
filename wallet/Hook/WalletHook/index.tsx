@@ -214,7 +214,7 @@ export const WalletHook = (): HookResponse => {
         return Contractor(Evm, evmconf);
       }
     }
-  }, [_chainType, ETH, connected]);
+  }, [ETH.chainId, connected]);
   const contractorV2: ContractorV2 = useMemo(() => {
     if (!connected) {
       return {} as any;
@@ -228,7 +228,7 @@ export const WalletHook = (): HookResponse => {
       return;
     }
     return new ContractorV2(config);
-  }, [_chainType, ETH, connected]);
+  }, [ETH.chainId, connected]);
   // ------------------------watch state ----------------------
   useEffect(() => {
     if (connected) {
