@@ -331,6 +331,14 @@ export class Evm implements ContractProxy {
   ): Promise<string[]> {
     return this.quickDraw.getLeaderboard(activityId, organizer, signer);
   }
+  
+  getLeaderBoardList(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<string[]> {
+    return this.quickDraw.getLeaderBoardList(activityId, organizer, signer);
+  }
   getUserInfo(
     activityId: PromiseOrValue<BigNumberish>,
     organizer: PromiseOrValue<string>,

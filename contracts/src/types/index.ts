@@ -47,6 +47,7 @@ export interface Config {
   network?: Network;
   addresses: Addresses;
   submitTx?: SubmitTx;
+  walletAddress?:string,
   provider?:
     | ethers.providers.JsonRpcProvider
     | ethers.providers.BaseProvider

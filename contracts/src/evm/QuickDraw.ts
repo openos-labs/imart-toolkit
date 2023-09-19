@@ -24,12 +24,9 @@ export class QuickDraw implements QuickLotteryInterface {
   private provider: ethers.providers.JsonRpcProvider;
 
   constructor(config: Config) {
-    if (
-      config.provider &&
-      config.provider instanceof ethers.providers.JsonRpcProvider
-    ) {
+    if (config.provider) {
       this.provider = config.provider as ethers.providers.JsonRpcProvider;
-      this.signer = this.provider.getSigner();
+      this.signer = this.provider.getSigner(config.walletAddress);
       this.config = config;
     }
     this.quickDrawAddress = config.addresses["quickDraw"];
@@ -132,7 +129,17 @@ export class QuickDraw implements QuickLotteryInterface {
       .connect(this.signer ?? signer)
       .getLeaderboard(activityId, organizer);
   }
-
+  
+  getLeaderBoardList(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    signer?: Signer
+  ): Promise<QUICKDRAW.UserInfoStructOutput[]> {
+    return this.quickDraw()
+      .connect(this.signer ?? signer)
+      .getLeaderBoardList(activityId, organizer);
+  }
+  
   getUserInfo(
     activityId: PromiseOrValue<BigNumberish>,
     organizer: PromiseOrValue<string>,

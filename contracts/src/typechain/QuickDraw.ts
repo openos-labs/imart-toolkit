@@ -101,6 +101,20 @@ export declare namespace QuickDraw {
     totalErc20Quantity: BigNumber;
     erc20EachQuantity: BigNumber;
   };
+
+  export type UserInfoStruct = {
+    userAddress: PromiseOrValue<string>;
+    totalInvitedErc20Amount: PromiseOrValue<BigNumberish>;
+    invitedUserAmount: PromiseOrValue<BigNumberish>;
+    isClaimed: PromiseOrValue<boolean>;
+  };
+
+  export type UserInfoStructOutput = [string, BigNumber, BigNumber, boolean] & {
+    userAddress: string;
+    totalInvitedErc20Amount: BigNumber;
+    invitedUserAmount: BigNumber;
+    isClaimed: boolean;
+  };
 }
 
 export interface QuickDrawInterface extends utils.Interface {
@@ -115,17 +129,20 @@ export interface QuickDrawInterface extends utils.Interface {
     "extendExpiration(address,uint256,uint256)": FunctionFragment;
     "getActivityTotalPartcipant(address,uint256)": FunctionFragment;
     "getInvitedCode(address)": FunctionFragment;
+    "getLeaderBoardList(uint256,address)": FunctionFragment;
     "getLeaderboard(uint256,address)": FunctionFragment;
     "getRemainingErc20(address,uint256)": FunctionFragment;
     "getRemainingTokenIds(address,uint256)": FunctionFragment;
     "getUserHasClaimed(address,address,uint256)": FunctionFragment;
     "getUserHasWinner(address,address,uint256)": FunctionFragment;
     "getUserInfo(uint256,address,address)": FunctionFragment;
+    "getUserRecorded(address,uint256,address)": FunctionFragment;
     "hasClaimed(bytes32)": FunctionFragment;
     "hasWinner(bytes32)": FunctionFragment;
     "initialize()": FunctionFragment;
     "invitedCodeUserAddress(uint256)": FunctionFragment;
     "invitedLeaderboard(bytes32,uint256)": FunctionFragment;
+    "invitedLeaderboardDetail(bytes32,uint256)": FunctionFragment;
     "inviterHasRecorded(bytes32)": FunctionFragment;
     "joinActivity(uint256,address,uint256)": FunctionFragment;
     "onERC721Received(address,address,uint256,bytes)": FunctionFragment;
@@ -153,17 +170,20 @@ export interface QuickDrawInterface extends utils.Interface {
       | "extendExpiration"
       | "getActivityTotalPartcipant"
       | "getInvitedCode"
+      | "getLeaderBoardList"
       | "getLeaderboard"
       | "getRemainingErc20"
       | "getRemainingTokenIds"
       | "getUserHasClaimed"
       | "getUserHasWinner"
       | "getUserInfo"
+      | "getUserRecorded"
       | "hasClaimed"
       | "hasWinner"
       | "initialize"
       | "invitedCodeUserAddress"
       | "invitedLeaderboard"
+      | "invitedLeaderboardDetail"
       | "inviterHasRecorded"
       | "joinActivity"
       | "onERC721Received"
@@ -224,6 +244,10 @@ export interface QuickDrawInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
+    functionFragment: "getLeaderBoardList",
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getLeaderboard",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
@@ -260,6 +284,14 @@ export interface QuickDrawInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
+    functionFragment: "getUserRecorded",
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>
+    ]
+  ): string;
+  encodeFunctionData(
     functionFragment: "hasClaimed",
     values: [PromiseOrValue<BytesLike>]
   ): string;
@@ -277,6 +309,10 @@ export interface QuickDrawInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "invitedLeaderboard",
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "invitedLeaderboardDetail",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
@@ -379,6 +415,10 @@ export interface QuickDrawInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getLeaderBoardList",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getLeaderboard",
     data: BytesLike
   ): Result;
@@ -402,6 +442,10 @@ export interface QuickDrawInterface extends utils.Interface {
     functionFragment: "getUserInfo",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getUserRecorded",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "hasClaimed", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "hasWinner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
@@ -411,6 +455,10 @@ export interface QuickDrawInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "invitedLeaderboard",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "invitedLeaderboardDetail",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -465,6 +513,7 @@ export interface QuickDrawInterface extends utils.Interface {
 
   events: {
     "Initialized(uint8)": EventFragment;
+    "InvitedCode(address,uint256)": EventFragment;
     "JoinActivity(address,uint256,bool)": EventFragment;
     "OwnershipTransferStarted(address,address)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
@@ -472,6 +521,7 @@ export interface QuickDrawInterface extends utils.Interface {
   };
 
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "InvitedCode"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "JoinActivity"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferStarted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
@@ -484,6 +534,17 @@ export interface InitializedEventObject {
 export type InitializedEvent = TypedEvent<[number], InitializedEventObject>;
 
 export type InitializedEventFilter = TypedEventFilter<InitializedEvent>;
+
+export interface InvitedCodeEventObject {
+  userAddress: string;
+  invitedCode: BigNumber;
+}
+export type InvitedCodeEvent = TypedEvent<
+  [string, BigNumber],
+  InvitedCodeEventObject
+>;
+
+export type InvitedCodeEventFilter = TypedEventFilter<InvitedCodeEvent>;
 
 export interface JoinActivityEventObject {
   user: string;
@@ -633,6 +694,12 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    getLeaderBoardList(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[QuickDraw.UserInfoStructOutput[]]>;
+
     getLeaderboard(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
@@ -672,6 +739,13 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string, BigNumber, BigNumber]>;
 
+    getUserRecorded(
+      userAddress: PromiseOrValue<string>,
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -696,6 +770,19 @@ export interface QuickDraw extends BaseContract {
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[string]>;
+
+    invitedLeaderboardDetail(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [string, BigNumber, BigNumber, boolean] & {
+        userAddress: string;
+        totalInvitedErc20Amount: BigNumber;
+        invitedUserAmount: BigNumber;
+        isClaimed: boolean;
+      }
+    >;
 
     inviterHasRecorded(
       arg0: PromiseOrValue<BytesLike>,
@@ -855,6 +942,12 @@ export interface QuickDraw extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  getLeaderBoardList(
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<QuickDraw.UserInfoStructOutput[]>;
+
   getLeaderboard(
     activityId: PromiseOrValue<BigNumberish>,
     organizer: PromiseOrValue<string>,
@@ -894,6 +987,13 @@ export interface QuickDraw extends BaseContract {
     overrides?: CallOverrides
   ): Promise<[string, BigNumber, BigNumber]>;
 
+  getUserRecorded(
+    userAddress: PromiseOrValue<string>,
+    activityId: PromiseOrValue<BigNumberish>,
+    organizer: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   hasClaimed(
     arg0: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
@@ -918,6 +1018,19 @@ export interface QuickDraw extends BaseContract {
     arg1: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<string>;
+
+  invitedLeaderboardDetail(
+    arg0: PromiseOrValue<BytesLike>,
+    arg1: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<
+    [string, BigNumber, BigNumber, boolean] & {
+      userAddress: string;
+      totalInvitedErc20Amount: BigNumber;
+      invitedUserAmount: BigNumber;
+      isClaimed: boolean;
+    }
+  >;
 
   inviterHasRecorded(
     arg0: PromiseOrValue<BytesLike>,
@@ -1075,6 +1188,12 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getLeaderBoardList(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<QuickDraw.UserInfoStructOutput[]>;
+
     getLeaderboard(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
@@ -1114,6 +1233,13 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string, BigNumber, BigNumber]>;
 
+    getUserRecorded(
+      userAddress: PromiseOrValue<string>,
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -1136,6 +1262,19 @@ export interface QuickDraw extends BaseContract {
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    invitedLeaderboardDetail(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [string, BigNumber, BigNumber, boolean] & {
+        userAddress: string;
+        totalInvitedErc20Amount: BigNumber;
+        invitedUserAmount: BigNumber;
+        isClaimed: boolean;
+      }
+    >;
 
     inviterHasRecorded(
       arg0: PromiseOrValue<BytesLike>,
@@ -1220,6 +1359,15 @@ export interface QuickDraw extends BaseContract {
   filters: {
     "Initialized(uint8)"(version?: null): InitializedEventFilter;
     Initialized(version?: null): InitializedEventFilter;
+
+    "InvitedCode(address,uint256)"(
+      userAddress?: PromiseOrValue<string> | null,
+      invitedCode?: PromiseOrValue<BigNumberish> | null
+    ): InvitedCodeEventFilter;
+    InvitedCode(
+      userAddress?: PromiseOrValue<string> | null,
+      invitedCode?: PromiseOrValue<BigNumberish> | null
+    ): InvitedCodeEventFilter;
 
     "JoinActivity(address,uint256,bool)"(
       user?: PromiseOrValue<string> | null,
@@ -1315,6 +1463,12 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getLeaderBoardList(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getLeaderboard(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
@@ -1354,6 +1508,13 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getUserRecorded(
+      userAddress: PromiseOrValue<string>,
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -1374,6 +1535,12 @@ export interface QuickDraw extends BaseContract {
     ): Promise<BigNumber>;
 
     invitedLeaderboard(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    invitedLeaderboardDetail(
       arg0: PromiseOrValue<BytesLike>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1498,6 +1665,12 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getLeaderBoardList(
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getLeaderboard(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
@@ -1537,6 +1710,13 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getUserRecorded(
+      userAddress: PromiseOrValue<string>,
+      activityId: PromiseOrValue<BigNumberish>,
+      organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     hasClaimed(
       arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
@@ -1557,6 +1737,12 @@ export interface QuickDraw extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     invitedLeaderboard(
+      arg0: PromiseOrValue<BytesLike>,
+      arg1: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    invitedLeaderboardDetail(
       arg0: PromiseOrValue<BytesLike>,
       arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides

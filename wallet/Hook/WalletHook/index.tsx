@@ -26,10 +26,12 @@ export interface HookResponse {
   currencyUnit: string;
   getEnsName: (e: string) => any;
   changeToTestNetwork: (chainType?: string) => any;
-  currentConfig:Config
 }
 
+let defaultChainType:ChainType = 'BSC'
 export const WalletHook = (): HookResponse => {
+  const network = import.meta.env.ENV_NETWORK || "testnet";
+  defaultChainType = network==='testnet'?"ETH":'BSC'
   const APTOS = AptosWallet();
   const ETH = ETHWallet();
   const POLYGON = ETHWallet();
@@ -37,9 +39,10 @@ export const WalletHook = (): HookResponse => {
   const OPBNB = ETHWallet();
   const ZKSYNC = ETHWallet();
   const { signAndSubmitTransaction } = useWallet();
-  const [_chainType, setChainType] = useState<ChainType>("");
+  const [_chainType, setChainType] = useState<ChainType>(defaultChainType);
   const [_walletType, setWalletType] = useState<WalletType>("");
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
+  
   // wallet  gather
   const walletGather = useMemo(() => {
     return { APTOS, POLYGON, ETH, ZKSYNC, BSC, OPBNB };
@@ -73,10 +76,6 @@ export const WalletHook = (): HookResponse => {
     currentConfig
   } = useMemo(() => {
     const network = import.meta.env.ENV_NETWORK || "testnet";
-  
-    if (!_chainType) {
-      return defaultValue;
-    }
     const _currentConnectedWallet = walletGather[_chainType];
     //connected
     const connected = (): boolean => {
@@ -187,11 +186,9 @@ export const WalletHook = (): HookResponse => {
       return walletLogin(cachedChainType, cachedWalletType);
     }
   };
-  const network = import.meta.env.ENV_NETWORK || "testnet";
+  
+  // Contract instance
   const contractor: Contract = useMemo(() => {
-    if (!connected) {
-      return {} as any;
-    }
     const config: Config = {
       ...Specs[_chainType]!.configs[network],
       network,
@@ -201,12 +198,14 @@ export const WalletHook = (): HookResponse => {
         const aptconf: Config = {
           ...config,
           submitTx: signAndSubmitTransaction,
+          walletAddress:address
         };
-        return Contractor(Aptos, aptconf);
+        return Contractor(Aptos, aptconf) as any;
       default: {
         const evmconf: Config = {
           ...config,
-          provider: ETH.getProvider(),
+          provider: ETH.getProvider(_chainType),
+          walletAddress:address
         };
         if (!evmconf.provider) {
           return;
@@ -214,21 +213,22 @@ export const WalletHook = (): HookResponse => {
         return Contractor(Evm, evmconf);
       }
     }
-  }, [ETH.chainId, connected,_chainType]);
+  }, [ETH.chainId, connected,_chainType,address]);
   const contractorV2: ContractorV2 = useMemo(() => {
     if (!connected) {
       return {} as any;
     }
     const config: Config = {
       ...Specs[_chainType]!.configs[network],
-      provider: ETH.getProvider(),
+      provider: ETH.getProvider(_chainType),
       network,
+      walletAddress:address
     };
     if (!config.provider) {
       return;
     }
     return new ContractorV2(config);
-  }, [ETH.chainId, connected,_chainType]);
+  }, [ETH.chainId, connected,_chainType,address]);
   // ------------------------watch state ----------------------
   useEffect(() => {
     if (connected) {
@@ -250,7 +250,7 @@ export const WalletHook = (): HookResponse => {
 
   useEffect(() => {
     if (!ETH.chainId) return;
-    setChainType(ETH.chainIdToTypes[ETH.chainId]);
+    setChainType(ETH.chainIdToTypes[ETH.chainId]||defaultChainType);
   }, [ETH?.chainId]);
 
   return {
