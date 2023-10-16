@@ -21,7 +21,7 @@ export type AddressType =
   | "multipleCollective"
   | "nftlottery"
   | "quickDraw"
-  ;
+  | "badgeNFTContract";
 export type Address = string;
 export type Addresses = Record<AddressType, Address>;
 
@@ -40,14 +40,14 @@ export type ChainId = GoerliId | MumbaiId | BSCTestNetId;
 export const SUPPORTED_CHAINS: Record<ChainId, string> = {
   5: "goerli",
   80001: "mumbai",
-  97: "bsc-testnet"
+  97: "bsc-testnet",
 };
 
 export interface Config {
   network?: Network;
   addresses: Addresses;
   submitTx?: SubmitTx;
-  walletAddress?:string,
+  walletAddress?: string;
   provider?:
     | ethers.providers.JsonRpcProvider
     | ethers.providers.BaseProvider

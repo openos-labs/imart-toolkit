@@ -2,7 +2,12 @@ import { Config } from "./types";
 import { ContractProxy } from "./proxy";
 import { Aptos } from "./aptos";
 import { Evm } from "./evm";
-import { QuickDraw__factory, QuickDraw } from "./typechain";
+import {
+  QuickDraw__factory,
+  QuickDraw,
+  SBTUpgrade__factory,
+  SBTUpgrade,
+} from "./typechain";
 import { ethers } from "ethers";
 
 export type Contract = Aptos | Evm;
@@ -19,6 +24,7 @@ export class ContractorV2 {
   readonly signer: ethers.Signer;
   private provider: ethers.providers.JsonRpcProvider;
   private _quickDraw: QuickDraw;
+  private _SBTUpgrade: SBTUpgrade;
   constructor(config: Config) {
     this.config = config;
     if (
@@ -30,7 +36,21 @@ export class ContractorV2 {
     }
   }
   get quickDraw() {
-    this._quickDraw || (this._quickDraw = QuickDraw__factory.connect(this.config.addresses["quickDraw"], this.provider));
+    this._quickDraw ||
+      (this._quickDraw = QuickDraw__factory.connect(
+        this.config.addresses["quickDraw"],
+        this.provider
+      ));
     return this.signer ? this._quickDraw.connect(this.signer) : this._quickDraw;
+  }
+  get badgeContractInstance() {
+    this._SBTUpgrade = SBTUpgrade__factory.connect(
+      this.config.addresses["badgeNFTContract"],
+      this.provider
+    );
+
+    return this.signer
+      ? this._SBTUpgrade.connect(this.signer)
+      : this._SBTUpgrade;
   }
 }
