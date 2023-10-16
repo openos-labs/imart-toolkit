@@ -14,5 +14,6 @@ export { MultipleToken__factory } from "./MultipleToken__factory";
 export { NftLottery__factory } from "./NftLottery__factory";
 export { NftToken__factory } from "./NftToken__factory";
 export { QuickDraw__factory } from "./QuickDraw__factory";
+export { SBTUpgrade__factory } from "./SBTUpgrade__factory";
 export { SingleCollective__factory } from "./SingleCollective__factory";
 export { SingleToken__factory } from "./SingleToken__factory";

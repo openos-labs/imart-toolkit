@@ -5,7 +5,8 @@ export namespace EthereumSpec {
     "0x16F88C3af47971Eeb071bdcDD8fcA146BE5F7C90";
   export const CURATION = "0xc1d86DfeD6ceb43d83c7fFEf264D8C9d764751eB";
   export const NFTLOTTERY = "0x50119e8e72E64746d84b808D0d040cB57DC35ed3";
-  export const QUICKDRAW = '0xE092DF7D1F7B43edd29C384a84c62E731F04A06b'
+  export const QUICKDRAW = "0xE092DF7D1F7B43edd29C384a84c62E731F04A06b";
+  export const SBTUpgrade = "0x7D091734e3C9DA0a0458119997323872A97D34AE";
   export const configs = {
     testnet: {
       addresses: {
@@ -14,7 +15,8 @@ export namespace EthereumSpec {
         curation: CURATION,
         market: MARKET,
         nftlottery: NFTLOTTERY,
-        quickDraw:QUICKDRAW
+        quickDraw: QUICKDRAW,
+        badgeNFTContract: SBTUpgrade,
       },
     },
   };
