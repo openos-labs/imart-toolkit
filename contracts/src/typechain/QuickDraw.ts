@@ -122,6 +122,7 @@ export interface QuickDrawInterface extends utils.Interface {
     "acceptOwnership()": FunctionFragment;
     "acitivityExist(bytes32)": FunctionFragment;
     "acitivityReffralPool(bytes32)": FunctionFragment;
+    "checkReffaeralPoolExist(address,uint256)": FunctionFragment;
     "claimRefferallPrize(uint256,address)": FunctionFragment;
     "createActivity((uint256,uint256,uint256,uint256,uint256,address,uint256,uint256[],uint256,address,uint256,uint256,uint256))": FunctionFragment;
     "createReffralPool((uint256,uint256,uint256,address,uint256,uint256,uint256))": FunctionFragment;
@@ -131,6 +132,7 @@ export interface QuickDrawInterface extends utils.Interface {
     "getInvitedCode(address)": FunctionFragment;
     "getLeaderBoardList(uint256,address)": FunctionFragment;
     "getLeaderboard(uint256,address)": FunctionFragment;
+    "getReffaeralPoolInfo(address,uint256)": FunctionFragment;
     "getRemainingErc20(address,uint256)": FunctionFragment;
     "getRemainingTokenIds(address,uint256)": FunctionFragment;
     "getUserHasClaimed(address,address,uint256)": FunctionFragment;
@@ -144,7 +146,7 @@ export interface QuickDrawInterface extends utils.Interface {
     "invitedLeaderboard(bytes32,uint256)": FunctionFragment;
     "invitedLeaderboardDetail(bytes32,uint256)": FunctionFragment;
     "inviterHasRecorded(bytes32)": FunctionFragment;
-    "joinActivity(uint256,address,uint256)": FunctionFragment;
+    "joinActivity(uint256,address,uint256,bool)": FunctionFragment;
     "onERC721Received(address,address,uint256,bytes)": FunctionFragment;
     "organizerActivityInfo(bytes32)": FunctionFragment;
     "owner()": FunctionFragment;
@@ -163,6 +165,7 @@ export interface QuickDrawInterface extends utils.Interface {
       | "acceptOwnership"
       | "acitivityExist"
       | "acitivityReffralPool"
+      | "checkReffaeralPoolExist"
       | "claimRefferallPrize"
       | "createActivity"
       | "createReffralPool"
@@ -172,6 +175,7 @@ export interface QuickDrawInterface extends utils.Interface {
       | "getInvitedCode"
       | "getLeaderBoardList"
       | "getLeaderboard"
+      | "getReffaeralPoolInfo"
       | "getRemainingErc20"
       | "getRemainingTokenIds"
       | "getUserHasClaimed"
@@ -212,6 +216,10 @@ export interface QuickDrawInterface extends utils.Interface {
     values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
+    functionFragment: "checkReffaeralPoolExist",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "claimRefferallPrize",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
   ): string;
@@ -250,6 +258,10 @@ export interface QuickDrawInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "getLeaderboard",
     values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getReffaeralPoolInfo",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getRemainingErc20",
@@ -324,7 +336,8 @@ export interface QuickDrawInterface extends utils.Interface {
     values: [
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<boolean>
     ]
   ): string;
   encodeFunctionData(
@@ -387,6 +400,10 @@ export interface QuickDrawInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "checkReffaeralPoolExist",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "claimRefferallPrize",
     data: BytesLike
   ): Result;
@@ -420,6 +437,10 @@ export interface QuickDrawInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getLeaderboard",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getReffaeralPoolInfo",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -513,18 +534,22 @@ export interface QuickDrawInterface extends utils.Interface {
 
   events: {
     "Initialized(uint8)": EventFragment;
+    "InviteUser(address,address,uint256)": EventFragment;
     "InvitedCode(address,uint256)": EventFragment;
     "JoinActivity(address,uint256,bool)": EventFragment;
     "OwnershipTransferStarted(address,address)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
+    "ReffralPool(address,uint256)": EventFragment;
     "WithdrawPrize(address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "InviteUser"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "InvitedCode"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "JoinActivity"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferStarted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ReffralPool"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WithdrawPrize"): EventFragment;
 }
 
@@ -534,6 +559,18 @@ export interface InitializedEventObject {
 export type InitializedEvent = TypedEvent<[number], InitializedEventObject>;
 
 export type InitializedEventFilter = TypedEventFilter<InitializedEvent>;
+
+export interface InviteUserEventObject {
+  inviterAddress: string;
+  inviteeAddress: string;
+  activityId: BigNumber;
+}
+export type InviteUserEvent = TypedEvent<
+  [string, string, BigNumber],
+  InviteUserEventObject
+>;
+
+export type InviteUserEventFilter = TypedEventFilter<InviteUserEvent>;
 
 export interface InvitedCodeEventObject {
   userAddress: string;
@@ -581,6 +618,17 @@ export type OwnershipTransferredEvent = TypedEvent<
 
 export type OwnershipTransferredEventFilter =
   TypedEventFilter<OwnershipTransferredEvent>;
+
+export interface ReffralPoolEventObject {
+  organizer: string;
+  activityId: BigNumber;
+}
+export type ReffralPoolEvent = TypedEvent<
+  [string, BigNumber],
+  ReffralPoolEventObject
+>;
+
+export type ReffralPoolEventFilter = TypedEventFilter<ReffralPoolEvent>;
 
 export interface WithdrawPrizeEventObject {
   organizer: string;
@@ -654,6 +702,12 @@ export interface QuickDraw extends BaseContract {
       }
     >;
 
+    checkReffaeralPoolExist(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     claimRefferallPrize(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
@@ -705,6 +759,14 @@ export interface QuickDraw extends BaseContract {
       organizer: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string[]]>;
+
+    getReffaeralPoolInfo(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber]
+    >;
 
     getRemainingErc20(
       _organizer: PromiseOrValue<string>,
@@ -793,6 +855,7 @@ export interface QuickDraw extends BaseContract {
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
       invitedCode: PromiseOrValue<BigNumberish>,
+      isPc: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -902,6 +965,12 @@ export interface QuickDraw extends BaseContract {
     }
   >;
 
+  checkReffaeralPoolExist(
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   claimRefferallPrize(
     activityId: PromiseOrValue<BigNumberish>,
     organizer: PromiseOrValue<string>,
@@ -953,6 +1022,14 @@ export interface QuickDraw extends BaseContract {
     organizer: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string[]>;
+
+  getReffaeralPoolInfo(
+    _organizer: PromiseOrValue<string>,
+    _activityId: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber]
+  >;
 
   getRemainingErc20(
     _organizer: PromiseOrValue<string>,
@@ -1041,6 +1118,7 @@ export interface QuickDraw extends BaseContract {
     activityId: PromiseOrValue<BigNumberish>,
     organizer: PromiseOrValue<string>,
     invitedCode: PromiseOrValue<BigNumberish>,
+    isPc: PromiseOrValue<boolean>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -1148,6 +1226,12 @@ export interface QuickDraw extends BaseContract {
       }
     >;
 
+    checkReffaeralPoolExist(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     claimRefferallPrize(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
@@ -1199,6 +1283,14 @@ export interface QuickDraw extends BaseContract {
       organizer: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string[]>;
+
+    getReffaeralPoolInfo(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber]
+    >;
 
     getRemainingErc20(
       _organizer: PromiseOrValue<string>,
@@ -1285,6 +1377,7 @@ export interface QuickDraw extends BaseContract {
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
       invitedCode: PromiseOrValue<BigNumberish>,
+      isPc: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1360,6 +1453,17 @@ export interface QuickDraw extends BaseContract {
     "Initialized(uint8)"(version?: null): InitializedEventFilter;
     Initialized(version?: null): InitializedEventFilter;
 
+    "InviteUser(address,address,uint256)"(
+      inviterAddress?: PromiseOrValue<string> | null,
+      inviteeAddress?: PromiseOrValue<string> | null,
+      activityId?: PromiseOrValue<BigNumberish> | null
+    ): InviteUserEventFilter;
+    InviteUser(
+      inviterAddress?: PromiseOrValue<string> | null,
+      inviteeAddress?: PromiseOrValue<string> | null,
+      activityId?: PromiseOrValue<BigNumberish> | null
+    ): InviteUserEventFilter;
+
     "InvitedCode(address,uint256)"(
       userAddress?: PromiseOrValue<string> | null,
       invitedCode?: PromiseOrValue<BigNumberish> | null
@@ -1398,6 +1502,15 @@ export interface QuickDraw extends BaseContract {
       newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
 
+    "ReffralPool(address,uint256)"(
+      organizer?: PromiseOrValue<string> | null,
+      activityId?: PromiseOrValue<BigNumberish> | null
+    ): ReffralPoolEventFilter;
+    ReffralPool(
+      organizer?: PromiseOrValue<string> | null,
+      activityId?: PromiseOrValue<BigNumberish> | null
+    ): ReffralPoolEventFilter;
+
     "WithdrawPrize(address,uint256)"(
       organizer?: PromiseOrValue<string> | null,
       activityId?: PromiseOrValue<BigNumberish> | null
@@ -1420,6 +1533,12 @@ export interface QuickDraw extends BaseContract {
 
     acitivityReffralPool(
       arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    checkReffaeralPoolExist(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1472,6 +1591,12 @@ export interface QuickDraw extends BaseContract {
     getLeaderboard(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getReffaeralPoolInfo(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1555,6 +1680,7 @@ export interface QuickDraw extends BaseContract {
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
       invitedCode: PromiseOrValue<BigNumberish>,
+      isPc: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1625,6 +1751,12 @@ export interface QuickDraw extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    checkReffaeralPoolExist(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     claimRefferallPrize(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
@@ -1674,6 +1806,12 @@ export interface QuickDraw extends BaseContract {
     getLeaderboard(
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getReffaeralPoolInfo(
+      _organizer: PromiseOrValue<string>,
+      _activityId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1757,6 +1895,7 @@ export interface QuickDraw extends BaseContract {
       activityId: PromiseOrValue<BigNumberish>,
       organizer: PromiseOrValue<string>,
       invitedCode: PromiseOrValue<BigNumberish>,
+      isPc: PromiseOrValue<boolean>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
