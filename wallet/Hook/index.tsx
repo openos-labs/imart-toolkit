@@ -31,6 +31,8 @@ interface AuthProps {
   currencyUnit: string;
   getEnsName: (e: string) => any;
   changeToTestNetwork: () => any;
+  reallyChainType:ChainType | string;
+  
 }
 
 interface AuthProviderProps {
@@ -54,6 +56,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     currencyUnit,
     getEnsName,
     changeToTestNetwork,
+    reallyChainType
   } = WalletHook();
 
   useEffect(() => {
@@ -76,6 +79,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     currencyUnit,
     getEnsName,
     changeToTestNetwork,
+    reallyChainType
+  
   };
   // save common data
   return (

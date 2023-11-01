@@ -34,8 +34,14 @@ export default class Storage {
     }
 
     static clearWallet() {
+        for (const storage in localStorage){
+            if (storage.includes('token')){
+                localStorage.removeItem(storage)
+            }
+        }
         localStorage.removeItem(this.chainTypeKey);
         localStorage.removeItem(this.walletTypeKey);
+        this.setLatestAccount('')
     }
 
     static getChainTypeStorage(): ChainType {
