@@ -5,7 +5,7 @@ import {ETHWallet} from "./Chains/ETH";
 import {getNonce, auth, isAuth} from "./Api";
 import axios from "axios";
 import Storage from "../../utils/storage";
-import {Specs, defaultValue, chainIdMap} from "./Config";
+import {Specs, defaultValue, chainIdMap, CURRENCIES} from "./Config";
 import {ChainType, SignMessageResponse, WalletType} from "./Types";
 import {Contractor, Aptos, Evm, Contract, Config, ContractorV2} from "../../../contracts";
 
@@ -26,7 +26,7 @@ export interface HookResponse {
 	currencyUnit: string;
 	getEnsName: (e: string) => any;
 	changeToTestNetwork: (chainType?: string) => any;
-	reallyChainType:ChainType | string;
+	reallyChainType: ChainType | string;
 }
 
 let defaultChainType: ChainType = 'BSC'
@@ -52,10 +52,12 @@ export const WalletHook = (): HookResponse => {
 	
 	// login
 	const walletLogin = async (chainType: ChainType, walletType: WalletType) => {
+		
 		setLoginLoading(true);
 		await walletGather[chainType]["login"](walletType);
 		await changeToTestNetwork(chainType);
 		await getBalance();
+		
 		// cache status
 		Storage.setWalletTypeStorage(walletType);
 		Storage.setChainTypeStorage(chainType);
@@ -93,10 +95,9 @@ export const WalletHook = (): HookResponse => {
 		
 		// address
 		const address = (): string => {
-			const _address = _currentConnectedWallet["address"];
-			Storage.setLatestAccount(_address);
-			return _address;
+			return _currentConnectedWallet["address"];
 		};
+		
 		// walletLogout
 		const walletLogout = async () => {
 			Storage.clearWallet();
@@ -124,7 +125,7 @@ export const WalletHook = (): HookResponse => {
 			changeToTestNetwork,
 			currentConfig
 		};
-	}, [_chainType, _walletType, walletGather,ETH.chainId]);
+	}, [_chainType, _walletType, walletGather, ETH.chainId]);
 	
 	// Authorization for imart backend
 	const AuthImart = async () => {
@@ -217,6 +218,7 @@ export const WalletHook = (): HookResponse => {
 			}
 		}
 	}, [ETH.chainId, connected, _chainType, address]);
+	
 	const contractorV2: ContractorV2 = useMemo(() => {
 		if (!connected) {
 			return {} as any;
@@ -233,29 +235,34 @@ export const WalletHook = (): HookResponse => {
 		return new ContractorV2(config);
 	}, [ETH.chainId, connected, _chainType, address]);
 	// ------------------------watch state ----------------------
+	
 	useEffect(() => {
 		if (connected) {
 			AuthImart();
 		}
 	}, [connected]);
 	
-	const CURRENCIES = {
-		APTOS: "APT",
-		ETH: "ETH",
-		ZKSYNC: "ETH",
-		BSC: "BNB",
-		POLYGON: "MATIC",
-		OPBNB: "tBNB",
-	};
 	const currencyUnit = useMemo(() => {
 		return CURRENCIES[_chainType];
 	}, [_chainType]);
 	
+	// chain type
 	useEffect(() => {
 		if (!ETH.chainId) return;
-		setChainType(ETH.chainIdToTypes[ETH.chainId]||defaultChainType);
+		setChainType(ETH.chainIdToTypes[ETH.chainId] || defaultChainType);
 		setReallyChainType(chainIdMap[ETH.chainId])
 	}, [ETH?.chainId]);
+	
+	// listener address
+	useEffect(() => {
+		if (address) {
+			const currentAddress = Storage.getLatestAccount();
+			if (currentAddress !== address && !currencyUnit) {
+				walletLogout()
+			}
+			Storage.setLatestAccount(address);
+		}
+	}, [address, currencyUnit])
 	
 	return {
 		contractor,

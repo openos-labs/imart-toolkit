@@ -109,3 +109,12 @@ export const chainIdMap={
 	5:"Goerli_ETH",
 	137:"POLYGON",
 }
+
+export const CURRENCIES = {
+	APTOS: "APT",
+	ETH: "ETH",
+	ZKSYNC: "ETH",
+	BSC: "BNB",
+	POLYGON: "MATIC",
+	OPBNB: "tBNB",
+};
