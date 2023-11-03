@@ -65,7 +65,7 @@ interface WalletCategoryProps {
 	ZKSYNC?: Array<ZkSyncWalletType>;
 }
 
-const sourceWalletCategory: WalletCategoryProps = {
+export const SourceWalletCategory: WalletCategoryProps = {
 	BSC: ["bsc:metamask"],
 	OPBNB: ["opbnb:metamask"],
 	ZKSYNC: ["zksync:metamask"],
@@ -80,8 +80,8 @@ const sourceWalletCategoryChains =
 
 export const WalletCategory: WalletCategoryProps =
 	sourceWalletCategoryChains.reduce((walletCategory, chain) => {
-		if (Object.hasOwnProperty.call(sourceWalletCategory, chain)) {
-			walletCategory[chain] = sourceWalletCategory[chain];
+		if (Object.hasOwnProperty.call(SourceWalletCategory, chain)) {
+			walletCategory[chain] = SourceWalletCategory[chain];
 		}
 		return walletCategory;
 	}, {});

@@ -5,7 +5,7 @@ import {ETHWallet} from "./Chains/ETH";
 import {getNonce, auth, isAuth} from "./Api";
 import axios from "axios";
 import Storage from "../../utils/storage";
-import {Specs, defaultValue, chainIdMap, CURRENCIES} from "./Config";
+import {Specs, defaultValue, chainIdMap, CURRENCIES, SourceWalletCategory} from "./Config";
 import {ChainType, SignMessageResponse, WalletType} from "./Types";
 import {Contractor, Aptos, Evm, Contract, Config, ContractorV2} from "../../../contracts";
 
@@ -257,12 +257,16 @@ export const WalletHook = (): HookResponse => {
 	useEffect(() => {
 		if (address) {
 			const currentAddress = Storage.getLatestAccount();
-			if (currentAddress !== address && !currencyUnit) {
-				walletLogout()
+			if (currentAddress !== address) {
+				if (!currencyUnit) {
+					walletLogout()
+				} else if (SourceWalletCategory[_chainType]) {
+					walletLogin(_chainType, SourceWalletCategory[_chainType])
+				}
 			}
 			Storage.setLatestAccount(address);
 		}
-	}, [address, currencyUnit])
+	}, [address, currencyUnit, _chainType])
 	
 	return {
 		contractor,
