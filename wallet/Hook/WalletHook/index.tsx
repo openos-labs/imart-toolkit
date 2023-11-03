@@ -77,9 +77,7 @@ export const WalletHook = (): HookResponse => {
 		getBalance,
 		getEnsName,
 		changeToTestNetwork,
-		currentConfig
 	} = useMemo(() => {
-		const network = import.meta.env.ENV_NETWORK || "testnet";
 		const _currentConnectedWallet = walletGather[_chainType];
 		//connected
 		const connected = (): boolean => {
@@ -88,14 +86,14 @@ export const WalletHook = (): HookResponse => {
 			);
 		};
 		
-		const currentConfig: Config = {
-			...Specs[_chainType]!.configs[network],
-			network,
-		};
 		
 		// address
 		const address = (): string => {
-			return _currentConnectedWallet["address"];
+			const _address = _currentConnectedWallet["address"]
+			if (_address) {
+				Storage.setLatestAccount(_address);
+			}
+			return _address;
 		};
 		
 		// walletLogout
@@ -123,7 +121,6 @@ export const WalletHook = (): HookResponse => {
 			getBalance,
 			getEnsName,
 			changeToTestNetwork,
-			currentConfig
 		};
 	}, [_chainType, _walletType, walletGather, ETH.chainId]);
 	
@@ -132,12 +129,14 @@ export const WalletHook = (): HookResponse => {
 		if (!currentConnectedWallet) {
 			return false;
 		}
-		if (await isAuth()) {
-			return;
-		}
+		
 		
 		const {publicKey, address} = currentConnectedWallet;
 		if (!address) {
+			return;
+		}
+		const currentAccount = Storage.getJWT(`token:${address}`)
+		if (currentAccount && await isAuth()) {
 			return;
 		}
 		const data = await getNonce(publicKey as string, address as string);
@@ -237,36 +236,28 @@ export const WalletHook = (): HookResponse => {
 	// ------------------------watch state ----------------------
 	
 	useEffect(() => {
-		if (connected) {
+		if (connected && address) {
 			AuthImart();
 		}
-	}, [connected]);
+	}, [connected, address]);
 	
 	const currencyUnit = useMemo(() => {
 		return CURRENCIES[_chainType];
 	}, [_chainType]);
 	
+	
 	// chain type
 	useEffect(() => {
 		if (!ETH.chainId) return;
-		setChainType(ETH.chainIdToTypes[ETH.chainId] || defaultChainType);
+		const chainType = chainIdMap[ETH.chainId]
+		// if not support,then logout
+		if (!chainType) {
+			walletLogout()
+		}
+		setChainType(chainType);
 		setReallyChainType(chainIdMap[ETH.chainId])
 	}, [ETH?.chainId]);
 	
-	// listener address
-	useEffect(() => {
-		if (address) {
-			const currentAddress = Storage.getLatestAccount();
-			if (currentAddress !== address) {
-				if (!currencyUnit) {
-					walletLogout()
-				} else if (SourceWalletCategory[_chainType]) {
-					walletLogin(_chainType, SourceWalletCategory[_chainType])
-				}
-			}
-			Storage.setLatestAccount(address);
-		}
-	}, [address, currencyUnit, _chainType])
 	
 	return {
 		contractor,

@@ -21,6 +21,7 @@ import {OPBNBSpec} from "./OPBNB";
 import {ZkSyncSpec} from "./ZKSYNC";
 
 const envChains: ChainType = import.meta.env.ENV_CHAINS || "";
+
 const envChainsArray = ((arr) => arr.filter((value) => value))(
 	envChains.split(",") as unknown as ChainType[],
 );
@@ -102,12 +103,12 @@ export const defaultValue = {
 };
 
 export const chainIdMap={
-	80001:'TEST_POLYGON',
+	80001:'POLYGON',
 	97:"TEST_BSC",
 	56:"BSC",
-	1:"ETH",
-	5:"Goerli_ETH",
-	137:"POLYGON",
+	5:"ETH",
+	280:'ZKSYNC',
+	5611:"OPBNB"
 }
 
 export const CURRENCIES = {
@@ -117,4 +118,50 @@ export const CURRENCIES = {
 	BSC: "BNB",
 	POLYGON: "MATIC",
 	OPBNB: "tBNB",
+};
+
+type Chain = {
+	chainId: number;
+	chainName: string;
+	rpcUrls: string[];
+};
+export const supportTestChains: Record<string, Chain> = {
+	ETH: {
+		chainId: 5,
+		chainName: "ETH goerli",
+		rpcUrls: ["https://ethereum-goerli.publicnode.com"],
+	},
+	POLYGON: {
+		chainId: 80001,
+		chainName: "POLYGON mumbai",
+		rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
+	},
+	BSC: {
+		chainId: 97,
+		chainName: "BSC testnet",
+		rpcUrls: [
+			"https://bsc-dataseed1.binance.org",
+			"https://bsc-dataseed2.binance.org",
+			"https://bsc-dataseed3.binance.org",
+			"https://bsc-dataseed4.binance.org",
+			"https://bsc-dataseed1.defibit.io",
+			"https://bsc-dataseed2.defibit.io",
+			"https://bsc-dataseed3.defibit.io",
+			"https://bsc-dataseed4.defibit.io",
+			"https://bsc-dataseed1.ninicoin.io",
+			"https://bsc-dataseed2.ninicoin.io",
+			"https://bsc-dataseed3.ninicoin.io",
+			"https://bsc-dataseed4.ninicoin.io",
+		],
+	},
+	OPBNB: {
+		chainId: 5611,
+		chainName: "opBNB testnet",
+		rpcUrls: ["https://opbnb-testnet-rpc.bnbchain.org"],
+	},
+	ZKSYNC: {
+		chainId: 280,
+		chainName: "zkSync Era Testnet",
+		rpcUrls: ["https://testnet.era.zksync.dev"]
+	}
 };
