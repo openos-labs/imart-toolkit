@@ -165,3 +165,19 @@ export const supportTestChains: Record<string, Chain> = {
 		rpcUrls: ["https://testnet.era.zksync.dev"]
 	}
 };
+export const supportMainnetChains: Record<string, Chain> = {
+	BSC: {
+		chainId: 56,
+		chainName: "BSC",
+		rpcUrls: [
+			'https://bsc-dataseed.binance.org/',
+			'https://bsc-dataseed1.defibit.io/',
+			'https://bsc-dataseed1.ninicoin.io/'
+		],
+	}
+};
+
+export const supportChains={
+	mainnet:supportMainnetChains,
+	testnet:supportTestChains
+}

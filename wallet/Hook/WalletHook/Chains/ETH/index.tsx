@@ -6,7 +6,8 @@ import {ethers} from "ethers";
 import Web3 from "web3";
 import {useEffect} from "react";
 import {SiweMessage} from "siwe";
-import {supportTestChains} from '../../Config'
+import {supportChains, supportMainnetChains, supportTestChains} from '../../Config'
+
 export const injected = new InjectedConnector({});
 import {Buffer} from "buffer";
 
@@ -136,7 +137,7 @@ export const ETHWallet = (): ChainResponse => {
 	};
 	
 	// type EvmChainType = "ETH" | "POLYGON" | "BSC" | "OPBNB" | "ZKSYNC";
-
+	
 	/*
 		ETH:
 		chainId=5, chainName=ETH goerli testnet, rpcUrls=["https://rpc-mumbai.maticvigil.com"]
@@ -145,16 +146,22 @@ export const ETHWallet = (): ChainResponse => {
 		BSC:
 		chainId=97 , chainName=BSC testnet, rpcUrls=["https://endpoints.omniatech.io/v1/bsc/testnet/public"]
 	*/
-
-
+	
+	
 	const chainIdToTypes = Object.entries(supportTestChains).reduce((p, [k, v]) => {
 		p[v.chainId] = k;
 		return p;
 	}, {});
 	const chainIdToHex = (chainId: number) => "0x" + Number(chainId).toString(16);
 	const changeToTestNetwork = async (chainType?: string) => {
-		if (!chainType) return;
-		const chainId = supportTestChains[chainType]?.chainId;
+		const network = import.meta.env.ENV_NETWORK || "testnet";
+		const supportNetWork = supportChains[network];
+		if (!chainType || !supportNetWork) return;
+		const chainId = supportNetWork[chainType]?.chainId;
+		if (!chainId) {
+			return
+		}
+		
 		const hexChainId = chainIdToHex(chainId);
 		try {
 			await window.ethereum.request({

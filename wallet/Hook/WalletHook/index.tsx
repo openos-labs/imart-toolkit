@@ -5,7 +5,7 @@ import {ETHWallet} from "./Chains/ETH";
 import {getNonce, auth, isAuth} from "./Api";
 import axios from "axios";
 import Storage from "../../utils/storage";
-import {Specs, defaultValue, chainIdMap, CURRENCIES, SourceWalletCategory} from "./Config";
+import {Specs, chainIdMap, CURRENCIES} from "./Config";
 import {ChainType, SignMessageResponse, WalletType} from "./Types";
 import {Contractor, Aptos, Evm, Contract, Config, ContractorV2} from "../../../contracts";
 
@@ -27,6 +27,7 @@ export interface HookResponse {
 	getEnsName: (e: string) => any;
 	changeToTestNetwork: (chainType?: string) => any;
 	reallyChainType: ChainType | string;
+	waitingAuth:boolean
 }
 
 let defaultChainType: ChainType = 'BSC'
@@ -39,6 +40,8 @@ export const WalletHook = (): HookResponse => {
 	const BSC = ETHWallet();
 	const OPBNB = ETHWallet();
 	const ZKSYNC = ETHWallet();
+	
+	const [waitingAuth,setWaitingAuth] = useState<boolean>(false)
 	const {signAndSubmitTransaction} = useWallet();
 	const [_chainType, setChainType] = useState<ChainType>(defaultChainType);
 	const [_walletType, setWalletType] = useState<WalletType>("");
@@ -113,6 +116,7 @@ export const WalletHook = (): HookResponse => {
 		const changeToTestNetwork = (chainType) => {
 			return _currentConnectedWallet?.changeToTestNetwork(chainType);
 		};
+		
 		return {
 			address: address(),
 			connected: connected(),
@@ -139,8 +143,10 @@ export const WalletHook = (): HookResponse => {
 		if (currentAccount && await isAuth()) {
 			return;
 		}
+		if (!currentAccount){
+			setWaitingAuth(true)
+		}
 		const data = await getNonce(publicKey as string, address as string);
-		
 		let _singMessage;
 		switch (_chainType) {
 			case "APTOS":
@@ -166,8 +172,10 @@ export const WalletHook = (): HookResponse => {
 			axios.defaults.headers.common["Authorization"] =
 				authResult?.authorization;
 			Storage.setJWT(`token:${address}`, authResult?.authorization);
+			setWaitingAuth(false)
 			return true;
 		}
+		setWaitingAuth(false)
 		return false;
 	};
 	
@@ -254,7 +262,8 @@ export const WalletHook = (): HookResponse => {
 		if (!chainType) {
 			walletLogout()
 		}
-		setChainType(chainType);
+		// init data
+		setChainType(chainType||defaultChainType);
 		setReallyChainType(chainIdMap[ETH.chainId])
 	}, [ETH?.chainId]);
 	
@@ -265,8 +274,8 @@ export const WalletHook = (): HookResponse => {
 		walletLogin,
 		walletLogout,
 		AuthImart,
-		address,
-		currentChainType: _chainType,
+		address:waitingAuth?'':address,
+		currentChainType: reallyChainType,
 		currentWalletType: _walletType,
 		connected,
 		loginLoading,
@@ -276,6 +285,7 @@ export const WalletHook = (): HookResponse => {
 		currencyUnit,
 		getEnsName,
 		changeToTestNetwork,
-		reallyChainType
+		reallyChainType,
+		waitingAuth
 	};
 };
