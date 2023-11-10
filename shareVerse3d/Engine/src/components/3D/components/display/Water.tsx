@@ -1,5 +1,5 @@
 import React from "react"
-import { Water as GameWater } from "../../package"
+import { Water as GameWater } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { WaterProps } from "../../props/WaterProps"
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { SvgMesh as GameSvgMesh } from "../../package"
+import { SvgMesh as GameSvgMesh } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { SvgMeshProps } from "../../props/SvgMeshProps"
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { Skybox as GameSkybox } from "../../package"
+import { Skybox as GameSkybox } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { SkyboxProps } from "../../props/SkyboxProps"
 

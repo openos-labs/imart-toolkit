@@ -1,5 +1,5 @@
 import React from "react"
-import { Cone as GameCone } from "../../../package"
+import { Cone as GameCone } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { PrimitiveProps } from "../../../props/PrimitiveProps"
 

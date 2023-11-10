@@ -1,5 +1,5 @@
 import React from "react"
-import { Joystick as GameJoystick } from "../../package"
+import { Joystick as GameJoystick } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { JoystickProps } from "../../props/JoystickProps"
 

@@ -1,4 +1,4 @@
-import { preload } from "./package"
+import { preload } from "./loader_package"
 import globalState from "./globalState"
 
 export default (urls: Array<string>, total: string | number) => {

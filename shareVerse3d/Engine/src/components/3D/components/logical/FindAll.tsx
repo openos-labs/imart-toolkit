@@ -1,4 +1,4 @@
-import FoundManager from "../../package/display/core/FoundManager"
+import FoundManager from "../../loader_package/display/core/FoundManager"
 import React, { useContext, useLayoutEffect, useState } from "react"
 import useDiffProps from "../../hooks/useDiffProps"
 import { applyChanges, ParentContext } from "../../hooks/useManager"

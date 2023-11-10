@@ -1,5 +1,5 @@
 import React from "react"
-import { SpawnPoint as GameSpawnPoint } from "../../package"
+import { SpawnPoint as GameSpawnPoint } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { SpawnPointProps } from "../../props/SpawnPointProps"
 

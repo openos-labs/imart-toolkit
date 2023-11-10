@@ -1,5 +1,5 @@
 import { forceGet } from "@lincode/utils"
-import getDefaultValue from "../../package/interface/utils/getDefaultValue"
+import getDefaultValue from "../../loader_package/interface/utils/getDefaultValue"
 
 const cache = new WeakMap<Record<string, any>, Record<string, any>>()
 const processed = new WeakSet<Record<string, any>>()

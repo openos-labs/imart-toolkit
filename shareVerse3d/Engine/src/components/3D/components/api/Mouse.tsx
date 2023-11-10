@@ -1,5 +1,5 @@
 import React from "react"
-import { Mouse as GameMouse } from "../../package"
+import { Mouse as GameMouse } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { MouseProps } from "../../props/MouseProps"
 

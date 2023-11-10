@@ -1,5 +1,5 @@
 import React from "react"
-import { Sphere as GameSphere } from "../../../package"
+import { Sphere as GameSphere } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { PrimitiveProps } from "../../../props/PrimitiveProps"
 

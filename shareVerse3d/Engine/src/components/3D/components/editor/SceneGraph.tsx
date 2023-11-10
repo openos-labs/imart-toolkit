@@ -1,5 +1,5 @@
 import React from "react"
-import LingoSceneGraph from "../../package/editor/SceneGraph"
+import LingoSceneGraph from "../../loader_package/editor/SceneGraph"
 import useEditor from "../../hooks/useEditor"
 
 const SceneGraph: React.FC = () => {

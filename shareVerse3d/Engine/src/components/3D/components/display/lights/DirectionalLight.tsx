@@ -1,5 +1,5 @@
 import React from "react"
-import { DirectionalLight as GameDirectionalLight } from "../../../package"
+import { DirectionalLight as GameDirectionalLight } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { DirectionalLightProps } from "../../../props/DirectionalLightProps"
 

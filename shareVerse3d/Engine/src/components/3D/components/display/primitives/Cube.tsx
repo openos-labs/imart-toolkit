@@ -1,5 +1,5 @@
 import React from "react"
-import { Cube as GameCube } from "../../../package"
+import { Cube as GameCube } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { PrimitiveProps } from "../../../props/PrimitiveProps"
 

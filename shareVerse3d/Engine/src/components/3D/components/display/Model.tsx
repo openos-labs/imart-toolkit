@@ -1,5 +1,5 @@
 import React from "react"
-import { Model as GameModel } from "../../package"
+import { Model as GameModel } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { ModelProps } from "../../props/ModelProps"
 

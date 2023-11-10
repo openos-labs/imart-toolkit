@@ -1,5 +1,5 @@
 import React from "react"
-import { Torus as GameTorus } from "../../../package"
+import { Torus as GameTorus } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { PrimitiveProps } from "../../../props/PrimitiveProps"
 

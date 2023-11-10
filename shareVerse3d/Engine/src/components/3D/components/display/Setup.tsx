@@ -1,5 +1,5 @@
 import React from "react"
-import { Setup as GameSetup } from "../../package"
+import { Setup as GameSetup } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { SetupProps } from "../../props/SetupProps"
 

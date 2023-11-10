@@ -1,25 +1,25 @@
-import { defineConfig } from "vite"
+import { defineConfig, splitVendorChunkPlugin } from "vite"
 import react from "@vitejs/plugin-react"
-import {resolve as re} from "path";
-import resolve from "rollup-plugin-node-resolve";
-import alias from "@rollup/plugin-alias";
+import { resolve as re } from "path"
+import resolve from "rollup-plugin-node-resolve"
+import alias from "@rollup/plugin-alias"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [alias(),react()],
-  resolve: {
-    alias: {
-      '@': re(__dirname, 'src')
-    }
-  },
-  build: {
-    lib: {
-      entry: "src/index.ts",
-      formats: ["es"]
+    plugins: [alias(), react(), splitVendorChunkPlugin()],
+    resolve: {
+        alias: {
+            "@": re(__dirname, "src")
+        }
     },
-    rollupOptions: {
-      external: ["react", "react-dom"]
-    }
-  },
-  publicDir: "public",
+    build: {
+        lib: {
+            entry: "src/index.ts",
+            formats: ["es"]
+        },
+        rollupOptions: {
+            external: ["react", "react-dom"]
+        }
+    },
+    publicDir: "public"
 })

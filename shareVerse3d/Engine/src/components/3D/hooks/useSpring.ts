@@ -1,6 +1,6 @@
 import { spring, SpringOptions } from "popmotion"
 import { useLayoutEffect, useState } from "react"
-import { loop } from "../package"
+import { loop } from "../loader_package"
 import { Cancellable } from "@lincode/promiselikes"
 import useValue from "./useValue"
 import { usePrevious } from "@lincode/hooks"

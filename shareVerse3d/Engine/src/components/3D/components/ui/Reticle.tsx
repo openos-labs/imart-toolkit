@@ -1,5 +1,5 @@
 import React from "react"
-import { Reticle as GameReticle } from "../../package"
+import { Reticle as GameReticle } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { ReticleProps } from "../../props/ReticleProps"
 

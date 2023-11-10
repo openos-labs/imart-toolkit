@@ -1,5 +1,5 @@
 import { render, h as preactH } from "preact"
-import "../package/editor"
+import "../loader_package/editor"
 import { useLayoutEffect, useMemo, useRef } from "react"
 
 export default (Component: any, props?: any, logical?: boolean) => {

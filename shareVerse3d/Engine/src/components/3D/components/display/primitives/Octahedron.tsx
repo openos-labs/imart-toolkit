@@ -1,5 +1,5 @@
 import React from "react"
-import { Octahedron as GameOctahedron } from "../../../package"
+import { Octahedron as GameOctahedron } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { PrimitiveProps } from "../../../props/PrimitiveProps"
 

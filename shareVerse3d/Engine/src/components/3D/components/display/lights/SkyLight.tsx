@@ -1,5 +1,5 @@
 import React from "react"
-import { SkyLight as GameSkyLight } from "../../../package"
+import { SkyLight as GameSkyLight } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { SkyLightProps } from "../../../props/SkyLightProps"
 

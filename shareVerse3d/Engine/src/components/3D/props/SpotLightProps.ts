@@ -1,4 +1,4 @@
-import ISpotLight from "../package/interface/ISpotLight"
+import ISpotLight from "../loader_package/interface/ISpotLight"
 import React from "react"
 
 export type SpotLightProps = Partial<ISpotLight> & {

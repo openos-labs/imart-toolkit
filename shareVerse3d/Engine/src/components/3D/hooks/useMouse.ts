@@ -1,4 +1,4 @@
-import { Mouse } from "../package"
+import { Mouse } from "../loader_package"
 import { useLayoutEffect, useRef, useState } from "react"
 
 type MouseStatus = { isDown: boolean }

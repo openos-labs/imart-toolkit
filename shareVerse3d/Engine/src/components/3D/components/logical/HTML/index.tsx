@@ -1,4 +1,4 @@
-import { onAfterRender } from "../../../package"
+import { onAfterRender } from "../../../loader_package"
 import React, { useContext, useLayoutEffect, useRef } from "react"
 import ReactDOM from "react-dom"
 import { ParentContext } from "../../../hooks/useManager"

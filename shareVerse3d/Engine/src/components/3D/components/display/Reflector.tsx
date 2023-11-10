@@ -1,5 +1,5 @@
 import React from "react"
-import { Reflector as GameReflector } from "../../package"
+import { Reflector as GameReflector } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { ReflectorProps } from "../../props/ReflectorProps"
 

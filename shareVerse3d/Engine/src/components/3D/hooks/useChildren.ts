@@ -1,7 +1,7 @@
-import { Model } from "../package"
-import FoundManager from "../package/display/core/FoundManager"
-import Loaded from "../package/display/core/Loaded"
-import ObjectManager from "../package/display/core/ObjectManager"
+import { Model } from "../loader_package"
+import FoundManager from "../loader_package/display/core/FoundManager"
+import Loaded from "../loader_package/display/core/Loaded"
+import ObjectManager from "../loader_package/display/core/ObjectManager"
 import React, { useEffect, useState } from "react"
 
 type Parent = ObjectManager | Model | Loaded | undefined

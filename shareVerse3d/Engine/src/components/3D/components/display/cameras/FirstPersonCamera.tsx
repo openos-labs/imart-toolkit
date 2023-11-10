@@ -1,5 +1,5 @@
 import React from "react"
-import { FirstPersonCamera as GameFirstPersonCamera } from "../../../package"
+import { FirstPersonCamera as GameFirstPersonCamera } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { FirstPersonCameraProps } from "../../../props/FirstPersonCameraProps"
 

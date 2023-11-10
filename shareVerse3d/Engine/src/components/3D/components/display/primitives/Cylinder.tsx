@@ -1,5 +1,5 @@
 import React from "react"
-import { Cylinder as GameCylinder } from "../../../package"
+import { Cylinder as GameCylinder } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { PrimitiveProps } from "../../../props/PrimitiveProps"
 

@@ -1,4 +1,4 @@
-import { getRenderer } from "../package/states/useRenderer"
+import { getRenderer } from "../loader_package/states/useRenderer"
 import { useLayoutEffect, useState } from "react"
 
 export default () => {

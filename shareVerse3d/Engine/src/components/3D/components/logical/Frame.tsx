@@ -1,4 +1,4 @@
-import { clientToWorld, Group as LingoGroup, onBeforeRender } from "../../package"
+import { clientToWorld, Group as LingoGroup, onBeforeRender } from "../../loader_package"
 import React, { useLayoutEffect, useRef } from "react"
 import Group from "../display/Group"
 

@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from "react"
-import { settings } from "../package"
-import ISetup from "../package/interface/ISetup"
+import { settings } from "../loader_package"
+import ISetup from "../loader_package/interface/ISetup"
 import htmlContainer from "./logical/HTML/htmlContainer"
 import Setup from "./display/Setup"
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { Audio as GameAudio } from "../../package"
+import { Audio as GameAudio } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { AudioProps } from "../../props/AudioProps"
 

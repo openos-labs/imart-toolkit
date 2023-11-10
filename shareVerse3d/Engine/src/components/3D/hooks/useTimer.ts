@@ -1,5 +1,5 @@
 import { useLayoutEffect } from "react"
-import { timer } from "../package"
+import { timer } from "../loader_package"
 import { useCurrentRef } from "@lincode/hooks"
 
 export default (

@@ -1,6 +1,6 @@
 import { useCurrentRef } from "@lincode/hooks"
-import { Keyboard } from "../package"
-import { isPressed } from "../package/api/keyboard"
+import { Keyboard } from "../loader_package"
+import { isPressed } from "../loader_package/api/keyboard"
 import { useLayoutEffect, useState } from "react"
 
 export default (cb?: (key: string) => void) => {

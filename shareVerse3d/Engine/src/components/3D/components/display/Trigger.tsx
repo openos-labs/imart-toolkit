@@ -1,5 +1,5 @@
 import React from "react"
-import { Trigger as GameTrigger } from "../../package"
+import { Trigger as GameTrigger } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { TriggerProps } from "../../props/TriggerProps"
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { Dummy as GameDummy } from "../../package"
+import { Dummy as GameDummy } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { DummyProps } from "../../props/DummyProps"
 

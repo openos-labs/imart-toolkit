@@ -1,5 +1,5 @@
 import React from "react"
-import { SpotLight as GameSpotLight } from "../../../package"
+import { SpotLight as GameSpotLight } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { SpotLightProps } from "../../../props/SpotLightProps"
 

@@ -1,4 +1,4 @@
-import IMouse from "../package/interface/IMouse"
+import IMouse from "../loader_package/interface/IMouse"
 import React from "react"
 
 export type MouseProps = Partial<IMouse> & {

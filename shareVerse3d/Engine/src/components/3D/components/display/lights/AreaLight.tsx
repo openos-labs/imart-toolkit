@@ -1,5 +1,5 @@
 import React from "react"
-import { AreaLight as GameAreaLight } from "../../../package"
+import { AreaLight as GameAreaLight } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { AreaLightProps } from "../../../props/AreaLightProps"
 

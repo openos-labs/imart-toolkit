@@ -1,5 +1,5 @@
 import React from "react"
-import { Environment as GameEnvironment } from "../../package"
+import { Environment as GameEnvironment } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { EnvironmentProps } from "../../props/EnvironmentProps"
 

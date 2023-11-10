@@ -1,4 +1,4 @@
-import IKeyboard from "../package/interface/IKeyboard"
+import IKeyboard from "../loader_package/interface/IKeyboard"
 import React from "react"
 
 export type KeyboardProps = Partial<IKeyboard> & {

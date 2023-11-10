@@ -1,5 +1,5 @@
 import React from "react"
-import LingoLibrary from "../../package/editor/Library"
+import LingoLibrary from "../../loader_package/editor/Library"
 import useEditor from "../../hooks/useEditor"
 
 const Library: React.FC = () => {

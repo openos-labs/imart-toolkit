@@ -1,14 +1,14 @@
 import React, { useContext, useLayoutEffect } from "react"
-import ObjectManager from "../package/display/core/ObjectManager"
+import ObjectManager from "../loader_package/display/core/ObjectManager"
 import useDiffProps from "./useDiffProps"
 import { useMemoOnce } from "@lincode/hooks"
-import SimpleObjectManager from "../package/display/core/SimpleObjectManager"
+import SimpleObjectManager from "../loader_package/display/core/SimpleObjectManager"
 import { Cancellable } from "@lincode/promiselikes"
 import { forceGet } from "@lincode/utils"
 import { Reactive } from "@lincode/reactivity"
-import Loaded from "../package/display/core/Loaded"
+import Loaded from "../loader_package/display/core/Loaded"
 import processDefaults from "../props/utils/processDefaults"
-import fn from "../package/interface/utils/fn"
+import fn from "../loader_package/interface/utils/fn"
 
 export const ParentContext = React.createContext<
   ObjectManager | Loaded | undefined

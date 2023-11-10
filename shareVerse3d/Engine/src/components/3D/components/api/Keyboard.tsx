@@ -1,5 +1,5 @@
 import React from "react"
-import { Keyboard as GameKeyboard } from "../../package"
+import { Keyboard as GameKeyboard } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { KeyboardProps } from "../../props/KeyboardProps"
 

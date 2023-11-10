@@ -22,8 +22,7 @@ export const lazyTransformControls = lazy(async () => {
     // const { TransformControls_local } = await import(
     //     "three/examples/jsm/controls/TransformControls_local"
     // )
-    // @ts-ignore
-    const { TransformControls } = await import("./TransformControls.js")
+    const { TransformControls } = await import("./TransformControls_local")
     const transformControls = new TransformControls(
         getCameraRendered(),
         container

@@ -1,5 +1,5 @@
 import React from "react"
-import { OrbitCamera as GameOrbitCamera } from "../../../package"
+import { OrbitCamera as GameOrbitCamera } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { OrbitCameraProps } from "../../../props/OrbitCameraProps"
 

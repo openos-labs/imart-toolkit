@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from "react"
-import { onBeforeRender } from "../package/events/onBeforeRender"
-import { onAfterRender } from "../package/events/onAfterRender"
+import { onBeforeRender } from "../loader_package/events/onBeforeRender"
+import { onAfterRender } from "../loader_package/events/onAfterRender"
 import StatsJS from "./Stats.js"
 
 type StatsProps = {

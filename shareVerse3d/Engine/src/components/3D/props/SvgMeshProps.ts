@@ -1,4 +1,4 @@
-import ISvgMesh from "../package/interface/ISvgMesh"
+import ISvgMesh from "../loader_package/interface/ISvgMesh"
 import React from "react"
 
 export type SvgMeshProps = Partial<ISvgMesh> & {

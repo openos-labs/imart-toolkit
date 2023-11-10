@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef } from "react"
-import { HTMLMesh as GameHTMLMesh } from "../../package"
+import { HTMLMesh as GameHTMLMesh } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { HTMLMeshProps } from "../../props/HTMLMeshProps"
 

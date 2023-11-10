@@ -1,5 +1,5 @@
 import React from "react"
-import { Tetrahedron as GameTetrahedron } from "../../../package"
+import { Tetrahedron as GameTetrahedron } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { PrimitiveProps } from "../../../props/PrimitiveProps"
 

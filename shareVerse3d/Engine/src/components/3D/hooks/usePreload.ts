@@ -1,4 +1,4 @@
-import { preload } from "../package"
+import { preload } from "../loader_package"
 import { useState } from "react"
 import useLayoutEffectOnce from "./useLayoutEffectOnce"
 

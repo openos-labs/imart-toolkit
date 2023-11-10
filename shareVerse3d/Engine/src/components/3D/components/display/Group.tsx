@@ -1,5 +1,5 @@
 import React from "react"
-import { Group as GameGroup } from "../../package"
+import { Group as GameGroup } from "../../loader_package"
 import useManager, { ParentContext } from "../../hooks/useManager"
 import { GroupProps } from "../../props/GroupProps"
 

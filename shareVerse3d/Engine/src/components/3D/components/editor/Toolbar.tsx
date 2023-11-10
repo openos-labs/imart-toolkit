@@ -1,5 +1,5 @@
 import React from "react"
-import LingoToolbar from "../../package/editor/Toolbar"
+import LingoToolbar from "../../loader_package/editor/Toolbar"
 import useEditor from "../../hooks/useEditor"
 
 const Toolbar: React.FC = () => {

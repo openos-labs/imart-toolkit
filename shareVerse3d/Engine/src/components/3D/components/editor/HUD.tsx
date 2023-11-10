@@ -1,5 +1,5 @@
 import React from "react"
-import LingoHUD from "../../package/editor/HUD"
+import LingoHUD from "../../loader_package/editor/HUD"
 import useEditor from "../../hooks/useEditor"
 
 const HUD: React.FC = () => {

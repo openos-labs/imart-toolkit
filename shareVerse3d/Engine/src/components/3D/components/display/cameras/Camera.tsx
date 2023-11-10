@@ -1,5 +1,5 @@
 import React from "react"
-import { Camera as GameCamera } from "../../../package"
+import { Camera as GameCamera } from "../../../loader_package"
 import useManager, { ParentContext } from "../../../hooks/useManager"
 import { CameraProps } from "../../../props/CameraProps"
 

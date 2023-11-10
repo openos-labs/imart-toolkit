@@ -1,5 +1,5 @@
 import { useCurrentRef } from "@lincode/hooks"
-import { loop } from "../package"
+import { loop } from "../loader_package"
 import { useLayoutEffect } from "react"
 
 export default (cb: () => void, play = true) => {
