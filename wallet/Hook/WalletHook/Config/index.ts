@@ -104,11 +104,12 @@ export const defaultValue = {
 
 export const chainIdMap={
 	80001:'POLYGON',
-	97:"TEST_BSC",
-	56:"BSC",
-	5:"ETH",
+	97:"BSC",//test bsc
+	56:"BSC", // mainnet
+	5:"ETH", // test eth
 	280:'ZKSYNC',
-	5611:"OPBNB"
+	5611:"OPBNB",
+	1:'ETH' // mainnet Eth
 }
 
 export const CURRENCIES = {
