@@ -24,7 +24,7 @@ class Model extends Loaded<Group> implements IModel {
 		super(unmounted);
 	}
 
-	private loadingState = new Reactive(0);
+	private loadingState = new Reactive<any>(0);
 
 	public override playAnimation(name?: string | number) {
 		this.cancelHandle('modelPlayAnimation', () =>

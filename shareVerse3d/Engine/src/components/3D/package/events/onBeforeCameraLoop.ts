@@ -1,3 +1,4 @@
 import { event } from "@lincode/events"
 
-export const [emitBeforeCameraLoop, onBeforeCameraLoop] = event()
+// @ts-ignore
+export const [emitBeforeCameraLoop, onBeforeCameraLoop] = event() as any

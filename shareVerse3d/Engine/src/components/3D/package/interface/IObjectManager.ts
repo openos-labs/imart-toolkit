@@ -27,6 +27,7 @@ export default interface IObjectManager extends IPhysicsObjectManager {
 	innerVisible: boolean;
 }
 
+// @ts-ignore
 export const objectManagerSchema: Required<ExtractProps<IObjectManager>> = {
 	...physicsObjectManagerSchema,
 

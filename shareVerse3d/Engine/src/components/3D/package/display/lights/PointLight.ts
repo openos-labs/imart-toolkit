@@ -32,6 +32,7 @@ export default class PointLight
         return light.decay
     }
     public set decay(val) {
+        // @ts-ignore
         this.cancelHandle("decay", () =>
             this.lightState.get((light) => light && (light.decay = val))
         )
@@ -44,6 +45,7 @@ export default class PointLight
         return light.distance
     }
     public set distance(val) {
+        // @ts-ignore
         this.cancelHandle("distance", () =>
             this.lightState.get((light) => light && (light.distance = val))
         )

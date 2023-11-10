@@ -37,6 +37,7 @@ export default class SpotLight
 
         this.targetSprite.scale = 0.25
         this.watch(
+            // @ts-ignore
             getCameraRendered(
                 (cam) => (this.targetSprite.visible = cam === mainCamera)
             )
@@ -51,6 +52,7 @@ export default class SpotLight
         return light.angle
     }
     public set angle(val) {
+        // @ts-ignore
         this.cancelHandle("angle", () =>
             this.lightState.get((light) => light && (light.angle = val))
         )
@@ -63,6 +65,7 @@ export default class SpotLight
         return light.penumbra
     }
     public set penumbra(val) {
+        // @ts-ignore
         this.cancelHandle("penumbra", () =>
             this.lightState.get((light) => light && (light.penumbra = val))
         )
@@ -75,6 +78,7 @@ export default class SpotLight
         return light.decay
     }
     public set decay(val) {
+        // @ts-ignore
         this.cancelHandle("decay", () =>
             this.lightState.get((light) => light && (light.decay = val))
         )
@@ -87,6 +91,7 @@ export default class SpotLight
         return light.distance
     }
     public set distance(val) {
+        // @ts-ignore
         this.cancelHandle("distance", () =>
             this.lightState.get((light) => light && (light.distance = val))
         )

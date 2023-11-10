@@ -59,6 +59,7 @@ export default class HTMLMesh
                 setManager(mesh, this)
 
                 handle.watch(
+                    // @ts-ignore
                     this.cssColorState.get((color) => {
                         elementContainer.style.color = color
                         mesh.update()

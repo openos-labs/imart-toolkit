@@ -87,7 +87,7 @@ createEffect(() => {
 					rotation.y = Math.PI - rotation.y;
 					rotation.z = 0;
 				}
-			})
+			}) as any
 		);
 
 	return () => {

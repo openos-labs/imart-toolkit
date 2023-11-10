@@ -156,6 +156,7 @@ export default class AnimationManager extends Appendable implements IAnimationMa
 				const maxDuration = Math.max(...audioDurationGetters.map(getter => getter()));
 				this.audioTotalFrames = Math.ceil(maxDuration * SEC2FRAME);
 			});
+			// @ts-ignore
 			for (const getAudioDuration of audioDurationGetters) handle.watch(getAudioDuration(computeAudioDuration));
 
 			return () => {

@@ -79,7 +79,9 @@ export class Keyboard extends Appendable implements IKeyboard {
     public constructor() {
         super()
 
+      
         this.watch(
+            // @ts-ignore
             onPress(() => {
                 if (!this.onKeyPress) return
 
@@ -90,7 +92,9 @@ export class Keyboard extends Appendable implements IKeyboard {
                 for (const key of isPressed) this.onKeyPress(key, isPressed)
             })
         )
+        // @ts-ignore
         this.watch(onUp((key) => this.onKeyUp?.(key, isPressed)))
+        // @ts-ignore
         this.watch(onDown((key) => this.onKeyDown?.(key, isPressed)))
     }
 }

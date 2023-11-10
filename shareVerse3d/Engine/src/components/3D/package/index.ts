@@ -79,6 +79,8 @@ import clientToWorld from "./display/utils/clientToWorld"
 
 import { setWasmPath } from "./states/useWasmPath"
 
+import CheckDevicePerformance from "./utils/CheckDevicePerformance"
+import {personFallEvent,initPositionEvent} from "./display/core/utils/bvhEvent"
 export type {
     SimpleMouseEvent,
     LingoMouseEvent as MouseEvent
@@ -157,5 +159,7 @@ export {
     Point3d,
     Point,
     clientToWorld,
-    setWasmPath
+    setWasmPath,
+    CheckDevicePerformance,
+    personFallEvent,initPositionEvent
 }

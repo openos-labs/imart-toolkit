@@ -1,3 +1,6 @@
+// @ts-nocheck
 import { event } from "@lincode/events"
 
-export const [emitAfterRender, onAfterRender] = event()
+// @ts-ignore
+// @ts-ignore
+export const [emitAfterRender, onAfterRender] = event() as any

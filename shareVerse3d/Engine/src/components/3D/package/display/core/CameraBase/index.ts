@@ -212,9 +212,11 @@ export default abstract class CameraBase<
         this.gyrateHandle?.cancel()
 
         let factor = 1
+        // @ts-ignore
         const handle = (this.gyrateHandle = this.beforeRender(() => {
             factor *= 0.95
             this._gyrate(movementX * factor, movementY * factor)
+            // @ts-ignore
             factor <= 0.001 && handle.cancel()
         }))
     }

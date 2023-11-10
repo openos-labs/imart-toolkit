@@ -83,6 +83,7 @@ export default class OrbitCamera
                 const downSet = new Set<string>()
 
                 handle.watch(
+                    // @ts-ignore
                     onBeforeRender(() => {
                         if (downSet.has("Meta") || downSet.has("Control"))
                             return
@@ -129,7 +130,7 @@ export default class OrbitCamera
                 }
                 document.addEventListener("keydown", handleKeyDown)
                 document.addEventListener("keyup", handleKeyUp)
-                handle.watch(onKeyClear(() => downSet.clear()))
+                handle.watch(onKeyClear(() => downSet.clear()) as any)
 
                 handle.then(() => {
                     document.removeEventListener("keydown", handleKeyDown)

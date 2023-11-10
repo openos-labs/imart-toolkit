@@ -10,7 +10,7 @@ type Event = {
 	rightClick?: boolean;
 	noDeselect?: boolean;
 };
-const [_emitSelectionTarget, onSelectionTarget] = event<Event>();
+const [_emitSelectionTarget, onSelectionTarget] = event<Event>()as any;
 export { onSelectionTarget };
 
 export const emitSelectionTarget = throttleTrailing(

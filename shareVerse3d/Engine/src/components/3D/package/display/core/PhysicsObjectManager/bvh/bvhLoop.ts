@@ -83,6 +83,7 @@ createEffect(
 					updatePosition.y && (playerVelocity.y = 0);
 					updatePosition.z && (playerVelocity.z = 0);
 					updatePosition.reset();
+					// @ts-ignore
 					if (window.boxBounds.min.y && player.position.y >= window.boxBounds.min.y) {
 						playerVelocity.y +=
 							characterManager.bvhOnGround || characterManager._gravity === false ? 0 : delta * -gravity * fpsRatio[0];
@@ -117,6 +118,7 @@ createEffect(
 
 					for (const boundsTree of bvhArray) {
 						mapManager = bvhManagerMap.get(boundsTree);
+						// @ts-ignore
 						calBoundary(window.boxBounds, boundsTree.geometry.boundingBox);
 
 						boundsTree.shapecast({
@@ -191,22 +193,30 @@ createEffect(
 					}
 					// @ts-ignore
 					window.player_position = player.position;
-					global.bvhOnGround = characterManager.bvhOnGround;
+					global.bvhOnGround = characterManager.bvhOnGround;  // @ts-ignore
 					if (window.boxBounds.min.x && window.boxBounds.max.x) {
 						// @ts-ignore
 						// player.position.set(_firstInnerX || 0, _firstInnerY || 0, _firstInnerZ || 0);
 						if (boxBounds.min.x > player.position.x) {
+							// @ts-ignore
 							player.position.setX(window.boxBounds.min.x);
 						}
+						// @ts-ignore
 						if (window.boxBounds.min.z > player.position.z) {
+							// @ts-ignore
 							player.position.setZ(window.boxBounds.min.z);
 						}
+						// @ts-ignore
 						if (window.boxBounds.max.x < player.position.x) {
+							// @ts-ignore
 							player.position.setX(window.boxBounds.max.x);
 						}
+						// @ts-ignore
 						if (window.boxBounds.max.z < player.position.z) {
+							// @ts-ignore
 							player.position.setZ(window.boxBounds.max.z);
 						}
+						// @ts-ignore
 						if (window.boxBounds.min.y > player.position.y) {
 							// @ts-ignore
 							const { _firstInnerY, _firstInnerX, _firstInnerZ } = characterManager;

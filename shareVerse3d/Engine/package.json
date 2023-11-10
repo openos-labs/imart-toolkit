@@ -1,6 +1,6 @@
 {
     "name": "@openoscom/shareverse3d",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "3d",
     "repository": "https://github.com/openos-labs/imart-toolkit.git",
     "homepage": "https://github.com/openos-labs/imart-toolkit.git",
@@ -13,7 +13,7 @@
     ],
     "scripts": {
         "dev": "vite",
-        "build": "vite build --config vite.config.production.ts",
+        "build": "vite build --config vite.config.production.ts  && tsc --declaration --noEmit false --emitDeclarationOnly --outDir dist",
         "preview": "vite preview",
         "bundle": "esbuild --bundle src/index.ts --outfile=dist/index.js"
     },
@@ -79,7 +79,7 @@
     "private": false,
     "main": "./dist/shareverse3d.mjs",
     "module": "./dist/shareverse3d.mjs",
-    "types": "./dist/shareverse3d.mjs",
+    "types": "./dist/index.d.ts",
     "prettier": {
         "trailingComma": "none",
         "tabWidth": 4,

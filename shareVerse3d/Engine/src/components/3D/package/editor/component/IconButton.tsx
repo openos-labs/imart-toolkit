@@ -42,6 +42,7 @@ const IconButton = ({
                     : undefined
             }}
         >
+            {/*// @ts-ignore*/}
             {children}
         </div>
     )

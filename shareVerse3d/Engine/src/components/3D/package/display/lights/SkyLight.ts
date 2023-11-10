@@ -132,6 +132,7 @@ export default class Skylight
         return "#" + light.groundColor.getHexString()
     }
     public set groundColor(val) {
+        // @ts-ignore
         this.cancelHandle("groundColor", () =>
             this.lightState.get(
                 (light) => light && (light.groundColor = new Color(val))

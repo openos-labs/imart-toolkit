@@ -39,6 +39,7 @@ const ContextMenu = ({
                 className="lingo3d-absfull"
                 onMouseDown={() => setPosition(undefined)}
             />
+            {/*// @ts-ignore*/}
             <div
                 className="lingo3d-bg"
                 style={{
@@ -52,6 +53,7 @@ const ContextMenu = ({
                     border: "1px solid rgba(255, 255, 255, 0.2)"
                 }}
             >
+                {/*// @ts-ignore*/}
                 {input ? (
                     <input
                         ref={(el) => setTimeout(() => el?.focus())}

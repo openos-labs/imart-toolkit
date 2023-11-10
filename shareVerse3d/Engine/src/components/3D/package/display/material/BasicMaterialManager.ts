@@ -137,7 +137,8 @@ export default class BasicMaterialManager<T extends MeshStandardMaterial | Sprit
 			const { map } = material;
 			material.map = loadTexture(url);
 			material.map.anisotropy = 200;
-			material.llightMapIntens;
+			// @ts-ignore
+			// material.lightMapIntens;
 			// material.map.magFilter = NearestFilter
 			// material.map.minFilter = NearestFilter
 			this.applyTexture(mapNames);

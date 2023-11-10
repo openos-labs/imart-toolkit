@@ -2,7 +2,7 @@ import { event } from '@lincode/events';
 import { throttleTrailing } from '@lincode/utils';
 import { getPaused } from '../states/usePaused';
 
-const [_emitKeyClear, onKeyClear] = event();
+const [_emitKeyClear, onKeyClear] = event() as any;
 export { onKeyClear };
 
 const emitKeyClear = throttleTrailing(_emitKeyClear);

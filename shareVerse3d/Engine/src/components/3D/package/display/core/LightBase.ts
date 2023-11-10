@@ -94,6 +94,7 @@ export default abstract class LightBase<T extends typeof Light>
                 helper.add(sprite.outerObject3d)
 
                 if ("update" in helper)
+                    // @ts-ignore
                     handle.watch(onBeforeRender(() => helper.update()))
 
                 handle.then(() => {
@@ -140,6 +141,7 @@ export default abstract class LightBase<T extends typeof Light>
         return "#" + light.color.getHexString()
     }
     public set color(val) {
+        // @ts-ignore
         this.cancelHandle("color", () =>
             this.lightState.get((light) => light?.color.set(val))
         )
@@ -152,6 +154,7 @@ export default abstract class LightBase<T extends typeof Light>
         return light.intensity
     }
     public set intensity(val) {
+        // @ts-ignore
         this.cancelHandle("intensity", () =>
             this.lightState.get((light) => light && (light.intensity = val))
         )

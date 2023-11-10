@@ -11,6 +11,7 @@ export default class FirstPersonCamera extends CharacterCamera {
         super()
 
         this.watch(
+            // @ts-ignore
             onBeforeRender(() => {
                 this.camera.position.copy(getWorldPosition(this.object3d))
                 this.camera.quaternion.copy(getWorldQuaternion(this.object3d))

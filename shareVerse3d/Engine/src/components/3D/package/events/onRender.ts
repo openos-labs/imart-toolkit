@@ -1,3 +1,3 @@
 import { event } from "@lincode/events"
-
-export const [emitRender, onRender] = event()
+// @ts-ignore
+export const [emitRender, onRender] = event() as any;

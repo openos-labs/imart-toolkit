@@ -34,6 +34,7 @@ createEffect(() => {
         })
 
         handle0.watch(
+            // @ts-ignore
             mouseEvents.on("click", (e) => {
                 const selected = getSelectionTarget()
                 setTimeout(() => {

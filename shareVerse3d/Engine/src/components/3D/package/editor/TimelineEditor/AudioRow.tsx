@@ -101,6 +101,7 @@ const AudioRow = ({ instance, frames }: AudioRowProps) => {
             handle.then(() => waveSurfer.destroy())
             waveSurfer.load(src)
             setWaveSurfer(waveSurfer)
+            // @ts-ignore
             handle.watch(getTimelineMute((val) => waveSurfer.setMute(val)))
         })
         return () => {

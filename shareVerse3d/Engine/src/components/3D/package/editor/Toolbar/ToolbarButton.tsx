@@ -1,7 +1,7 @@
 import { ComponentChildren } from "preact"
 
 export type ToolbarButtonProps = {
-    children: ComponentChildren
+    children: ComponentChildren|any
     onClick?: () => void
     active?: boolean
     disabled?: boolean
@@ -27,6 +27,7 @@ const ToolbarButton = ({
             }}
             onClick={disabled || active ? undefined : onClick}
         >
+            // @ts-ignore
             {children}
         </div>
     )

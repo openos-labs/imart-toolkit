@@ -15,7 +15,7 @@ import { throttleTrailing } from '@lincode/utils';
 
 export type Changes = Array<readonly [Appendable, ChangedProperties]>;
 
-export const [emitEditorChanges, onEditorChanges] = event<Changes>();
+export const [emitEditorChanges, onEditorChanges] = event<Changes>() as any;
 
 createEffect(() => {
 	if (!getEditorMounted()) return;

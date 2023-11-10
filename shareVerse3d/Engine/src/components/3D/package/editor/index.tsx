@@ -34,6 +34,7 @@ export class TweakPane extends Disposable {
         document.body.appendChild(el)
 
         this.watch(
+            // @ts-ignore
             this.inputState.get(() =>
                 render(
                     <PreactTweakPane>
@@ -51,7 +52,7 @@ export class TweakPane extends Disposable {
         })
     }
 
-    private inputState = new Reactive<Array<PaneInputProps>>([])
+    private inputState = new Reactive<Array<PaneInputProps>|any>([])
     public addInput(options: PaneInputProps) {
         this.inputState.set([...this.inputState.get(), options])
         return this

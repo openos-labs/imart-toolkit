@@ -314,7 +314,7 @@ export default class StaticObjectManager<T extends Object3D = Object3D>
 
         // @ts-ignore
         quaternion.copy(quaternionOld)
-
+        // @ts-ignore
         this.cancelHandle("lookTo", () =>
             onBeforeRender(() => {
                 quaternion.slerp(quaternionNew, fpsAlpha(a1!))

@@ -23,7 +23,7 @@ defaultEnvironment.texture = undefined;
 defaultEnvironment.helper = false;
 appendableRoot.delete(defaultEnvironment);
 
-export const mapEnvironmentPreset = (value: string) =>
+export const mapEnvironmentPreset = (value: string|any) =>
 	value in environmentPreset ? TEXTURES_URL + unsafeGetValue(environmentPreset, value) : value;
 
 createEffect(() => {
@@ -68,7 +68,7 @@ createEffect(() => {
 		light.y = FAR;
 		light.z = FAR;
 		appendableRoot.delete(light);
-		handle.watch(getDefaultShadow(val => (light.castShadow = val)));
+		handle.watch(getDefaultShadow(val => (light.castShadow = val)) as any);
 		handle.then(() => light.dispose());
 	});
 	return () => {

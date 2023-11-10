@@ -33,7 +33,6 @@ import getActualScale from "../../utils/getActualScale"
 import { fpsRatio } from "../../../engine/eventLoop"
 import fpsAlpha from "../../utils/fpsAlpha"
 import * as THREE from "three"
-import { keyboard } from "@/utils/Engine/src"
 
 const maxDistance = 2000
 const ptDistCache = new WeakMap<Point3d, number>()
@@ -141,7 +140,9 @@ class SimpleObjectManager<T extends Object3D = Object3D>
 			
 			const handles: Array<Cancellable> = []
 			for (const id of intersectIds)
+				// @ts-ignore
 				handles.push(
+					// @ts-ignore
 					this.listenToIntersection(id, onIntersect, onIntersectOut)
 				)
 			return () => {
@@ -319,7 +320,7 @@ class SimpleObjectManager<T extends Object3D = Object3D>
 	) {
 		const from = new Vector3(this.x, this.y, this.z)
 		const to = new Vector3(x, y, z)
-		
+		// @ts-ignore
 		this.cancelHandle("lerpTo", () =>
 			onBeforeRender(() => {
 				const { x, y, z } = from.lerp(to, fpsAlpha(alpha))
@@ -435,7 +436,7 @@ class SimpleObjectManager<T extends Object3D = Object3D>
 		const sz = speed * rz
 		
 		const quad = quadrant(x, z, this.x, this.z)
-		
+		// @ts-ignore
 		this.cancelHandle("lerpTo", () =>
 			onBeforeRender(() => {
 				this.x += sx * fpsRatio[0]

@@ -5,7 +5,7 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import Events from '@lincode/events';
 import { decreaseLoadingUnpkgCount, increaseLoadingUnpkgCount } from '../../../states/useLoadingUnpkgCount';
 import * as THREE from 'three';
-import LoadModelCache from '@/utils/MetaverseModelFun';
+import LoadModelCache from '../MetaverseModelFun';
 
 const cache = new Map<string, Texture>();
 const textureLoader = new TextureLoader();

@@ -1,7 +1,6 @@
 import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
 import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter";
 import JSZip from "jszip";
-import { AwsUploadModel } from "../util";
 
 export const ExporterToZip = async (gltf: GLTF, name: string) => {
     return new Promise<string>(async (resolve, reject) => {
@@ -43,7 +42,8 @@ export const zipToBlob = (fileBlob: Blob, name: string) => {
         }
     }).then(async (zipBlob: Blob) => { // 压缩的结果为blob类型（二进制流）,可用作文件上传
         console.log(zipBlob, "zipBlob");
-        return await AwsUploadModel(new File([zipBlob], name || "mixverse"));
+        throw  new Error('no method')
+        // return await AwsUploadModel(new File([zipBlob], name || "mixverse"));
     });
 };
 
@@ -58,6 +58,6 @@ export const ToBlob = (fileBlob: Blob, name: string,nameSpace?:string) => {
         }
     }).then(async (zipBlob: Blob) => { // 压缩的结果为blob类型（二进制流）,可用作文件上传
         console.log(zipBlob, "zipBlob");
-        return await AwsUploadModel(new File([zipBlob], name || "mixverse"),nameSpace);
+        // return await AwsUploadModel(new File([zipBlob], name || "mixverse"),nameSpace);
     });
 };

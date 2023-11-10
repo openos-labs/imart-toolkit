@@ -26,11 +26,9 @@ export const raycast = (
 
 type Then = (obj: StaticObjectManager, e: LingoMouseEvent) => void
 
-export default (
-    name: MouseEventName | Array<MouseEventName>,
-    candidates: Set<Object3D>,
-    then: Then
-) =>
+
+// @ts-ignore
+export default (name: MouseEventName | Array<MouseEventName>, candidates: Set<Object3D>, then: Then):any =>
     mouseEvents.on(name, (e) => {
         if (!candidates.size) return
 

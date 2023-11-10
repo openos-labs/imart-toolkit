@@ -110,6 +110,7 @@ export default class Appendable<
     }
 
     public beforeRender(cb: () => void) {
+        // @ts-ignore
         return this.watch(onBeforeRender(cb))
     }
 
@@ -125,13 +126,14 @@ export default class Appendable<
         cb: () => (() => void) | void,
         getStates: Array<GetGlobalState<any> | any>
     ) {
+        // @ts-ignore
         return this.watch(createEffect(cb, getStates))
     }
 
     private handles?: Map<string, Cancellable>
     protected cancelHandle(
         name: string,
-        lazyHandle: undefined | false | "" | (() => Cancellable)
+        lazyHandle: undefined | false | "" | (() => Cancellable) |any
     ) {
         const handles = (this.handles ??= new Map<string, Cancellable>())
         handles.get(name)?.cancel()
@@ -149,6 +151,7 @@ export default class Appendable<
     }
     public set onLoop(cb) {
         this._onLoop = cb
+        // @ts-ignore
         this.cancelHandle("onLoop", cb && (() => onBeforeRender(cb)))
     }
 }

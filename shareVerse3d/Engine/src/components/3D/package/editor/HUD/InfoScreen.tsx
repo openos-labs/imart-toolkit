@@ -27,6 +27,7 @@ export default ({ mounted, style, children, fadeIn }: InfoScreen) => {
                             padding: 2
                         }}
                     >
+                        {/*// @ts-ignore*/}
                         {children}
                     </div>
                 </div>
