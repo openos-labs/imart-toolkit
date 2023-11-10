@@ -79,14 +79,19 @@ import clientToWorld from "./display/utils/clientToWorld"
 
 import { setWasmPath } from "./states/useWasmPath"
 
+import { lazyTransformControls } from "../package/engine/transformControls"
 import CheckDevicePerformance from "./utils/CheckDevicePerformance"
-import {personFallEvent,initPositionEvent} from "./display/core/utils/bvhEvent"
+import {
+    personFallEvent,
+    initPositionEvent
+} from "./display/core/utils/bvhEvent"
 export type {
     SimpleMouseEvent,
     LingoMouseEvent as MouseEvent
 } from "./interface/IMouse"
 
 export {
+    lazyTransformControls,
     Cube,
     Sphere,
     Cone,
@@ -161,5 +166,6 @@ export {
     clientToWorld,
     setWasmPath,
     CheckDevicePerformance,
-    personFallEvent,initPositionEvent
+    personFallEvent,
+    initPositionEvent
 }
