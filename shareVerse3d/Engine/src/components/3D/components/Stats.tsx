@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef } from "react"
 import { onBeforeRender } from "../loader_package/events/onBeforeRender"
 import { onAfterRender } from "../loader_package/events/onAfterRender"
-import StatsJS from "./Stats.js"
+import StatsJS from "stats.js"
 
 type StatsProps = {
   mode?: "fps" | "time" | "memory"
@@ -14,7 +14,6 @@ const Stats: React.FC<StatsProps> = ({ mode = "fps" }) => {
     const div = divRef.current
     if (!div) return
 
-    // @ts-ignore
     const stats = new StatsJS()
     stats.showPanel(mode === "fps" ? 0 : mode === "time" ? 1 : 2)
     div.appendChild(stats.dom)
