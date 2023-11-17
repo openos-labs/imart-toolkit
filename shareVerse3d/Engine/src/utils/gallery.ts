@@ -16,8 +16,8 @@ const man = () => {
     }
     return Array;
 };
-const personLadtModel = [...lady()];
-const personMantModel = [...man()];
+export const personLadtModel = [...lady()];
+export const personMantModel = [...man()];
 export const getModelUrl = (gender: string, type: string): string => {
 
     if (gender === "female") {
@@ -31,7 +31,7 @@ export const getModelUrl = (gender: string, type: string): string => {
         } else if (ladyIndex < 0) {
             ladyIndex = personLadtModel.length - 1;
         }
-        return "https://d1ktb2pux2fae3.cloudfront.net/people/" + personLadtModel[ladyIndex] + ".glb";
+        return "https://d1ktb2pux2fae3.cloudfront.net/template/" + personLadtModel[ladyIndex] + ".json";
     } else if (gender === "male") {
         if (type === "next") {
             manIndex++;
@@ -43,7 +43,7 @@ export const getModelUrl = (gender: string, type: string): string => {
         } else if (manIndex < 0) {
             manIndex = personMantModel.length - 1;
         }
-        return "https://d1ktb2pux2fae3.cloudfront.net/people/" + personMantModel[manIndex] + ".glb";
+        return "https://d1ktb2pux2fae3.cloudfront.net/template/" + personMantModel[manIndex] + ".json";
     }
     return "";
 };

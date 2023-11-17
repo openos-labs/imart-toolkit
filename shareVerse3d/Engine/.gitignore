@@ -6,8 +6,6 @@ node_modules/
 .dfx/
 yarn-error.log
 stats.html
-package
-package/
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
